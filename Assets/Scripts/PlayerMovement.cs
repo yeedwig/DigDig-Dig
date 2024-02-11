@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     private bool canDig = true;
     private bool isDigging = false;
+
+    private bool canDrill = true;
+    private bool isDrilling = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,15 +49,24 @@ public class PlayerMovement : MonoBehaviour
     {
         moveDir = Input.GetAxisRaw("Horizontal");
 
+        //Digging
         if(Input.GetKey(KeyCode.E))
         {
             isDigging = true;
-            canWalk = false;
         }
         else if(Input.GetKeyUp(KeyCode.E))
         {
             isDigging = false;
-            canWalk = true;
+        }
+
+        //Drilling
+        if(Input.GetKey(KeyCode.Q))
+        {
+            isDrilling = true;
+        }
+        else if(Input.GetKeyUp(KeyCode.Q))
+        {
+            isDrilling = false;
         }
 
     }
@@ -78,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
     {
         anim.SetBool("isWalking", isWalking);
         anim.SetBool("isDigging", isDigging);
+        anim.SetBool("isDrilling", isDrilling);
     }
 
 
@@ -92,7 +105,14 @@ public class PlayerMovement : MonoBehaviour
     
     private void CheckCanWalk()
     {
-        canWalk = true;
+        if(isDigging == true || isDrilling == true)
+        {
+            canWalk = false;
+        }
+        else
+        {
+            canWalk = true;
+        }
     }
 
     private void CheckIsWalking()
