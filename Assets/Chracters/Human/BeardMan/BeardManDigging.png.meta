@@ -235,6 +235,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: BeardManDigging_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9079d5cc6e914847bf44f2f9d3a0287
+      internalID: -310359559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -252,6 +273,7 @@ TextureImporter:
       BeardManDigging_3: 23081525
       BeardManDigging_4: 1960259801
       BeardManDigging_5: -1173974133
+      BeardManDigging_6: -310359559
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
