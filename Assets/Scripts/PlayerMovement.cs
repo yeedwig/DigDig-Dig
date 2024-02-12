@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private float moveDir;
 
+    public bool Dead;
+
     public bool facingRight = true;
     [SerializeField] private float walkSpeed = 0.5f;
     private bool canWalk = true;
