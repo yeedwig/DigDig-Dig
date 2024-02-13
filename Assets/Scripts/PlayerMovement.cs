@@ -18,11 +18,13 @@ public class PlayerMovement : MonoBehaviour
 
 
     private bool canDig = true;
-    private bool isDigging = false;
+    public bool isDigging = false;
 
     private bool canDrill = true;
-    private bool isDrilling = false;
+    public bool isDrilling = false;
     // Start is called before the first frame update
+
+    [SerializeField] private GameObject Tools;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
         CheckInput();
         Flip();
         UpdateAnimation();
+        CheckTool();
 
         CheckCanWalk();
         CheckIsWalking();
@@ -71,6 +74,18 @@ public class PlayerMovement : MonoBehaviour
             isDrilling = false;
         }
 
+    }
+
+    void CheckTool()
+    {
+        if(isDigging == true || isDrilling == true)
+        {
+            Tools.SetActive(true);
+        }
+        else
+        {
+            Tools.SetActive(false);
+        }
     }
 
     private void Flip()
