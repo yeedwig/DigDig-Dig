@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,15 +19,36 @@ public class TileTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        Debug.DrawRay(transform.position, new Vector2(0, -1) * 3.0f, Color.red);
+        if (Input.GetKey(KeyCode.E))
         {
-            Vector3Int gridPosition = tilemap.WorldToCell(player.transform.position);
-            Debug.Log("Space");
-            Debug.Log(gridPosition.x);
-            Debug.Log(gridPosition.y);
-            Debug.Log(gridPosition.z);
-            tilemap.SetTile(gridPosition-new Vector3Int(0,1,0), null);
+            Vector2 direction = new Vector2(0,0);
+            if(Input.GetKey(KeyCode.LeftArrow))
+            {
+                direction = new Vector2(-1, 0);
+            }
+            else if(Input.GetKey(KeyCode.RightArrow))
+            {
+                direction = new Vector2(1, 0);
+            }
+            else if( Input.GetKey(KeyCode.DownArrow))
+            {
+                direction = new Vector2(0, -1);
+            }
+            //Vector3Int gridPosition = tilemap.WorldToCell(player.transform.position);
+            int layerMask = 1 << LayerMask.NameToLayer("Ground");
+            RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 3.0f,layerMask);
             
+            if (hit.collider != null)
+            {
+                hit.transform.gameObject.GetComponent<Ground>().takeDamage(0.3f);
+            }
+            
+        }
+        if(Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("clicked");
+            tilemap.ClearAllTiles();
         }
     }
 }
