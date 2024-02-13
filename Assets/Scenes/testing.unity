@@ -625,7 +625,8 @@ GameObject:
   - component: {fileID: 794871922}
   - component: {fileID: 794871921}
   - component: {fileID: 794871925}
-  - component: {fileID: 794871924}
+  - component: {fileID: 794871926}
+  - component: {fileID: 794871927}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1723,7 +1724,34 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!66 &794871924
+--- !u!50 &794871925
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 794871919}
+  m_BodyType: 2
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!66 &794871926
 CompositeCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1810,33 +1838,22 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 794871919}
---- !u!50 &794871925
-Rigidbody2D:
-  serializedVersion: 4
+--- !u!114 &794871927
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 794871919}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0c394127c6d4d4281fe0c01fe2a3b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1246972418}
+  tilemap: {fileID: 794871923}
+  tile1: {fileID: 11400000, guid: 1ed9fcec086d8774a910ef1a49b61a8b, type: 2}
+  tile2: {fileID: 11400000, guid: 9a39745cac7ec4940960e2dfe22ca947, type: 2}
 --- !u!1 &797472529
 GameObject:
   m_ObjectHideFlags: 0
