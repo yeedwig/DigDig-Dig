@@ -1853,7 +1853,7 @@ MonoBehaviour:
   player: {fileID: 1246972418}
   tilemap: {fileID: 794871923}
   tile1: {fileID: 11400000, guid: 1ed9fcec086d8774a910ef1a49b61a8b, type: 2}
-  tile2: {fileID: 11400000, guid: 9a39745cac7ec4940960e2dfe22ca947, type: 2}
+  tile2: {fileID: 11400000, guid: 9fdd7ee2a66504f4d95702df3f1f9aba, type: 2}
 --- !u!1 &797472529
 GameObject:
   m_ObjectHideFlags: 0
@@ -5374,7 +5374,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.025092602, y: -0.01624751}
+  m_Offset: {x: -0.031011105, y: -0.01624751}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5385,7 +5385,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.86199, y: 0.9195781}
+  m_Size: {x: 0.5897379, y: 0.9195781}
   m_EdgeRadius: 0
 --- !u!114 &1246972421
 MonoBehaviour:

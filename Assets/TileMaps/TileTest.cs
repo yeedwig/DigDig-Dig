@@ -25,7 +25,7 @@ public class TileTest : MonoBehaviour
             Debug.Log(gridPosition.x);
             Debug.Log(gridPosition.y);
             Debug.Log(gridPosition.z);
-            tilemap.SetTile(gridPosition-new Vector3Int(0,1,0), tile2);
+            tilemap.SetTile(gridPosition-new Vector3Int(0,1,0), null);
             
         }
     }
