@@ -44,3 +44,6 @@ TagManager:
   - name: Player
     uniqueID: 2130534703
     locked: 0
+  - name: Tools
+    uniqueID: 3462562429
+    locked: 0
