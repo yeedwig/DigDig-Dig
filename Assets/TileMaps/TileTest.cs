@@ -35,7 +35,7 @@ public class TileTest : MonoBehaviour
             {
                 direction = new Vector2(0, -1);
             }
-            //Vector3Int gridPosition = tilemap.WorldToCell(player.transform.position);
+            
             int layerMask = 1 << LayerMask.NameToLayer("Ground");
             RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 3.0f,layerMask);
             
@@ -48,7 +48,11 @@ public class TileTest : MonoBehaviour
         if(Input.GetKey(KeyCode.Space))
         {
             Debug.Log("clicked");
-            tilemap.ClearAllTiles();
+            Vector3Int gridPosition = tilemap.WorldToCell(player.transform.position);
+            Debug.Log(gridPosition.x);
+            Debug.Log(gridPosition.y);
+            
+            tilemap.SwapTile(tile1, tile2);
         }
     }
 }
