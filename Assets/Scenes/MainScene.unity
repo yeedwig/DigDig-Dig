@@ -5312,7 +5312,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -5385,6 +5385,7 @@ MonoBehaviour:
   Dead: 0
   facingRight: 1
   walkSpeed: 2
+  isWalking: 0
   isDigging: 0
   isDrilling: 0
   Tools: {fileID: 2123044260}
@@ -5707,7 +5708,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1246972418}
-  shovelSkins: []
+  skinNr: 0
+  shovelSkins:
+  - sprites:
+    - {fileID: -1260321216, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: 29896644, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: 1021124403, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: 1595524322, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: -236979878, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: -794462559, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: -1391310688, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+  - sprites:
+    - {fileID: -1351575819, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
+    - {fileID: -2093044696, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
+    - {fileID: -1775014107, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
+    - {fileID: 977146545, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
+    - {fileID: 616016785, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
+    - {fileID: -200947757, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
+    - {fileID: 1841110694, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
   drillSkins: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -10,6 +10,9 @@ public class ToolManager : MonoBehaviour
     
     private bool isDrilling;
     private bool isDigging;
+    private bool isWalking;
+
+    public int skinNr;
 
     public Skins[] shovelSkins;
     public Skins[] drillSkins;
@@ -28,7 +31,21 @@ public class ToolManager : MonoBehaviour
     {
         isDigging = Player.GetComponent<PlayerMovement>().isDigging;
         isDrilling = Player.GetComponent<PlayerMovement>().isDrilling;
+        isWalking = Player.GetComponent<PlayerMovement>().isWalking;
         UpdateAnimation();
+    }
+
+    void LateUpdate()
+    {
+        if(sp.sprite.name.Contains("MainShovel"))
+        {
+            string spriteName = sp.sprite.name;
+            spriteName = spriteName.Replace("MainShovel_","");
+            int spriteNr = int.Parse(spriteName);
+
+            sp.sprite = shovelSkins[skinNr].sprites[spriteNr];
+        }
+
     }
 
 
@@ -36,6 +53,7 @@ public class ToolManager : MonoBehaviour
     {
         anim.SetBool("isDrilling", isDrilling);
         anim.SetBool("isDigging", isDigging);
+        anim.SetBool("isWalking", isWalking);
     }
 
 

@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public bool facingRight = true;
     [SerializeField] private float walkSpeed = 0.5f;
     private bool canWalk = true;
-    private bool isWalking = false;
+    public bool isWalking = false;
 
 
     private bool canDig = true;
