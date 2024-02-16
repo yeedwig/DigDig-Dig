@@ -215,10 +215,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c180ac4c146a66c419a1a25a8b541536, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  currentHealth: 0
+  maxHealth: 0
+  startBreakingHealth: 0
+  almostBrokenHealth: 0
   groundLevel: 0
   groundTileMap: {fileID: 0}
   groundSprites:
-  - {fileID: 978587389, guid: 60f6bb21419d49045aa7fabdb5646a8d, type: 3}
+  - {fileID: 2032890575, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  - {fileID: 190607313, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  - {fileID: -963917643, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
   - {fileID: 1914546184, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  x: 0
+  y: 0
