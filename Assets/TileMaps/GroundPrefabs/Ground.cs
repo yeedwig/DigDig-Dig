@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -12,12 +13,14 @@ public class Ground : MonoBehaviour
     SpriteRenderer sr;
     BoxCollider2D bc;
     public int x, y;
+    public Dictionary<Vector3Int,GameObject> groundDictionary;
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        SelectGroundLevelHealthSprite();
+        groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
+        SelectGroundLevelHealthSpriteAndAddToDic();
     }
 
     // Update is called once per frame
@@ -25,21 +28,23 @@ public class Ground : MonoBehaviour
     {
         ChangeSpriteByCurrentHealth();
     }
+
+
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
     }
 
-    public void SelectGroundLevelHealthSprite()
+    public void SelectGroundLevelHealthSpriteAndAddToDic()
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
         Vector3Int groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
-        if(groundGridPosition.y>-5)
+        if(groundGridPosition.y>-10)
         {
             groundLevel = 1;
             maxHealth = 200.0f;
         }
-        else if(groundGridPosition.y>-7&&groundGridPosition.y<=-5)
+        else if(groundGridPosition.y>-16&&groundGridPosition.y<=-10)
         {
             groundLevel = 2;
             maxHealth = 500.0f;
@@ -53,7 +58,15 @@ public class Ground : MonoBehaviour
         startBreakingHealth = maxHealth * 0.7f;
         almostBrokenHealth = maxHealth * 0.3f;
         sr.sprite = groundSprites[((groundLevel-1)*3)];
+
+        //아래 테스트용
+        x = groundGridPosition.x;
+        y = groundGridPosition.y;
+
+        groundDictionary.Add(groundGridPosition, this.gameObject);
     }
+
+    
 
     public void ChangeSpriteByCurrentHealth()
     {

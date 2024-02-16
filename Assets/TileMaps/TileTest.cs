@@ -19,8 +19,8 @@ public class TileTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, new Vector2(0, -1) * 3.0f, Color.red);
-        if (Input.GetKey(KeyCode.E))
+        Debug.DrawRay(player.transform.position, new Vector2(0, -1) * 1.0f, Color.red);
+        if (Input.GetKey(KeyCode.E)|| Input.GetKey(KeyCode.Q))
         {
             Vector2 direction = new Vector2(0,0);
             if(Input.GetKey(KeyCode.LeftArrow))
@@ -31,17 +31,25 @@ public class TileTest : MonoBehaviour
             {
                 direction = new Vector2(1, 0);
             }
-            else if( Input.GetKey(KeyCode.DownArrow))
+            else if(Input.GetKey(KeyCode.DownArrow))
             {
                 direction = new Vector2(0, -1);
             }
             
             int layerMask = 1 << LayerMask.NameToLayer("Ground");
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 1.0f,layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 0.6f,layerMask);
             
             if (hit.collider != null)
             {
-                hit.transform.gameObject.GetComponent<Ground>().takeDamage(0.3f);
+                if (Input.GetKey(KeyCode.E))
+                {
+                    hit.transform.gameObject.GetComponent<Ground>().takeDamage(0.3f);
+                }
+                else if (Input.GetKey(KeyCode.Q)&&direction.x==0)
+                {
+                    hit.transform.gameObject.GetComponent<Ground>().takeDamage(5.0f);
+                }
+                
             }
             
         }
