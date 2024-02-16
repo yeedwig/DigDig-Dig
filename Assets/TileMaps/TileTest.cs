@@ -37,7 +37,7 @@ public class TileTest : MonoBehaviour
             }
             
             int layerMask = 1 << LayerMask.NameToLayer("Ground");
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 3.0f,layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 1.0f,layerMask);
             
             if (hit.collider != null)
             {
