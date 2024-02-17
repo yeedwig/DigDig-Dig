@@ -5,14 +5,16 @@ using UnityEngine;
 public class GroundDictionary : MonoBehaviour
 {
     public Dictionary<Vector3Int, GameObject> groundDictionary;
-    void Start()
+    
+    void Awake()
     {
-       groundDictionary=new Dictionary<Vector3Int, GameObject>();
+       groundDictionary =new Dictionary<Vector3Int, GameObject>();       
     }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
+            
             int x, y;
             x = Random.Range(-12, 3);
             y = Random.Range(-8, -3);
@@ -26,5 +28,11 @@ public class GroundDictionary : MonoBehaviour
             }
             
         }
+    }
+
+    public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
+    {
+        
+        groundDictionary.Add(gridPosition, groundObject);
     }
 }

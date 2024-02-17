@@ -247,3 +247,4 @@ MonoBehaviour:
   - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   x: 0
   y: 0
+  groundDictionaryObject: {fileID: 0}
