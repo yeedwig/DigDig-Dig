@@ -10,6 +10,7 @@ public class CharacterManager : MonoBehaviour
     public Skins[] DiggingSkins;
     public Skins[] WalkingSkins;
     public Skins[] DrillingSkins;
+    public Skins[] ClimbingSkins;
 
     SpriteRenderer sp;
     // Start is called before the first frame update
@@ -70,6 +71,15 @@ public class CharacterManager : MonoBehaviour
             int spriteNr = int.Parse(spriteName);
 
             sp.sprite = DrillingSkins[skinNr].sprites[spriteNr];
+        }
+
+        if(sp.sprite.name.Contains("MainClimbing"))
+        {
+            string spriteName = sp.sprite.name;
+            spriteName = spriteName.Replace("MainClimbing_","");
+            int spriteNr = int.Parse(spriteName);
+
+            sp.sprite = ClimbingSkins[skinNr].sprites[spriteNr];
         }
 
     }
