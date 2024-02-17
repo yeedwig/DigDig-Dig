@@ -7,7 +7,7 @@ public class GroundDictionary : MonoBehaviour
     public Dictionary<Vector3Int, GameObject> groundDictionary;
     void Start()
     {
-       groundDictionary=new Dictionary<Vector3Int, GameObject> ();
+       groundDictionary=new Dictionary<Vector3Int, GameObject>();
     }
     void Update()
     {

@@ -13,13 +13,11 @@ public class Ground : MonoBehaviour
     SpriteRenderer sr;
     BoxCollider2D bc;
     public int x, y;
-    public Dictionary<Vector3Int,GameObject> groundDictionary;
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         SelectGroundLevelHealthSpriteAndAddToDic();
     }
 
@@ -63,7 +61,7 @@ public class Ground : MonoBehaviour
         x = groundGridPosition.x;
         y = groundGridPosition.y;
 
-        groundDictionary.Add(groundGridPosition, this.gameObject);
+        
     }
 
     
