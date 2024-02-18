@@ -515,6 +515,22 @@ MonoBehaviour:
     - {fileID: -1766753016, guid: bfcd617efee1ce24cb622c8af497ddc2, type: 3}
     - {fileID: 178130940, guid: bfcd617efee1ce24cb622c8af497ddc2, type: 3}
     - {fileID: -372576249, guid: bfcd617efee1ce24cb622c8af497ddc2, type: 3}
+  ClimbingSkins:
+  - sprites:
+    - {fileID: -52999296, guid: dac86c927bdea7849b9523090eb73e2a, type: 3}
+    - {fileID: -1700790632, guid: dac86c927bdea7849b9523090eb73e2a, type: 3}
+    - {fileID: 389674945, guid: dac86c927bdea7849b9523090eb73e2a, type: 3}
+    - {fileID: -339406347, guid: dac86c927bdea7849b9523090eb73e2a, type: 3}
+  - sprites:
+    - {fileID: -2063195419, guid: 6273334a591679547804a19453d8d522, type: 3}
+    - {fileID: 768143340, guid: 6273334a591679547804a19453d8d522, type: 3}
+    - {fileID: -1311428606, guid: 6273334a591679547804a19453d8d522, type: 3}
+    - {fileID: -1195983292, guid: 6273334a591679547804a19453d8d522, type: 3}
+  - sprites:
+    - {fileID: -141658783, guid: f49ce94c24056104d876791d56785fc4, type: 3}
+    - {fileID: -263026605, guid: f49ce94c24056104d876791d56785fc4, type: 3}
+    - {fileID: -1515094743, guid: f49ce94c24056104d876791d56785fc4, type: 3}
+    - {fileID: 1186585852, guid: f49ce94c24056104d876791d56785fc4, type: 3}
 --- !u!4 &539881614
 Transform:
   m_ObjectHideFlags: 0
