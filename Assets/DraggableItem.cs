@@ -6,6 +6,8 @@ using UnityEngine;
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     Transform parentAfterDrag;
+    [SerializeField] private string ItemType;
+    [SerializeField] private string ItemName;
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -19,11 +21,13 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     {
         Debug.Log("Dragging");
         transform.position = Input.mousePosition;
+        Debug.Log(transform.position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("End Drag");
         transform.SetParent(parentAfterDrag);
+        Debug.Log(transform.position);
     }
 }
