@@ -14228,6 +14228,7 @@ MonoBehaviour:
     - {fileID: -1766753016, guid: bfcd617efee1ce24cb622c8af497ddc2, type: 3}
     - {fileID: 178130940, guid: bfcd617efee1ce24cb622c8af497ddc2, type: 3}
     - {fileID: -372576249, guid: bfcd617efee1ce24cb622c8af497ddc2, type: 3}
+  ClimbingSkins: []
 --- !u!4 &539881614
 Transform:
   m_ObjectHideFlags: 0
@@ -16370,6 +16371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d2713987cb99c4b8fa7b1fa8234e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ruins: {fileID: 5622247349573459530, guid: 5381addba14f75243a4e963cb74bcb6e, type: 3}
+  groundTileMap: {fileID: 794871923}
 --- !u!4 &685146605
 Transform:
   m_ObjectHideFlags: 0
@@ -37158,11 +37161,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Dead: 0
+  curTool: 0
   facingRight: 1
   walkSpeed: 2
   isWalking: 0
+  jumpForce: 0
   isDigging: 0
   isDrilling: 0
+  isPlacing: 0
   Tools: {fileID: 1557070477}
 --- !u!212 &1246972422
 SpriteRenderer:

@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class GroundDictionary : MonoBehaviour
 {
     public Dictionary<Vector3Int, GameObject> groundDictionary;
+    public GameObject ruins;
     
+    public Tilemap groundTileMap;
+
     void Awake()
     {
        groundDictionary =new Dictionary<Vector3Int, GameObject>();       
@@ -26,6 +30,8 @@ public class GroundDictionary : MonoBehaviour
                     Destroy(groundDictionary[new Vector3Int(i,j,0)]);
                 }
             }
+            GameObject test=Instantiate(ruins);
+            test.transform.position = groundTileMap.CellToWorld(new Vector3Int(x + 3, y + 2, 0));
             
         }
     }
