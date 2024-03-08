@@ -10951,7 +10951,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1052602521
 Transform:
   m_ObjectHideFlags: 0
@@ -13445,7 +13445,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1178511599
 Transform:
   m_ObjectHideFlags: 0
@@ -14499,7 +14499,7 @@ MonoBehaviour:
   isDigging: 0
   isDrilling: 0
   isPlacing: 0
-  Tools: {fileID: 0}
+  Tools: {fileID: 2123044260}
 --- !u!1 &1557070477
 GameObject:
   m_ObjectHideFlags: 0
@@ -14814,8 +14814,8 @@ MonoBehaviour:
   Player: {fileID: 1246972418}
   curToolSet: 0
   ToolBeltInventory:
-  - {fileID: 965102142}
   - {fileID: 448561680}
+  - {fileID: 965102142}
   skinNr: 0
   shovelSkins:
   - sprites:
@@ -14826,14 +14826,6 @@ MonoBehaviour:
     - {fileID: 1930931436, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
     - {fileID: 1643460903, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
     - {fileID: 1139982221, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
-  - sprites:
-    - {fileID: -1351575819, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
-    - {fileID: -2093044696, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
-    - {fileID: -1775014107, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
-    - {fileID: 977146545, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
-    - {fileID: 616016785, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
-    - {fileID: -200947757, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
-    - {fileID: 1841110694, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
   drillSkins: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -67,6 +67,10 @@ public class ToolManager : MonoBehaviour
 
             sp.sprite = shovelSkins[skinNr].sprites[spriteNr];
         }
+        else
+        {
+            
+        }
         //if Drill
     }
 
