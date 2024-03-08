@@ -38,6 +38,10 @@ public class TileTest : MonoBehaviour
             
             int layerMask = 1 << LayerMask.NameToLayer("Ground");
             RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 0.6f,layerMask);
+            Vector3Int pos = tilemap.WorldToCell(hit.collider.transform.position);
+            Debug.Log(pos.x);
+            Debug.Log(pos.y);
+            
             
             if (hit.collider != null)
             {

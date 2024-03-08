@@ -12,10 +12,23 @@ public class GroundDictionary : MonoBehaviour
     public GameObject point;
 
     public Tilemap groundTileMap;
+    public int[,] digRuin1= new int[7, 4]
+    {
+        {0,1,1,1},
+        {0,1,1,1},
+        {1,1,1,1 },
+        {1,1,1,1 },
+        {1,1,1,1 },
+        {1,1,1,1 },
+        {1,1,1,1 }
+    };
 
     void Awake()
     {
-       groundDictionary =new Dictionary<Vector3Int, GameObject>();       
+       groundDictionary =new Dictionary<Vector3Int, GameObject>();
+     
+
+   
     }
     void Update()
     {
@@ -23,16 +36,18 @@ public class GroundDictionary : MonoBehaviour
         {
             
             int x, y;
-            x = Random.Range(-12, 3);
-            y = Random.Range(-8, -3);
+            x = Random.Range(0, 1);
+            y = Random.Range(0, -1);
             
-            for(int i = x - 1; i <= x + 1; i++)
+            /*
+            for(int i = x; i <= x + 2; i++)
             {
-                for(int j = y - 1;j<= y + 1; j++)
+                for(int j = y;j>=-2; j--)
                 {
                     Destroy(groundDictionary[new Vector3Int(i,j,0)]);
                 }
-            }
+            }*/
+
             GameObject test=Instantiate(ruins);
             test.transform.position = groundTileMap.CellToWorld(new Vector3Int(x, y, 0));
             
