@@ -12,15 +12,15 @@ public class GroundDictionary : MonoBehaviour
     public GameObject point;
 
     public Tilemap groundTileMap;
-    public int[,] digRuin1= new int[7, 4]
+    public int[,] digRuin1= new int[7, 5]
     {
-        {0,1,1,1},
-        {0,1,1,1},
-        {1,1,1,1 },
-        {1,1,1,1 },
-        {1,1,1,1 },
-        {1,1,1,1 },
-        {1,1,1,1 }
+        {0,1,1,1,1},
+        {0,1,1,1,1},
+        {1,1,1,1 , 1},
+        {1,1,1,1,1 },
+        {1,1,1,1,1 },
+        {1,1,1,1 ,1},
+        {1,1,1,1 ,1}
     };
 
     void Awake()
@@ -35,10 +35,22 @@ public class GroundDictionary : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.L))
         {
             
-            int x, y;
-            x = Random.Range(0, 1);
-            y = Random.Range(0, -1);
-            
+            int x, y,width,length;
+            x = Random.Range(0, 8);
+            y = Random.Range(0, -3);
+            length = digRuin1.GetLength(0);
+            width = digRuin1.GetLength(1);
+            for(int i=0; i<length; i++)
+            {
+                for(int j=0; j<width; j++)
+                {
+                    if (digRuin1[i,j] == 1)
+                    {
+                        Destroy(groundDictionary[new Vector3Int(x+j,y-i, 0)]);
+                    }
+                }
+            }
+        
             /*
             for(int i = x; i <= x + 2; i++)
             {
