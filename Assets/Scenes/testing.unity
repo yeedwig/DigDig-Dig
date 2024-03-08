@@ -1249,7 +1249,7 @@ Transform:
   m_GameObject: {fileID: 70167311}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.57, y: -0.23, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16371,7 +16371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64d2713987cb99c4b8fa7b1fa8234e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ruins: {fileID: 5622247349573459530, guid: 5381addba14f75243a4e963cb74bcb6e, type: 3}
+  ruins: {fileID: 3826280863953688642, guid: cef9e7e9cda19af42bec4f8a8f571898, type: 3}
+  point: {fileID: 0}
   groundTileMap: {fileID: 794871923}
 --- !u!4 &685146605
 Transform:
@@ -20490,7 +20491,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -14, y: -9, z: 0}
   m_Size: {x: 22, y: 15, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -31720,7 +31721,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -13, y: -6, z: 0}
   m_Size: {x: 25, y: 11, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1
@@ -37160,16 +37161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85474b8706e08644c84d6fa0c1e25340, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Dead: 0
-  curTool: 0
-  facingRight: 1
-  walkSpeed: 2
-  isWalking: 0
-  jumpForce: 0
-  isDigging: 0
-  isDrilling: 0
-  isPlacing: 0
-  Tools: {fileID: 1557070477}
 --- !u!212 &1246972422
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -46956,7 +46947,7 @@ Tilemap:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Origin: {x: -5, y: -2, z: 0}
   m_Size: {x: 5, y: 2, z: 1}
-  m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
+  m_TileAnchor: {x: 0, y: 0, z: 0}
   m_TileOrientation: 0
   m_TileOrientationMatrix:
     e00: 1

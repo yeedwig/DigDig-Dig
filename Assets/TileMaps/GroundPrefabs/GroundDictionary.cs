@@ -7,7 +7,10 @@ public class GroundDictionary : MonoBehaviour
 {
     public Dictionary<Vector3Int, GameObject> groundDictionary;
     public GameObject ruins;
-    
+
+    //기준점
+    public GameObject point;
+
     public Tilemap groundTileMap;
 
     void Awake()
@@ -31,7 +34,7 @@ public class GroundDictionary : MonoBehaviour
                 }
             }
             GameObject test=Instantiate(ruins);
-            test.transform.position = groundTileMap.CellToWorld(new Vector3Int(x + 3, y + 2, 0));
+            test.transform.position = groundTileMap.CellToWorld(new Vector3Int(x, y, 0));
             
         }
     }
