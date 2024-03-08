@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
     private Rigidbody2D rb;
     private SpriteRenderer sp;
@@ -12,7 +12,11 @@ public class PlayerMovement : MonoBehaviour
     public bool Dead;
 
     //Tool
+    [SerializeField] private ToolManager toolManager;
     [SerializeField] private int curTool;
+
+    //Items
+    [SerializeField] private GameObject[] Items;
 
     //Walking
     public bool facingRight = true;
@@ -38,14 +42,16 @@ public class PlayerMovement : MonoBehaviour
     public bool isPlacing = false;
 
     // Start is called before the first frame update
-
     [SerializeField] private GameObject Tools;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+
+        curTool = 1;
 
     }
 
@@ -71,65 +77,34 @@ public class PlayerMovement : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            curTool = 1;
+            curTool = toolManager.CheckToolBelt(0);
         }
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            curTool = 2;  
+            curTool = toolManager.CheckToolBelt(1);
         }
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
-            curTool = 3;
+            curTool = toolManager.CheckToolBelt(2);
         }
         if(Input.GetKeyDown(KeyCode.Alpha4))
         {
-            curTool = 4;
+            curTool = toolManager.CheckToolBelt(3);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            curTool = 5;
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            curTool = 6;
-        }
+
     }
+
     private void CheckInput()
     {
         moveDir = Input.GetAxisRaw("Horizontal");
-        
-        /*
-        //Digging
-        if(Input.GetKey(KeyCode.E))
-        {
-            isDigging = true;
-        }
-        else if(Input.GetKeyUp(KeyCode.E))
-        {
-            isDigging = false;
-        }
-
-        //Drilling
-        if(Input.GetKey(KeyCode.Q))
-        {
-            isDrilling = true;
-        }
-        else if(Input.GetKeyUp(KeyCode.Q))
-        {
-            isDrilling = false;
-        }*/
 
         if(Input.GetKey(KeyCode.Q))
         {
             if(curTool == 0)
             {
-
-            }
-            if(curTool == 1)
-            {
                 isDigging = true; 
             }
-            if(curTool == 2)
+            if(curTool == 1)
             {
                 isDrilling = true;
             }
@@ -138,13 +113,9 @@ public class PlayerMovement : MonoBehaviour
         {
             if(curTool == 0)
             {
-
-            }
-            if(curTool == 1)
-            {
                 isDigging = false;
             }
-            if(curTool == 2)
+            if(curTool == 1)
             {
                 isDrilling = false;
             }
@@ -168,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Tools.SetActive(false);
+            //여기에 도구 place 하는 기능 넣기
         }
     }
 

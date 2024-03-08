@@ -26,10 +26,10 @@ public class CharacterManager : MonoBehaviour
 
     void LateUpdate()
     {
-        if(Player.GetComponent<PlayerMovement>().Dead == true)
+        if(Player.GetComponent<PlayerManager>().Dead == true)
         {
             skinNr = Random.Range(0,3);
-            Player.GetComponent<PlayerMovement>().Dead = false;
+            Player.GetComponent<PlayerManager>().Dead = false;
         }
 
         Respawn();

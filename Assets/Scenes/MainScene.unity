@@ -358,6 +358,106 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &448561679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 448561682}
+  - component: {fileID: 448561681}
+  - component: {fileID: 448561680}
+  m_Layer: 0
+  m_Name: Shovel_Icon_Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &448561680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448561679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9db82092281bb469b2564478072243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curTool: 0
+  itemType: Shovel
+  damage: 0
+--- !u!212 &448561681
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448561679}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 77e79a4c39c7a0e4e9c00e4ced2024cb, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &448561682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 448561679}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -14.32, y: 2.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -10734,6 +10834,106 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &965102140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 965102143}
+  - component: {fileID: 965102142}
+  - component: {fileID: 965102141}
+  m_Layer: 0
+  m_Name: Drill_Icon_Test
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &965102141
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965102140}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 21300000, guid: 2d9d0c35b401f944d9fbd58ecbe5b98b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &965102142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965102140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9db82092281bb469b2564478072243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  curTool: 1
+  itemType: Drill
+  damage: 0
+--- !u!4 &965102143
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965102140}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.95, y: 1.99, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1052602520
 GameObject:
   m_ObjectHideFlags: 0
@@ -14101,8 +14301,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1246972423}
+  - component: {fileID: 1246972425}
   - component: {fileID: 1246972422}
-  - component: {fileID: 1246972421}
   - component: {fileID: 1246972420}
   - component: {fileID: 1246972419}
   - component: {fileID: 1246972424}
@@ -14185,28 +14385,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.86199, y: 0.9195781}
   m_EdgeRadius: 0
---- !u!114 &1246972421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1246972418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85474b8706e08644c84d6fa0c1e25340, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Dead: 0
-  curTool: 0
-  facingRight: 1
-  walkSpeed: 2
-  isWalking: 0
-  jumpForce: 10
-  isDigging: 0
-  isDrilling: 0
-  isPlacing: 0
-  Tools: {fileID: 2123044260}
 --- !u!212 &1246972422
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14298,6 +14476,30 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1246972425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246972418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34770bc1d90717b498a3447111a8a841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Dead: 0
+  toolManager: {fileID: 2123044264}
+  curTool: 0
+  Items: []
+  facingRight: 1
+  walkSpeed: 3
+  isWalking: 0
+  jumpForce: 10
+  isDigging: 0
+  isDrilling: 0
+  isPlacing: 0
+  Tools: {fileID: 0}
 --- !u!1 &1557070477
 GameObject:
   m_ObjectHideFlags: 0
@@ -14503,7 +14705,7 @@ GameObject:
   - component: {fileID: 2123044261}
   - component: {fileID: 2123044264}
   m_Layer: 0
-  m_Name: Tools
+  m_Name: ToolManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14610,16 +14812,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1246972418}
+  curToolSet: 0
+  ToolBeltInventory:
+  - {fileID: 965102142}
+  - {fileID: 448561680}
   skinNr: 0
   shovelSkins:
   - sprites:
-    - {fileID: -1260321216, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
-    - {fileID: 29896644, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
-    - {fileID: 1021124403, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
-    - {fileID: 1595524322, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
-    - {fileID: -236979878, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
-    - {fileID: -794462559, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
-    - {fileID: -1391310688, guid: 01fa7cda0de50a84db9995388e13f35e, type: 3}
+    - {fileID: -115406494, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
+    - {fileID: 758661302, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
+    - {fileID: -414181356, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
+    - {fileID: 93762042, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
+    - {fileID: 1930931436, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
+    - {fileID: 1643460903, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
+    - {fileID: 1139982221, guid: 5e05c0816be3853418d0aefef04eab43, type: 3}
   - sprites:
     - {fileID: -1351575819, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
     - {fileID: -2093044696, guid: 09f4efa661e0de24bae569c9498bf4d2, type: 3}
@@ -14643,3 +14849,5 @@ SceneRoots:
   - {fileID: 861587367}
   - {fileID: 303708050}
   - {fileID: 1868483335}
+  - {fileID: 448561682}
+  - {fileID: 965102143}
