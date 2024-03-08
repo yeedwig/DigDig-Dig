@@ -10,10 +10,12 @@ public class Ground : MonoBehaviour
     public int groundLevel;
     public Tilemap groundTileMap;
     public Sprite[] groundSprites;
+    public Sprite[] ruinSprites;
     SpriteRenderer sr;
     BoxCollider2D bc;
     public int x, y;
     public GameObject groundDictionaryObject;
+    public bool isRuin = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,49 +41,85 @@ public class Ground : MonoBehaviour
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
         Vector3Int groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
-        if(groundGridPosition.y>-10)
+        if (!isRuin)
         {
-            groundLevel = 1;
-            maxHealth = 200.0f;
-        }
-        else if(groundGridPosition.y>-16&&groundGridPosition.y<=-10)
-        {
-            groundLevel = 2;
-            maxHealth = 500.0f;
+            if (groundGridPosition.y > -10)
+            {
+                groundLevel = 1;
+                maxHealth = 200.0f;
+            }
+            else if (groundGridPosition.y > -16 && groundGridPosition.y <= -10)
+            {
+                groundLevel = 2;
+                maxHealth = 300.0f;
+            }
+            else
+            {
+                groundLevel = 3;
+                maxHealth = 400.0f;
+            }
         }
         else
         {
-            groundLevel = 3;
-            maxHealth = 1000.0f;
+            if (groundGridPosition.y > -10)
+            {
+                groundLevel = 1;
+                maxHealth = 1000.0f;
+            }
         }
+        
         currentHealth = maxHealth;
         startBreakingHealth = maxHealth * 0.7f;
         almostBrokenHealth = maxHealth * 0.3f;
-        sr.sprite = groundSprites[((groundLevel-1)*3)];
-
-        //아래 테스트용
-        x = groundGridPosition.x;
-        y = groundGridPosition.y;
-
+        if (!isRuin)
+        {
+            sr.sprite = groundSprites[((groundLevel - 1) * 3)];
+        }
+        else
+        {
+            sr.sprite = ruinSprites[((groundLevel - 1) * 3)];
+        }
+        
         groundDictionaryObject.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
+        groundDictionaryObject.GetComponent<RuinGenerator>().dictionaryInputDone = true;
     }
 
     
 
     public void ChangeSpriteByCurrentHealth()
     {
-        if(currentHealth < 0)
+        if (!isRuin)
         {
-            sr.sprite = null;
-            bc.enabled = false;
+            if (currentHealth < 0)
+            {
+                sr.sprite = null;
+                bc.enabled = false;
+            }
+            else if (currentHealth < almostBrokenHealth)
+            {
+                sr.sprite = groundSprites[((groundLevel - 1) * 3) + 2];
+            }
+            else if (currentHealth < startBreakingHealth)
+            {
+                sr.sprite = groundSprites[((groundLevel - 1) * 3) + 1];
+            }
         }
-        else if(currentHealth <almostBrokenHealth)
+        else
         {
-            sr.sprite = groundSprites[((groundLevel - 1) * 3) + 2];
+            if (currentHealth < 0)
+            {
+                sr.sprite = null;
+                bc.enabled = false;
+            }
+            else if (currentHealth < almostBrokenHealth)
+            {
+                sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 2];
+            }
+            else if (currentHealth < startBreakingHealth)
+            {
+                sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 1];
+            }
         }
-        else if (currentHealth < startBreakingHealth)
-        {
-            sr.sprite = groundSprites[((groundLevel - 1) * 3)+1];
-        }
+        
     }
 }

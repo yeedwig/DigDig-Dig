@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: -3308370955213803389}
   - component: {fileID: 8232226006482902421}
   - component: {fileID: -6384249954346770012}
-  m_Layer: 0
+  - component: {fileID: 2913896962949677452}
+  m_Layer: 6
   m_Name: Ruin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,3 +203,30 @@ CompositeCollider2D:
   m_OffsetDistance: 0.00005
   m_UseDelaunayMesh: 0
   m_CompositeGameObject: {fileID: 8641900380139469004}
+--- !u!114 &2913896962949677452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8641900380139469004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c180ac4c146a66c419a1a25a8b541536, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentHealth: 0
+  maxHealth: 0
+  startBreakingHealth: 0
+  almostBrokenHealth: 0
+  groundLevel: 0
+  groundTileMap: {fileID: 0}
+  groundSprites: []
+  ruinSprites:
+  - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  x: 0
+  y: 0
+  groundDictionaryObject: {fileID: 0}
+  isRuin: 1

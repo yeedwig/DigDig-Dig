@@ -26,13 +26,11 @@ public class GroundDictionary : MonoBehaviour
     void Awake()
     {
        groundDictionary =new Dictionary<Vector3Int, GameObject>();
-     
-
-   
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.L))
+        /*if (Input.GetKeyDown(KeyCode.L))
         {
             
             int x, y,width,length;
@@ -51,19 +49,19 @@ public class GroundDictionary : MonoBehaviour
                 }
             }
         
-            /*
+            
             for(int i = x; i <= x + 2; i++)
             {
                 for(int j = y;j>=-2; j--)
                 {
                     Destroy(groundDictionary[new Vector3Int(i,j,0)]);
                 }
-            }*/
+            }
 
             GameObject test=Instantiate(ruins);
             test.transform.position = groundTileMap.CellToWorld(new Vector3Int(x, y, 0));
             
-        }
+        }*/
     }
 
     public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
