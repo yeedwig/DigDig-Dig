@@ -12,6 +12,8 @@ public class CharacterManager : MonoBehaviour
     public Skins[] DrillingSkins;
     public Skins[] ClimbingSkins;
 
+    public GameObject GroundDictionary;
+
     SpriteRenderer sp;
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,11 @@ public class CharacterManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //임시
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Player.GetComponent<PlayerManager>().Dead = true;
+        }
     }
 
     void LateUpdate()
@@ -30,13 +37,16 @@ public class CharacterManager : MonoBehaviour
         {
             skinNr = Random.Range(0,3);
             Player.GetComponent<PlayerManager>().Dead = false;
+            GroundDictionary.GetComponent<GroundDictionary>().MapReset();
+            Player.transform.position = new Vector3(1.0f, 5.0f, 0);
         }
-
         Respawn();
+
     }
 
     void Respawn()
     {
+        
         if(sp.sprite.name.Contains("MainIdle"))
         {
             string spriteName = sp.sprite.name;

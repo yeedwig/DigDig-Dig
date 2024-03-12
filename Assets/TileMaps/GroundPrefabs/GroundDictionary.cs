@@ -19,11 +19,22 @@ public class GroundDictionary : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log(groundDictionary.Count);
+        
     }
 
     public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
     {
         groundDictionary.Add(gridPosition, groundObject);
+    }
+
+    public void MapReset()
+    {
+        foreach(GameObject grounds in groundDictionary.Values)
+        {
+            Ground ground = grounds.GetComponent<Ground>();
+            ground.currentHealth = ground.maxHealth;
+            ground.bc.enabled = true;
+            
+        }
     }
 }

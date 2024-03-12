@@ -12,7 +12,7 @@ public class Ground : MonoBehaviour
     public Sprite[] groundSprites;
     public Sprite[] ruinSprites;
     SpriteRenderer sr;
-    BoxCollider2D bc;
+    public BoxCollider2D bc;
     public int x, y;
     public GameObject groundDictionaryObject;
     public bool isRuin = false;
@@ -71,14 +71,7 @@ public class Ground : MonoBehaviour
         currentHealth = maxHealth;
         startBreakingHealth = maxHealth * 0.7f;
         almostBrokenHealth = maxHealth * 0.3f;
-        if (!isRuin)
-        {
-            sr.sprite = groundSprites[((groundLevel - 1) * 3)];
-        }
-        else
-        {
-            sr.sprite = ruinSprites[((groundLevel - 1) * 3)];
-        }
+        
         
         groundDictionaryObject.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
         groundDictionaryObject.GetComponent<RuinGenerator>().dictionaryInputDone = true;
@@ -103,6 +96,10 @@ public class Ground : MonoBehaviour
             {
                 sr.sprite = groundSprites[((groundLevel - 1) * 3) + 1];
             }
+            else
+            {
+                sr.sprite = groundSprites[((groundLevel - 1) * 3)];
+            }
         }
         else
         {
@@ -118,6 +115,10 @@ public class Ground : MonoBehaviour
             else if (currentHealth < startBreakingHealth)
             {
                 sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 1];
+            }
+            else
+            {
+                sr.sprite = ruinSprites[((groundLevel - 1) * 3)];
             }
         }
         
