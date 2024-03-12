@@ -48,15 +48,10 @@ public class Ground : MonoBehaviour
                 groundLevel = 1;
                 maxHealth = 200.0f;
             }
-            else if (groundGridPosition.y > -16 && groundGridPosition.y <= -10)
+            else if (groundGridPosition.y > -30 && groundGridPosition.y <= -10)
             {
                 groundLevel = 2;
                 maxHealth = 300.0f;
-            }
-            else
-            {
-                groundLevel = 3;
-                maxHealth = 400.0f;
             }
         }
         else
@@ -65,6 +60,11 @@ public class Ground : MonoBehaviour
             {
                 groundLevel = 1;
                 maxHealth = 1000.0f;
+            }
+            else
+            {
+                groundLevel = 2;
+                maxHealth = 3000.0f;
             }
         }
         

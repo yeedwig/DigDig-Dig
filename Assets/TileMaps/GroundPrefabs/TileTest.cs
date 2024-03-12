@@ -19,7 +19,6 @@ public class TileTest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(player.transform.position, new Vector2(0, -1) * 1.0f, Color.red);
         if (Input.GetKey(KeyCode.E)|| Input.GetKey(KeyCode.Q))
         {
             Vector2 direction = new Vector2(0,0);
@@ -38,11 +37,7 @@ public class TileTest : MonoBehaviour
             
             int layerMask = 1 << LayerMask.NameToLayer("Ground");
             RaycastHit2D hit = Physics2D.Raycast(player.transform.position,direction, 0.6f,layerMask);
-            Vector3Int pos = tilemap.WorldToCell(hit.collider.transform.position);
-            Debug.Log(pos.x);
-            Debug.Log(pos.y);
-            
-            
+
             if (hit.collider != null)
             {
                 if (Input.GetKey(KeyCode.E))
@@ -56,15 +51,6 @@ public class TileTest : MonoBehaviour
                 
             }
             
-        }
-        if(Input.GetKey(KeyCode.Space))
-        {
-            Debug.Log("clicked");
-            Vector3Int gridPosition = tilemap.WorldToCell(player.transform.position);
-            Debug.Log(gridPosition.x);
-            Debug.Log(gridPosition.y);
-            
-            tilemap.SwapTile(tile1, tile2);
         }
     }
 }

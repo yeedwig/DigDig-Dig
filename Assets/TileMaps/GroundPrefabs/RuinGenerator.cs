@@ -20,23 +20,30 @@ public class RuinGenerator : MonoBehaviour
         {1,1,1,1,1},
         {1,1,1,1,1}
     };
+    public int[,] ruin2 = new int[5, 5]
+    {
+        {0,1,1,1,0},
+        {1,1,1,1,1},
+        {1,1,1,1,1},
+        {1,1,1,1,1},
+        {0,1,1,1,0}
+    };
     // Start is called before the first frame update
     void Start()
     {
-        groundDictionary = groundDictionaryObj.GetComponent<GroundDictionary>().groundDictionary; 
-    }
-    private void Update()
-    {
-        if (dictionaryInputDone)
-        {
-            dictionaryInputDone = false;
-            CreateRuins();
-        }
+        groundDictionary = groundDictionaryObj.GetComponent<GroundDictionary>().groundDictionary;
+        StartCoroutine(CreateRuins());
     }
 
-    public void CreateRuins()
+    
+    IEnumerator CreateRuins()
     {
+        while (!dictionaryInputDone)
+        {
+            yield return null;
+        }
         CreateRuinOne();
+        CreateRuinTwo();
     }
 
     public void CreateRuinOne()
@@ -53,11 +60,33 @@ public class RuinGenerator : MonoBehaviour
                 if (ruin1[i, j] == 1)
                 {
                     Destroy(groundDictionary[new Vector3Int(x + j, y - i, 0)]);
-                    
+                    groundDictionary.Remove(new Vector3Int(x + j, y - i, 0));
                 }
             }
         }
         GameObject test = Instantiate(ruins[0]);
+        test.transform.position = ground.CellToWorld(new Vector3Int(x, y, 0));
+    }
+
+    public void CreateRuinTwo()
+    {
+        int x, y, width, length;
+        x = Random.Range(0, 8);
+        y = Random.Range(-11, -15);
+        length = ruin2.GetLength(0);
+        width = ruin2.GetLength(1);
+        for (int i = 0; i < length; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                if (ruin2[i, j] == 1)
+                {
+                    Destroy(groundDictionary[new Vector3Int(x + j, y - i, 0)]);
+                    groundDictionary.Remove(new Vector3Int(x + j, y - i, 0));
+                }
+            }
+        }
+        GameObject test = Instantiate(ruins[1]);
         test.transform.position = ground.CellToWorld(new Vector3Int(x, y, 0));
     }
 }

@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  m_Sprite: {fileID: 1914546184, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -226,6 +226,9 @@ MonoBehaviour:
   - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
   - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
   - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
+  - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
+  - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   x: 0
   y: 0
   groundDictionaryObject: {fileID: 0}
