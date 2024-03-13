@@ -28,10 +28,10 @@ public class Ground : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         ChangeSpriteByCurrentHealth();
-    }
+    }*/
 
 
     public void takeDamage(float damage)
