@@ -9,7 +9,9 @@ public class RuinGenerator : MonoBehaviour
     public GameObject groundDictionaryObj;
     public bool dictionaryInputDone=false;
     public Tilemap ground;
+    public GameObject groundComponent;
     public GameObject[] ruins;
+    public int mapWidth,mapHeight;
     public int[,] ruin1 = new int[7, 5]
     {
         {0,1,1,1,1},
@@ -32,7 +34,8 @@ public class RuinGenerator : MonoBehaviour
     void Start()
     {
         groundDictionary = groundDictionaryObj.GetComponent<GroundDictionary>().groundDictionary;
-        StartCoroutine(CreateRuins());
+        CreateMap();
+        
     }
 
     
@@ -46,6 +49,18 @@ public class RuinGenerator : MonoBehaviour
         CreateRuinTwo();
     }
 
+    public void CreateMap()
+    {
+        for(int i = 0; i > -mapHeight; i--)
+        {
+            for(int j = 0; j < mapWidth; j++)
+            {
+                GameObject ground = Instantiate(groundComponent);
+                ground.transform.position = new Vector3(j+0.5f, i+0.5f, 0);
+            }
+        }
+        StartCoroutine(CreateRuins());
+    }
     public void CreateRuinOne()
     {
         int x, y, width, length;

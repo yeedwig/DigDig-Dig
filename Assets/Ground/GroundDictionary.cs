@@ -23,6 +23,9 @@ public class GroundDictionary : MonoBehaviour
         {
             Vector3Int groundGridPosition = groundTileMap.WorldToCell(player.transform.position);
             groundDictionary[groundGridPosition].GetComponent<Ground>().gangInstalled = true;
+            groundDictionary[groundGridPosition].GetComponent<Ground>().ChangeSpriteByCurrentHealth();
+
+
         }
     }
 
@@ -40,6 +43,7 @@ public class GroundDictionary : MonoBehaviour
             {
                 ground.currentHealth = ground.maxHealth;
                 ground.bc.enabled = true;
+                ground.ChangeSpriteByCurrentHealth();
             }
             
             

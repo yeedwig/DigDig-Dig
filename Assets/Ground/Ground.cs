@@ -25,6 +25,7 @@ public class Ground : MonoBehaviour
         bc = GetComponent<BoxCollider2D>();
         groundDictionaryObject = GameObject.Find("GroundDictionary");
         SelectGroundLevelHealthSpriteAndAddToDic();
+        ChangeSpriteByCurrentHealth();
     }
 
     // Update is called once per frame
@@ -37,6 +38,7 @@ public class Ground : MonoBehaviour
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
+        ChangeSpriteByCurrentHealth() ;
     }
 
     public void SelectGroundLevelHealthSpriteAndAddToDic()
