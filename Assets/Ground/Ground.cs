@@ -55,6 +55,11 @@ public class Ground : MonoBehaviour
                 groundLevel = 2;
                 maxHealth = 300.0f;
             }
+            else
+            {
+                groundLevel = 3;
+                maxHealth = 300.0f;
+            }
         }
         else
         {
