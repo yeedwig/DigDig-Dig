@@ -9,6 +9,7 @@ public class PlayerManager : MonoBehaviour
     private Animator anim;
     private float moveDir;
 
+    private bool visualStudio;
     public bool Dead;
 
     //Tool
