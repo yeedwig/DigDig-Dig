@@ -11,7 +11,7 @@ public class GroundDictionary : MonoBehaviour
     //기준점
     public GameObject point;
     public Tilemap groundTileMap;
-    
+    public GameObject player;
 
     void Awake()
     {
@@ -19,7 +19,11 @@ public class GroundDictionary : MonoBehaviour
     }
     private void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Vector3Int groundGridPosition = groundTileMap.WorldToCell(player.transform.position);
+            groundDictionary[groundGridPosition].GetComponent<Ground>().gangInstalled = true;
+        }
     }
 
     public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
@@ -32,8 +36,12 @@ public class GroundDictionary : MonoBehaviour
         foreach(GameObject grounds in groundDictionary.Values)
         {
             Ground ground = grounds.GetComponent<Ground>();
-            ground.currentHealth = ground.maxHealth;
-            ground.bc.enabled = true;
+            if (!ground.gangInstalled)
+            {
+                ground.currentHealth = ground.maxHealth;
+                ground.bc.enabled = true;
+            }
+            
             
         }
     }

@@ -11,11 +11,13 @@ public class Ground : MonoBehaviour
     public Tilemap groundTileMap;
     public Sprite[] groundSprites;
     public Sprite[] ruinSprites;
+    public Sprite gangSprite;
     SpriteRenderer sr;
     public BoxCollider2D bc;
     public int x, y;
     public GameObject groundDictionaryObject;
     public bool isRuin = false;
+    public bool gangInstalled = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -81,46 +83,54 @@ public class Ground : MonoBehaviour
 
     public void ChangeSpriteByCurrentHealth()
     {
-        if (!isRuin)
+        if (gangInstalled)
         {
-            if (currentHealth < 0)
+            sr.sprite = gangSprite;
+            bc.enabled = false;
+        }
+        else {
+            if (!isRuin)
             {
-                sr.sprite = null;
-                bc.enabled = false;
-            }
-            else if (currentHealth < almostBrokenHealth)
-            {
-                sr.sprite = groundSprites[((groundLevel - 1) * 3) + 2];
-            }
-            else if (currentHealth < startBreakingHealth)
-            {
-                sr.sprite = groundSprites[((groundLevel - 1) * 3) + 1];
+                if (currentHealth < 0)
+                {
+                    sr.sprite = null;
+                    bc.enabled = false;
+                }
+                else if (currentHealth < almostBrokenHealth)
+                {
+                    sr.sprite = groundSprites[((groundLevel - 1) * 3) + 2];
+                }
+                else if (currentHealth < startBreakingHealth)
+                {
+                    sr.sprite = groundSprites[((groundLevel - 1) * 3) + 1];
+                }
+                else
+                {
+                    sr.sprite = groundSprites[((groundLevel - 1) * 3)];
+                }
             }
             else
             {
-                sr.sprite = groundSprites[((groundLevel - 1) * 3)];
+                if (currentHealth < 0)
+                {
+                    sr.sprite = null;
+                    bc.enabled = false;
+                }
+                else if (currentHealth < almostBrokenHealth)
+                {
+                    sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 2];
+                }
+                else if (currentHealth < startBreakingHealth)
+                {
+                    sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 1];
+                }
+                else
+                {
+                    sr.sprite = ruinSprites[((groundLevel - 1) * 3)];
+                }
             }
         }
-        else
-        {
-            if (currentHealth < 0)
-            {
-                sr.sprite = null;
-                bc.enabled = false;
-            }
-            else if (currentHealth < almostBrokenHealth)
-            {
-                sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 2];
-            }
-            else if (currentHealth < startBreakingHealth)
-            {
-                sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 1];
-            }
-            else
-            {
-                sr.sprite = ruinSprites[((groundLevel - 1) * 3)];
-            }
-        }
+        
         
     }
 }

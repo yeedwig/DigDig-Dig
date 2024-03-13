@@ -5581,6 +5581,7 @@ MonoBehaviour:
   ruins: {fileID: 1384129290313435377, guid: d8a670a9f7ab243459bebb1a7ded6d44, type: 3}
   point: {fileID: 0}
   groundTileMap: {fileID: 703869185}
+  player: {fileID: 1079126411}
 --- !u!4 &685146605
 Transform:
   m_ObjectHideFlags: 0

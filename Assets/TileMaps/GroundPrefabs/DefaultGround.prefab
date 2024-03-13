@@ -246,7 +246,10 @@ MonoBehaviour:
   - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   ruinSprites: []
+  gangSprite: {fileID: 1914546184, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
+  bc: {fileID: 0}
   x: 0
   y: 0
   groundDictionaryObject: {fileID: 0}
   isRuin: 0
+  gangInstalled: 0
