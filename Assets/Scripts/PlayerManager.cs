@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
     private Rigidbody2D rb;
@@ -9,7 +9,6 @@ public class PlayerManager : MonoBehaviour
     private Animator anim;
     private float moveDir;
 
-    private bool visualStudio;
     public bool Dead;
 
     //Tool
@@ -42,9 +41,16 @@ public class PlayerManager : MonoBehaviour
     private bool canPlace = true;
     public bool isPlacing = false;
 
-    // Start is called before the first frame update
     [SerializeField] private GameObject Tools;
 
+    //Tool UI
+    [SerializeField] private Sprite[] ToolIcons;
+    public Image curToolImage;
+
+    //IsGrounded
+    private bool isGrounded;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] LayerMask groundLayer;
 
     void Start()
     {
@@ -52,7 +58,7 @@ public class PlayerManager : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-        curTool = 1;
+        curTool = 0;
 
     }
 
@@ -67,6 +73,14 @@ public class PlayerManager : MonoBehaviour
 
         CheckCanWalk();
         CheckIsWalking();
+
+        ShowCurrentTool(curTool);
+
+    }
+
+    private void ShowCurrentTool(int index)
+    {
+        curToolImage.sprite = ToolIcons[index];
     }
 
     void FixedUpdate()
@@ -99,7 +113,7 @@ public class PlayerManager : MonoBehaviour
     {
         moveDir = Input.GetAxisRaw("Horizontal");
 
-        if(Input.GetKey(KeyCode.Q))
+        if(Input.GetKey(KeyCode.Q) && isWalking == false)
         {
             if(curTool == 0)
             {
@@ -110,7 +124,7 @@ public class PlayerManager : MonoBehaviour
                 isDrilling = true;
             }
         }
-        else if(Input.GetKeyUp(KeyCode.Q))
+        else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
         {
             if(curTool == 0)
             {
@@ -122,12 +136,18 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if(Input.GetButtonDown("Jump"))
+        if(Input.GetButtonDown("Jump") && canJump == true)
         {
             isJumping = true;
+            canJump = false;
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
-        isJumping = false;
+
+        if (IsGrounded() && rb.velocity.y <= 0)
+        {
+            canJump = true;
+            isJumping = false;
+        }
 
     }
 
@@ -193,11 +213,21 @@ public class PlayerManager : MonoBehaviour
         if ((rb.velocity.x > 0.1f || rb.velocity.x < -0.1f) && isJumping == false)
         {
             isWalking = true;
+            canDig = false;
+            canDrill = false;
         }
         else
         {
             isWalking = false;
+            canDig = false;
+            canDrill = false;
         }
+    }
+
+    private bool IsGrounded()
+    {
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
     }
 
     private void CheckCanJump()
