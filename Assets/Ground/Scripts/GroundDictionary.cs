@@ -6,10 +6,7 @@ using UnityEngine.Tilemaps;
 public class GroundDictionary : MonoBehaviour
 {
     public Dictionary<Vector3Int, GameObject> groundDictionary;
-    public GameObject ruins;
-
-    //기준점
-    public GameObject point;
+    
     public Tilemap groundTileMap;
     public GameObject player;
 
@@ -24,8 +21,6 @@ public class GroundDictionary : MonoBehaviour
             Vector3Int groundGridPosition = groundTileMap.WorldToCell(player.transform.position);
             groundDictionary[groundGridPosition].GetComponent<Ground>().gangInstalled = true;
             groundDictionary[groundGridPosition].GetComponent<Ground>().ChangeSpriteByCurrentHealth();
-
-
         }
     }
 
@@ -34,6 +29,15 @@ public class GroundDictionary : MonoBehaviour
         groundDictionary.Add(gridPosition, groundObject);
     }
 
+    public void DeleteFromGroundDictionary(Vector3Int gridPosition)
+    {
+        groundDictionary.Remove(gridPosition);
+    }
+
+    public GameObject FindFromGroundDictionary(Vector3Int gridPosition)
+    {
+        return groundDictionary[gridPosition];
+    }
     public void MapReset()
     {
         foreach(GameObject grounds in groundDictionary.Values)
@@ -44,9 +48,7 @@ public class GroundDictionary : MonoBehaviour
                 ground.currentHealth = ground.maxHealth;
                 ground.bc.enabled = true;
                 ground.ChangeSpriteByCurrentHealth();
-            }
-            
-            
+            }  
         }
     }
 }

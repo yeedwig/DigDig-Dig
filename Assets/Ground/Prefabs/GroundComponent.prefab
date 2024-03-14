@@ -103,7 +103,14 @@ MonoBehaviour:
   startBreakingHealth: 0
   almostBrokenHealth: 0
   groundLevel: 0
+  isRuin: 0
+  gangInstalled: 0
+  groundMaxPerLevel: f6ffffffe2ffffff
+  breakThreshold1: 0.7
+  breakThreshold2: 0.3
   groundTileMap: {fileID: 0}
+  sr: {fileID: 0}
+  bc: {fileID: 0}
   groundSprites:
   - {fileID: 1719408373, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   - {fileID: 1719408373, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
@@ -116,12 +123,7 @@ MonoBehaviour:
   - {fileID: 1662449315, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   ruinSprites: []
   gangSprite: {fileID: 1772205100, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
-  bc: {fileID: 0}
-  x: 0
-  y: 0
   groundDictionaryObject: {fileID: 0}
-  isRuin: 0
-  gangInstalled: 0
 --- !u!61 &2360534045318850768
 BoxCollider2D:
   m_ObjectHideFlags: 0

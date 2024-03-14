@@ -6,66 +6,61 @@ using UnityEngine.Tilemaps;
 
 public class Ground : MonoBehaviour
 {
-    public float currentHealth,maxHealth,startBreakingHealth,almostBrokenHealth;
-    public int groundLevel;
+    public float currentHealth,maxHealth,startBreakingHealth,almostBrokenHealth; //현재 체력, 최대 체력, 임계점 2개
+    public int groundLevel; //땅 레벨(깊이에 따라)
+    public bool isRuin = false; //유적인가
+    public bool gangInstalled = false; //갱도가 설치되었는가
+    public int[] groundMaxPerLevel; //지하 땅 레벨 y 좌표
+    public float breakThreshold1, breakThreshold2;
+
     public Tilemap groundTileMap;
-    public Sprite[] groundSprites;
+    public SpriteRenderer sr;
+    public BoxCollider2D bc;
+
+    public Sprite[] groundSprites; //땅 스프라이트 (3개 단위로 평소, 조금 부서짐, 거의 부서짐)
     public Sprite[] ruinSprites;
     public Sprite gangSprite;
-    SpriteRenderer sr;
-    public BoxCollider2D bc;
-    public int x, y;
-    public GameObject groundDictionaryObject;
-    public bool isRuin = false;
-    public bool gangInstalled = false;
+    
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        groundDictionaryObject = GameObject.Find("GroundDictionary");
-        SelectGroundLevelHealthSpriteAndAddToDic();
+        SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
     }
 
-    // Update is called once per frame
-    /*void Update()
-    {
-        ChangeSpriteByCurrentHealth();
-    }*/
-
-
-    public void takeDamage(float damage)
+    public void takeDamage(float damage) //데미지 주는 함수
     {
         currentHealth -= damage;
         ChangeSpriteByCurrentHealth() ;
     }
 
-    public void SelectGroundLevelHealthSpriteAndAddToDic()
+    public void SelectGroundLevelHealth()
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
         Vector3Int groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
         if (!isRuin)
         {
-            if (groundGridPosition.y > -10)
+            if (groundGridPosition.y > groundMaxPerLevel[0])
             {
                 groundLevel = 1;
                 maxHealth = 200.0f;
             }
-            else if (groundGridPosition.y > -30 && groundGridPosition.y <= -10)
+            else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
             {
                 groundLevel = 2;
-                maxHealth = 300.0f;
+                maxHealth = 500.0f;
             }
             else
             {
                 groundLevel = 3;
-                maxHealth = 300.0f;
+                maxHealth = 1000.0f;
             }
         }
         else
         {
-            if (groundGridPosition.y > -10)
+            if (groundGridPosition.y > groundMaxPerLevel[0])
             {
                 groundLevel = 1;
                 maxHealth = 1000.0f;
@@ -78,12 +73,9 @@ public class Ground : MonoBehaviour
         }
         
         currentHealth = maxHealth;
-        startBreakingHealth = maxHealth * 0.7f;
-        almostBrokenHealth = maxHealth * 0.3f;
-        
-        
-        groundDictionaryObject.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
-        groundDictionaryObject.GetComponent<RuinGenerator>().dictionaryInputDone = true;
+        startBreakingHealth = maxHealth * breakThreshold1;
+        almostBrokenHealth = maxHealth * breakThreshold2;
+
     }
 
     

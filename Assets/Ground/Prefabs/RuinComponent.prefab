@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6384249954346770012}
   - component: {fileID: 2913896962949677452}
   m_Layer: 6
-  m_Name: Ruin
+  m_Name: RuinComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -220,7 +220,14 @@ MonoBehaviour:
   startBreakingHealth: 0
   almostBrokenHealth: 0
   groundLevel: 0
+  isRuin: 1
+  gangInstalled: 0
+  groundMaxPerLevel: f6ffffffe2ffffff
+  breakThreshold1: 0.7
+  breakThreshold2: 0.3
   groundTileMap: {fileID: 0}
+  sr: {fileID: 0}
+  bc: {fileID: 0}
   groundSprites: []
   ruinSprites:
   - {fileID: -297652948, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
@@ -230,9 +237,4 @@ MonoBehaviour:
   - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   - {fileID: -767451080, guid: e560d8af1f11d2c47ab0f2db785ae021, type: 3}
   gangSprite: {fileID: 1772205100, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
-  bc: {fileID: 0}
-  x: 0
-  y: 0
   groundDictionaryObject: {fileID: 0}
-  isRuin: 1
-  gangInstalled: 0
