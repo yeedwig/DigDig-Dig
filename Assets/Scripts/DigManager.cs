@@ -43,7 +43,6 @@ public class DigManager : MonoBehaviour
                int toolId = toolManager.curToolId;
                 if (Input.GetKey(KeyCode.Q))
                 {
-                    
                     if (toolManager.curToolType == 0)
                     {
                         hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage); 
@@ -52,11 +51,8 @@ public class DigManager : MonoBehaviour
                     {
                         hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage);
                     }
-                    
                 }
-
             }
-
         }
     }
 }
