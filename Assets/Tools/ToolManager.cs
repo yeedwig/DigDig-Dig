@@ -11,7 +11,10 @@ public class ToolManager : MonoBehaviour
     private Animator anim;
     
 
-    public int curToolSet; //0이면 삽, 1이면 드릴, 2이면 TNT, 3이면 Radar
+    public int curToolType; //0이면 삽, 1이면 드릴, 2이면 TNT, 3이면 Radar
+    public int curToolId;
+    public float curToolDamage;
+
     private bool ToolisDrilling;
     private bool ToolisDigging;
     private bool ToolisWalking;
@@ -33,18 +36,14 @@ public class ToolManager : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         */
-        curToolSet = 0;
+        curToolType = 0;
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        /*
-        ToolisDigging = Player.GetComponent<PlayerManager>().isDigging;
-        ToolisDrilling = Player.GetComponent<PlayerManager>().isDrilling;
-        ToolisWalking = Player.GetComponent<PlayerManager>().isWalking;
-        UpdateAnimation();*/
+        
     }
 
     void LateUpdate()
@@ -54,8 +53,10 @@ public class ToolManager : MonoBehaviour
 
     public int CheckToolBelt(int index)
     {
-        curToolSet = ToolBeltInventory[index].ToolId;
-        return curToolSet;
+        curToolType = ToolBeltInventory[index].itemType;
+        curToolId = ToolBeltInventory[index].ToolId;
+        curToolDamage = ToolBeltInventory[index].damage;
+        return curToolType;
     }
 
     private void CheckCurrentToolSkin()

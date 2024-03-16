@@ -39,16 +39,18 @@ public class DigManager : MonoBehaviour
 
             if (hit.collider != null)
             {
+               float damage = toolManager.curToolDamage;
+               int toolId = toolManager.curToolId;
                 if (Input.GetKey(KeyCode.Q))
                 {
                     
-                    if (toolManager.curToolSet == 0)
+                    if (toolManager.curToolType == 0)
                     {
-                        hit.transform.gameObject.GetComponent<Ground>().takeDamage(1.0f); 
+                        hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage); 
                     }
-                    else if(toolManager.curToolSet == 1&&direction.x==0)
+                    else if(toolManager.curToolType == 1&&direction.x==0)
                     {
-                        hit.transform.gameObject.GetComponent<Ground>().takeDamage(5.0f);
+                        hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage);
                     }
                     
                 }

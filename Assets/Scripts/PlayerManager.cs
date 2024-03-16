@@ -13,10 +13,11 @@ public class PlayerManager : MonoBehaviour
 
     //Tool
     [SerializeField] private ToolManager toolManager;
-    [SerializeField] private int curTool;
+    [SerializeField] private int curToolType;
+    [SerializeField] private int curToolId;
 
     //Items
-    [SerializeField] private GameObject[] Items;
+    //[SerializeField] private GameObject[] Items;
 
     //Walking
     public bool facingRight = true;
@@ -58,7 +59,7 @@ public class PlayerManager : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
 
-        curTool = 0;
+        curToolType = 0;
 
     }
 
@@ -74,8 +75,7 @@ public class PlayerManager : MonoBehaviour
         CheckCanWalk();
         CheckIsWalking();
 
-        ShowCurrentTool(curTool);
-
+        ShowCurrentTool(curToolId);
     }
 
     private void ShowCurrentTool(int index)
@@ -92,20 +92,21 @@ public class PlayerManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            curTool = toolManager.CheckToolBelt(0);
+            curToolType = toolManager.CheckToolBelt(0);
         }
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            curTool = toolManager.CheckToolBelt(1);
+            curToolType = toolManager.CheckToolBelt(1);
         }
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
-            curTool = toolManager.CheckToolBelt(2);
+            curToolType = toolManager.CheckToolBelt(2);
         }
         if(Input.GetKeyDown(KeyCode.Alpha4))
         {
-            curTool = toolManager.CheckToolBelt(3);
+            curToolType = toolManager.CheckToolBelt(3);
         }
+        curToolId = toolManager.curToolId;
 
     }
 
@@ -115,22 +116,22 @@ public class PlayerManager : MonoBehaviour
 
         if(Input.GetKey(KeyCode.Q) && isWalking == false)
         {
-            if(curTool == 0)
+            if(curToolType == 0)
             {
                 isDigging = true; 
             }
-            if(curTool == 1)
+            if(curToolType == 1)
             {
                 isDrilling = true;
             }
         }
         else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
         {
-            if(curTool == 0)
+            if(curToolType == 0)
             {
                 isDigging = false;
             }
-            if(curTool == 1)
+            if(curToolType == 1)
             {
                 isDrilling = false;
             }

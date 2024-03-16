@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Tool : MonoBehaviour //0 = Shovel, 1 = Drill, 2 = TNT, 3 = Radar
+public class Tool : MonoBehaviour 
 {
     string name;
-    public int ToolId;
-    public string itemType;
+    public int ToolId; // 고유 아이디
+    public int itemType; //0 = Shovel, 1 = Drill, 2 = TNT, 3 = Radar
     public float damage;
 
 }
