@@ -214,7 +214,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 128935269}
-  - component: {fileID: 128935268}
   m_Layer: 0
   m_Name: test
   m_TagString: Untagged
@@ -222,22 +221,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &128935268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128935267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef0c394127c6d4d4281fe0c01fe2a3b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 1246972418}
-  tilemap: {fileID: 954800255}
-  tile1: {fileID: 0}
-  tile2: {fileID: 0}
 --- !u!4 &128935269
 Transform:
   m_ObjectHideFlags: 0
@@ -485,7 +468,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ToolId: 0
   itemType: Shovel
-  damage: 0
+  damage: 2
 --- !u!212 &448561681
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1688,7 +1671,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ToolId: 1
   itemType: Drill
-  damage: 0
+  damage: 5
 --- !u!4 &965102143
 Transform:
   m_ObjectHideFlags: 0
@@ -1749,6 +1732,7 @@ GameObject:
   - component: {fileID: 1246972419}
   - component: {fileID: 1246972424}
   - component: {fileID: 1246972426}
+  - component: {fileID: 1246972427}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1944,6 +1928,21 @@ CapsuleCollider2D:
   m_Offset: {x: -0.0667181, y: -0.18}
   m_Size: {x: 0.60498047, y: 0.60498047}
   m_Direction: 0
+--- !u!114 &1246972427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246972418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320733c866a06b744a40b182efb62df1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1246972418}
+  toolManagerObject: {fileID: 2123044260}
+  toolManager: {fileID: 0}
 --- !u!1 &1441727348
 GameObject:
   m_ObjectHideFlags: 0
