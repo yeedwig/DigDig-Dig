@@ -13,6 +13,8 @@ public class Ground : MonoBehaviour
     public int[] groundMaxPerLevel; //ÁöÇÏ ¶¥ ·¹º§ y ÁÂÇ¥
     public float breakThreshold1, breakThreshold2;
 
+    private Dictionary<Vector3Int, GameObject> groundDictionary;
+
     public Tilemap groundTileMap;
     public SpriteRenderer sr;
     public BoxCollider2D bc;
@@ -75,6 +77,12 @@ public class Ground : MonoBehaviour
         currentHealth = maxHealth;
         startBreakingHealth = maxHealth * breakThreshold1;
         almostBrokenHealth = maxHealth * breakThreshold2;
+
+        if (isRuin)
+        {
+            groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
+            groundDictionary.Add(groundGridPosition, this.gameObject);
+        }
 
     }
 
