@@ -8,7 +8,7 @@ using Unity.Mathematics;
 public class TNT : MonoBehaviour
 {
     [SerializeField] int TNTTimer;
-    [SerializeField] bool isBig;
+    [SerializeField] int ToolID;
     private float bigTNTDamage;
     private float smallTNTDamage;
     public Tilemap groundTileMap;
@@ -49,7 +49,7 @@ public class TNT : MonoBehaviour
     {
         yield return new WaitForSeconds(TNTTimer);
         Vector3Int TNTGridPosition = groundTileMap.WorldToCell(this.transform.position);
-        if (isBig)
+        if (ToolID == 21)
         {
             int arraySize = bigTNTRange.GetLength(0);
             int offset = (arraySize - 1) / 2;
@@ -69,7 +69,7 @@ public class TNT : MonoBehaviour
                 }
             }
         }
-        else 
+        else if(ToolID == 20)
         {
             int arraySize = smallTNTRange.GetLength(0);
             int offset = (arraySize - 1) / 2;

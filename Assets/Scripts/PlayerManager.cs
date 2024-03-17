@@ -57,6 +57,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] GameObject TNTPrefab;
     [SerializeField] GameObject smallTNTPrefab;
     private bool tntIsBig;
+    private bool isPlacingTNT;
+
 
     void Start()
     {
@@ -83,6 +85,7 @@ public class PlayerManager : MonoBehaviour
         ShowCurrentTool(curToolId);
 
         //tnt 설치
+        /*
         if (Input.GetKeyDown(KeyCode.T))
         {
             tntIsBig= true;
@@ -93,6 +96,7 @@ public class PlayerManager : MonoBehaviour
             tntIsBig= false;
             InstallTNT();
         }
+        */
     }
 
     private void ShowCurrentTool(int index)
@@ -123,6 +127,10 @@ public class PlayerManager : MonoBehaviour
         {
             curToolType = toolManager.CheckToolBelt(3);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            curToolType = toolManager.CheckToolBelt(4);
+        }
         curToolId = toolManager.curToolId;
 
     }
@@ -131,15 +139,20 @@ public class PlayerManager : MonoBehaviour
     {
         moveDir = Input.GetAxisRaw("Horizontal");
 
-        if(Input.GetKey(KeyCode.Q) && isWalking == false)
+        if(Input.GetKeyDown(KeyCode.Q) && isWalking == false)
         {
-            if(curToolType == 0)
+            if(curToolType == 0) //삽인 경우
             {
                 isDigging = true; 
             }
-            if(curToolType == 1)
+            if(curToolType == 1) //드릴인 경우
             {
                 isDrilling = true;
+            }
+            if(curToolType == 2) //TNT인 경우
+            {
+                isPlacingTNT = true;
+                InstallTNT();
             }
         }
         else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
@@ -151,6 +164,10 @@ public class PlayerManager : MonoBehaviour
             if(curToolType == 1)
             {
                 isDrilling = false;
+            }
+            if (curToolType == 2)
+            {
+                isPlacingTNT = false;
             }
         }
 
@@ -258,16 +275,18 @@ public class PlayerManager : MonoBehaviour
     public void InstallTNT()
     {
 
-        if (tntIsBig)
-        {
-            GameObject TNT = Instantiate(TNTPrefab);
-            TNT.transform.position = this.transform.position;
-        }
-        else
+        if (curToolId == 20)
         {
             GameObject TNT = Instantiate(smallTNTPrefab);
             TNT.transform.position = this.transform.position;
         }
+
+        if (curToolId == 21)
+        {
+            GameObject TNT = Instantiate(TNTPrefab);
+            TNT.transform.position = this.transform.position;
+        }
+
         
     }
 }

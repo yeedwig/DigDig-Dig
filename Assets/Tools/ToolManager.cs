@@ -37,7 +37,8 @@ public class ToolManager : MonoBehaviour
         anim = GetComponent<Animator>();
         */
         curToolType = 0;
-
+        curToolId = 0;
+        curToolDamage = 0.5f; //처음 삽 시작 데미지
     }
 
     // Update is called once per frame

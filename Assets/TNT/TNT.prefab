@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1250683066301485329}
   - component: {fileID: 6173852106855010987}
   - component: {fileID: 5879549736190247003}
+  - component: {fileID: 4700106259321707610}
   - component: {fileID: -593979455870291107}
   m_Layer: 0
   m_Name: TNT
@@ -159,6 +160,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4700106259321707610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7285928399593544327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df9db82092281bb469b2564478072243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ToolId: 21
+  itemType: 2
+  damage: 0
 --- !u!114 &-593979455870291107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,5 +188,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TNTTimer: 10
-  isBig: 1
+  ToolID: 21
   groundTileMap: {fileID: 0}

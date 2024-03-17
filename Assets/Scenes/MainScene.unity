@@ -1988,6 +1988,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 938da194b94b94847a036ff39a4edab5, type: 3}
   - {fileID: 21300000, guid: 2d9d0c35b401f944d9fbd58ecbe5b98b, type: 3}
   - {fileID: 21300000, guid: 8e9a240c24c9b924aaa4c06f0ba2fb3f, type: 3}
+  - {fileID: -1600371726, guid: ee593b2f074c87b4ebc275cc9fc6a657, type: 3}
+  - {fileID: 507876664, guid: ee593b2f074c87b4ebc275cc9fc6a657, type: 3}
   curToolImage: {fileID: 466742596}
   groundCheck: {fileID: 1210510921}
   groundLayer:
@@ -2772,6 +2774,8 @@ MonoBehaviour:
   - {fileID: 448561680}
   - {fileID: 965102142}
   - {fileID: 1018378651}
+  - {fileID: 4700106259321707610, guid: 46b435168b328df4196517fb145897f8, type: 3}
+  - {fileID: 3705709532513380953, guid: 6e7421d48e9c23f46bfe4c2a9873c258, type: 3}
   skinNr: 0
   shovelSkins:
   - sprites:
