@@ -35,7 +35,7 @@ public class DigManager : MonoBehaviour
             }
 
             int layerMask = 1 << LayerMask.NameToLayer("Ground");
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 0.6f, layerMask);
+            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1f, layerMask);
 
             if (hit.collider != null)
             {
