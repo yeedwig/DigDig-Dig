@@ -1993,6 +1993,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
+  TNTPrefab: {fileID: 7285928399593544327, guid: 46b435168b328df4196517fb145897f8, type: 3}
+  smallTNTPrefab: {fileID: 3025716527097178769, guid: 6e7421d48e9c23f46bfe4c2a9873c258, type: 3}
 --- !u!70 &1246972426
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

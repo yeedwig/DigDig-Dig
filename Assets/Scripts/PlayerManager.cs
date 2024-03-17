@@ -53,6 +53,11 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] LayerMask groundLayer;
 
+    //tnt
+    [SerializeField] GameObject TNTPrefab;
+    [SerializeField] GameObject smallTNTPrefab;
+    private bool tntIsBig;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -76,6 +81,18 @@ public class PlayerManager : MonoBehaviour
         CheckIsWalking();
 
         ShowCurrentTool(curToolId);
+
+        //tnt 설치
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            tntIsBig= true;
+            InstallTNT();
+        }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            tntIsBig= false;
+            InstallTNT();
+        }
     }
 
     private void ShowCurrentTool(int index)
@@ -237,5 +254,20 @@ public class PlayerManager : MonoBehaviour
 
     private void CheckIsJumping()
     {
+    }
+    public void InstallTNT()
+    {
+
+        if (tntIsBig)
+        {
+            GameObject TNT = Instantiate(TNTPrefab);
+            TNT.transform.position = this.transform.position;
+        }
+        else
+        {
+            GameObject TNT = Instantiate(smallTNTPrefab);
+            TNT.transform.position = this.transform.position;
+        }
+        
     }
 }

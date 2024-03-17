@@ -94,14 +94,17 @@ public class Ground : MonoBehaviour
                 {
                     sr.sprite = null;
                     bc.enabled = false;
+                    //¾ê´Â ÇÑ¹ø¸¸ ½ÇÇàµÊ
                 }
                 else if (currentHealth < almostBrokenHealth)
                 {
                     sr.sprite = groundSprites[((groundLevel - 1) * 3) + 2];
+                    
                 }
                 else if (currentHealth < startBreakingHealth)
                 {
                     sr.sprite = groundSprites[((groundLevel - 1) * 3) + 1];
+                    
                 }
                 else
                 {
