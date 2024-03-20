@@ -10,7 +10,7 @@ public class EditController : MonoBehaviour
     [SerializeField] TileBase editTile;
     private Tilemap selectTilemap;
     private Tilemap editBackground;
-    private bool isEditOn;
+    public bool isEditOn;
     private Vector3Int editPos;
 
     
@@ -30,14 +30,12 @@ public class EditController : MonoBehaviour
         CheckEdit();
         if(isEditOn)
         {
-            editBackground.gameObject.SetActive(true);
-            Vector3Int gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-            selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(1, 0, 0), selectTile);
+            
+            
         }
         else
         {
-            editBackground.gameObject.SetActive(false);
-            selectTilemap.ClearAllTiles();
+            
         }
         
     }
@@ -46,6 +44,17 @@ public class EditController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            if(isEditOn)
+            {
+                editBackground.gameObject.SetActive(false);
+                selectTilemap.ClearAllTiles();
+            }
+            else
+            {
+                editBackground.gameObject.SetActive(true);
+                Vector3Int gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
+                selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(0, -1, 0), selectTile);
+            }
             isEditOn = !isEditOn;
         }
     }

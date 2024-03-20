@@ -59,12 +59,16 @@ public class PlayerManager : MonoBehaviour
     private bool tntIsBig;
     private bool isPlacingTNT;
 
+    //edit 관련
+    private EditController editcontroller;
+
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
 
         curToolType = 0;
 
@@ -225,6 +229,7 @@ public class PlayerManager : MonoBehaviour
     //Walking
     private void Walk()
     {
+        
         if(canWalk)
         {
             rb.velocity = new Vector2(moveDir * walkSpeed, rb.velocity.y);
@@ -233,7 +238,7 @@ public class PlayerManager : MonoBehaviour
     
     private void CheckCanWalk()
     {
-        if(isDigging == true || isDrilling == true)
+        if(isDigging == true || isDrilling == true||editcontroller.isEditOn)
         {
             canWalk = false;
         }
