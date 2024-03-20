@@ -31,7 +31,7 @@ public class PlayerManager : MonoBehaviour
     private bool isJumping = false;
 
     //Digging
-    private bool canDig = true;
+    public bool canDig = true;
     public bool isDigging = false;
 
     //Drilling

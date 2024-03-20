@@ -9,16 +9,19 @@ public class DigManager : MonoBehaviour
     public GameObject player;
     public GameObject toolManagerObject;
     public ToolManager toolManager;
+
+    public PlayerManager playerManager;
     // Start is called before the first frame update
     void Start()
     {
         toolManager = toolManagerObject.GetComponent<ToolManager>();
+        playerManager = player.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q) && !playerManager.isWalking)
         {
             Vector2 direction = new Vector2(0, 0);
             if (Input.GetKey(KeyCode.LeftArrow))
