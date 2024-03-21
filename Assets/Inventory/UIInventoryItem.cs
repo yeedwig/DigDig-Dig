@@ -51,9 +51,6 @@ public class UIInventoryItem : MonoBehaviour, IPointerClickHandler,
 
     public void OnPointerClick(PointerEventData pointerData)
     {
-        
-
-
         if (pointerData.button == PointerEventData.InputButton.Right)
         {
             OnRightMouseBtnClick?.Invoke(this);
