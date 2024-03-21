@@ -63,12 +63,16 @@ public class PlayerManager : MonoBehaviour
     private EditController editcontroller;
 
 
+    //Dig 관련
+    public DigManager digManager;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
+        digManager = GetComponent<DigManager>();
 
         curToolType = 0;
 
@@ -80,7 +84,7 @@ public class PlayerManager : MonoBehaviour
         CheckCurrentTool();
         CheckInput();
         Flip();
-        UpdateAnimation();
+        //UpdateAnimation();
         CheckTool();
 
         CheckCanWalk();
@@ -88,19 +92,6 @@ public class PlayerManager : MonoBehaviour
 
         ShowCurrentTool(curToolId);
 
-        //tnt 설치
-        /*
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            tntIsBig= true;
-            InstallTNT();
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            tntIsBig= false;
-            InstallTNT();
-        }
-        */
     }
 
     private void ShowCurrentTool(int index)
@@ -110,6 +101,7 @@ public class PlayerManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        UpdateAnimation();
         Walk();
     }
 
@@ -158,6 +150,7 @@ public class PlayerManager : MonoBehaviour
                 isPlacingTNT = true;
                 InstallTNT();
             }
+            
         }
         else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
         {

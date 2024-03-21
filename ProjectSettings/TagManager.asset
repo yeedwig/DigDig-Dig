@@ -49,12 +49,12 @@ TagManager:
   - name: Tools
     uniqueID: 3462562429
     locked: 0
-  - name: UI
-    uniqueID: 2697488421
-    locked: 0
   - name: Ground
     uniqueID: 1552211913
     locked: 0
   - name: Corner
     uniqueID: 980034725
+    locked: 0
+  - name: UI
+    uniqueID: 1485017225
     locked: 0
