@@ -60,6 +60,7 @@ public class PlayerManager : MonoBehaviour
     private bool isPlacingTNT;
 
     //edit 관련
+    private bool isEditOn;
     private EditController editcontroller;
 
 
@@ -91,6 +92,8 @@ public class PlayerManager : MonoBehaviour
         CheckIsWalking();
 
         ShowCurrentTool(curToolId);
+
+        CheckIsEditOn(); //Edit 창 켜져있는지 확인
 
     }
 
@@ -231,7 +234,7 @@ public class PlayerManager : MonoBehaviour
     
     private void CheckCanWalk()
     {
-        if(isDigging == true || isDrilling == true||editcontroller.isEditOn)
+        if(isDigging == true || isDrilling == true||isEditOn)
         {
             canWalk = false;
         }
@@ -286,5 +289,10 @@ public class PlayerManager : MonoBehaviour
         }
 
         
+    }
+
+    private void CheckIsEditOn()
+    {
+        isEditOn = editcontroller.isEditOn;
     }
 }

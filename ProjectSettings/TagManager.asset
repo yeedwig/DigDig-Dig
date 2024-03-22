@@ -55,6 +55,9 @@ TagManager:
   - name: Corner
     uniqueID: 980034725
     locked: 0
+  - name: Edit
+    uniqueID: 253100513
+    locked: 0
   - name: UI
     uniqueID: 1485017225
     locked: 0
