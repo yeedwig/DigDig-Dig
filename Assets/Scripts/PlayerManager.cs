@@ -82,16 +82,20 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckCurrentTool();
-        CheckInput();
-        Flip();
-        //UpdateAnimation();
-        CheckTool();
+        if(!isEditOn)
+        {
+            CheckCurrentTool();
+            CheckInput();
+            Flip();
+            //UpdateAnimation();
+            CheckTool();
 
-        CheckCanWalk();
-        CheckIsWalking();
+            CheckCanWalk();
+            CheckIsWalking();
 
-        ShowCurrentTool(curToolId);
+            ShowCurrentTool(curToolId);
+        }
+     
 
         CheckIsEditOn(); //Edit 창 켜져있는지 확인
 

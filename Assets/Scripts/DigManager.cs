@@ -11,6 +11,10 @@ public class DigManager : MonoBehaviour
     public ToolManager toolManager;
 
     public PlayerManager playerManager;
+
+    private float digDirX;
+    private float digDirY;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,19 +25,21 @@ public class DigManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        digDirX = Input.GetAxisRaw("Horizontal");
+        digDirY = Input.GetAxisRaw("Vertical");
         if (Input.GetKey(KeyCode.Q) && !playerManager.isWalking && (playerManager.isDigging || playerManager.isDrilling))
         {
             //여기서 Q를 먼저 받아와서 문제가 생기는 듯함 그래서 Q를 누르고 방향키를 누르면 애니메이션이 그대로 나오는데 반대인경우 안나옴
             Vector2 direction = new Vector2(0, 0);
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (digDirX < 0 && digDirY == 0)//Input.GetKey(KeyCode.LeftArrow))
             {
                 direction = new Vector2(-1, 0);
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (digDirX > 0 && digDirY == 0)//Input.GetKey(KeyCode.RightArrow))
             {
                 direction = new Vector2(1, 0);
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+            else if (digDirY < 0)//Input.GetKey(KeyCode.DownArrow))
             {
                 direction = new Vector2(0, -1);
             }
