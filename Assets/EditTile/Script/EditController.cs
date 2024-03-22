@@ -28,6 +28,7 @@ public class EditController : MonoBehaviour
         selectTilemap = GameObject.Find("Edit").GetComponent<Tilemap>();
         editBackground = GameObject.Find("EditBackground").GetComponent<Tilemap>();
         cursorSR = cursor.GetComponent<SpriteRenderer>();
+        cursor.SetActive(false);
         CreateEditBackground();
         isEditOn = false;
     }
@@ -81,7 +82,7 @@ public class EditController : MonoBehaviour
             }
         }
         editBackground.gameObject.SetActive(false);
-        cursor.SetActive(false);
+        
     }
 
     private void MoveEditCursor()
