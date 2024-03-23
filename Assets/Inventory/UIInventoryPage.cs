@@ -42,6 +42,9 @@ namespace Inventory.UI
 
                 uiItem.transform.SetParent(contentPanel);
                 uiItem.transform.localScale = new Vector3(1, 1, 1);
+
+                uiItem.transform.localPosition = Vector3.zero;
+                
                 listOfUIItems.Add(uiItem);
 
                 uiItem.OnItemClicked += HandleItemSelection;
