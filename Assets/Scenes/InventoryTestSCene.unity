@@ -702,8 +702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99131be4d6c16142a48fc1ce3e62cc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectTile: {fileID: 11400000, guid: 358995ad8638d244f9468d25961ed37f, type: 2}
-  editTile: {fileID: 11400000, guid: 4cd305a6b26ad8248a1fdb10eb37c5cd, type: 2}
   cursor: {fileID: 19347489}
   itemCursorSprite:
   - {fileID: 1772205100, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
@@ -865,7 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34741b43c1060f43b3c6185f6082d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 571c54a90697e1e4b89f241e37eb0ffb, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 0}
   <Quantity>k__BackingField: 1
   duration: 0.3
 --- !u!58 &380352325
@@ -1455,7 +1453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34741b43c1060f43b3c6185f6082d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 571c54a90697e1e4b89f241e37eb0ffb, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 0}
   <Quantity>k__BackingField: 1
   duration: 0.3
 --- !u!58 &437497412
@@ -2933,7 +2931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34741b43c1060f43b3c6185f6082d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 56502172c8000564da1c3c86b8870be1, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 0}
   <Quantity>k__BackingField: 1
   duration: 0.3
 --- !u!58 &746798286
@@ -4285,7 +4283,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34741b43c1060f43b3c6185f6082d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 56502172c8000564da1c3c86b8870be1, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 0}
   <Quantity>k__BackingField: 1
   duration: 0.3
 --- !u!58 &1215341546
@@ -5573,7 +5571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34741b43c1060f43b3c6185f6082d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 09f9086018a1e5a439e37a8004e11130, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 0}
   <Quantity>k__BackingField: 1
   duration: 0.3
 --- !u!58 &1614758769
@@ -5715,7 +5713,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1673772116
@@ -6119,7 +6117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34741b43c1060f43b3c6185f6082d28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InventoryItem>k__BackingField: {fileID: 11400000, guid: 571c54a90697e1e4b89f241e37eb0ffb, type: 2}
+  <InventoryItem>k__BackingField: {fileID: 0}
   <Quantity>k__BackingField: 1
   duration: 0.3
 --- !u!58 &1820537480
