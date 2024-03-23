@@ -137,19 +137,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2148511254130707891, guid: 54e2f928b8db3904fa267a2454303cce, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2148511254130707891, guid: 54e2f928b8db3904fa267a2454303cce, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2148511254130707891, guid: 54e2f928b8db3904fa267a2454303cce, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 13.87295
       objectReference: {fileID: 0}
     - target: {fileID: 2148511254130707891, guid: 54e2f928b8db3904fa267a2454303cce, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -11.487949
       objectReference: {fileID: 0}
     - target: {fileID: 4301746680878709453, guid: 54e2f928b8db3904fa267a2454303cce, type: 3}
       propertyPath: m_Name
@@ -1664,8 +1664,8 @@ MonoBehaviour:
     item: {fileID: 0}
   - quantity: 1
     item: {fileID: 11400000, guid: 09f9086018a1e5a439e37a8004e11130, type: 2}
-  - quantity: 0
-    item: {fileID: 0}
+  - quantity: 3
+    item: {fileID: 11400000, guid: 56502172c8000564da1c3c86b8870be1, type: 2}
 --- !u!4 &1762747998
 Transform:
   m_ObjectHideFlags: 0
