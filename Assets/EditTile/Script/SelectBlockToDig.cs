@@ -12,6 +12,7 @@ public class SelectBlockToDig : MonoBehaviour
     private int layerMask;
     private Vector3Int gridPlayerPosition;
     private ToolManager toolManager;
+    private EditController editController;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,45 +20,50 @@ public class SelectBlockToDig : MonoBehaviour
         selectTilemap = GameObject.Find("SelectGroundToDig").GetComponent<Tilemap>();
         toolManager = GameObject.Find("ToolManager").GetComponent<ToolManager>();
         layerMask = 1 << LayerMask.NameToLayer("Ground");
+        editController = GameObject.Find("Edit").GetComponent<EditController>();
     }
 
     // Update is called once per frame
     void Update()
     {
         selectTilemap.ClearAllTiles();
-        if (Input.GetKey(KeyCode.LeftArrow) && toolManager.curToolType==0)
+        if (!editController.isEditOn)
         {
-            direction = new Vector2(-1, 0);
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1.0f, layerMask);
-
-            if (hit.collider != null)
+            if (Input.GetKey(KeyCode.LeftArrow) && toolManager.curToolType == 0)
             {
-                gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-                selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(-1, 0, 0), selectTile);
+                direction = new Vector2(-1, 0);
+                RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1.0f, layerMask);
+
+                if (hit.collider != null)
+                {
+                    gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
+                    selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(-1, 0, 0), selectTile);
+                }
+
             }
-
-        }
-        else if (Input.GetKey(KeyCode.RightArrow) && toolManager.curToolType == 0)
-        {
-            direction = new Vector2(1, 0);
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1.0f, layerMask);
-
-            if (hit.collider != null)
+            else if (Input.GetKey(KeyCode.RightArrow) && toolManager.curToolType == 0)
             {
-                gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-                selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(1, 0, 0), selectTile);
-            }
-        }
-        else if (Input.GetKey(KeyCode.DownArrow) && toolManager.curToolType <= 1)
-        {
-            direction = new Vector2(0, -1);
-            RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1.0f, layerMask);
+                direction = new Vector2(1, 0);
+                RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1.0f, layerMask);
 
-            if (hit.collider != null)
+                if (hit.collider != null)
+                {
+                    gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
+                    selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(1, 0, 0), selectTile);
+                }
+            }
+            else if (Input.GetKey(KeyCode.DownArrow) && toolManager.curToolType <= 1)
             {
-                gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-                selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(0, -1, 0), selectTile);
+                direction = new Vector2(0, -1);
+                RaycastHit2D hit = Physics2D.Raycast(player.transform.position, direction, 1.0f, layerMask);
+
+                if (hit.collider != null)
+                {
+                    gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
+                    selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(0, -1, 0), selectTile);
+                }
             }
         }
+        
     }
 }

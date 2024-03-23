@@ -6,8 +6,6 @@ using UnityEngine.Tilemaps;
 public class EditController : MonoBehaviour
 {
     private GameObject player;
-    [SerializeField] TileBase selectTile;
-    [SerializeField] TileBase editTile;
 
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
@@ -29,7 +27,6 @@ public class EditController : MonoBehaviour
         editBackground = GameObject.Find("EditBackground").GetComponent<Tilemap>();
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         cursor.SetActive(false);
-        CreateEditBackground();
         isEditOn = false;
     }
 
@@ -42,10 +39,8 @@ public class EditController : MonoBehaviour
         if(isEditOn)
         {
             cursor.transform.position = editPos;
-            
-            //selectTilemap.ClearAllTiles();
-            //selectTilemap.SetTile(editPos, selectTile);
         }
+        bool test = CheckCanInstall();
     }
 
     void CheckEdit()
@@ -61,33 +56,19 @@ public class EditController : MonoBehaviour
             {
                 cursor.SetActive(true);
                 itemCursorIndex = 0;
-                editBackground.gameObject.SetActive(true);
                 editPos = selectTilemap.WorldToCell(player.transform.position);
                 editPos.x += 0.5f;
                 editPos.y += 0.5f;
                 cursorSR.sprite = itemCursorSprite[itemCursorIndex];
+                cursorSR.color = new Color(1, 1, 1, 0.7f);
             }
             isEditOn = !isEditOn;
         }
     }
-    private void CreateEditBackground()
-    {
-        int mapWidth = GameObject.Find("MapGenerator").GetComponent<MapGenerator>().mapWidth;
-        int mapHeight = GameObject.Find("MapGenerator").GetComponent<MapGenerator>().mapHeight;
-        for(int i=0;i<mapHeight; i++)
-        {
-            for(int j=0;j<mapWidth; j++)
-            {
-                editBackground.SetTile(new Vector3Int(j, -i, 0), editTile);
-            }
-        }
-        editBackground.gameObject.SetActive(false);
-        
-    }
 
     private void MoveEditCursor()
     {
-        if (!Input.GetKey(KeyCode.C))
+        if (!Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -111,7 +92,7 @@ public class EditController : MonoBehaviour
 
     private void ChangeItemIndex()
     {
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -133,5 +114,18 @@ public class EditController : MonoBehaviour
         }
         // 만약 엘베 문을 설치한 상태라면 통로 sprite로 변경, 거기서는 좌우로 변경 불가능
 
+    }
+    private bool CheckCanInstall()
+    {
+        bool canInstall = false;
+        switch (itemCursorIndex)
+        {
+            case 0:
+                
+                break;
+            default:
+                break;
+        }
+        return canInstall;
     }
 }
