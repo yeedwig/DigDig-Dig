@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace Inventory.Model
 {
     [CreateAssetMenu]
@@ -37,7 +36,7 @@ namespace Inventory.Model
         public string ActionName { get; }
         //public AudioClip actionSFX { get; }
 
-        bool PerformAction(GameObject character);
+        bool PerformAction(GameObject character);//, List<ItemParameter> itemState);
     }
 
     [Serializable]
