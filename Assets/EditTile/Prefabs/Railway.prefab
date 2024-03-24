@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8709180268395833697}
   - component: {fileID: 4853877286875129964}
   - component: {fileID: -7700771866319716390}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Railway
-  m_TagString: Untagged
+  m_TagString: Rail
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

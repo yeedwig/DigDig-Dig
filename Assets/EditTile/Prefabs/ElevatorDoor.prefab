@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3368448689057864486}
   - component: {fileID: 2286649052452913953}
   - component: {fileID: -5891174610997226613}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ElevatorDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1552211913
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 3
   m_Sprite: {fileID: -662077481, guid: 8380b65d4d12b5846b0f4ed3508ef802, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
