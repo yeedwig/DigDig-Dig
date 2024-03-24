@@ -28,7 +28,7 @@ namespace Inventory.Model
 
         [field: SerializeField]
 
-        public List<ItemParameterSO> DefaultParametersList {  get; set; }
+        public List<ItemParameter> DefaultParametersList {  get; set; }
 
         [Serializable]
         public struct ItemParameter : IEquatable<ItemParameter>

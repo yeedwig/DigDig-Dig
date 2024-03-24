@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Inventory.Model.ItemSO;
 
 namespace Inventory.Model
 {
@@ -13,39 +14,43 @@ namespace Inventory.Model
 
         public string ActionName => "Consume";
 
-        //public AudioClip actionSFX { get; private set; }
-
-        public bool PerformAction(GameObject character)
+        public bool PerformAction(GameObject character, List<ItemParameter> itemState = null)
         {
-            foreach(ModifierData data in modifiersData)
+            foreach (ModifierData data in modifiersData)
             {
                 data.statModifier.AffectCharacter(character, data.value);
             }
 
             return true;
         }
+
+        //public AudioClip actionSFX { get; private set; }
+
+
     }
 
-    public interface IDestroyableItem
-    {
 
-    }
+        public interface IDestroyableItem
+        {
 
-    public interface IItemAction
-    {
-        public string ActionName { get; }
-        //public AudioClip actionSFX { get; }
+        }
 
-        bool PerformAction(GameObject character);//, List<ItemParameter> itemState);
-    }
+        public interface IItemAction
+        {
+            public string ActionName { get; }
+            //public AudioClip actionSFX { get; }
 
-    [Serializable]
+            bool PerformAction(GameObject character, List<ItemParameter> itemState);
+        }
 
-    public class ModifierData
-    {
-        public CharacterStatModifierSO statModifier;
-        public float value;
-    }
+        [Serializable]
+
+        public class ModifierData
+        {
+            public CharacterStatModifierSO statModifier;
+            public float value;
+        }
+    
 
 }
 
