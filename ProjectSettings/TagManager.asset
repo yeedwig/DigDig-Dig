@@ -43,9 +43,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 2130534703
-    locked: 0
   - name: Tools
     uniqueID: 3462562429
     locked: 0
@@ -57,6 +54,9 @@ TagManager:
     locked: 0
   - name: Edit
     uniqueID: 253100513
+    locked: 0
+  - name: Player
+    uniqueID: 2130534703
     locked: 0
   - name: UI
     uniqueID: 1485017225

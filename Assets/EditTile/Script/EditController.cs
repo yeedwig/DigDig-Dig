@@ -20,6 +20,8 @@ public class EditController : MonoBehaviour
 
     private int layerMask;
 
+    private Dictionary<Vector3Int, GameObject> groundDictionary;
+
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class EditController : MonoBehaviour
         editBackground = GameObject.Find("EditBackground").GetComponent<Tilemap>();
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         layerMask = 1 << LayerMask.NameToLayer("Ground");
+        groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         cursor.SetActive(false);
         isEditOn = false;
     }
@@ -39,7 +42,9 @@ public class EditController : MonoBehaviour
         CheckEdit();
         MoveEditCursor();
         ChangeItemIndex();
-        var ground = Physics2D.OverlapCircle(cursor.transform.position, 0.2f,layerMask);
+        InstallBlock();
+        
+        
     }
 
     void CheckEdit()
@@ -119,13 +124,38 @@ public class EditController : MonoBehaviour
         // 만약 엘베 문을 설치한 상태라면 통로 sprite로 변경, 거기서는 좌우로 변경 불가능
 
     }
+
+    private void InstallBlock()
+    {
+        if (isEditOn && Input.GetKeyDown(KeyCode.Z))
+        {
+            if (CheckCanInstall())
+            {
+                switch (itemCursorIndex)
+                {
+                    case 0: //갱도
+                        Vector3Int cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        Ground ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        ground.gangInstalled = true;
+                        ground.ChangeSpriteByCurrentHealth();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    }
     private bool CheckCanInstall()
     {
         bool canInstall = false;
         switch (itemCursorIndex)
         {
             case 0: //갱도
-                
+                var ground = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                if (ground == null)
+                {
+                    canInstall = true;
+                }
                 break;
             default:
                 break;
