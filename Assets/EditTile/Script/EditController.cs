@@ -10,8 +10,9 @@ public class EditController : MonoBehaviour
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
     private int itemCursorIndex; //0 갱도, 1 사다리, 2 레일, 3 엘베문, 4 엘베 통로
-    [SerializeField] Sprite[] itemCursorSprite; 
-    
+    [SerializeField] Sprite[] itemCursorSprite;
+    [SerializeField] GameObject[] itemPrefabs;
+
 
     private Tilemap selectTilemap;
     private Tilemap editBackground;
@@ -131,13 +132,19 @@ public class EditController : MonoBehaviour
         {
             if (CheckCanInstall())
             {
+                Vector3Int cursorPos;
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
-                        Vector3Int cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
                         Ground ground = groundDictionary[cursorPos].GetComponent<Ground>();
                         ground.gangInstalled = true;
                         ground.ChangeSpriteByCurrentHealth();
+                        break;
+                    case 2://레일
+                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        GameObject rail = Instantiate(itemPrefabs[2]);
+                        rail.transform.position = cursorPos+new Vector3(0.5f,0.5f,0);
                         break;
                     default:
                         break;
@@ -148,11 +155,21 @@ public class EditController : MonoBehaviour
     private bool CheckCanInstall()
     {
         bool canInstall = false;
+        Collider2D groundOnCursor;
+        RaycastHit2D hit;
         switch (itemCursorIndex)
         {
             case 0: //갱도
-                var ground = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                if (ground == null)
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                if (groundOnCursor == null)
+                {
+                    canInstall = true;
+                }
+                break;
+            case 2: //레일
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, layerMask);
+                if (groundOnCursor == null && hit.collider!=null)
                 {
                     canInstall = true;
                 }
@@ -167,5 +184,6 @@ public class EditController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
+        Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(0,-1,0));
     }
 }

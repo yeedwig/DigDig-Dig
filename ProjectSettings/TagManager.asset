@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - BigTNT
-  - SmallTNT
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -52,11 +50,11 @@ TagManager:
   - name: Corner
     uniqueID: 980034725
     locked: 0
-  - name: Edit
-    uniqueID: 253100513
-    locked: 0
   - name: Player
     uniqueID: 2130534703
+    locked: 0
+  - name: Edit
+    uniqueID: 253100513
     locked: 0
   - name: UI
     uniqueID: 1485017225
