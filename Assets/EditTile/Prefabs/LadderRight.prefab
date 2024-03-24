@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6149653243879433157
+--- !u!1 &5736883927993106204
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,37 +8,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8514347345336646878}
-  - component: {fileID: 6882055324069574116}
+  - component: {fileID: 2209055026622148362}
+  - component: {fileID: 1488687794826082815}
   m_Layer: 7
-  m_Name: Gang
+  m_Name: LadderRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8514347345336646878
+--- !u!4 &2209055026622148362
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149653243879433157}
+  m_GameObject: {fileID: 5736883927993106204}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6911533, y: -2.6627777, z: 0}
+  m_LocalPosition: {x: 10.597356, y: 1.187029, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6882055324069574116
+--- !u!212 &1488687794826082815
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6149653243879433157}
+  m_GameObject: {fileID: 5736883927993106204}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -70,10 +70,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1552211913
-  m_SortingLayer: 2
-  m_SortingOrder: 4
-  m_Sprite: {fileID: 1772205100, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
+  m_SortingLayerID: -883459807
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -703649975, guid: 8380b65d4d12b5846b0f4ed3508ef802, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

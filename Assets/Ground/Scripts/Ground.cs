@@ -10,6 +10,7 @@ public class Ground : MonoBehaviour
     public int groundLevel; //땅 레벨(깊이에 따라)
     public bool isRuin = false; //유적인가
     public bool gangInstalled = false; //갱도가 설치되었는가
+    public bool structureInstalled = false; //설치된 아이템이 있는가
     public int[] groundMaxPerLevel; //지하 땅 레벨 y 좌표
     public float breakThreshold1, breakThreshold2;
 

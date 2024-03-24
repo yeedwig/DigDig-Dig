@@ -9,7 +9,7 @@ public class EditController : MonoBehaviour
 
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
-    private int itemCursorIndex; //0 갱도, 1 사다리, 2 레일, 3 엘베문, 4 엘베 통로
+    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문, 5 엘베 통로
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] GameObject[] itemPrefabs;
 
@@ -109,13 +109,13 @@ public class EditController : MonoBehaviour
                 itemCursorIndex--;
                 if (itemCursorIndex < 0)
                 {
-                    itemCursorIndex = 3;
+                    itemCursorIndex = 4;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 itemCursorIndex++;
-                if (itemCursorIndex > 3)
+                if (itemCursorIndex > 4)
                 {
                     itemCursorIndex = 0;
                 }
@@ -133,18 +133,35 @@ public class EditController : MonoBehaviour
             if (CheckCanInstall())
             {
                 Vector3Int cursorPos;
+                Ground ground;
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
                         cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        Ground ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
                         ground.gangInstalled = true;
                         ground.ChangeSpriteByCurrentHealth();
                         break;
-                    case 2://레일
+                    case 1: //오른쪽 사다리
                         cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        GameObject rail = Instantiate(itemPrefabs[2]);
+                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        GameObject ladderRight = Instantiate(itemPrefabs[itemCursorIndex]);
+                        ladderRight.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                        ground.structureInstalled = true;
+                        break;
+                    case 2: //왼쪽 사다리
+                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        GameObject ladderLeft = Instantiate(itemPrefabs[itemCursorIndex]);
+                        ladderLeft.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                        ground.structureInstalled = true;
+                        break;
+                    case 3://레일
+                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        GameObject rail = Instantiate(itemPrefabs[itemCursorIndex]);
                         rail.transform.position = cursorPos+new Vector3(0.5f,0.5f,0);
+                        ground.structureInstalled = true;
                         break;
                     default:
                         break;
@@ -157,6 +174,8 @@ public class EditController : MonoBehaviour
         bool canInstall = false;
         Collider2D groundOnCursor;
         RaycastHit2D hit;
+        Vector3Int cursorPos;
+        Ground ground;
         switch (itemCursorIndex)
         {
             case 0: //갱도
@@ -166,10 +185,32 @@ public class EditController : MonoBehaviour
                     canInstall = true;
                 }
                 break;
-            case 2: //레일
+            case 1: //오른쪽 사다리
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, layerMask);
+                cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                {
+                    canInstall = true;
+                }
+                break;
+            case 2://왼쪽 사다리
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, layerMask);
+                cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                {
+                    canInstall = true;
+                }
+                break;
+            case 3: //레일
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
                 hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, layerMask);
-                if (groundOnCursor == null && hit.collider!=null)
+                cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                if (groundOnCursor == null && hit.collider!=null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
                 }
