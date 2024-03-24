@@ -18,7 +18,9 @@ public class EditController : MonoBehaviour
     public bool isEditOn;
     private Vector3 editPos;
 
-    
+    private int layerMask;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,7 @@ public class EditController : MonoBehaviour
         selectTilemap = GameObject.Find("Edit").GetComponent<Tilemap>();
         editBackground = GameObject.Find("EditBackground").GetComponent<Tilemap>();
         cursorSR = cursor.GetComponent<SpriteRenderer>();
+        layerMask = 1 << LayerMask.NameToLayer("Ground");
         cursor.SetActive(false);
         isEditOn = false;
     }
@@ -36,11 +39,7 @@ public class EditController : MonoBehaviour
         CheckEdit();
         MoveEditCursor();
         ChangeItemIndex();
-        if(isEditOn)
-        {
-            cursor.transform.position = editPos;
-        }
-        bool test = CheckCanInstall();
+        var ground = Physics2D.OverlapCircle(cursor.transform.position, 0.2f,layerMask);
     }
 
     void CheckEdit()
@@ -59,6 +58,7 @@ public class EditController : MonoBehaviour
                 editPos = selectTilemap.WorldToCell(player.transform.position);
                 editPos.x += 0.5f;
                 editPos.y += 0.5f;
+                cursor.transform.position = editPos;
                 cursorSR.sprite = itemCursorSprite[itemCursorIndex];
                 cursorSR.color = new Color(1, 1, 1, 0.7f);
             }
@@ -73,18 +73,22 @@ public class EditController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 editPos.x--;
+                cursor.transform.position = editPos;
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 editPos.x++;
+                cursor.transform.position = editPos;
             }
             else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 editPos.y++;
+                cursor.transform.position = editPos;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 editPos.y--;
+                cursor.transform.position = editPos;
             }
         }
         
@@ -120,12 +124,18 @@ public class EditController : MonoBehaviour
         bool canInstall = false;
         switch (itemCursorIndex)
         {
-            case 0:
+            case 0: //°»µµ
                 
                 break;
             default:
                 break;
         }
         return canInstall;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
     }
 }

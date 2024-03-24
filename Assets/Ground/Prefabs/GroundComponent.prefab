@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6139496667900819960}
   - component: {fileID: 3772460663163352774}
   - component: {fileID: 5225269305995201534}
-  - component: {fileID: 2360534045318850768}
+  - component: {fileID: 7182001883272849048}
   m_Layer: 6
   m_Name: GroundComponent
   m_TagString: Untagged
@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1552211913
-  m_SortingLayer: 4
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1300004791, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 1662449315, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   ruinSprites: []
   gangSprite: {fileID: 1772205100, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
---- !u!61 &2360534045318850768
+--- !u!61 &7182001883272849048
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
