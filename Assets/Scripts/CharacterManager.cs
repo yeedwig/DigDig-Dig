@@ -22,26 +22,30 @@ public class CharacterManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //임시
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Player.GetComponent<PlayerManager>().Dead = true;
-        }
-    }
+
 
     void LateUpdate()
     {
+        /*
         if(Player.GetComponent<PlayerManager>().Dead == true)
         {
             skinNr = Random.Range(0,3);
             Player.GetComponent<PlayerManager>().Dead = false;
             GroundDictionary.GetComponent<GroundDictionary>().MapReset();
             Player.transform.position = new Vector3(1.0f, 5.0f, 0);
-        }
+        }*/
         Respawn();
 
+    }
+
+    public bool resetCharacter()
+    {
+        skinNr = Random.Range(0, 3);
+        Player.GetComponent<PlayerManager>().Dead = false;
+        GroundDictionary.GetComponent<GroundDictionary>().MapReset();
+        Player.transform.position = new Vector3(1.0f, 5.0f, 0);
+
+        return true;
     }
 
     void Respawn()

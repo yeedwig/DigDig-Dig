@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
 
     //Tool
     [SerializeField] private ToolManager toolManager;
-    [SerializeField] private int curToolType;
+    [SerializeField] private Item curItem;
     [SerializeField] private int curToolId;
 
     //Items
@@ -45,7 +45,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject Tools;
 
     //Tool UI
-    [SerializeField] private Sprite[] ToolIcons;
+    public GameObject InventoryUI;
+    public bool inventoryOpened;
     public Image curToolImage;
 
     //IsGrounded
@@ -69,13 +70,15 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
+        Dead = false;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
         digManager = GetComponent<DigManager>();
 
-        curToolType = 0;
+        curItem = toolManager.curItem;
+        //curItem.itemType = 0;
 
     }
 
@@ -93,7 +96,7 @@ public class PlayerManager : MonoBehaviour
             CheckCanWalk();
             CheckIsWalking();
 
-            ShowCurrentTool(curToolId);
+            //ShowCurrentTool();
         }
      
 
@@ -101,10 +104,12 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    private void ShowCurrentTool(int index)
+    private void ShowCurrentTool()
     {
-        curToolImage.sprite = ToolIcons[index];
+        curToolImage.sprite = curItem.image;
     }
+
+    
 
     void FixedUpdate()
     {
@@ -116,24 +121,35 @@ public class PlayerManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            curToolType = toolManager.CheckToolBelt(0);
+            toolManager.ChangeSelectedSlot(0);
+            curItem = toolManager.CheckToolBelt(0);
         }
         if(Input.GetKeyDown(KeyCode.Alpha2))
         {
-            curToolType = toolManager.CheckToolBelt(1);
+            toolManager.ChangeSelectedSlot(1);
+            curItem = toolManager.CheckToolBelt(1);
         }
         if(Input.GetKeyDown(KeyCode.Alpha3))
         {
-            curToolType = toolManager.CheckToolBelt(2);
+            toolManager.ChangeSelectedSlot(2);
+            curItem = toolManager.CheckToolBelt(2);
         }
         if(Input.GetKeyDown(KeyCode.Alpha4))
         {
-            curToolType = toolManager.CheckToolBelt(3);
+            toolManager.ChangeSelectedSlot(3);
+            curItem = toolManager.CheckToolBelt(3);
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            curToolType = toolManager.CheckToolBelt(4);
+            toolManager.ChangeSelectedSlot(4);
+            curItem = toolManager.CheckToolBelt(4);
         }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            toolManager.ChangeSelectedSlot(5);
+            curItem = toolManager.CheckToolBelt(5);
+        }
+
         curToolId = toolManager.curToolId;
 
     }
@@ -142,17 +158,30 @@ public class PlayerManager : MonoBehaviour
     {
         moveDir = Input.GetAxisRaw("Horizontal");
 
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if(inventoryOpened == false)
+            {
+                InventoryUI.SetActive(true);
+                inventoryOpened = true;
+            }
+            else
+            {
+                InventoryUI.SetActive(false);
+                inventoryOpened = false;
+            }    
+        }
         if(Input.GetKeyDown(KeyCode.Q) && isWalking == false)
         {
-            if(curToolType == 0) //삽인 경우
+            if(curItem.itemType == 0) //삽인 경우
             {
                 isDigging = true; 
             }
-            if(curToolType == 1) //드릴인 경우
+            if(curItem.itemType == 1) //드릴인 경우
             {
                 isDrilling = true;
             }
-            if(curToolType == 2) //TNT인 경우
+            if(curItem.itemType == 2) //TNT인 경우
             {
                 isPlacingTNT = true;
                 InstallTNT();
@@ -161,15 +190,15 @@ public class PlayerManager : MonoBehaviour
         }
         else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
         {
-            if(curToolType == 0)
+            if(curItem.itemType == 0)
             {
                 isDigging = false;
             }
-            if(curToolType == 1)
+            if(curItem.itemType == 1)
             {
                 isDrilling = false;
             }
-            if (curToolType == 2)
+            if (curItem.itemType == 2)
             {
                 isPlacingTNT = false;
             }
@@ -186,6 +215,11 @@ public class PlayerManager : MonoBehaviour
         {
             canJump = true;
             isJumping = false;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Dead = true;
         }
 
     }

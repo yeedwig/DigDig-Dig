@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,16 @@ using UnityEngine.UI;
 public class ToolManager : MonoBehaviour
 {
     [SerializeField] private GameObject Player;
-    
+    [SerializeField] private GameManager GM;
+
+    public GameObject defaultShovel;
+
     public SpriteRenderer ToolSp;
     private Animator anim;
-    
+
+
+    public Item curItem;
+    public InventoryItem curToolInvenItem;
 
     public int curToolType; //0이면 삽, 1이면 드릴, 2이면 TNT, 3이면 Radar
     public int curToolId;
@@ -19,7 +26,9 @@ public class ToolManager : MonoBehaviour
     private bool ToolisDigging;
     private bool ToolisWalking;
 
-    [SerializeField] private Tool[] ToolBeltInventory; //일단은 사이즈 4
+    public int selectedSlot = -1;
+
+    [SerializeField] private InventorySlot[] ToolBeltInventory; //일단은 사이즈 4
 
     public int skinNr;
 
@@ -36,28 +45,76 @@ public class ToolManager : MonoBehaviour
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         */
-        curToolType = 0;
-        curToolId = 0;
-        curToolDamage = 0.5f; //처음 삽 시작 데미지
+        //defaultShovel.SetActive(true);
+        //GetComponentInChildren<InventoryItem>().item = defaultShovel;
+        //curItem = ToolBeltInventory[0].GetComponentInChildren<InventoryItem>().item; //처음 삽 시작 데미지
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
+    private void Update()
+    {
+        DestroyDamagedItem();
+    }
     void LateUpdate()
     {
         //ChangeSkins();
     }
 
-    public int CheckToolBelt(int index)
+    public bool toolBeltReset()
     {
-        curToolType = ToolBeltInventory[index].itemType;
-        curToolId = ToolBeltInventory[index].ToolId;
-        curToolDamage = ToolBeltInventory[index].damage;
-        return curToolType;
+        for(int i = 0; i < ToolBeltInventory.Length; i++)
+        {
+            InventorySlot slot = ToolBeltInventory[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if(itemInSlot != null)
+            {
+                GM.Money += itemInSlot.item.price;
+
+                Destroy(itemInSlot.gameObject);
+            }
+            
+        }
+        return true;
+
+        //defaultShovel.SetActive(true);
+
+    }
+
+    public void DestroyDamagedItem()
+    {
+        for (int i = 0; i < ToolBeltInventory.Length; i++)
+        {
+            InventorySlot slot = ToolBeltInventory[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                if(itemInSlot.Durability < 0)
+                    Destroy(itemInSlot.gameObject);
+            }
+
+        }
+    }
+
+    public void ChangeSelectedSlot(int newValue)
+    {
+        if(selectedSlot >= 0)
+        {
+            ToolBeltInventory[selectedSlot].Deselect(); 
+        }
+
+        ToolBeltInventory[newValue].Select();
+        selectedSlot = newValue;
+    }
+
+    public Item CheckToolBelt(int index)
+    {
+        curToolInvenItem = ToolBeltInventory[index].GetComponentInChildren<InventoryItem>();
+        curItem = curToolInvenItem.item;
+        curToolType = curItem.itemType;
+        curToolId = curItem.itemId;
+        curToolDamage = curItem.damage;
+        return curItem;
     }
 
     private void CheckCurrentToolSkin()

@@ -10,6 +10,7 @@ public class DigManager : MonoBehaviour
     public GameObject toolManagerObject;
     public ToolManager toolManager;
 
+    public Item curItem;
     public PlayerManager playerManager;
 
     private float digDirX;
@@ -49,13 +50,16 @@ public class DigManager : MonoBehaviour
 
             if (hit.collider != null)
             {
+                curItem = toolManager.curItem;
+                
                float damage = toolManager.curToolDamage;
                int toolId = toolManager.curToolId;
                 if (Input.GetKey(KeyCode.Q))
                 {
                     if (toolManager.curToolType == 0)
                     {
-                        hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage); 
+                        hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage);
+                        //toolManager.curToolInvenItem.Durability -= 10;
                     }
                     else if(toolManager.curToolType == 1&&direction.x==0)
                     {
