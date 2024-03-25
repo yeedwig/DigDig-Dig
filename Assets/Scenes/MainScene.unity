@@ -573,6 +573,7 @@ MonoBehaviour:
   - {fileID: 4011659234332759111, guid: df1b67b9b8a57b64493d72bb764c41ef, type: 3}
   - {fileID: 0}
   isEditOn: 0
+  cursorMoveTimerMax: 30
 --- !u!1 &395660838
 GameObject:
   m_ObjectHideFlags: 0

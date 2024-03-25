@@ -23,6 +23,9 @@ public class EditController : MonoBehaviour
 
     private Dictionary<Vector3Int, GameObject> groundDictionary;
 
+    [SerializeField] float cursorMoveTimerMax;
+    private float cursorMoveTimer;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +36,7 @@ public class EditController : MonoBehaviour
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         layerMask = 1 << LayerMask.NameToLayer("Ground");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
+        cursorMoveTimer = 0.0f;
         cursor.SetActive(false);
         isEditOn = false;
     }
@@ -76,25 +80,64 @@ public class EditController : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                editPos.x--;
-                cursor.transform.position = editPos;
+                if(cursorMoveTimer > 0)
+                {
+                    cursorMoveTimer--;
+                }
+                else
+                {
+                    editPos.x--;
+                    cursor.transform.position = editPos;
+                    cursorMoveTimer = cursorMoveTimerMax;
+                }
+                
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKey(KeyCode.RightArrow))
             {
-                editPos.x++;
-                cursor.transform.position = editPos;
+                if (cursorMoveTimer > 0)
+                {
+                    cursorMoveTimer--;
+                }
+                else
+                {
+                    editPos.x++;
+                    cursor.transform.position = editPos;
+                    cursorMoveTimer = cursorMoveTimerMax;
+                }
+                
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKey(KeyCode.UpArrow))
             {
-                editPos.y++;
-                cursor.transform.position = editPos;
+                if (cursorMoveTimer > 0)
+                {
+                    cursorMoveTimer--;
+                }
+                else
+                {
+                    editPos.y++;
+                    cursor.transform.position = editPos;
+                    cursorMoveTimer = cursorMoveTimerMax;
+                }
+                
             }
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKey(KeyCode.DownArrow))
             {
-                editPos.y--;
-                cursor.transform.position = editPos;
+                if (cursorMoveTimer > 0)
+                {
+                    cursorMoveTimer--;
+                }
+                else
+                {
+                    editPos.y--;
+                    cursor.transform.position = editPos;
+                    cursorMoveTimer = cursorMoveTimerMax;
+                }
+            }
+            else
+            {
+                cursorMoveTimer = 20.0f;
             }
         }
         
