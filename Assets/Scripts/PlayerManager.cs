@@ -15,6 +15,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private ToolManager toolManager;
     private Item curItem;
     [SerializeField] private int curToolId;
+    [SerializeField] private int curItemType;
 
     //Items
     //[SerializeField] private GameObject[] Items;
@@ -130,6 +131,7 @@ public class PlayerManager : MonoBehaviour
             isPlacing = false;
         }
         curToolId = toolManager.curToolId;
+        curItemType = toolManager.curToolType;
     }
 
     void CurrentToolInput()
@@ -334,9 +336,10 @@ public class PlayerManager : MonoBehaviour
             TNT.transform.position = this.transform.position;
         }
 
-        if (curToolId == 21)
+        if (curToolId == 21 && curItem.isTool == true && curItem != null)
         {
             GameObject TNT = Instantiate(TNTPrefab);
+            toolManager.useItem(curSelectedToolSlot);
             TNT.transform.position = this.transform.position;
         }
 

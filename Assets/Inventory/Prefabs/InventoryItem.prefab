@@ -135,6 +135,7 @@ MonoBehaviour:
   parentAfterDrag: {fileID: 0}
   item: {fileID: 11400000, guid: 262104c965afb734c987ef2481070ee7, type: 2}
   count: 1
+  Durability: 0
 --- !u!222 &8327675335933973642
 CanvasRenderer:
   m_ObjectHideFlags: 0

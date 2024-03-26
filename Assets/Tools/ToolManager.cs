@@ -137,6 +137,7 @@ public class ToolManager : MonoBehaviour
             //삽이나 드릴인 경우
             if(curToolType >= 0 && curToolType <=1)
             {
+                Debug.Log("Damaged");
                 useInventoryItem.Damage(0.05f);
                 if(useInventoryItem.Durability <= 0)
                 {
@@ -145,13 +146,14 @@ public class ToolManager : MonoBehaviour
                 }
                 else
                 {
-                    useInventoryItem.RefreshCount();
+                    //useInventoryItem.RefreshCount();
                 }
             }
 
             //TNT나 레이더인경우
             if(curToolType >= 2 && curToolType <=3)
             {
+                Debug.Log("Count -1");
                 useInventoryItem.count--;
                 if (useInventoryItem.count <= 0)
                 {
