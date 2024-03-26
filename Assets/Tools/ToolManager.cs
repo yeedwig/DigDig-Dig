@@ -3,13 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class ToolManager : MonoBehaviour
 {
     [SerializeField] private GameObject Player;
     [SerializeField] private GameManager GM;
-
-    public GameObject defaultShovel;
 
     public SpriteRenderer ToolSp;
     private Animator anim;
@@ -21,6 +20,7 @@ public class ToolManager : MonoBehaviour
     public int curToolType; //0이면 삽, 1이면 드릴, 2이면 TNT, 3이면 Radar
     public int curToolId;
     public float curToolDamage;
+    public int curSelectedSlot;
 
     private bool ToolisDrilling;
     private bool ToolisDigging;
@@ -35,26 +35,25 @@ public class ToolManager : MonoBehaviour
     public Skins[] shovelSkins;
     public Skins[] drillSkins;
 
+    //reset
+    public GameObject inventoryItemPrefab;
+    public Item defaultShovel;
+
+    public InventoryManager inventoryManager;
 
 
     public 
     // Start is called before the first frame update
     void Start()
     {
-        /*
-        sp = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
-        */
-        //defaultShovel.SetActive(true);
-        //GetComponentInChildren<InventoryItem>().item = defaultShovel;
-        //curItem = ToolBeltInventory[0].GetComponentInChildren<InventoryItem>().item; //처음 삽 시작 데미지
+        inventoryManager.AddItem(defaultShovel);
     }
 
     // Update is called once per frame
 
     private void Update()
     {
-        DestroyDamagedItem();
+        //DestroyDamagedItem();
     }
     void LateUpdate()
     {
@@ -63,6 +62,7 @@ public class ToolManager : MonoBehaviour
 
     public bool toolBeltReset()
     {
+        //reset all objects in toolbelt and add money according to price
         for(int i = 0; i < ToolBeltInventory.Length; i++)
         {
             InventorySlot slot = ToolBeltInventory[i];
@@ -75,12 +75,14 @@ public class ToolManager : MonoBehaviour
             }
             
         }
-        return true;
 
-        //defaultShovel.SetActive(true);
+        inventoryManager.AddItem(defaultShovel);
+        
+        return true;
 
     }
 
+    /*
     public void DestroyDamagedItem()
     {
         for (int i = 0; i < ToolBeltInventory.Length; i++)
@@ -94,7 +96,7 @@ public class ToolManager : MonoBehaviour
             }
 
         }
-    }
+    }*/
 
     public void ChangeSelectedSlot(int newValue)
     {
@@ -109,12 +111,59 @@ public class ToolManager : MonoBehaviour
 
     public Item CheckToolBelt(int index)
     {
-        curToolInvenItem = ToolBeltInventory[index].GetComponentInChildren<InventoryItem>();
-        curItem = curToolInvenItem.item;
-        curToolType = curItem.itemType;
-        curToolId = curItem.itemId;
-        curToolDamage = curItem.damage;
-        return curItem;
+        if (ToolBeltInventory[index].GetComponentInChildren<InventoryItem>() != null)
+        {
+            curSelectedSlot = index;
+            curToolInvenItem = ToolBeltInventory[index].GetComponentInChildren<InventoryItem>();
+            curItem = curToolInvenItem.item;
+            curToolType = curItem.itemType;
+            curToolId = curItem.itemId;
+            curToolDamage = curItem.damage;
+            return curItem;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    public void useItem(int index)
+    {
+        //tnt나 레이더 같이 카운트가 있는 경우
+        InventorySlot useItemSlot = ToolBeltInventory[index];
+        InventoryItem useInventoryItem = useItemSlot.GetComponentInChildren<InventoryItem>();
+        if(useInventoryItem != null)
+        {
+            //삽이나 드릴인 경우
+            if(curToolType >= 0 && curToolType <=1)
+            {
+                useInventoryItem.Damage(0.05f);
+                if(useInventoryItem.Durability <= 0)
+                {
+                    Destroy(useInventoryItem.gameObject);
+                    curItem = null;
+                }
+                else
+                {
+                    useInventoryItem.RefreshCount();
+                }
+            }
+
+            //TNT나 레이더인경우
+            if(curToolType >= 2 && curToolType <=3)
+            {
+                useInventoryItem.count--;
+                if (useInventoryItem.count <= 0)
+                {
+                    Destroy(useInventoryItem.gameObject);
+                }
+                else
+                {
+                    useInventoryItem.RefreshCount();
+                }
+            }
+            
+        }
     }
 
     private void CheckCurrentToolSkin()

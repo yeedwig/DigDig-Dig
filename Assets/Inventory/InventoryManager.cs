@@ -43,7 +43,7 @@ public class InventoryManager : MonoBehaviour
 
     public void AddInventorySlots(int num)
     {
-        //inventorySlots[inventorySlots.Length] = new InventorySlot slot;
+
     }
 
     void SpawnNewItem(Item item, InventorySlot slot)

@@ -4801,7 +4801,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dead: 0
   toolManager: {fileID: 2123044264}
-  curItem: {fileID: 0}
   curToolId: 0
   facingRight: 1
   walkSpeed: 3
@@ -4815,6 +4814,7 @@ MonoBehaviour:
   InventoryUI: {fileID: 258020411}
   inventoryOpened: 0
   curToolImage: {fileID: 0}
+  curSelectedToolSlot: 0
   groundCheck: {fileID: 1210510921}
   groundLayer:
     serializedVersion: 2
@@ -4872,6 +4872,7 @@ MonoBehaviour:
   player: {fileID: 1246972418}
   toolManagerObject: {fileID: 2123044260}
   toolManager: {fileID: 2123044264}
+  curItem: {fileID: 0}
   playerManager: {fileID: 1246972425}
 --- !u!114 &1246972428
 MonoBehaviour:
@@ -5325,7 +5326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 980921697}
   itemsToPickUp:
-  - {fileID: 11400000, guid: 262104c965afb734c987ef2481070ee7, type: 2}
+  - {fileID: 11400000, guid: 47e88433653e7eb41beb88af451509d3, type: 2}
   - {fileID: 11400000, guid: a485cab76d10d1848a05a556cd243134, type: 2}
   - {fileID: 11400000, guid: 9844066e58817c24f8f067edffdaedb6, type: 2}
 --- !u!114 &1504891296
@@ -6851,12 +6852,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1246972418}
   GM: {fileID: 1193344468}
-  defaultShovel: {fileID: 0}
   ToolSp: {fileID: 1943005527}
   curItem: {fileID: 0}
+  curToolInvenItem: {fileID: 0}
   curToolType: 0
   curToolId: 0
   curToolDamage: 0
+  curSelectedSlot: 0
   selectedSlot: -1
   ToolBeltInventory:
   - {fileID: 1219839733}
@@ -6886,6 +6888,9 @@ MonoBehaviour:
   drillSkins:
   - sprites: []
   - sprites: []
+  inventoryItemPrefab: {fileID: 7732144884286056590, guid: 5ed61616001ce4e42a2b3773b35809d4, type: 3}
+  defaultShovel: {fileID: 11400000, guid: a485cab76d10d1848a05a556cd243134, type: 2}
+  inventoryManager: {fileID: 980921697}
 --- !u!1 &2146440966
 GameObject:
   m_ObjectHideFlags: 0

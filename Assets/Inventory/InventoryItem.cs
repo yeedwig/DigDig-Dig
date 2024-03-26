@@ -14,7 +14,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     [HideInInspector] public Item item;
     [HideInInspector] public int count = 1;
 
-    public int Durability;
+    public float Durability;
 
     public void InitializeItem(Item newItem)
     {
@@ -55,5 +55,10 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
        
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
+    }
+
+    public void Damage(float damage)
+    {
+        Durability -= damage;
     }
 }
