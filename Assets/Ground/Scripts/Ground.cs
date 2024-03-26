@@ -104,6 +104,7 @@ public class Ground : MonoBehaviour
                     sr.sprite = null;
                     bc.enabled = false;
                     //¾ê´Â ÇÑ¹ø¸¸ ½ÇÇàµÊ
+                    //¿©±â´Ù°¡ ¹¹ Instantiate Item ³Ö¾îºÁµµ µÉµí
                 }
                 else if (currentHealth < almostBrokenHealth)
                 {
