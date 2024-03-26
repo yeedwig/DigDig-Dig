@@ -76,7 +76,7 @@ public class ToolManager : MonoBehaviour
             
         }
 
-        inventoryManager.AddItem(defaultShovel);
+        inventoryManager.SpawnNewItem(defaultShovel, ToolBeltInventory[0]);
         
         return true;
 

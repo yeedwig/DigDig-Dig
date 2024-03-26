@@ -185,35 +185,52 @@ public class PlayerManager : MonoBehaviour
         //파는 거
         if(Input.GetKeyDown(KeyCode.Q) && isWalking == false)
         {
-            if(curItem.itemType == 0) //삽인 경우
+            if(curItem == null)
             {
-                isDigging = true; 
+                Debug.Log("No Tool!");
             }
-            if(curItem.itemType == 1) //드릴인 경우
+            else
             {
-                isDrilling = true;
+                if(curItem.itemType == 0) //삽인 경우
+                {
+                    isDigging = true;
+                }
+                if (curItem.itemType == 1) //드릴인 경우
+                {
+                    isDrilling = true;
+                }
+                if (curItem.itemType == 2) //TNT인 경우
+                {
+                    isPlacingTNT = true;
+                    InstallTNT();
+                }
             }
-            if(curItem.itemType == 2) //TNT인 경우
-            {
-                isPlacingTNT = true;
-                InstallTNT();
-            }
+            
             
         }
         else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
         {
-            if(curItem.itemType == 0)
+            if (curItem == null)
             {
-                isDigging = false;
+                Debug.Log("No Tool!");
             }
-            if(curItem.itemType == 1)
+            else
             {
-                isDrilling = false;
+                if (curItem.itemType == 0)
+                {
+                    isDigging = false;
+                }
+                if (curItem.itemType == 1)
+                {
+                    isDrilling = false;
+                }
+                if (curItem.itemType == 2)
+                {
+                    isPlacingTNT = false;
+                }
             }
-            if (curItem.itemType == 2)
-            {
-                isPlacingTNT = false;
-            }
+
+            
         }
 
         //점프
