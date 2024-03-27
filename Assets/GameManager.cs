@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
             moneyText.text = Money.ToString();
         }
         SetShop();
+        moneyText.text = Money.ToString();
         //moneyText.text = Money.ToString();  
     }
 

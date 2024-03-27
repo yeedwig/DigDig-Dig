@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ShopSlot : MonoBehaviour
 {
+    public Text nameTextSlot;
     public Text priceTextSlot;
     
     public int price;
@@ -19,6 +20,7 @@ public class ShopSlot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nameTextSlot.text = item.name;
         priceTextSlot.text = price.ToString();
     }
 

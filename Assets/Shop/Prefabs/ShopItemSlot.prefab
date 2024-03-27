@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4444488994970596952}
   - component: {fileID: 1669068741992921544}
   m_Layer: 5
-  m_Name: PricePanel
+  m_Name: NamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BUY
+  m_Text: 
 --- !u!1 &2867112126827452831
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,11 +706,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad08a01670e86914da25e76314c29b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  priceTextSlot: {fileID: 6842434100683450314}
+  nameTextSlot: {fileID: 6842434100683450314}
+  priceTextSlot: {fileID: 6926219448150490055}
   price: 100
   item: {fileID: 11400000, guid: a485cab76d10d1848a05a556cd243134, type: 2}
   gameManager: {fileID: 0}
   inventoryManager: {fileID: 0}
+  descriptionTxt: {fileID: 0}
+  statTxt: {fileID: 0}
 --- !u!1 &5953538696037794500
 GameObject:
   m_ObjectHideFlags: 0

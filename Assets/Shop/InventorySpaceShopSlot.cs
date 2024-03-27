@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventorySpaceShopSlot : MonoBehaviour
 {
+    public Text nameTextSlot;
     public Text priceTextSlot;
 
     public int price;
@@ -18,6 +19,7 @@ public class InventorySpaceShopSlot : MonoBehaviour
 
     void Start()
     {
+        nameTextSlot.text = "Lv2. Bag";
         priceTextSlot.text = price.ToString();
     }
 
@@ -32,27 +34,32 @@ public class InventorySpaceShopSlot : MonoBehaviour
                 if (inventoryManager.currentInventoryLevel == 1)
                 {
                     price += 1000;
+                    nameTextSlot.text = "Lv3. Bag";
                     priceTextSlot.text = price.ToString();
                 }
                 if (inventoryManager.currentInventoryLevel == 2)
                 {
+                    nameTextSlot.text = "Lv4. Bag";
                     price += 1000;
                     priceTextSlot.text = price.ToString();
                 }
                 if (inventoryManager.currentInventoryLevel == 3)
                 {
+                    nameTextSlot.text = "Lv5. Bag";
                     price += 1000;
                     priceTextSlot.text = price.ToString();
                 }
 
                 if (inventoryManager.currentInventoryLevel == 4)
                 {
+                    nameTextSlot.text = "Lv6. Bag";
                     price += 1000;
                     priceTextSlot.text = price.ToString();
                 }
 
                 if(inventoryManager.currentInventoryLevel == 5)
                 {
+                    nameTextSlot.text = "Inventory Mastered";
                     priceTextSlot.text = "Maxed Out";
                 }
 

@@ -121,8 +121,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ShopSlot, Assembly-CSharp
+      - m_Target: {fileID: 4285759763500019586}
+        m_TargetAssemblyTypeName: InventorySpaceShopSlot, Assembly-CSharp
         m_MethodName: BuyItem
         m_Mode: 1
         m_Arguments:
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2434107697133371710}
   - component: {fileID: 3659226680357399708}
   m_Layer: 5
-  m_Name: PricePanel
+  m_Name: NamePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -351,8 +351,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ShopSlot, Assembly-CSharp
+      - m_Target: {fileID: 4285759763500019586}
+        m_TargetAssemblyTypeName: InventorySpaceShopSlot, Assembly-CSharp
         m_MethodName: ShowDescription
         m_Mode: 1
         m_Arguments:
@@ -441,7 +441,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BUY
+  m_Text: 
 --- !u!1 &3675949648906077715
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,6 +736,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab5bf006d9f40dc48ab33d66286104ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nameTextSlot: {fileID: 0}
+  priceTextSlot: {fileID: 2632259841942089247}
+  price: 100
+  gameManager: {fileID: 0}
+  inventoryManager: {fileID: 0}
+  descriptionTxt: {fileID: 0}
+  statTxt: {fileID: 0}
 --- !u!1 &4993209839025680010
 GameObject:
   m_ObjectHideFlags: 0
