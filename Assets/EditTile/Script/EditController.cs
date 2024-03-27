@@ -27,6 +27,11 @@ public class EditController : MonoBehaviour
     private float cursorMoveTimer;
 
 
+    private bool startInstallingElevator;
+    [SerializeField] Tilemap editTilemap;
+    [SerializeField] TileBase elevatorPassage;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +42,7 @@ public class EditController : MonoBehaviour
         layerMask = 1 << LayerMask.NameToLayer("Ground");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         cursorMoveTimer = 0.0f;
+        startInstallingElevator = false;
         cursor.SetActive(false);
         isEditOn = false;
     }
@@ -80,92 +86,116 @@ public class EditController : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            if (startInstallingElevator)
             {
-                if(cursorMoveTimer > 0)
+                if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    cursorMoveTimer--;
+
                 }
                 else
                 {
-                    editPos.x--;
-                    cursor.transform.position = editPos;
-                    cursorMoveTimer = cursorMoveTimerMax;
-                }
-                
-            }
-            else if (Input.GetKey(KeyCode.RightArrow))
-            {
-                if (cursorMoveTimer > 0)
-                {
-                    cursorMoveTimer--;
-                }
-                else
-                {
-                    editPos.x++;
-                    cursor.transform.position = editPos;
-                    cursorMoveTimer = cursorMoveTimerMax;
-                }
-                
-            }
-            else if (Input.GetKey(KeyCode.UpArrow))
-            {
-                if (cursorMoveTimer > 0)
-                {
-                    cursorMoveTimer--;
-                }
-                else
-                {
-                    editPos.y++;
-                    cursor.transform.position = editPos;
-                    cursorMoveTimer = cursorMoveTimerMax;
-                }
-                
-            }
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                if (cursorMoveTimer > 0)
-                {
-                    cursorMoveTimer--;
-                }
-                else
-                {
-                    editPos.y--;
-                    cursor.transform.position = editPos;
-                    cursorMoveTimer = cursorMoveTimerMax;
+                    cursorMoveTimer = 15.0f;
                 }
             }
             else
             {
-                cursorMoveTimer = 15.0f;
+                if (Input.GetKey(KeyCode.LeftArrow))
+                {
+                    if (cursorMoveTimer > 0)
+                    {
+                        cursorMoveTimer--;
+                    }
+                    else
+                    {
+                        editPos.x--;
+                        cursor.transform.position = editPos;
+                        cursorMoveTimer = cursorMoveTimerMax;
+                    }
+
+                }
+                else if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    if (cursorMoveTimer > 0)
+                    {
+                        cursorMoveTimer--;
+                    }
+                    else
+                    {
+                        editPos.x++;
+                        cursor.transform.position = editPos;
+                        cursorMoveTimer = cursorMoveTimerMax;
+                    }
+
+                }
+                else if (Input.GetKey(KeyCode.UpArrow))
+                {
+                    if (cursorMoveTimer > 0)
+                    {
+                        cursorMoveTimer--;
+                    }
+                    else
+                    {
+                        editPos.y++;
+                        cursor.transform.position = editPos;
+                        cursorMoveTimer = cursorMoveTimerMax;
+                    }
+
+                }
+                else if (Input.GetKey(KeyCode.DownArrow))
+                {
+                    if (cursorMoveTimer > 0)
+                    {
+                        cursorMoveTimer--;
+                    }
+                    else
+                    {
+                        editPos.y--;
+                        cursor.transform.position = editPos;
+                        cursorMoveTimer = cursorMoveTimerMax;
+                    }
+                }
+                else
+                {
+                    cursorMoveTimer = 15.0f;
+                }
             }
+            
         }
         
     }
 
     private void ChangeItemIndex()
     {
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (startInstallingElevator)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                itemCursorIndex--;
-                if (itemCursorIndex < 0)
-                {
-                    itemCursorIndex = 4;
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                itemCursorIndex++;
-                if (itemCursorIndex > 4)
-                {
-                    itemCursorIndex = 0;
-                }
-            }
+            itemCursorIndex = 5;
             cursorSR.sprite = itemCursorSprite[itemCursorIndex];
         }
-        // 만약 엘베 문을 설치한 상태라면 통로 sprite로 변경, 거기서는 좌우로 변경 불가능
+        else
+        {
+            if (Input.GetKey(KeyCode.LeftAlt))
+            {
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    itemCursorIndex--;
+                    if (itemCursorIndex < 0)
+                    {
+                        itemCursorIndex = 4;
+                    }
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    itemCursorIndex++;
+                    if (itemCursorIndex > 4)
+                    {
+                        itemCursorIndex = 0;
+                    }
+                }
+                cursorSR.sprite = itemCursorSprite[itemCursorIndex];
+            }
+            // 만약 엘베 문을 설치한 상태라면 통로 sprite로 변경, 거기서는 좌우로 변경 불가능
+        }
+
 
     }
 
@@ -212,6 +242,7 @@ public class EditController : MonoBehaviour
                         GameObject elevatorDoor = Instantiate(itemPrefabs[itemCursorIndex]);
                         elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
                         ground.structureInstalled = true;
+                        startInstallingElevator = true;
                         break;
                     default:
                         break;
@@ -267,9 +298,9 @@ public class EditController : MonoBehaviour
                 break;
             case 4: //엘리베이터 문
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                RaycastHit2D leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-1, -1), 1.0f, layerMask); 
+                RaycastHit2D leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask); 
                 RaycastHit2D under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
-                RaycastHit2D rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(1, -1), 1.0f, layerMask);
+                RaycastHit2D rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
                 cursorPos = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPos].GetComponent<Ground>();
                 if (groundOnCursor == null&&leftDiagonal.collider != null&&under.collider == null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
@@ -277,6 +308,8 @@ public class EditController : MonoBehaviour
                     canInstall = true;
                 }
                 break;
+            case 5: //엘리베이터 통로
+                break;              
             default:
                 break;
         }
