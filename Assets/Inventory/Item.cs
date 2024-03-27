@@ -17,6 +17,7 @@ public class Item : ScriptableObject
     public bool isTool;
 
     public bool stackable = true;
+    public int maxStack;
 
     public Sprite image;
 }

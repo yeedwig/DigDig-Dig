@@ -21,4 +21,5 @@ MonoBehaviour:
   durability: 0
   isTool: 1
   stackable: 1
+  maxStack: 10
   image: {fileID: -1717125216, guid: ee593b2f074c87b4ebc275cc9fc6a657, type: 3}
