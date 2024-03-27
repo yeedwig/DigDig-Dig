@@ -12,7 +12,9 @@ public class ShopSlot : MonoBehaviour
 
     [SerializeField] private GameManager gameManager;
     [SerializeField] private InventoryManager inventoryManager;
-    
+
+    [SerializeField] Text descriptionTxt;
+    [SerializeField] Text statTxt;
 
     // Start is called before the first frame update
     void Start()
@@ -37,5 +39,8 @@ public class ShopSlot : MonoBehaviour
     public void ShowDescription()
     {
         //Show Item Description
+        descriptionTxt.text = item.name.ToString() + " : " + "\n" + item.Description.ToString();
+        
+        statTxt.text = "Damage : " + item.damage.ToString() + "\n" + "Durability : " + item.durability.ToString() + "\n" + "Selling Price : " + item.price.ToString();
     }
 }

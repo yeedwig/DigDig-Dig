@@ -17,7 +17,7 @@ public class ShopManager : MonoBehaviour
     public bool EldoradoFound;
     public bool TreasureFound;
 
-    [SerializeField] private GameObject[] shopToolSlots;
+    [SerializeField] private GameObject[] shopShovelSlots;
 
     private void Start()
     {
@@ -33,44 +33,44 @@ public class ShopManager : MonoBehaviour
     {
         if(AntNestFound)
         {
-            shopToolSlots[0].SetActive(true);
+            shopShovelSlots[0].SetActive(true);
         }
         if (ArmyTrenchFound)
         {
-            shopToolSlots[1].SetActive(true);
+            shopShovelSlots[1].SetActive(true);
         }
         if (MadScientistLabFound)
         {
-            shopToolSlots[2].SetActive(true);
+            shopShovelSlots[2].SetActive(true);
         }
         if (CrusadeFound)
         {
-            shopToolSlots[3].SetActive(true);
+            shopShovelSlots[3].SetActive(true);
         }
         if (CatacombFound)
         {
-            shopToolSlots[4].SetActive(true);
+            shopShovelSlots[4].SetActive(true);
         }
         if (AtlantisFound)
         {
-            shopToolSlots[5].SetActive(true);
+            shopShovelSlots[5].SetActive(true);
         }
         if (UndergroundTribeFound)
         {
-            shopToolSlots[6].SetActive(true);
+            shopShovelSlots[6].SetActive(true);
         }
         if (LostWorldFound)
         {
-            shopToolSlots[7].SetActive(true);
+            shopShovelSlots[7].SetActive(true);
         }
         if (EldoradoFound)
         {
-            shopToolSlots[8].SetActive(true);
+            shopShovelSlots[8].SetActive(true);
         }
         if(TreasureFound)
         {
-            shopToolSlots[9].SetActive(true);
+            shopShovelSlots[9].SetActive(true);
         }
-
     }
+
 }

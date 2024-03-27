@@ -367,4 +367,53 @@ public class PlayerManager : MonoBehaviour
     {
         isEditOn = editcontroller.isEditOn;
     }
+
+    private void updateStats(int itemID)
+    {
+        //Shovel
+        if(itemID == 0)
+        {
+            return;
+        }
+        if (itemID == 1)
+        {
+            return;
+        }
+        if (itemID == 2)
+        {
+            return;
+        }
+        if (itemID == 3)
+        {
+            return;
+        }
+        if (itemID == 4)
+        {
+            return;
+        }
+        if (itemID == 5)
+        {
+            return;
+        }
+        if (itemID == 6)
+        {
+            return;
+        }
+        if (itemID == 7)
+        {
+            return;
+        }
+        if (itemID == 8)
+        {
+            return;
+        }
+        if (itemID == 9)
+        {
+            return;
+        }
+        if (itemID == 10)
+        {
+            return;
+        }
+    }
 }

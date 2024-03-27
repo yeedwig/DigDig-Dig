@@ -28,7 +28,7 @@ public class ToolManager : MonoBehaviour
 
     public int selectedSlot = -1;
 
-    [SerializeField] private InventorySlot[] ToolBeltInventory; //일단은 사이즈 4
+    [SerializeField] private InventorySlot[] ToolBeltInventory; 
 
     //public int skinNr;
 
@@ -46,7 +46,7 @@ public class ToolManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inventoryManager.AddItem(defaultShovel);
+        inventoryManager.SpawnNewItem(defaultShovel, ToolBeltInventory[0]);
     }
 
     // Update is called once per frame
@@ -57,7 +57,7 @@ public class ToolManager : MonoBehaviour
     }
     void LateUpdate()
     {
-        ChangeSkins(curItem.itemId);
+        ChangeSkins(curToolId);
     }
 
     public bool toolBeltReset()
@@ -123,7 +123,6 @@ public class ToolManager : MonoBehaviour
         }
         else
         {
-            curToolId = -1;
             return null;
         }
     }
@@ -169,24 +168,28 @@ public class ToolManager : MonoBehaviour
         }
     }
 
-    private void CheckCurrentToolSkin()
-    {
-        
-    }
 
 
     
 
     private void ChangeSkins(int skinNr)
     {
-        if(ToolSp.sprite.name.Contains("MainShovel"))
+        if(ToolSp.sprite != null)
         {
-            string spriteName = ToolSp.sprite.name;
-            spriteName = spriteName.Replace("MainShovel_","");
-            int spriteNr = int.Parse(spriteName);
+            if (ToolSp.sprite.name.Contains("MainShovel"))
+            {
+                string spriteName = ToolSp.sprite.name;
+                spriteName = spriteName.Replace("MainShovel_", "");
+                int spriteNr = int.Parse(spriteName);
 
-            ToolSp.sprite = shovelSkins[skinNr].sprites[spriteNr];
+                ToolSp.sprite = shovelSkins[skinNr].sprites[spriteNr];
+            }
+            else
+            {
+                return;
+            }
         }
+        /*
         else if(ToolSp.sprite.name.Contains("MainDrill"))
         {
             string spriteName = ToolSp.sprite.name;
@@ -195,7 +198,7 @@ public class ToolManager : MonoBehaviour
 
             ToolSp.sprite = drillSkins[skinNr].sprites[spriteNr];
 
-        }
+        }*/
         //if Drill
     }
 

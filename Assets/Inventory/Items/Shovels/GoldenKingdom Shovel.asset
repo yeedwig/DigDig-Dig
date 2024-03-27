@@ -17,8 +17,8 @@ MonoBehaviour:
   itemType: 0
   itemId: 8
   price: 0
-  damage: 0
-  durability: 0
+  damage: 10
+  durability: 100
   isTool: 1
   stackable: 0
   image: {fileID: 21300000, guid: f0ecf501b8cb7344c8d205ce460f2953, type: 3}
