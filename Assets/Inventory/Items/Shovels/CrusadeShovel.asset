@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cfb3c6a91b89a2d44ad2ac2740e1ffce, type: 3}
-  m_Name: TNT
+  m_Name: CrusadeShovel
   m_EditorClassIdentifier: 
-  Name: Big TNT
-  Description: BOOM!
-  itemType: 2
-  itemId: 23
+  Name: Crusade Shovel
+  Description: Hidden Treasure of The Crusade
+  itemType: 0
+  itemId: 3
   price: 0
   damage: 0
   durability: 0
   isTool: 1
-  stackable: 1
-  image: {fileID: -1717125216, guid: ee593b2f074c87b4ebc275cc9fc6a657, type: 3}
+  stackable: 0
+  image: {fileID: 21300000, guid: 4c6e36f9155ec2244baeb1c67f99d4c0, type: 3}

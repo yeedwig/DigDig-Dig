@@ -346,14 +346,14 @@ public class PlayerManager : MonoBehaviour
     public void InstallTNT()
     {
 
-        if (curToolId == 20 && curItem.isTool == true && curItem != null)
+        if (curToolId == 22 && curItem.isTool == true && curItem != null)
         {
             GameObject TNT = Instantiate(smallTNTPrefab);
             toolManager.useItem(curSelectedToolSlot);
             TNT.transform.position = this.transform.position;
         }
 
-        if (curToolId == 21 && curItem.isTool == true && curItem != null)
+        if (curToolId == 23 && curItem.isTool == true && curItem != null)
         {
             GameObject TNT = Instantiate(TNTPrefab);
             toolManager.useItem(curSelectedToolSlot);

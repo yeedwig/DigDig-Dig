@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 01fa7cda0de50a84db9995388e13f35e
+guid: 646f2461f8dfd9e4e9ea6a569a473db1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MainShovel2_0
+      name: Shovel_9_Motion_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f71a3f80847ccb34bb440b2043e4f472
-      internalID: -1260321216
+      spriteID: 619bb1b42d54f2a4e9797bd063395d7c
+      internalID: 1791765228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainShovel2_1
+      name: Shovel_9_Motion_1
       rect:
         serializedVersion: 2
         x: 16
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3cd1cbd74df57d1458173f58e28e1117
-      internalID: 29896644
+      spriteID: f044982933624fb4580ad3cbe9073067
+      internalID: 385859759
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainShovel2_2
+      name: Shovel_9_Motion_2
       rect:
         serializedVersion: 2
         x: 32
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ee6e10cbead44548b70f5d6b3692455
-      internalID: 1021124403
+      spriteID: ab104e12349f381418947793a587dad8
+      internalID: 418035222
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainShovel2_3
+      name: Shovel_9_Motion_3
       rect:
         serializedVersion: 2
         x: 48
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c11cd96fd9b458f4cbf7ebbbf6c16c5e
-      internalID: 1595524322
+      spriteID: 769117e345d7fb94aa4fb5b347324538
+      internalID: -1538369663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainShovel2_4
+      name: Shovel_9_Motion_4
       rect:
         serializedVersion: 2
         x: 64
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 39d4b4968e9d604429740f1f75fe1227
-      internalID: -236979878
+      spriteID: aac6bf222dba97d449e9a1d3b0a4987c
+      internalID: -343823137
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainShovel2_5
+      name: Shovel_9_Motion_5
       rect:
         serializedVersion: 2
         x: 80
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebb7e45f3c835bf4699ae8dbae759a5f
-      internalID: -794462559
+      spriteID: 8861b5c8042231d4eacb50cc27d85936
+      internalID: -837244516
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MainShovel2_6
+      name: Shovel_9_Motion_6
       rect:
         serializedVersion: 2
         x: 96
@@ -250,8 +250,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f5393efbbc961a64486822d0ca906a58
-      internalID: -1391310688
+      spriteID: a9c6ec6e040c84c448877819dec71373
+      internalID: -867941893
       vertices: []
       indices: 
       edges: []
@@ -267,13 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MainShovel2_0: -1260321216
-      MainShovel2_1: 29896644
-      MainShovel2_2: 1021124403
-      MainShovel2_3: 1595524322
-      MainShovel2_4: -236979878
-      MainShovel2_5: -794462559
-      MainShovel2_6: -1391310688
+      Shovel_9_Motion_0: 1791765228
+      Shovel_9_Motion_1: 385859759
+      Shovel_9_Motion_2: 418035222
+      Shovel_9_Motion_3: -1538369663
+      Shovel_9_Motion_4: -343823137
+      Shovel_9_Motion_5: -837244516
+      Shovel_9_Motion_6: -867941893
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

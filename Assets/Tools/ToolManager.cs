@@ -30,7 +30,7 @@ public class ToolManager : MonoBehaviour
 
     [SerializeField] private InventorySlot[] ToolBeltInventory; //일단은 사이즈 4
 
-    public int skinNr;
+    //public int skinNr;
 
     public Skins[] shovelSkins;
     public Skins[] drillSkins;
@@ -57,7 +57,7 @@ public class ToolManager : MonoBehaviour
     }
     void LateUpdate()
     {
-        //ChangeSkins();
+        ChangeSkins(curItem.itemId);
     }
 
     public bool toolBeltReset()
@@ -123,6 +123,7 @@ public class ToolManager : MonoBehaviour
         }
         else
         {
+            curToolId = -1;
             return null;
         }
     }
@@ -176,7 +177,7 @@ public class ToolManager : MonoBehaviour
 
     
 
-    private void ChangeSkins()
+    private void ChangeSkins(int skinNr)
     {
         if(ToolSp.sprite.name.Contains("MainShovel"))
         {
@@ -186,9 +187,14 @@ public class ToolManager : MonoBehaviour
 
             ToolSp.sprite = shovelSkins[skinNr].sprites[spriteNr];
         }
-        else
+        else if(ToolSp.sprite.name.Contains("MainDrill"))
         {
-            
+            string spriteName = ToolSp.sprite.name;
+            spriteName = spriteName.Replace("MainDrill_", "");
+            int spriteNr = int.Parse(spriteName);
+
+            ToolSp.sprite = drillSkins[skinNr].sprites[spriteNr];
+
         }
         //if Drill
     }

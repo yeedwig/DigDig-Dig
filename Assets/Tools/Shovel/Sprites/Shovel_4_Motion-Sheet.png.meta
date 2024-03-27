@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 09f4efa661e0de24bae569c9498bf4d2
+guid: 02cdbc736613f0647a71eb1daf8f696f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AtlantisShovel_0
+      name: Shovel_4_Motion-Sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1d904549e622104dbce3dee93ca2d5c
-      internalID: -1351575819
+      spriteID: 67914e6b75d8c1c44bc8b54d3f5eb3e6
+      internalID: -1174633378
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlantisShovel_1
+      name: Shovel_4_Motion-Sheet_1
       rect:
         serializedVersion: 2
         x: 16
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1b9fc92811dc68418d58f57983f8e4b
-      internalID: -2093044696
+      spriteID: 0f7a440f269036b49add06d42b27c3ff
+      internalID: 1352337813
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlantisShovel_2
+      name: Shovel_4_Motion-Sheet_2
       rect:
         serializedVersion: 2
         x: 32
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea57c3fcfa8e32f49be6e4409491e36f
-      internalID: -1775014107
+      spriteID: 5206f31cb2eea1a4e8bee53a5d0e21e8
+      internalID: 401011465
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlantisShovel_3
+      name: Shovel_4_Motion-Sheet_3
       rect:
         serializedVersion: 2
         x: 48
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98f2ebd10c7efef44b72ef510785006b
-      internalID: 977146545
+      spriteID: e45f9b4a053a5f34388738f9fb67343b
+      internalID: -2018076618
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlantisShovel_4
+      name: Shovel_4_Motion-Sheet_4
       rect:
         serializedVersion: 2
         x: 64
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4c7f2cd0e982f6f4e96a97e1d552450f
-      internalID: 616016785
+      spriteID: 462a6d0eed9c158408d97a997400fe00
+      internalID: -83884899
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlantisShovel_5
+      name: Shovel_4_Motion-Sheet_5
       rect:
         serializedVersion: 2
         x: 80
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 954441a2e2a61fe47a6aed3cbbb22d16
-      internalID: -200947757
+      spriteID: 2a45f3fb6d825624fa2ce34ef72c0879
+      internalID: 894193864
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: AtlantisShovel_6
+      name: Shovel_4_Motion-Sheet_6
       rect:
         serializedVersion: 2
         x: 96
@@ -250,8 +250,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ecdd530da60a3142b2d810bce8db30f
-      internalID: 1841110694
+      spriteID: ac7552cb02aac644996f146fd9b33016
+      internalID: -804576486
       vertices: []
       indices: 
       edges: []
@@ -267,13 +267,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      AtlantisShovel_0: -1351575819
-      AtlantisShovel_1: -2093044696
-      AtlantisShovel_2: -1775014107
-      AtlantisShovel_3: 977146545
-      AtlantisShovel_4: 616016785
-      AtlantisShovel_5: -200947757
-      AtlantisShovel_6: 1841110694
+      Shovel_4_Motion-Sheet_0: -1174633378
+      Shovel_4_Motion-Sheet_1: 1352337813
+      Shovel_4_Motion-Sheet_2: 401011465
+      Shovel_4_Motion-Sheet_3: -2018076618
+      Shovel_4_Motion-Sheet_4: -83884899
+      Shovel_4_Motion-Sheet_5: 894193864
+      Shovel_4_Motion-Sheet_6: -804576486
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
