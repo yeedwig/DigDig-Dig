@@ -137,7 +137,6 @@ public class ToolManager : MonoBehaviour
             //삽이나 드릴인 경우
             if(curToolType >= 0 && curToolType <=1)
             {
-                Debug.Log("Damaged");
                 useInventoryItem.Damage(0.05f);
                 if(useInventoryItem.Durability <= 0)
                 {

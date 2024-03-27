@@ -3195,7 +3195,7 @@ MonoBehaviour:
   - {fileID: 5736883927993106204, guid: 99cd76bed9d7e9c458a2dbdcd0abe8cd, type: 3}
   - {fileID: 1589425442834848699, guid: 6525ee9e3e0a849488b5b2af384197f1, type: 3}
   - {fileID: 4011659234332759111, guid: df1b67b9b8a57b64493d72bb764c41ef, type: 3}
-  - {fileID: 0}
+  - {fileID: 4735433347188349646, guid: 0a0024d3d6a09b441b78b7dad6ef088f, type: 3}
   isEditOn: 0
   cursorMoveTimerMax: 30
 --- !u!1001 &303967490

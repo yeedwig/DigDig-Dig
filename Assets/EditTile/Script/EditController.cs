@@ -137,7 +137,7 @@ public class EditController : MonoBehaviour
             }
             else
             {
-                cursorMoveTimer = 20.0f;
+                cursorMoveTimer = 15.0f;
             }
         }
         
@@ -206,6 +206,13 @@ public class EditController : MonoBehaviour
                         rail.transform.position = cursorPos+new Vector3(0.5f,0.5f,0);
                         ground.structureInstalled = true;
                         break;
+                    case 4: //엘리베이터 문
+                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        GameObject elevatorDoor = Instantiate(itemPrefabs[itemCursorIndex]);
+                        elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                        ground.structureInstalled = true;
+                        break;
                     default:
                         break;
                 }
@@ -258,6 +265,18 @@ public class EditController : MonoBehaviour
                     canInstall = true;
                 }
                 break;
+            case 4: //엘리베이터 문
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                RaycastHit2D leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-1, -1), 1.0f, layerMask); 
+                RaycastHit2D under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
+                RaycastHit2D rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(1, -1), 1.0f, layerMask);
+                cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                if (groundOnCursor == null&&leftDiagonal.collider != null&&under.collider == null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                {
+                    canInstall = true;
+                }
+                break;
             default:
                 break;
         }
@@ -267,7 +286,7 @@ public class EditController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
-        Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(0,-1,0));
+        //Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
+        Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(-1,-1,0));
     }
 }
