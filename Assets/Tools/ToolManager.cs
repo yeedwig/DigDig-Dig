@@ -183,22 +183,23 @@ public class ToolManager : MonoBehaviour
 
                 ToolSp.sprite = shovelSkins[skinNr].sprites[spriteNr];
             }
+
+            else if (ToolSp.sprite.name.Contains("MainDrill"))
+            {
+                string spriteName = ToolSp.sprite.name;
+                spriteName = spriteName.Replace("MainDrill_", "");
+                int spriteNr = int.Parse(spriteName);
+
+                ToolSp.sprite = drillSkins[skinNr-11].sprites[spriteNr];
+
+            }
+
             else
             {
                 return;
             }
         }
-        /*
-        else if(ToolSp.sprite.name.Contains("MainDrill"))
-        {
-            string spriteName = ToolSp.sprite.name;
-            spriteName = spriteName.Replace("MainDrill_", "");
-            int spriteNr = int.Parse(spriteName);
-
-            ToolSp.sprite = drillSkins[skinNr].sprites[spriteNr];
-
-        }*/
-        //if Drill
+        
     }
 
     /*

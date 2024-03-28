@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
     
     public Image image;
@@ -26,6 +26,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         }
         RefreshCount(); 
     }
+
+    
 
     public void RefreshCount()
     {
@@ -60,5 +62,26 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public void Damage(float damage)
     {
         Durability -= damage;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            //여기 설렉트 하나 프레임 하나 넣기 그림
+            GameObject imageDescription = GameObject.Find("ItemDescriptionInventoryImage");
+            imageDescription.GetComponent<Image>().sprite = image.sprite;
+
+            GameObject description = GameObject.Find("ItemInventoryDesriptionTxt");
+            if(item.isTool)
+            {
+                description.GetComponent<Text>().text = item.name + "\n" + item.Description + "\n" + "Damage : " + item.damage + "\n" + "Durability : " + item.durability;
+            }
+            else
+            {
+                description.GetComponent<Text>().text = item.name + "\n" + item.Description + "\n" + "Price : " + item.price;
+            }
+            
+        }
     }
 }
