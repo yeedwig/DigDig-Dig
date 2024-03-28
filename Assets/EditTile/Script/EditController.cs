@@ -9,7 +9,7 @@ public class EditController : MonoBehaviour
 
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
-    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문, 5 엘베 통로
+    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] GameObject[] itemPrefabs;
 
@@ -30,6 +30,22 @@ public class EditController : MonoBehaviour
     private bool startInstallingElevator;
     [SerializeField] Tilemap editTilemap;
     [SerializeField] TileBase elevatorPassage;
+
+    private Vector3Int cursorPos;
+    private Ground ground;
+    Collider2D groundOnCursor;
+    RaycastHit2D hit;
+
+    private RaycastHit2D leftDiagonal;
+    private RaycastHit2D under;
+    private RaycastHit2D rightDiagonal;
+
+    private bool canInstall;
+
+    public Vector3 elevatorStartPosition;
+    private Vector3 elevatorEndPosition;
+
+    
 
 
     // Start is called before the first frame update
@@ -90,7 +106,41 @@ public class EditController : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.DownArrow))
                 {
-
+                    if (cursorMoveTimer > 0)
+                    {
+                        cursorMoveTimer--;
+                    }
+                    else
+                    {
+                        under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask);
+                        if(under.collider == null)
+                        {
+                            editPos.y--;
+                            cursor.transform.position = editPos;
+                            cursorMoveTimer = cursorMoveTimerMax;
+                            cursorPos = editTilemap.WorldToCell(cursor.transform.position);
+                            editTilemap.SetTile(cursorPos, elevatorPassage);
+                        }
+                        
+                    }
+                }
+                else if (Input.GetKey(KeyCode.UpArrow))
+                {
+                     if (cursorMoveTimer > 0)
+                     {
+                         cursorMoveTimer--;
+                     }
+                     else
+                     {
+                         if (editPos.y < elevatorStartPosition.y - 0.5f)
+                         {
+                            cursorPos = editTilemap.WorldToCell(cursor.transform.position);
+                            editTilemap.SetTile(cursorPos, null);
+                            editPos.y++;
+                            cursor.transform.position = editPos;
+                            cursorMoveTimer = cursorMoveTimerMax;
+                         }   
+                     }
                 }
                 else
                 {
@@ -168,8 +218,6 @@ public class EditController : MonoBehaviour
     {
         if (startInstallingElevator)
         {
-            itemCursorIndex = 5;
-            cursorSR.sprite = itemCursorSprite[itemCursorIndex];
         }
         else
         {
@@ -205,8 +253,6 @@ public class EditController : MonoBehaviour
         {
             if (CheckCanInstall())
             {
-                Vector3Int cursorPos;
-                Ground ground;
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
@@ -242,7 +288,18 @@ public class EditController : MonoBehaviour
                         GameObject elevatorDoor = Instantiate(itemPrefabs[itemCursorIndex]);
                         elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
                         ground.structureInstalled = true;
-                        startInstallingElevator = true;
+                        if (!startInstallingElevator)
+                        {
+                            startInstallingElevator = true;
+                            elevatorStartPosition = elevatorDoor.transform.position;
+                        }
+                        else
+                        {
+                            startInstallingElevator = false;
+                            elevatorEndPosition = elevatorDoor.transform.position;
+                            //통로 전부 설치 함수
+                        }
+                        
                         break;
                     default:
                         break;
@@ -252,11 +309,8 @@ public class EditController : MonoBehaviour
     }
     private bool CheckCanInstall()
     {
-        bool canInstall = false;
-        Collider2D groundOnCursor;
-        RaycastHit2D hit;
-        Vector3Int cursorPos;
-        Ground ground;
+        canInstall = false;
+        
         switch (itemCursorIndex)
         {
             case 0: //갱도
@@ -298,18 +352,16 @@ public class EditController : MonoBehaviour
                 break;
             case 4: //엘리베이터 문
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                RaycastHit2D leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask); 
-                RaycastHit2D under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
-                RaycastHit2D rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
+                leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask); 
+                under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
+                rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
                 cursorPos = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPos].GetComponent<Ground>();
                 if (groundOnCursor == null&&leftDiagonal.collider != null&&under.collider == null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
                 }
-                break;
-            case 5: //엘리베이터 통로
-                break;              
+                break;             
             default:
                 break;
         }
@@ -320,6 +372,6 @@ public class EditController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         //Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
-        Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(-1,-1,0));
+        //Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(-1,-1,0));
     }
 }
