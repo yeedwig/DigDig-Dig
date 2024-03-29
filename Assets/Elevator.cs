@@ -6,10 +6,12 @@ public class Elevator : MonoBehaviour
 {
     private Rigidbody2D rb;
     public float force;
+    private bool starts;
     // Start is called before the first frame update
     void Start()
     {
         rb = this.GetComponent<Rigidbody2D>();
+        starts = false;
         force = 10.0f;
         
     }
@@ -17,9 +19,13 @@ public class Elevator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.P))
+        if (starts)
         {
-            rb.AddForce(transform.right * force, ForceMode2D.Impulse);
+            rb.velocity = Vector2.up * 3.0f;
+        }
+        if (Input.GetKeyUp(KeyCode.P))
+        {
+            starts = true;
         }
     }
 }

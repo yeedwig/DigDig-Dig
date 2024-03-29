@@ -7,6 +7,7 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] GameObject structureCheckPos;
     private int layerMask;
     private bool isOnRail;
+    [SerializeField] GameObject elevator;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,10 @@ public class InteractionManager : MonoBehaviour
                 }
                 isOnRail = !isOnRail;
             }
+            if(structure.gameObject.tag == "Elevator" && Input.GetKeyDown(KeyCode.F))
+            {
+                elevator.transform.position = structure.transform.position;
+            }
         }
         else
         {
@@ -48,6 +53,7 @@ public class InteractionManager : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(structureCheckPos.transform.position, 0.4f);
+        
         
     }
 }
