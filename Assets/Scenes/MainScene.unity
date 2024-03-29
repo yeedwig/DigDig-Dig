@@ -546,7 +546,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.46648747}
@@ -1805,7 +1805,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0.45296592, y: 0.006760597}
@@ -8220,7 +8220,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.4597268, y: 0}
@@ -9877,14 +9877,13 @@ GameObject:
   - component: {fileID: 795549661}
   - component: {fileID: 795549660}
   - component: {fileID: 795549659}
-  - component: {fileID: 795549662}
   m_Layer: 0
   m_Name: Elevator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &795549659
 Rigidbody2D:
   serializedVersion: 4
@@ -9983,19 +9982,6 @@ Transform:
   - {fileID: 637592370}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &795549662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 795549658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d19fa304cf23a3458208d9c02f749be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  force: 10
 --- !u!1 &797472529
 GameObject:
   m_ObjectHideFlags: 0
@@ -14782,6 +14768,7 @@ Transform:
   - {fileID: 1210510921}
   - {fileID: 1478094939}
   - {fileID: 146361327}
+  - {fileID: 2127485961}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1246972424
@@ -14909,6 +14896,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   structureCheckPos: {fileID: 146361326}
+  elevatorCheckPos: {fileID: 2127485960}
   elevator: {fileID: 795549658}
 --- !u!224 &1250338985 stripped
 RectTransform:
@@ -20314,7 +20302,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.45296597}
@@ -23486,6 +23474,37 @@ MonoBehaviour:
   inventoryItemPrefab: {fileID: 7732144884286056590, guid: 5ed61616001ce4e42a2b3773b35809d4, type: 3}
   defaultShovel: {fileID: 11400000, guid: a485cab76d10d1848a05a556cd243134, type: 2}
   inventoryManager: {fileID: 980921697}
+--- !u!1 &2127485960
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2127485961}
+  m_Layer: 0
+  m_Name: ElevatorCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2127485961
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2127485960}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.54, y: -0.16, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1246972423}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2146440966
 GameObject:
   m_ObjectHideFlags: 0
