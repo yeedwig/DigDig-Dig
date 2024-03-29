@@ -297,7 +297,7 @@ public class EditController : MonoBehaviour
                         {
                             startInstallingElevator = false;
                             elevatorEndPosition = elevatorDoor.transform.position;
-                            //통로 전부 설치 함수
+                            InstallElevatorPassage();
                         }
                         
                         break;
@@ -357,9 +357,21 @@ public class EditController : MonoBehaviour
                 rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
                 cursorPos = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPos].GetComponent<Ground>();
-                if (groundOnCursor == null&&leftDiagonal.collider != null&&under.collider == null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                if (groundOnCursor == null&&leftDiagonal.collider != null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
-                    canInstall = true;
+                    if (startInstallingElevator)
+                    {
+                        canInstall = true;
+                    }
+                    else
+                    {
+                        if (under.collider == null)
+                        {
+                            canInstall = true;
+                        }
+                        
+                    }
+                    
                 }
                 break;             
             default:
@@ -373,5 +385,19 @@ public class EditController : MonoBehaviour
         Gizmos.color = Color.red;
         //Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
         //Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(-1,-1,0));
+    }
+
+    private void InstallElevatorPassage()
+    {
+        Vector3Int startPos = editBackground.WorldToCell(elevatorStartPosition-new Vector3(0,1,0));
+        Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
+        while (startPos.y > endPos.y)
+        {
+            GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[5]);
+            elevatorPassagePrefab.transform.position = startPos+new Vector3(0.5f,0.5f,0);
+            startPos.y--;
+        }
+        editBackground.ClearAllTiles();
+
     }
 }
