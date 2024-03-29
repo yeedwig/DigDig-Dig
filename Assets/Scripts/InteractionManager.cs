@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
@@ -58,7 +59,8 @@ public class InteractionManager : MonoBehaviour
                     isOnElevator = true;
                     elevator.SetActive(true);
                     elevator.transform.position = elevatorCheck.transform.position;
-                    //StartCoroutine(MoveElevator());
+                    this.transform.position = elevator.transform.position;
+                    StartCoroutine(MoveElevator());
                 }
                 
             }
@@ -67,18 +69,17 @@ public class InteractionManager : MonoBehaviour
     }
     IEnumerator MoveElevator()
     {
-        float elevatorSpeed = 0.0f;
+        float elevatorSpeed = 0.5f;
         while (true)
         {
-            yield return new WaitForSeconds(1.0f);
-            Debug.Log(elevatorSpeed);
             elevatorRB.velocity = Vector2.down * (elevatorSpeed);
-            if (elevatorSpeed < 3.0f)
+            if (elevatorSpeed < 2.0f)
             {
                 elevatorSpeed += 0.5f;
             }
+            yield return new WaitForSeconds(1.0f);
         }
-        yield return null;
+        
     }
 
     private void OnDrawGizmos()
