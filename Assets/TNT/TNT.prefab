@@ -188,5 +188,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TNTTimer: 10
-  ToolID: 21
+  ToolID: 22
   groundTileMap: {fileID: 0}

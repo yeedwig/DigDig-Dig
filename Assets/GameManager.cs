@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     bool AntNestFound;
     bool ArmyTrenchFound;
-    bool MadScientistLabFound;
+    bool PiratesMet;
     bool CrusadeFound;
     bool CatacombFound;
     bool AtlantisFound;
@@ -26,9 +26,21 @@ public class GameManager : MonoBehaviour
     bool EldoradoFound;
     bool TreasureFound;
 
-    
+    bool MadScientistLabFound;
+
+
     private void Start()
     {
+        AntNestFound = false;
+        ArmyTrenchFound = false;
+        PiratesMet = false;
+        CrusadeFound = false;
+        CatacombFound = false;
+        AtlantisFound = false;
+        UndergroundTribeFound = false;
+        LostWorldFound = false;
+        EldoradoFound = false;
+        TreasureFound = false;
         Money = 0;
     }
 
@@ -66,7 +78,7 @@ public class GameManager : MonoBehaviour
     {
         shopManager.AntNestFound = AntNestFound;
         shopManager.ArmyTrenchFound = ArmyTrenchFound;
-        shopManager.MadScientistLabFound = MadScientistLabFound;
+        shopManager.PiratesMet = PiratesMet;
         shopManager.CrusadeFound = CrusadeFound;    
         shopManager.CatacombFound = CatacombFound;
         shopManager.AtlantisFound = AtlantisFound;

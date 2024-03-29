@@ -49,7 +49,7 @@ public class TNT : MonoBehaviour
     {
         yield return new WaitForSeconds(TNTTimer);
         Vector3Int TNTGridPosition = groundTileMap.WorldToCell(this.transform.position);
-        if (ToolID == 21)
+        if (ToolID == 23)
         {
             int arraySize = bigTNTRange.GetLength(0);
             int offset = (arraySize - 1) / 2;
@@ -69,7 +69,7 @@ public class TNT : MonoBehaviour
                 }
             }
         }
-        else if(ToolID == 20)
+        else if(ToolID == 22)
         {
             int arraySize = smallTNTRange.GetLength(0);
             int offset = (arraySize - 1) / 2;

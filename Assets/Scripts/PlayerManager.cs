@@ -70,6 +70,11 @@ public class PlayerManager : MonoBehaviour
     //Dig 관련
     public DigManager digManager;
 
+    //Interaction 관련
+    public GameObject ShopUI;
+    public bool shopUIOpened;
+    public bool shopVisited = false;
+
     void Start()
     {
         Dead = false;
@@ -254,6 +259,27 @@ public class PlayerManager : MonoBehaviour
             Dead = true;
         }
 
+
+        //InterAction
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            
+            if(shopVisited == true)
+            {
+                if (shopUIOpened == false)
+                {
+                    ShopUI.SetActive(true);
+                    shopUIOpened = true;
+                }
+                else
+                {
+                    ShopUI.SetActive(false);
+                    shopUIOpened = false;
+                }
+            }
+            
+        }
+
     }
 
     void CheckTool()
@@ -415,5 +441,27 @@ public class PlayerManager : MonoBehaviour
         {
             return;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Shop")
+        {
+            //Debug.Log("EnterShop");
+            shopVisited = true;
+        }
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Shop")
+        {
+            //Debug.Log("LeavingShop");
+            shopVisited = false;
+            ShopUI.SetActive(false);
+            shopUIOpened = false;
+        }
+
     }
 }
