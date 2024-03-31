@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
 
     //Tool
     [SerializeField] private ToolManager toolManager;
-    public Item curItem;
+    private Item curItem;
     [SerializeField] private int curToolId;
     [SerializeField] private int curItemType;
 

@@ -72,11 +72,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             //여기 설렉트 하나 프레임 하나 넣기 그림
             GameObject imageDescription = GameObject.Find("ItemDescriptionInventoryImage");
-            var tempColor = imageDescription.GetComponent<Image>().color;
-            tempColor.a = 1f;
-            
+            //imageDescription.SetActive(true);
             imageDescription.GetComponent<Image>().sprite = image.sprite;
-            imageDescription.GetComponent<Image>().color = tempColor;
 
             GameObject description = GameObject.Find("ItemInventoryDesriptionTxt");
             if(item.isTool)
