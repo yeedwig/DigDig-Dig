@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public int Money;
     public Text moneyText;
 
+
     bool AntNestFound;
     bool ArmyTrenchFound;
     bool PiratesMet;
@@ -27,16 +28,6 @@ public class GameManager : MonoBehaviour
 
     bool MadScientistLabFound;
 
-    Item curItem;
-    InventoryItem currentInventoryItem;
-
-
-    //Tool UI Durability
-    [SerializeField] Slider durabilitySlider;
-    public Gradient gradient;
-    public Image durabilityFill;
-    [SerializeField] Image curToolImage;
-    [SerializeField] GameObject NullMask;
 
     private void Start()
     {
@@ -62,39 +53,9 @@ public class GameManager : MonoBehaviour
         }
         SetShop();
         moneyText.text = Money.ToString();
-        curItem = Player.curItem;
-        currentInventoryItem = toolManager.curToolInvenItem;
-        ShowCurrentTool();
         //moneyText.text = Money.ToString();  
     }
 
-    private void ShowCurrentTool()
-    {
-        if (currentInventoryItem != null && curItem != null)
-        {
-            //setImage;
-            curToolImage.sprite = currentInventoryItem.item.image;
-            //setDurability
-            NullMask.SetActive(false);
-            //Debug.Log(curItem.durability + "/" + currentInventoryItem.Durability);
-            
-            durabilitySlider.maxValue = curItem.durability;
-            durabilityFill.color = gradient.Evaluate(durabilitySlider.normalizedValue);
-            durabilitySlider.value = currentInventoryItem.Durability;
-
-            
-            //set Star;
-        }
-        else
-        {
-            curToolImage.sprite = null;
-
-            durabilitySlider.maxValue = 100;
-
-            durabilitySlider.value = 100;
-            NullMask.SetActive(true);
-        }
-    }
 
     private void PlayerDead()
     {
@@ -110,12 +71,6 @@ public class GameManager : MonoBehaviour
         {
             Player.Dead = false;
         }
-    }
-
-    public void MoneyAdded(int profit)
-    {
-        //돈 들어오는 사운드 추가
-        Money += profit;
     }
 
 

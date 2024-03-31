@@ -17,16 +17,12 @@ public class InventoryManager : MonoBehaviour
     public GameObject InventoryContentParent;
     public GameObject emptyInventorySlot;
 
-    public Image inventoryDescriptionImage;
     public int maxStack = 5;
 
     public void Start()
     {
         inventorySlotsLength = 5;
         currentInventoryLevel = 0;
-        var tempColor = inventoryDescriptionImage.color;
-        tempColor.a = 0;
-        inventoryDescriptionImage.color = tempColor;
     }
     public bool AddItem(Item item)
     {
@@ -134,13 +130,13 @@ public class InventoryManager : MonoBehaviour
             {
                 if (itemInSlot.item.stackable)
                 {
-                    GM.MoneyAdded(itemInSlot.item.price * itemInSlot.count);
+                    GM.Money += itemInSlot.item.price * itemInSlot.count;
 
                     Destroy(itemInSlot.gameObject);
                 }
                 else
                 {
-                    GM.MoneyAdded(itemInSlot.item.price);
+                    GM.Money += itemInSlot.item.price;
                     Destroy(itemInSlot.gameObject);
                 }
             }

@@ -69,7 +69,7 @@ public class ToolManager : MonoBehaviour
             InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
             if(itemInSlot != null)
             {
-                GM.MoneyAdded(itemInSlot.item.price);
+                GM.Money += itemInSlot.item.price;
 
                 Destroy(itemInSlot.gameObject);
             }
