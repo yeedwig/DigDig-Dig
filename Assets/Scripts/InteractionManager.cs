@@ -70,21 +70,41 @@ public class InteractionManager : MonoBehaviour
     IEnumerator MoveElevator(Collider2D elevator)
     {
         float elevatorSpeed = 0.5f;
+        bool speedUp = true;
         if (elevator.GetComponent<Elevator>().isTop)
         {
-            while (true)
+            while (isOnElevator)
             {
                 elevatorRB.velocity = Vector2.down * (elevatorSpeed);
-                if (elevatorSpeed < 2.0f)
+                if (speedUp)
                 {
-                    elevatorSpeed += 0.5f;
+                    if (elevatorSpeed < 2.0f)
+                    {
+                        elevatorSpeed += 0.5f;
+                    }
                 }
+                else
+                {
+                    if (elevatorSpeed >= 0.4f)
+                    {
+                        elevatorSpeed -= 0.5f;
+                    }
+                }
+                RaycastHit2D ray = Physics2D.Raycast(this.transform.position, new Vector2(0, -1), 0.7f, layerMask);
+                if(ray.collider != null)
+                {
+                    if (ray.collider.gameObject.tag == "Elevator")
+                    {
+                        Debug.Log("elevator");
+                    }
+                }
+
                 yield return new WaitForSeconds(1.0f);
             }
         }
         else
         {
-            while (true)
+            while (isOnElevator)
             {
 
                 elevatorRB.velocity = Vector2.up * (elevatorSpeed);

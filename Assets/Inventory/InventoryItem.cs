@@ -16,6 +16,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public float Durability;
 
+    
+
     public void InitializeItem(Item newItem)
     {
         item = newItem;
