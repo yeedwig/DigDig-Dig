@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1552211913
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -1300004791, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -105,6 +105,7 @@ MonoBehaviour:
   groundLevel: 0
   isRuin: 0
   gangInstalled: 0
+  structureInstalled: 0
   groundMaxPerLevel: f6ffffffe2ffffff
   breakThreshold1: 0.7
   breakThreshold2: 0.3
@@ -122,7 +123,7 @@ MonoBehaviour:
   - {fileID: 1662449315, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   - {fileID: 1662449315, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   ruinSprites: []
-  gangSprite: {fileID: 1772205100, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
+  gangSprite: {fileID: 21300000, guid: f3b9ada815d2b1d478818dd45bd121e9, type: 3}
 --- !u!61 &7182001883272849048
 BoxCollider2D:
   m_ObjectHideFlags: 0
