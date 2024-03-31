@@ -70,6 +70,7 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
         {
             //여기 설렉트 하나 프레임 하나 넣기 그림
             GameObject imageDescription = GameObject.Find("ItemDescriptionInventoryImage");
+            //imageDescription.SetActive(true);
             imageDescription.GetComponent<Image>().sprite = image.sprite;
 
             GameObject description = GameObject.Find("ItemInventoryDesriptionTxt");
