@@ -57,6 +57,12 @@ TagManager:
   - name: Structure
     uniqueID: 3411507489
     locked: 0
+  - name: NPCs
+    uniqueID: 2217483931
+    locked: 0
+  - name: Shop
+    uniqueID: 166235161
+    locked: 0
   - name: Player
     uniqueID: 2130534703
     locked: 0
