@@ -60,25 +60,42 @@ public class InteractionManager : MonoBehaviour
                     elevator.SetActive(true);
                     elevator.transform.position = elevatorCheck.transform.position;
                     this.transform.position = elevator.transform.position;
-                    StartCoroutine(MoveElevator());
+                    StartCoroutine(MoveElevator(elevatorCheck));
                 }
                 
             }
         }
         
     }
-    IEnumerator MoveElevator()
+    IEnumerator MoveElevator(Collider2D elevator)
     {
         float elevatorSpeed = 0.5f;
-        while (true)
+        if (elevator.GetComponent<Elevator>().isTop)
         {
-            elevatorRB.velocity = Vector2.down * (elevatorSpeed);
-            if (elevatorSpeed < 2.0f)
+            while (true)
             {
-                elevatorSpeed += 0.5f;
+                elevatorRB.velocity = Vector2.down * (elevatorSpeed);
+                if (elevatorSpeed < 2.0f)
+                {
+                    elevatorSpeed += 0.5f;
+                }
+                yield return new WaitForSeconds(1.0f);
             }
-            yield return new WaitForSeconds(1.0f);
         }
+        else
+        {
+            while (true)
+            {
+
+                elevatorRB.velocity = Vector2.up * (elevatorSpeed);
+                if (elevatorSpeed < 2.0f)
+                {
+                    elevatorSpeed += 0.5f;
+                }
+                yield return new WaitForSeconds(1.0f);
+            }
+        }
+        
         
     }
 

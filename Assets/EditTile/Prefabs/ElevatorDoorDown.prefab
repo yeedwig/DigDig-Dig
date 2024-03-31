@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 3368448689057864486}
   - component: {fileID: 2286649052452913953}
   - component: {fileID: -5891174610997226613}
+  - component: {fileID: 4967762816859268710}
   m_Layer: 7
-  m_Name: ElevatorDoor
+  m_Name: ElevatorDoorDown
   m_TagString: Elevator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -130,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &4967762816859268710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4735433347188349646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8c5037026a7e64bb19b41da41aeb3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTop: 1
