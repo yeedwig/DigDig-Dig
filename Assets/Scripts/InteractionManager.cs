@@ -12,6 +12,8 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] GameObject elevator;
     private Rigidbody2D elevatorRB;
     private bool isOnElevator;
+
+    public bool arrived;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,10 +58,12 @@ public class InteractionManager : MonoBehaviour
             {
                 if (!isOnElevator)
                 {
+                    arrived = false;
                     isOnElevator = true;
                     elevator.SetActive(true);
                     elevator.transform.position = elevatorCheck.transform.position;
                     this.transform.position = elevator.transform.position;
+                    elevatorCheck.gameObject.GetComponent<Elevator>().stool.SetActive(false);
                     StartCoroutine(MoveElevator(elevatorCheck));
                 }
                 
@@ -75,31 +79,42 @@ public class InteractionManager : MonoBehaviour
         {
             while (isOnElevator)
             {
+                RaycastHit2D ray = Physics2D.Raycast(this.transform.position + new Vector3(0, -0.6f, 0), new Vector2(0, -1), 2.0f, layerMask);
+                
                 elevatorRB.velocity = Vector2.down * (elevatorSpeed);
                 if (speedUp)
                 {
                     if (elevatorSpeed < 2.0f)
                     {
-                        elevatorSpeed += 0.5f;
+                        elevatorSpeed += 0.01f;
                     }
                 }
                 else
                 {
-                    if (elevatorSpeed >= 0.4f)
+                    if (elevatorSpeed >= 0.5f)
                     {
-                        elevatorSpeed -= 0.5f;
+                       elevatorSpeed -= 0.01f;
                     }
                 }
-                RaycastHit2D ray = Physics2D.Raycast(this.transform.position, new Vector2(0, -1), 0.7f, layerMask);
+                
                 if(ray.collider != null)
                 {
                     if (ray.collider.gameObject.tag == "Elevator")
                     {
-                        Debug.Log("elevator");
+                        speedUp = false;
                     }
+                    
                 }
 
-                yield return new WaitForSeconds(1.0f);
+                if (arrived)
+                {
+                    isOnElevator = false;
+                    elevatorRB.velocity = Vector2.down * 0.0f;
+                    
+                }
+                
+
+                yield return null;
             }
         }
         else
