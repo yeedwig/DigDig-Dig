@@ -9,7 +9,7 @@ public class EditController : MonoBehaviour
 
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
-    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문
+    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로 6 통로
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] GameObject[] itemPrefabs;
 
@@ -39,6 +39,8 @@ public class EditController : MonoBehaviour
     private RaycastHit2D leftDiagonal;
     private RaycastHit2D under;
     private RaycastHit2D rightDiagonal;
+    private RaycastHit2D up;
+   
 
     private bool canInstall;
 
@@ -104,48 +106,97 @@ public class EditController : MonoBehaviour
         {
             if (startInstallingElevator)
             {
-                if (Input.GetKey(KeyCode.DownArrow))
+                if (itemCursorIndex == 4)
                 {
-                    if (cursorMoveTimer > 0)
+                    if (Input.GetKey(KeyCode.DownArrow))
                     {
-                        cursorMoveTimer--;
+                        if (cursorMoveTimer > 0)
+                        {
+                            cursorMoveTimer--;
+                        }
+                        else
+                        {
+                            under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask);
+                            if (under.collider == null)
+                            {
+                                editPos.y--;
+                                cursor.transform.position = editPos;
+                                cursorMoveTimer = cursorMoveTimerMax;
+                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPos, elevatorPassage);
+                            }
+
+                        }
+                    }
+                    else if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        if (cursorMoveTimer > 0)
+                        {
+                            cursorMoveTimer--;
+                        }
+                        else
+                        {
+                            if (editPos.y < elevatorStartPosition.y - 0.5f)
+                            {
+                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPos, null);
+                                editPos.y++;
+                                cursor.transform.position = editPos;
+                                cursorMoveTimer = cursorMoveTimerMax;
+                            }
+                        }
                     }
                     else
                     {
-                        under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask);
-                        if(under.collider == null)
-                        {
-                            editPos.y--;
-                            cursor.transform.position = editPos;
-                            cursorMoveTimer = cursorMoveTimerMax;
-                            cursorPos = editTilemap.WorldToCell(cursor.transform.position);
-                            editTilemap.SetTile(cursorPos, elevatorPassage);
-                        }
-                        
+                        cursorMoveTimer = 15.0f;
                     }
                 }
-                else if (Input.GetKey(KeyCode.UpArrow))
+                else if(itemCursorIndex == 5)
                 {
-                     if (cursorMoveTimer > 0)
-                     {
-                         cursorMoveTimer--;
-                     }
-                     else
-                     {
-                         if (editPos.y < elevatorStartPosition.y - 0.5f)
-                         {
-                            cursorPos = editTilemap.WorldToCell(cursor.transform.position);
-                            editTilemap.SetTile(cursorPos, null);
-                            editPos.y++;
-                            cursor.transform.position = editPos;
-                            cursorMoveTimer = cursorMoveTimerMax;
-                         }   
-                     }
+                    if (Input.GetKey(KeyCode.UpArrow))
+                    {
+                        if (cursorMoveTimer > 0)
+                        {
+                            cursorMoveTimer--;
+                        }
+                        else
+                        {
+                            up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, layerMask);
+                            if (up.collider == null)
+                            {
+                                editPos.y++;
+                                cursor.transform.position = editPos;
+                                cursorMoveTimer = cursorMoveTimerMax;
+                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPos, elevatorPassage);
+                            }
+
+                        }
+                    }
+                    else if (Input.GetKey(KeyCode.DownArrow))
+                    {
+                        if (cursorMoveTimer > 0)
+                        {
+                            cursorMoveTimer--;
+                        }
+                        else
+                        {
+                            if (editPos.y > elevatorStartPosition.y + 0.5f)
+                            {
+                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPos, null);
+                                editPos.y--;
+                                cursor.transform.position = editPos;
+                                cursorMoveTimer = cursorMoveTimerMax;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cursorMoveTimer = 15.0f;
+                    }
                 }
-                else
-                {
-                    cursorMoveTimer = 15.0f;
-                }
+                
             }
             else
             {
@@ -228,13 +279,13 @@ public class EditController : MonoBehaviour
                     itemCursorIndex--;
                     if (itemCursorIndex < 0)
                     {
-                        itemCursorIndex = 4;
+                        itemCursorIndex = 5;
                     }
                 }
                 else if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
                     itemCursorIndex++;
-                    if (itemCursorIndex > 4)
+                    if (itemCursorIndex > 5)
                     {
                         itemCursorIndex = 0;
                     }
@@ -282,24 +333,50 @@ public class EditController : MonoBehaviour
                         rail.transform.position = cursorPos+new Vector3(0.5f,0.5f,0);
                         ground.structureInstalled = true;
                         break;
-                    case 4: //엘리베이터 문
+                    case 4: //엘리베이터 문 아래로
                         cursorPos = editBackground.WorldToCell(cursor.transform.position);
                         ground = groundDictionary[cursorPos].GetComponent<Ground>();
-                        GameObject elevatorDoor = Instantiate(itemPrefabs[itemCursorIndex]);
-                        elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
                         ground.structureInstalled = true;
                         if (!startInstallingElevator)
                         {
+                            GameObject elevatorDoorDown = Instantiate(itemPrefabs[4]);
+                            elevatorDoorDown.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
                             startInstallingElevator = true;
-                            elevatorStartPosition = elevatorDoor.transform.position;
+                            elevatorStartPosition = elevatorDoorDown.transform.position;
+                            cursorSR.sprite = itemCursorSprite[5];
                         }
                         else
                         {
+                            GameObject elevatorDoor = Instantiate(itemPrefabs[5]);
+                            elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
                             startInstallingElevator = false;
                             elevatorEndPosition = elevatorDoor.transform.position;
+                            cursorSR.sprite = itemCursorSprite[4];
                             InstallElevatorPassage();
                         }
                         
+                        break;
+                    case 5:
+                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        ground.structureInstalled = true;
+                        if (!startInstallingElevator)
+                        {
+                            GameObject elevatorDoorDown = Instantiate(itemPrefabs[5]);
+                            elevatorDoorDown.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                            startInstallingElevator = true;
+                            elevatorStartPosition = elevatorDoorDown.transform.position;
+                            cursorSR.sprite = itemCursorSprite[4];
+                        }
+                        else
+                        {
+                            GameObject elevatorDoor = Instantiate(itemPrefabs[4]);
+                            elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                            startInstallingElevator = false;
+                            elevatorEndPosition = elevatorDoor.transform.position;
+                            cursorSR.sprite = itemCursorSprite[5];
+                            InstallElevatorPassage();
+                        }
                         break;
                     default:
                         break;
@@ -350,7 +427,7 @@ public class EditController : MonoBehaviour
                     canInstall = true;
                 }
                 break;
-            case 4: //엘리베이터 문
+            case 4: //엘리베이터 문 아래로
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
                 leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask); 
                 under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
@@ -368,12 +445,32 @@ public class EditController : MonoBehaviour
                         if (under.collider == null)
                         {
                             canInstall = true;
-                        }
-                        
+                        }  
                     }
-                    
                 }
-                break;             
+                break;
+            case 5:
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask);
+                up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, layerMask);
+                rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
+                cursorPos = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                if(groundOnCursor ==null && leftDiagonal.collider != null && rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                {
+                    if (!startInstallingElevator)
+                    {
+                        if(up.collider == null)
+                        {
+                            canInstall = true;
+                        }
+                    }
+                    else
+                    {
+                        canInstall = true;
+                    }
+                }
+                break;
             default:
                 break;
         }
@@ -389,14 +486,30 @@ public class EditController : MonoBehaviour
 
     private void InstallElevatorPassage()
     {
-        Vector3Int startPos = editBackground.WorldToCell(elevatorStartPosition-new Vector3(0,1,0));
-        Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
-        while (startPos.y > endPos.y)
+        
+        if (elevatorStartPosition.y > elevatorEndPosition.y)
         {
-            GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[5]);
-            elevatorPassagePrefab.transform.position = startPos+new Vector3(0.5f,0.5f,0);
-            startPos.y--;
+            Vector3Int startPos = editBackground.WorldToCell(elevatorStartPosition - new Vector3(0, 1, 0));
+            Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
+            while (startPos.y > endPos.y)
+            {
+                GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
+                elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
+                startPos.y--;
+            }
         }
+        else
+        {
+            Vector3Int startPos = editBackground.WorldToCell(elevatorStartPosition);
+            Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
+            while (startPos.y < endPos.y)
+            {
+                GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
+                elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
+                startPos.y++;
+            }
+        }
+        //ground 조건 추가하기
         editBackground.ClearAllTiles();
 
     }
