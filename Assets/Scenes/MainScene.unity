@@ -3556,7 +3556,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Structs&Other
+  m_Text: 'Structs
+
+    & Other'
 --- !u!222 &298486909
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10509,14 +10511,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ec31b882d34bcd942a09a8de7c50f09c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50aeadecd6178e340b317eea9418ea9b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
