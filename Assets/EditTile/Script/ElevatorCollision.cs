@@ -18,7 +18,11 @@ public class ElevatorCollision : MonoBehaviour
         {
             if(collision.gameObject.name == "Stool")
             {
-                interactionManager.arrived = true;
+                interactionManager.arrivedDown = true;
+            }
+            if(collision.gameObject.name == "Roof")
+            {
+                interactionManager.arrivedUp = true;
             }
         }
     }

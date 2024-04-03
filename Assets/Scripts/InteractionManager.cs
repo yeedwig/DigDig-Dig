@@ -12,8 +12,9 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] GameObject elevator;
     private Rigidbody2D elevatorRB;
     private bool isOnElevator;
+    private Collider2D elevatorFirst;
 
-    public bool arrived;
+    public bool arrivedUp,arrivedDown;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,12 +59,14 @@ public class InteractionManager : MonoBehaviour
             {
                 if (!isOnElevator)
                 {
-                    arrived = false;
+                    elevatorFirst = elevatorCheck;
+                    arrivedUp = false;
+                    arrivedDown = false;
                     isOnElevator = true;
                     elevator.SetActive(true);
                     elevator.transform.position = elevatorCheck.transform.position;
                     this.transform.position = elevator.transform.position;
-                    elevatorCheck.gameObject.GetComponent<Elevator>().stool.SetActive(false);
+                    elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(false);
                     StartCoroutine(MoveElevator(elevatorCheck));
                 }
                 
@@ -71,11 +74,11 @@ public class InteractionManager : MonoBehaviour
         }
         
     }
-    IEnumerator MoveElevator(Collider2D elevator)
+    IEnumerator MoveElevator(Collider2D collider)
     {
         float elevatorSpeed = 0.5f;
         bool speedUp = true;
-        if (elevator.GetComponent<Elevator>().isTop)
+        if (collider.GetComponent<Elevator>().isTop)
         {
             while (isOnElevator)
             {
@@ -106,11 +109,12 @@ public class InteractionManager : MonoBehaviour
                     
                 }
 
-                if (arrived)
+                if (arrivedDown)
                 {
                     isOnElevator = false;
+                    elevator.SetActive(false);
                     elevatorRB.velocity = Vector2.down * 0.0f;
-                    
+                    elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
                 }
                 
 
@@ -121,13 +125,41 @@ public class InteractionManager : MonoBehaviour
         {
             while (isOnElevator)
             {
-
+                RaycastHit2D ray = Physics2D.Raycast(this.transform.position + new Vector3(0, 0.6f, 0), new Vector2(0, 1), 0.8f, layerMask);
                 elevatorRB.velocity = Vector2.up * (elevatorSpeed);
-                if (elevatorSpeed < 2.0f)
+                if (speedUp)
                 {
-                    elevatorSpeed += 0.5f;
+                    if (elevatorSpeed < 2.0f)
+                    {
+                        elevatorSpeed += 0.01f;
+                    }
                 }
-                yield return new WaitForSeconds(1.0f);
+                else
+                {
+                    if (elevatorSpeed >= 0.5f)
+                    {
+                        elevatorSpeed -= 0.01f;
+                    }
+                }
+
+                if (ray.collider != null)
+                {
+                    if (ray.collider.gameObject.tag == "Elevator")
+                    {
+                        speedUp = false;
+                    }
+                }
+
+                if (arrivedUp)
+                {
+                    isOnElevator = false;
+                    elevator.SetActive(false);
+                    elevatorRB.velocity = Vector2.up * 0.0f;
+                    elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
+                }
+
+
+                yield return null;
             }
         }
         
