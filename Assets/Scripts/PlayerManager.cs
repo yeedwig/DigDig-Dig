@@ -80,6 +80,9 @@ public class PlayerManager : MonoBehaviour
     public bool canClimbLadder;
     RaycastHit2D ladderCheckRay;
     private int structureMask;
+    [SerializeField] float ladderSpeed;
+    private float yMove;
+    private float originalGravity;
 
     void Start()
     {
@@ -90,6 +93,7 @@ public class PlayerManager : MonoBehaviour
         editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
         digManager = GetComponent<DigManager>();
         structureMask = 1 << LayerMask.NameToLayer("Structure");
+        originalGravity = rb.gravityScale;
 
         curItem = toolManager.curItem;
         //curItem.itemType = 0;
@@ -307,17 +311,21 @@ public class PlayerManager : MonoBehaviour
 
     private void Flip()
     {
-        if(facingRight == true && moveDir == -1)
+        if(!isClimbingLadder)
         {
-            transform.Rotate(0.0f, 180.0f, 0.0f);
-            facingRight = false;
-        }
+            if (facingRight == true && moveDir == -1)
+            {
+                transform.Rotate(0.0f, 180.0f, 0.0f);
+                facingRight = false;
+            }
 
-        else if(facingRight == false && moveDir == 1)
-        {
-            transform.Rotate(0.0f, 180.0f, 0.0f);
-            facingRight = true;
+            else if (facingRight == false && moveDir == 1)
+            {
+                transform.Rotate(0.0f, 180.0f, 0.0f);
+                facingRight = true;
+            }
         }
+        
     }
 
     private void UpdateAnimation()
@@ -405,13 +413,26 @@ public class PlayerManager : MonoBehaviour
     {
         if (canClimbLadder&&Input.GetKeyDown(KeyCode.F))
         {
-            isClimbingLadder = !isClimbingLadder;
+            if (isClimbingLadder)
+            {
+                isClimbingLadder = false;
+                rb.gravityScale = originalGravity;
+            }
+            else
+            {
+                isClimbingLadder= true;
+                rb.gravityScale = 0;
+            }
         }
     }
 
     private void moveOnladder()
     {
-
+        yMove = Input.GetAxisRaw("Vertical");
+        if(isClimbingLadder)
+        {
+            rb.velocity = new Vector2(0,yMove*ladderSpeed);
+        }
     }
 
     public void InstallTNT()

@@ -15836,6 +15836,9 @@ MonoBehaviour:
   ShopUI: {fileID: 2073681641}
   shopUIOpened: 0
   shopVisited: 0
+  isClimbingLadder: 0
+  canClimbLadder: 0
+  ladderSpeed: 3
 --- !u!70 &1246972426
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
