@@ -75,6 +75,12 @@ public class PlayerManager : MonoBehaviour
     public bool shopUIOpened;
     public bool shopVisited = false;
 
+    //ladder 관련
+    public bool isClimbingLadder = false;
+    public bool canClimbLadder;
+    RaycastHit2D ladderCheckRay;
+    private int structureMask;
+
     void Start()
     {
         Dead = false;
@@ -83,6 +89,7 @@ public class PlayerManager : MonoBehaviour
         anim = GetComponent<Animator>();
         editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
         digManager = GetComponent<DigManager>();
+        structureMask = 1 << LayerMask.NameToLayer("Structure");
 
         curItem = toolManager.curItem;
         //curItem.itemType = 0;
@@ -103,6 +110,8 @@ public class PlayerManager : MonoBehaviour
             CheckCanWalk();
             CheckIsWalking();
             CheckCurrentTool();
+            CheckCanClimb();
+            GetOnOffLadder();
 
             //ShowCurrentTool();
         }
@@ -123,6 +132,7 @@ public class PlayerManager : MonoBehaviour
     {
         UpdateAnimation();
         Walk();
+        moveOnladder();
     }
 
     void CheckCurrentTool()
@@ -330,7 +340,7 @@ public class PlayerManager : MonoBehaviour
     
     private void CheckCanWalk()
     {
-        if(isDigging == true || isDrilling == true||isEditOn)
+        if(isDigging == true || isDrilling == true||isEditOn || isClimbingLadder)
         {
             canWalk = false;
         }
@@ -369,6 +379,41 @@ public class PlayerManager : MonoBehaviour
     private void CheckIsJumping()
     {
     }
+
+    private void CheckCanClimb() // 사다리 타기 가능한지 확인
+    {
+        if (facingRight)
+        {
+            ladderCheckRay = Physics2D.Raycast(this.gameObject.transform.position, transform.right, 0.2f, structureMask);
+        }
+        else
+        {
+            ladderCheckRay = Physics2D.Raycast(this.gameObject.transform.position, -transform.right, 0.2f, structureMask);
+        }
+
+        if (ladderCheckRay.collider != null)
+        {
+            canClimbLadder = true;
+        }
+        else
+        {
+            canClimbLadder = false;
+        }
+    }
+
+    private void GetOnOffLadder() // 나중에 옆에 interaction manager로 옮길지도
+    {
+        if (canClimbLadder&&Input.GetKeyDown(KeyCode.F))
+        {
+            isClimbingLadder = !isClimbingLadder;
+        }
+    }
+
+    private void moveOnladder()
+    {
+
+    }
+
     public void InstallTNT()
     {
 
