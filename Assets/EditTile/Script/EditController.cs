@@ -38,13 +38,7 @@ public class EditController : MonoBehaviour
     //ray,collider
     Collider2D obstacleOnCursor;//커서 위에 땅 있는지 확인
     Collider2D gangOnCursor;//커서 위에 갱도 있는지 확인
-    RaycastHit2D hit; //커서 오른쪽
-    RaycastHit2D rightHit; //커서 오른쪽
-    RaycastHit2D leftHit; //커서 왼쪽
-    private RaycastHit2D leftDiagonal;
-    private RaycastHit2D under;
-    private RaycastHit2D rightDiagonal;
-    private RaycastHit2D up;
+    RaycastHit2D hit;
 
     // 기타
     private int obstacleMask;
@@ -272,22 +266,18 @@ public class EditController : MonoBehaviour
     }
     private bool CheckCanInstall()
     {
-        canInstall = false;
 
         // 0 갱도, 1 오른 사다리, 2 왼 사다리, 3 레일, 4 엘리베이터 아래 문, 5 엘리베이터 위쪽 문
-        // 갱도 설치를 타일로 바꿀까?
         obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
         gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
         if (obstacleOnCursor != null)
         {
-            Debug.Log("Found obstacle");
             return false;
         }
         else
         {
             if(itemCursorIndex == 0)
             {
-                Debug.Log("Not found");
                 return true;
             }
             if (gangOnCursor == null)
@@ -296,120 +286,33 @@ public class EditController : MonoBehaviour
             }
             else
             {
-                if (itemCursorIndex == 1)
+                if(itemCursorIndex == 4 ||  itemCursorIndex == 5)
                 {
-                    rightHit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
-                    if (rightHit.collider != null) return true;
+                    return true;
                 }
-                else if (itemCursorIndex == 2)
+                else
                 {
-                    leftHit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
-                    if(leftHit.collider != null) return true;
-                }
-                else if (itemCursorIndex == 3)
-                {
+                    if (itemCursorIndex == 1)
+                    {
+                        hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
+                    }
+                    else if (itemCursorIndex == 2)
+                    {
+                        hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
+                    }
+                    else if (itemCursorIndex == 3)
+                    {
+                        hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask);
+                    }
 
+                    if(hit.collider != null)
+                    {
+                        return true;
+                    }
                 }
             }
-
         }
-
-
-        switch (itemCursorIndex)
-        {
-            case 0: //갱도
-                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.49f, obstacleMask);
-                
-                if (obstacleOnCursor == null)
-                {
-                    canInstall = true;
-                }
-                break;
-            case 1: //오른쪽 사다리
-                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
-                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (obstacleOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
-                {
-                    canInstall = true;
-                }
-                break;
-            case 2://왼쪽 사다리
-                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
-                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (obstacleOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
-                {
-                    canInstall = true;
-                }
-                break;
-            case 3: //레일
-                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, obstacleMask);
-                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (obstacleOnCursor == null && hit.collider!=null && ground.gangInstalled && !ground.structureInstalled)
-                {
-                    canInstall = true;
-                }
-                break;
-            case 4: //엘리베이터 문 아래로
-                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
-                leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, obstacleMask); 
-                under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask); 
-                rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, obstacleMask);
-                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (obstacleOnCursor == null&&leftDiagonal.collider != null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
-                {
-                    if (startInstallingElevator)
-                    {
-                        canInstall = true;
-                    }
-                    else
-                    {
-                        if (under.collider == null)
-                        {
-                            canInstall = true;
-                        }  
-                    }
-                }
-                break;
-            case 5:
-                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
-                leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, obstacleMask);
-                up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, obstacleMask);
-                rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, obstacleMask);
-                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if(obstacleOnCursor ==null && leftDiagonal.collider != null && rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
-                {
-                    if (!startInstallingElevator)
-                    {
-                        if(up.collider == null)
-                        {
-                            canInstall = true;
-                        }
-                    }
-                    else
-                    {
-                        canInstall = true;
-                    }
-                }
-                break;
-            default:
-                break;
-        }
-        return canInstall;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        //Gizmos.DrawWireSphere(cursor.transform.position, 0.2f);
-        //Gizmos.DrawLine(cursor.transform.position,cursor.transform.position+new Vector3(-1,-1,0));
+        return false;
     }
 
     private void InstallElevatorPassage()
