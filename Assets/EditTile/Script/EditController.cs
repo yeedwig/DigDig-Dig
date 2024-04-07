@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -23,6 +24,7 @@ public class EditController : MonoBehaviour
 
     //에딧 창 관련
     [SerializeField] Tilemap editTilemap; // 에딧창
+    [SerializeField] Tilemap gangTilemap; // 갱도 타일맵
     [SerializeField] Tilemap editBackground; // 배경
     public bool isEditOn=false; //에딧창 켜져있는가
     private bool canInstall; //설치 가능한가
@@ -34,23 +36,29 @@ public class EditController : MonoBehaviour
     private Vector3 elevatorEndPosition;
 
     //ray,collider
-    Collider2D groundOnCursor;
-    RaycastHit2D hit;
+    Collider2D obstacleOnCursor;//커서 위에 땅 있는지 확인
+    Collider2D gangOnCursor;//커서 위에 갱도 있는지 확인
+    RaycastHit2D hit; //커서 오른쪽
+    RaycastHit2D rightHit; //커서 오른쪽
+    RaycastHit2D leftHit; //커서 왼쪽
     private RaycastHit2D leftDiagonal;
     private RaycastHit2D under;
     private RaycastHit2D rightDiagonal;
     private RaycastHit2D up;
 
     // 기타
-    private int groundMask; 
+    private int obstacleMask;
+    private int gangMask;
     private Dictionary<Vector3Int, GameObject> groundDictionary;
     private Ground ground; //땅
+    [SerializeField] TileBase gang;
 
     void Start()
     {
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         cursorSR.color = new Color(1, 1, 1, 0.7f);
-        groundMask = 1 << LayerMask.NameToLayer("Ground");
+        obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure");
+        gangMask = 1 << LayerMask.NameToLayer("Gang");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
     }
 
@@ -74,7 +82,8 @@ public class EditController : MonoBehaviour
             }
             else
             {
-                resetEdit();
+                itemCursorIndex = 0;
+                startInstallingElevator = false;
                 cursor.SetActive(true);
                 editBackground.gameObject.SetActive(true);
                 cursor.transform.position = editTilemap.WorldToCell(player.transform.position)+new Vector3(0.5f,0.5f,0);
@@ -84,157 +93,48 @@ public class EditController : MonoBehaviour
         }
     }
 
-    private void resetEdit()
-    {
-        itemCursorIndex = 0;
-        startInstallingElevator = false;
-    }
-
     private void MoveEditCursor()
     {
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
-
-
-            if (startInstallingElevator)
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                if (itemCursorIndex == 4)
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    if (Input.GetKey(KeyCode.DownArrow))
-                    {
-                        if (cursorMoveTimer > 0)
-                        {
-                            cursorMoveTimer--;
-                        }
-                        else
-                        {
-                            under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, groundMask);
-                            if (under.collider == null)
-                            {
-                                cursorPos.y--;
-                                cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorFastMoveInterval;
-                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPosInt, elevatorPassage);
-                            }
-
-                        }
-                    }
-                    else if (Input.GetKey(KeyCode.UpArrow))
-                    {
-                        if (cursorMoveTimer > 0)
-                        {
-                            cursorMoveTimer--;
-                        }
-                        else
-                        {
-                            if (cursorPos.y < elevatorStartPosition.y - 0.5f)
-                            {
-                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPosInt, null);
-                                cursorPos.y++;
-                                cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorFastMoveInterval;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        cursorMoveTimer = 15.0f;
-                    }
+                    cursor.transform.position += new Vector3(-1, 0, 0);
                 }
-                else if(itemCursorIndex == 5)
+                cursorTimer(-1,0);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    if (Input.GetKey(KeyCode.UpArrow))
-                    {
-                        if (cursorMoveTimer > 0)
-                        {
-                            cursorMoveTimer--;
-                        }
-                        else
-                        {
-                            up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, groundMask);
-                            if (up.collider == null)
-                            {
-                                cursorPos.y++;
-                                cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorFastMoveInterval;
-                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPosInt, elevatorPassage);
-                            }
-
-                        }
-                    }
-                    else if (Input.GetKey(KeyCode.DownArrow))
-                    {
-                        if (cursorMoveTimer > 0)
-                        {
-                            cursorMoveTimer--;
-                        }
-                        else
-                        {
-                            if (cursorPos.y > elevatorStartPosition.y + 0.5f)
-                            {
-                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPosInt, null);
-                                cursorPos.y--;
-                                cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorFastMoveInterval;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        cursorMoveTimer = 15.0f;
-                    }
+                    cursor.transform.position += new Vector3(1, 0, 0);
                 }
-                
+                cursorTimer(1, 0);
+            }
+            else if (Input.GetKey(KeyCode.UpArrow))
+            {
+                if (Input.GetKeyDown(KeyCode.UpArrow))
+                {
+                    cursor.transform.position += new Vector3(0,1,0);
+                }
+                cursorTimer(0,1);
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                if (Input.GetKeyDown(KeyCode.DownArrow))
+                {
+                    cursor.transform.position += new Vector3(0, -1, 0);
+                }
+                cursorTimer(0, -1);
             }
             else
             {
-                if (Input.GetKey(KeyCode.LeftArrow))
-                {
-                    if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    {
-                        cursor.transform.position += new Vector3(-1, 0, 0);
-                    }
-                    cursorTimer(-1,0);
-                    
-
-                }
-                else if (Input.GetKey(KeyCode.RightArrow))
-                {
-                    if (Input.GetKeyDown(KeyCode.RightArrow))
-                    {
-                        cursor.transform.position += new Vector3(1, 0, 0);
-                    }
-                    cursorTimer(1, 0);
-
-                }
-                else if (Input.GetKey(KeyCode.UpArrow))
-                {
-                    if (Input.GetKeyDown(KeyCode.UpArrow))
-                    {
-                        cursor.transform.position += new Vector3(0,1,0);
-                    }
-                    cursorTimer(0,1);
-
-                }
-                else if (Input.GetKey(KeyCode.DownArrow))
-                {
-                    if (Input.GetKeyDown(KeyCode.DownArrow))
-                    {
-                        cursor.transform.position += new Vector3(0, -1, 0);
-                    }
-                    cursorTimer(0, -1);
-                }
-                else
-                {
-                    cursorMoveTimer = cursorFastMoveStartTimerMax;
-                    cursorFastMoveInterval = cursorFastMoveStartTimerMax;
-                }
+                cursorMoveTimer = cursorFastMoveStartTimerMax;
+                cursorFastMoveInterval = cursorFastMoveStartTimerMax;
             }
-        }
+        } 
     }
 
     private void cursorTimer(int x, int y)
@@ -254,39 +154,29 @@ public class EditController : MonoBehaviour
         }
     }
 
-    
-
     private void ChangeItemIndex()
     {
-        if (startInstallingElevator)
+        
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-        }
-        else
-        {
-            if (Input.GetKey(KeyCode.LeftAlt))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                itemCursorIndex--;
+                if (itemCursorIndex < 0)
                 {
-                    itemCursorIndex--;
-                    if (itemCursorIndex < 0)
-                    {
-                        itemCursorIndex = 5;
-                    }
+                    itemCursorIndex = 5;
                 }
-                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                {
-                    itemCursorIndex++;
-                    if (itemCursorIndex > 5)
-                    {
-                        itemCursorIndex = 0;
-                    }
-                }
-                cursorSR.sprite = itemCursorSprite[itemCursorIndex];
             }
-            // 만약 엘베 문을 설치한 상태라면 통로 sprite로 변경, 거기서는 좌우로 변경 불가능
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                itemCursorIndex++;
+                if (itemCursorIndex > 5)
+                {
+                    itemCursorIndex = 0;
+                }
+            }
+            cursorSR.sprite = itemCursorSprite[itemCursorIndex];
         }
-
-
     }
 
     private void InstallBlock()
@@ -298,10 +188,15 @@ public class EditController : MonoBehaviour
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
+
+                        /*
                         cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                         ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         ground.gangInstalled = true;
                         ground.ChangeSpriteByCurrentHealth();
+                        */
+                        cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                        gangTilemap.SetTile(cursorPosInt, gang);
                         break;
                     case 1: //오른쪽 사다리
                         cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
@@ -378,54 +273,96 @@ public class EditController : MonoBehaviour
     private bool CheckCanInstall()
     {
         canInstall = false;
-        
+
+        // 0 갱도, 1 오른 사다리, 2 왼 사다리, 3 레일, 4 엘리베이터 아래 문, 5 엘리베이터 위쪽 문
+        // 갱도 설치를 타일로 바꿀까?
+        obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
+        gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
+        if (obstacleOnCursor != null)
+        {
+            Debug.Log("Found obstacle");
+            return false;
+        }
+        else
+        {
+            if(itemCursorIndex == 0)
+            {
+                Debug.Log("Not found");
+                return true;
+            }
+            if (gangOnCursor == null)
+            {
+                return false;
+            }
+            else
+            {
+                if (itemCursorIndex == 1)
+                {
+                    rightHit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
+                    if (rightHit.collider != null) return true;
+                }
+                else if (itemCursorIndex == 2)
+                {
+                    leftHit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
+                    if(leftHit.collider != null) return true;
+                }
+                else if (itemCursorIndex == 3)
+                {
+
+                }
+            }
+
+        }
+
+
         switch (itemCursorIndex)
         {
             case 0: //갱도
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
-                if (groundOnCursor == null)
+                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.49f, obstacleMask);
+                
+                if (obstacleOnCursor == null)
                 {
                     canInstall = true;
                 }
                 break;
             case 1: //오른쪽 사다리
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, groundMask);
-                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
+                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                if (obstacleOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
                 }
                 break;
             case 2://왼쪽 사다리
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, groundMask);
+                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                if (obstacleOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
                 }
                 break;
             case 3: //레일
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, groundMask);
+                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, obstacleMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (groundOnCursor == null && hit.collider!=null && ground.gangInstalled && !ground.structureInstalled)
+                if (obstacleOnCursor == null && hit.collider!=null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
                 }
                 break;
             case 4: //엘리베이터 문 아래로
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
-                leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, groundMask); 
-                under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, groundMask); 
-                rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, groundMask);
+                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
+                leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, obstacleMask); 
+                under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask); 
+                rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, obstacleMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if (groundOnCursor == null&&leftDiagonal.collider != null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                if (obstacleOnCursor == null&&leftDiagonal.collider != null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     if (startInstallingElevator)
                     {
@@ -441,13 +378,13 @@ public class EditController : MonoBehaviour
                 }
                 break;
             case 5:
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
-                leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, groundMask);
-                up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, groundMask);
-                rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, groundMask);
+                obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, obstacleMask);
+                leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, obstacleMask);
+                up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, obstacleMask);
+                rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, obstacleMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                if(groundOnCursor ==null && leftDiagonal.collider != null && rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
+                if(obstacleOnCursor ==null && leftDiagonal.collider != null && rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     if (!startInstallingElevator)
                     {
