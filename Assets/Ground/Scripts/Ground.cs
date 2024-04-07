@@ -20,7 +20,9 @@ public class Ground : MonoBehaviour
     public SpriteRenderer sr;
     public BoxCollider2D bc;
 
-    public Sprite[] groundSprites; //땅 스프라이트 (3개 단위로 평소, 조금 부서짐, 거의 부서짐)
+    //public Sprite[] groundSprites; //땅 스프라이트 (3개 단위로 평소, 조금 부서짐, 거의 부서짐)
+    public GroundSO[] groundSO;
+
     public Sprite[] ruinSprites;
     public Sprite gangSprite;
     
@@ -108,17 +110,17 @@ public class Ground : MonoBehaviour
                 }
                 else if (currentHealth < almostBrokenHealth)
                 {
-                    sr.sprite = groundSprites[((groundLevel - 1) * 3) + 2];
+                    sr.sprite = groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
                     
                 }
                 else if (currentHealth < startBreakingHealth)
                 {
-                    sr.sprite = groundSprites[((groundLevel - 1) * 3) + 1];
-                    
+                    sr.sprite = groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
+
                 }
                 else
                 {
-                    sr.sprite = groundSprites[((groundLevel - 1) * 3)];
+                    sr.sprite = groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
                 }
             }
             else

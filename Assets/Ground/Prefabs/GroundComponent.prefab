@@ -112,16 +112,10 @@ MonoBehaviour:
   groundTileMap: {fileID: 0}
   sr: {fileID: 0}
   bc: {fileID: 0}
-  groundSprites:
-  - {fileID: 1448608106, guid: 54046732abdde7d48b3e74a30421d923, type: 3}
-  - {fileID: 294779039, guid: 54046732abdde7d48b3e74a30421d923, type: 3}
-  - {fileID: 1981948082, guid: 54046732abdde7d48b3e74a30421d923, type: 3}
-  - {fileID: -1882738714, guid: ff0bf643e87e2fb47908e46824e159cd, type: 3}
-  - {fileID: -1000980862, guid: ff0bf643e87e2fb47908e46824e159cd, type: 3}
-  - {fileID: 600576204, guid: ff0bf643e87e2fb47908e46824e159cd, type: 3}
-  - {fileID: 4935988, guid: 448a2ffce1db2d94f900afeff8803b35, type: 3}
-  - {fileID: 796045120, guid: 448a2ffce1db2d94f900afeff8803b35, type: 3}
-  - {fileID: -1388345088, guid: 448a2ffce1db2d94f900afeff8803b35, type: 3}
+  groundSO:
+  - {fileID: 11400000, guid: f492daa7a7a50034da14db4844ca0b8e, type: 2}
+  - {fileID: 11400000, guid: 820962929ad4e6448b552aaf52d1d473, type: 2}
+  - {fileID: 11400000, guid: 9ad5b4dc1f62c1b47a21bce327231af9, type: 2}
   ruinSprites: []
   gangSprite: {fileID: 21300000, guid: f3b9ada815d2b1d478818dd45bd121e9, type: 3}
 --- !u!61 &7182001883272849048
