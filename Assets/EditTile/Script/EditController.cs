@@ -88,7 +88,7 @@ public class EditController : MonoBehaviour
                 startInstallingElevator = false;
                 cursor.SetActive(true);
                 editBackground.gameObject.SetActive(true);
-                editBackground.transform.position = editTilemap.WorldToCell(cursor.transform.position);
+                editBackground.transform.position = editTilemap.WorldToCell(player.transform.position);
                 cursor.transform.position = editTilemap.WorldToCell(player.transform.position)+new Vector3(0.5f,0.5f,0);
                 cursorSR.sprite = itemCursorSprite[itemCursorIndex];
             }
@@ -195,13 +195,14 @@ public class EditController : MonoBehaviour
                         groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true;
                         break;
                     case 1: //오른쪽 사다리
-                        ladderTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), rightLadder);
+                        Debug.Log("Test");
+                        ladderTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), rightLadder);
                         break;
                     case 2: //왼쪽 사다리
-                        ladderTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), leftLadder);
+                        ladderTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), leftLadder);
                         break;
                     case 3://레일
-                        railTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), rail);
+                        railTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), rail);
                         break;
                     case 4:
                         GameObject Top = GameObject.Instantiate(elevatorTop);
