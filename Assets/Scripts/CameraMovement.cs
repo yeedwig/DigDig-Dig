@@ -16,7 +16,13 @@ public class CameraMovement : MonoBehaviour
     private float halfHeight;
 
     private Camera theCamera;
-    
+
+    //target ∞·¡§
+    private EditController editController;
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject cursor;
+
+
     void Start()
     {
         theCamera = GetComponent<Camera>();
@@ -24,9 +30,11 @@ public class CameraMovement : MonoBehaviour
         maxBound = bound.bounds.max;
         halfHeight = theCamera.orthographicSize;
         halfWidth = halfHeight * Screen.width / Screen.height;
+        editController = GameObject.Find("Edit").GetComponent<EditController>();
     }
     void Update()
     {
+        CheckTarget();
         if(target.gameObject != null)
         {
             targetPosition.Set(target.transform.position.x, target.transform.position.y, this.transform.position.z);
@@ -44,5 +52,17 @@ public class CameraMovement : MonoBehaviour
         bound = newBound;
         minBound = bound.bounds.min;
         maxBound = bound.bounds.max;
+    }
+
+    private void CheckTarget()
+    {
+        if(editController.isEditOn)
+        {
+            target = cursor;
+        }
+        else
+        {
+            target = player;
+        }
     }
 }

@@ -15,7 +15,10 @@ public class EditController : MonoBehaviour
     private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] GameObject[] itemPrefabs;
-    [SerializeField] float cursorMoveTimerMax; //커서 빠르게 움직이는 텀
+    [SerializeField] float cursorFastMoveStartTimerMax; //빠르게 움직이기 시작하는 텀
+    [SerializeField] float cursorFastMoveTimerMin; // 빠르게 움직이는 최소 텀
+    private float cursorFastMoveInterval; //커서 빠르게 움직이는 텀
+    [SerializeField] float cursorFastMoveTimerSubtract; //커서 빠르게 움직이는 텀 줄이기
     private float cursorMoveTimer = 0.0f; 
 
     //에딧 창 관련
@@ -91,6 +94,8 @@ public class EditController : MonoBehaviour
     {
         if (!Input.GetKey(KeyCode.LeftAlt))
         {
+
+
             if (startInstallingElevator)
             {
                 if (itemCursorIndex == 4)
@@ -108,7 +113,7 @@ public class EditController : MonoBehaviour
                             {
                                 cursorPos.y--;
                                 cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorMoveTimerMax;
+                                cursorMoveTimer = cursorFastMoveInterval;
                                 cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                                 editTilemap.SetTile(cursorPosInt, elevatorPassage);
                             }
@@ -129,7 +134,7 @@ public class EditController : MonoBehaviour
                                 editTilemap.SetTile(cursorPosInt, null);
                                 cursorPos.y++;
                                 cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorMoveTimerMax;
+                                cursorMoveTimer = cursorFastMoveInterval;
                             }
                         }
                     }
@@ -153,7 +158,7 @@ public class EditController : MonoBehaviour
                             {
                                 cursorPos.y++;
                                 cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorMoveTimerMax;
+                                cursorMoveTimer = cursorFastMoveInterval;
                                 cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                                 editTilemap.SetTile(cursorPosInt, elevatorPassage);
                             }
@@ -174,7 +179,7 @@ public class EditController : MonoBehaviour
                                 editTilemap.SetTile(cursorPosInt, null);
                                 cursorPos.y--;
                                 cursor.transform.position = cursorPos;
-                                cursorMoveTimer = cursorMoveTimerMax;
+                                cursorMoveTimer = cursorFastMoveInterval;
                             }
                         }
                     }
@@ -189,68 +194,67 @@ public class EditController : MonoBehaviour
             {
                 if (Input.GetKey(KeyCode.LeftArrow))
                 {
-                    if (cursorMoveTimer > 0)
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
                     {
-                        cursorMoveTimer--;
+                        cursor.transform.position += new Vector3(-1, 0, 0);
                     }
-                    else
-                    {
-                        cursorPos.x--;
-                        cursor.transform.position = cursorPos;
-                        cursorMoveTimer = cursorMoveTimerMax;
-                    }
+                    cursorTimer(-1,0);
+                    
 
                 }
                 else if (Input.GetKey(KeyCode.RightArrow))
                 {
-                    if (cursorMoveTimer > 0)
+                    if (Input.GetKeyDown(KeyCode.RightArrow))
                     {
-                        cursorMoveTimer--;
+                        cursor.transform.position += new Vector3(1, 0, 0);
                     }
-                    else
-                    {
-                        cursorPos.x++;
-                        cursor.transform.position = cursorPos;
-                        cursorMoveTimer = cursorMoveTimerMax;
-                    }
+                    cursorTimer(1, 0);
 
                 }
                 else if (Input.GetKey(KeyCode.UpArrow))
                 {
-                    if (cursorMoveTimer > 0)
+                    if (Input.GetKeyDown(KeyCode.UpArrow))
                     {
-                        cursorMoveTimer--;
+                        cursor.transform.position += new Vector3(0,1,0);
                     }
-                    else
-                    {
-                        cursorPos.y++;
-                        cursor.transform.position = cursorPos;
-                        cursorMoveTimer = cursorMoveTimerMax;
-                    }
+                    cursorTimer(0,1);
 
                 }
                 else if (Input.GetKey(KeyCode.DownArrow))
                 {
-                    if (cursorMoveTimer > 0)
+                    if (Input.GetKeyDown(KeyCode.DownArrow))
                     {
-                        cursorMoveTimer--;
+                        cursor.transform.position += new Vector3(0, -1, 0);
                     }
-                    else
-                    {
-                        cursorPos.y--;
-                        cursor.transform.position = cursorPos;
-                        cursorMoveTimer = cursorMoveTimerMax;
-                    }
+                    cursorTimer(0, -1);
                 }
                 else
                 {
-                    cursorMoveTimer = 15.0f;
+                    cursorMoveTimer = cursorFastMoveStartTimerMax;
+                    cursorFastMoveInterval = cursorFastMoveStartTimerMax;
                 }
             }
-            
         }
-        
     }
+
+    private void cursorTimer(int x, int y)
+    {
+        if (cursorMoveTimer > 0)
+        {
+            cursorMoveTimer--;
+        }
+        else
+        {
+            cursor.transform.position += new Vector3(x, y, 0);
+            if (cursorFastMoveInterval > cursorFastMoveTimerMin)
+            {
+                cursorFastMoveInterval -= cursorFastMoveTimerSubtract;
+            }
+            cursorMoveTimer = cursorFastMoveInterval;
+        }
+    }
+
+    
 
     private void ChangeItemIndex()
     {
