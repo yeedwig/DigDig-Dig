@@ -7,7 +7,7 @@ public class SelectBlockToDig : MonoBehaviour
 {
     private GameObject player;
     [SerializeField] TileBase selectTile;
-    private Tilemap selectTilemap;
+    private Tilemap editTilemap;
     private Vector2 direction;
     private int layerMask;
     private Vector3Int gridPlayerPosition;
@@ -17,7 +17,7 @@ public class SelectBlockToDig : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        selectTilemap = GameObject.Find("SelectGroundToDig").GetComponent<Tilemap>();
+        editTilemap = GameObject.Find("SelectGroundToDig").GetComponent<Tilemap>();
         toolManager = GameObject.Find("ToolManager").GetComponent<ToolManager>();
         layerMask = 1 << LayerMask.NameToLayer("Ground");
         editController = GameObject.Find("Edit").GetComponent<EditController>();
@@ -26,7 +26,7 @@ public class SelectBlockToDig : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        selectTilemap.ClearAllTiles();
+        editTilemap.ClearAllTiles();
         if (!editController.isEditOn)
         {
             if (Input.GetKey(KeyCode.LeftArrow) && toolManager.curToolType == 0)
@@ -36,8 +36,8 @@ public class SelectBlockToDig : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-                    selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(-1, 0, 0), selectTile);
+                    gridPlayerPosition = editTilemap.WorldToCell(player.transform.position);
+                    editTilemap.SetTile(gridPlayerPosition + new Vector3Int(-1, 0, 0), selectTile);
                 }
 
             }
@@ -48,8 +48,8 @@ public class SelectBlockToDig : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-                    selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(1, 0, 0), selectTile);
+                    gridPlayerPosition = editTilemap.WorldToCell(player.transform.position);
+                    editTilemap.SetTile(gridPlayerPosition + new Vector3Int(1, 0, 0), selectTile);
                 }
             }
             else if (Input.GetKey(KeyCode.DownArrow) && toolManager.curToolType <= 1)
@@ -59,8 +59,8 @@ public class SelectBlockToDig : MonoBehaviour
 
                 if (hit.collider != null)
                 {
-                    gridPlayerPosition = selectTilemap.WorldToCell(player.transform.position);
-                    selectTilemap.SetTile(gridPlayerPosition + new Vector3Int(0, -1, 0), selectTile);
+                    gridPlayerPosition = editTilemap.WorldToCell(player.transform.position);
+                    editTilemap.SetTile(gridPlayerPosition + new Vector3Int(0, -1, 0), selectTile);
                 }
             }
         }

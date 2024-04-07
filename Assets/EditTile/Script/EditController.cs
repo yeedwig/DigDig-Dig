@@ -5,33 +5,34 @@ using UnityEngine.Tilemaps;
 
 public class EditController : MonoBehaviour
 {
-    private GameObject player;
+    [SerializeField] GameObject player; 
 
+    //에딧 커서
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
-    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로 6 통로
+    private Vector3 cursorPos; //커서 위치 (벡터)
+    private Vector3Int cursorPosInt; // 커서 위치 (좌표)
+    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] GameObject[] itemPrefabs;
 
-
-    private Tilemap selectTilemap;
-    private Tilemap editBackground;
-    public bool isEditOn;
-    private Vector3 editPos;
-
-    private int layerMask;
+    //에딧 창 관련
+    [SerializeField] Tilemap editTilemap; // 에딧창
+    [SerializeField] Tilemap editBackground; // 배경
+    public bool isEditOn; //에딧창 켜져있는가
+    
+    private int layerMask; 
 
     private Dictionary<Vector3Int, GameObject> groundDictionary;
 
     [SerializeField] float cursorMoveTimerMax;
-    private float cursorMoveTimer;
+    private float cursorMoveTimer=0.0f;
 
 
     private bool startInstallingElevator;
-    [SerializeField] Tilemap editTilemap;
     [SerializeField] TileBase elevatorPassage;
 
-    private Vector3Int cursorPos;
+    
     private Ground ground;
     Collider2D groundOnCursor;
     RaycastHit2D hit;
@@ -53,13 +54,10 @@ public class EditController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");
-        selectTilemap = GameObject.Find("Edit").GetComponent<Tilemap>();
-        editBackground = GameObject.Find("EditBackground").GetComponent<Tilemap>();
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         layerMask = 1 << LayerMask.NameToLayer("Ground");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
-        cursorMoveTimer = 0.0f;
+        
         startInstallingElevator = false;
         cursor.SetActive(false);
         isEditOn = false;
@@ -72,8 +70,6 @@ public class EditController : MonoBehaviour
         MoveEditCursor();
         ChangeItemIndex();
         InstallBlock();
-        
-        
     }
 
     void CheckEdit()
@@ -89,10 +85,10 @@ public class EditController : MonoBehaviour
             {
                 cursor.SetActive(true);
                 itemCursorIndex = 0;
-                editPos = selectTilemap.WorldToCell(player.transform.position);
-                editPos.x += 0.5f;
-                editPos.y += 0.5f;
-                cursor.transform.position = editPos;
+                cursorPos = editTilemap.WorldToCell(player.transform.position);
+                cursorPos.x += 0.5f;
+                cursorPos.y += 0.5f;
+                cursor.transform.position = cursorPos;
                 cursorSR.sprite = itemCursorSprite[itemCursorIndex];
                 cursorSR.color = new Color(1, 1, 1, 0.7f);
             }
@@ -119,11 +115,11 @@ public class EditController : MonoBehaviour
                             under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask);
                             if (under.collider == null)
                             {
-                                editPos.y--;
-                                cursor.transform.position = editPos;
+                                cursorPos.y--;
+                                cursor.transform.position = cursorPos;
                                 cursorMoveTimer = cursorMoveTimerMax;
-                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPos, elevatorPassage);
+                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPosInt, elevatorPassage);
                             }
 
                         }
@@ -136,12 +132,12 @@ public class EditController : MonoBehaviour
                         }
                         else
                         {
-                            if (editPos.y < elevatorStartPosition.y - 0.5f)
+                            if (cursorPos.y < elevatorStartPosition.y - 0.5f)
                             {
-                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPos, null);
-                                editPos.y++;
-                                cursor.transform.position = editPos;
+                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPosInt, null);
+                                cursorPos.y++;
+                                cursor.transform.position = cursorPos;
                                 cursorMoveTimer = cursorMoveTimerMax;
                             }
                         }
@@ -164,11 +160,11 @@ public class EditController : MonoBehaviour
                             up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, layerMask);
                             if (up.collider == null)
                             {
-                                editPos.y++;
-                                cursor.transform.position = editPos;
+                                cursorPos.y++;
+                                cursor.transform.position = cursorPos;
                                 cursorMoveTimer = cursorMoveTimerMax;
-                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPos, elevatorPassage);
+                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPosInt, elevatorPassage);
                             }
 
                         }
@@ -181,12 +177,12 @@ public class EditController : MonoBehaviour
                         }
                         else
                         {
-                            if (editPos.y > elevatorStartPosition.y + 0.5f)
+                            if (cursorPos.y > elevatorStartPosition.y + 0.5f)
                             {
-                                cursorPos = editTilemap.WorldToCell(cursor.transform.position);
-                                editTilemap.SetTile(cursorPos, null);
-                                editPos.y--;
-                                cursor.transform.position = editPos;
+                                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                                editTilemap.SetTile(cursorPosInt, null);
+                                cursorPos.y--;
+                                cursor.transform.position = cursorPos;
                                 cursorMoveTimer = cursorMoveTimerMax;
                             }
                         }
@@ -208,8 +204,8 @@ public class EditController : MonoBehaviour
                     }
                     else
                     {
-                        editPos.x--;
-                        cursor.transform.position = editPos;
+                        cursorPos.x--;
+                        cursor.transform.position = cursorPos;
                         cursorMoveTimer = cursorMoveTimerMax;
                     }
 
@@ -222,8 +218,8 @@ public class EditController : MonoBehaviour
                     }
                     else
                     {
-                        editPos.x++;
-                        cursor.transform.position = editPos;
+                        cursorPos.x++;
+                        cursor.transform.position = cursorPos;
                         cursorMoveTimer = cursorMoveTimerMax;
                     }
 
@@ -236,8 +232,8 @@ public class EditController : MonoBehaviour
                     }
                     else
                     {
-                        editPos.y++;
-                        cursor.transform.position = editPos;
+                        cursorPos.y++;
+                        cursor.transform.position = cursorPos;
                         cursorMoveTimer = cursorMoveTimerMax;
                     }
 
@@ -250,8 +246,8 @@ public class EditController : MonoBehaviour
                     }
                     else
                     {
-                        editPos.y--;
-                        cursor.transform.position = editPos;
+                        cursorPos.y--;
+                        cursor.transform.position = cursorPos;
                         cursorMoveTimer = cursorMoveTimerMax;
                     }
                 }
@@ -307,40 +303,40 @@ public class EditController : MonoBehaviour
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
-                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         ground.gangInstalled = true;
                         ground.ChangeSpriteByCurrentHealth();
                         break;
                     case 1: //오른쪽 사다리
-                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         GameObject ladderRight = Instantiate(itemPrefabs[itemCursorIndex]);
-                        ladderRight.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                        ladderRight.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
                         ground.structureInstalled = true;
                         break;
                     case 2: //왼쪽 사다리
-                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         GameObject ladderLeft = Instantiate(itemPrefabs[itemCursorIndex]);
-                        ladderLeft.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                        ladderLeft.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
                         ground.structureInstalled = true;
                         break;
                     case 3://레일
-                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         GameObject rail = Instantiate(itemPrefabs[itemCursorIndex]);
-                        rail.transform.position = cursorPos+new Vector3(0.5f,0.5f,0);
+                        rail.transform.position = cursorPosInt+new Vector3(0.5f,0.5f,0);
                         ground.structureInstalled = true;
                         break;
                     case 4: //엘리베이터 문 아래로
-                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         ground.structureInstalled = true;
                         if (!startInstallingElevator)
                         {
                             GameObject elevatorDoorDown = Instantiate(itemPrefabs[4]);
-                            elevatorDoorDown.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                            elevatorDoorDown.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
                             startInstallingElevator = true;
                             elevatorStartPosition = elevatorDoorDown.transform.position;
                             cursorSR.sprite = itemCursorSprite[5];
@@ -348,7 +344,7 @@ public class EditController : MonoBehaviour
                         else
                         {
                             GameObject elevatorDoor = Instantiate(itemPrefabs[5]);
-                            elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                            elevatorDoor.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
                             startInstallingElevator = false;
                             elevatorEndPosition = elevatorDoor.transform.position;
                             cursorSR.sprite = itemCursorSprite[4];
@@ -357,13 +353,13 @@ public class EditController : MonoBehaviour
                         
                         break;
                     case 5:
-                        cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                         ground.structureInstalled = true;
                         if (!startInstallingElevator)
                         {
                             GameObject elevatorDoorDown = Instantiate(itemPrefabs[5]);
-                            elevatorDoorDown.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                            elevatorDoorDown.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
                             startInstallingElevator = true;
                             elevatorStartPosition = elevatorDoorDown.transform.position;
                             cursorSR.sprite = itemCursorSprite[4];
@@ -371,7 +367,7 @@ public class EditController : MonoBehaviour
                         else
                         {
                             GameObject elevatorDoor = Instantiate(itemPrefabs[4]);
-                            elevatorDoor.transform.position = cursorPos + new Vector3(0.5f, 0.5f, 0);
+                            elevatorDoor.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
                             startInstallingElevator = false;
                             elevatorEndPosition = elevatorDoor.transform.position;
                             cursorSR.sprite = itemCursorSprite[5];
@@ -400,8 +396,8 @@ public class EditController : MonoBehaviour
             case 1: //오른쪽 사다리
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
                 hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, layerMask);
-                cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
@@ -410,8 +406,8 @@ public class EditController : MonoBehaviour
             case 2://왼쪽 사다리
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
                 hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, layerMask);
-                cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
@@ -420,8 +416,8 @@ public class EditController : MonoBehaviour
             case 3: //레일
                 groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
                 hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, layerMask);
-                cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null && hit.collider!=null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     canInstall = true;
@@ -432,8 +428,8 @@ public class EditController : MonoBehaviour
                 leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask); 
                 under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
                 rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
-                cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null&&leftDiagonal.collider != null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     if (startInstallingElevator)
@@ -454,8 +450,8 @@ public class EditController : MonoBehaviour
                 leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask);
                 up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, layerMask);
                 rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
-                cursorPos = editBackground.WorldToCell(cursor.transform.position);
-                ground = groundDictionary[cursorPos].GetComponent<Ground>();
+                cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
+                ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if(groundOnCursor ==null && leftDiagonal.collider != null && rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
                 {
                     if (!startInstallingElevator)
