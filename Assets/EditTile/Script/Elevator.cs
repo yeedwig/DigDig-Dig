@@ -12,6 +12,7 @@ public class Elevator : MonoBehaviour
     [SerializeField] GameObject edit;
     private EditController editController;
     [SerializeField] float test = 10;
+    public bool isConnected = false;
     
 
     private void Start()
@@ -25,17 +26,19 @@ public class Elevator : MonoBehaviour
 
     private void Update()
     {
-        if (editController.isEditOn && (editController.itemCursorIndex == 4 || editController.itemCursorIndex == 5))
+        if (editController.isEditOn && !isConnected && (editController.itemCursorIndex == 4 || editController.itemCursorIndex == 5))
         {
             lr.positionCount = 2;
-            lr.SetPosition(0, this.transform.position);
+            
             if (isTop)
             {
-                lr.SetPosition(1, this.transform.position + new Vector3(0, -test, 0));
+                lr.SetPosition(0, this.transform.position + new Vector3(-0.2f,0,0));
+                lr.SetPosition(1, this.transform.position + new Vector3(-0.2f, -test, 0));
             }
             else
             {
-                lr.SetPosition(1, this.transform.position + new Vector3(0, test, 0));
+                lr.SetPosition(0, this.transform.position + new Vector3(0.2f, 0, 0));
+                lr.SetPosition(1, this.transform.position + new Vector3(0.2f, test, 0));
             }
         }
         else

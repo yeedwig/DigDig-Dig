@@ -26,15 +26,9 @@ public class EditController : MonoBehaviour
     [SerializeField] Tilemap gangTilemap; // 갱도 타일맵
     [SerializeField] Tilemap railTilemap; // 레일 타일맵
     [SerializeField] Tilemap ladderTilemap; // 사다리 타일맵
+    [SerializeField] Tilemap elevatorPassageTilemap; // 엘리베이터 통로 타일맵
     [SerializeField] Tilemap editBackground; // 배경
     public bool isEditOn=false; //에딧창 켜져있는가
-    private bool canInstall; //설치 가능한가
-
-    //엘리베이터
-    private bool startInstallingElevator=false; //엘리베이터 설치 시작
-    [SerializeField] TileBase elevatorPassage; //엘리베이터 통로
-    private Vector3 elevatorStartPosition;
-    private Vector3 elevatorEndPosition;
 
     //ray,collider
     Collider2D obstacleOnCursor;//커서 위에 땅 있는지 확인
@@ -52,8 +46,17 @@ public class EditController : MonoBehaviour
     [SerializeField] TileBase rail;
     [SerializeField] TileBase leftLadder;
     [SerializeField] TileBase rightLadder;
+    [SerializeField] TileBase elevatorPassage;
     [SerializeField] GameObject elevatorTop;
     [SerializeField] GameObject elevatorBottom;
+
+    // 엘리베이터
+    private Vector3 elevatorTopPos;
+    private Vector3 elevatorBottomPos;
+    public float elevatorPassageCount = 10;
+    private Vector3Int elevatorConstructVec;
+
+
 
     void Start()
     {
@@ -85,7 +88,6 @@ public class EditController : MonoBehaviour
             else
             {
                 itemCursorIndex = 0;
-                startInstallingElevator = false;
                 cursor.SetActive(true);
                 editBackground.gameObject.SetActive(true);
                 editBackground.transform.position = editTilemap.WorldToCell(player.transform.position);
@@ -207,10 +209,20 @@ public class EditController : MonoBehaviour
                     case 4:
                         GameObject Top = GameObject.Instantiate(elevatorTop);
                         Top.transform.position = cursor.transform.position;
+                        hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), elevatorPassageCount, obstacleMask);
+                        if(hit.collider!=null && hit.collider.gameObject.tag == "Elevator" && !hit.collider.gameObject.GetComponent<Elevator>().isTop) //tag로 바꿀 생각하기
+                        {
+                            elevatorInstall(Top,hit.collider.gameObject);
+                        }
                         break;
                     case 5:
                         GameObject Bottom = GameObject.Instantiate(elevatorBottom);
                         Bottom.transform.position = cursor.transform.position;
+                        hit = Physics2D.Raycast(Bottom.transform.position, new Vector2(0, 1), elevatorPassageCount, obstacleMask);
+                        if (hit.collider != null && hit.collider.gameObject.tag == "Elevator" && hit.collider.gameObject.GetComponent<Elevator>().isTop)
+                        {
+                            elevatorInstall(hit.collider.gameObject,Bottom);
+                        }
                         break;
                     default:
                         break;
@@ -220,7 +232,6 @@ public class EditController : MonoBehaviour
     }
     private bool CheckCanInstall()
     {
-
         // 0 갱도, 1 오른 사다리, 2 왼 사다리, 3 레일, 4 엘리베이터 아래 문, 5 엘리베이터 위쪽 문
         obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
         gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
@@ -266,5 +277,20 @@ public class EditController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void elevatorInstall(GameObject top, GameObject bottom)
+    {
+        top.GetComponent<Elevator>().isConnected = true;
+        bottom.GetComponent<Elevator>().isConnected = true;
+        Vector3 start=top.transform.position, end=bottom.transform.position;
+        while(start.y > end.y)
+        {
+            elevatorConstructVec = elevatorPassageTilemap.WorldToCell(end);
+            elevatorPassageTilemap.SetTile(elevatorConstructVec, elevatorPassage);
+            gangTilemap.SetTile(elevatorConstructVec, gang);
+            groundDictionary[elevatorConstructVec].GetComponent<Ground>().gangInstalled = true;
+            end.y += 1f;
+        }
     }
 }
