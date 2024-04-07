@@ -17,7 +17,7 @@ MonoBehaviour:
   itemType: 0
   itemId: 0
   price: 1
-  damage: 1000
+  damage: 5
   durability: 10000000
   isTool: 1
   stackable: 0
