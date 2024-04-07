@@ -15,52 +15,40 @@ public class EditController : MonoBehaviour
     private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] GameObject[] itemPrefabs;
+    [SerializeField] float cursorMoveTimerMax; //커서 빠르게 움직이는 텀
+    private float cursorMoveTimer = 0.0f; 
 
     //에딧 창 관련
     [SerializeField] Tilemap editTilemap; // 에딧창
     [SerializeField] Tilemap editBackground; // 배경
-    public bool isEditOn; //에딧창 켜져있는가
-    
-    private int layerMask; 
+    public bool isEditOn=false; //에딧창 켜져있는가
+    private bool canInstall; //설치 가능한가
 
-    private Dictionary<Vector3Int, GameObject> groundDictionary;
+    //엘리베이터
+    private bool startInstallingElevator=false; //엘리베이터 설치 시작
+    [SerializeField] TileBase elevatorPassage; //엘리베이터 통로
+    private Vector3 elevatorStartPosition;
+    private Vector3 elevatorEndPosition;
 
-    [SerializeField] float cursorMoveTimerMax;
-    private float cursorMoveTimer=0.0f;
-
-
-    private bool startInstallingElevator;
-    [SerializeField] TileBase elevatorPassage;
-
-    
-    private Ground ground;
+    //ray,collider
     Collider2D groundOnCursor;
     RaycastHit2D hit;
-
     private RaycastHit2D leftDiagonal;
     private RaycastHit2D under;
     private RaycastHit2D rightDiagonal;
     private RaycastHit2D up;
-   
 
-    private bool canInstall;
+    // 기타
+    private int groundMask; 
+    private Dictionary<Vector3Int, GameObject> groundDictionary;
+    private Ground ground; //땅
 
-    public Vector3 elevatorStartPosition;
-    private Vector3 elevatorEndPosition;
-
-    
-
-
-    // Start is called before the first frame update
     void Start()
     {
         cursorSR = cursor.GetComponent<SpriteRenderer>();
-        layerMask = 1 << LayerMask.NameToLayer("Ground");
+        cursorSR.color = new Color(1, 1, 1, 0.7f);
+        groundMask = 1 << LayerMask.NameToLayer("Ground");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
-        
-        startInstallingElevator = false;
-        cursor.SetActive(false);
-        isEditOn = false;
     }
 
     // Update is called once per frame
@@ -72,7 +60,7 @@ public class EditController : MonoBehaviour
         InstallBlock();
     }
 
-    void CheckEdit()
+    private void CheckEdit()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -83,17 +71,20 @@ public class EditController : MonoBehaviour
             }
             else
             {
+                resetEdit();
                 cursor.SetActive(true);
-                itemCursorIndex = 0;
-                cursorPos = editTilemap.WorldToCell(player.transform.position);
-                cursorPos.x += 0.5f;
-                cursorPos.y += 0.5f;
-                cursor.transform.position = cursorPos;
+                editBackground.gameObject.SetActive(true);
+                cursor.transform.position = editTilemap.WorldToCell(player.transform.position)+new Vector3(0.5f,0.5f,0);
                 cursorSR.sprite = itemCursorSprite[itemCursorIndex];
-                cursorSR.color = new Color(1, 1, 1, 0.7f);
             }
             isEditOn = !isEditOn;
         }
+    }
+
+    private void resetEdit()
+    {
+        itemCursorIndex = 0;
+        startInstallingElevator = false;
     }
 
     private void MoveEditCursor()
@@ -112,7 +103,7 @@ public class EditController : MonoBehaviour
                         }
                         else
                         {
-                            under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask);
+                            under = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, groundMask);
                             if (under.collider == null)
                             {
                                 cursorPos.y--;
@@ -157,7 +148,7 @@ public class EditController : MonoBehaviour
                         }
                         else
                         {
-                            up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, layerMask);
+                            up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, groundMask);
                             if (up.collider == null)
                             {
                                 cursorPos.y++;
@@ -387,15 +378,15 @@ public class EditController : MonoBehaviour
         switch (itemCursorIndex)
         {
             case 0: //갱도
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
                 if (groundOnCursor == null)
                 {
                     canInstall = true;
                 }
                 break;
             case 1: //오른쪽 사다리
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, layerMask);
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, groundMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
@@ -404,8 +395,8 @@ public class EditController : MonoBehaviour
                 }
                 break;
             case 2://왼쪽 사다리
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, layerMask);
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, groundMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null && hit.collider != null && ground.gangInstalled && !ground.structureInstalled)
@@ -414,8 +405,8 @@ public class EditController : MonoBehaviour
                 }
                 break;
             case 3: //레일
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, layerMask);
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0,-1), 0.7f, groundMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null && hit.collider!=null && ground.gangInstalled && !ground.structureInstalled)
@@ -424,10 +415,10 @@ public class EditController : MonoBehaviour
                 }
                 break;
             case 4: //엘리베이터 문 아래로
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask); 
-                under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, layerMask); 
-                rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
+                leftDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, groundMask); 
+                under=Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, groundMask); 
+                rightDiagonal=Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, groundMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if (groundOnCursor == null&&leftDiagonal.collider != null&&rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
@@ -446,10 +437,10 @@ public class EditController : MonoBehaviour
                 }
                 break;
             case 5:
-                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, layerMask);
-                leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, layerMask);
-                up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, layerMask);
-                rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, layerMask);
+                groundOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.2f, groundMask);
+                leftDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(-0.9f, -1), 1.0f, groundMask);
+                up = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 0.7f, groundMask);
+                rightDiagonal = Physics2D.Raycast(cursor.transform.position, new Vector2(0.9f, -1), 1.0f, groundMask);
                 cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
                 ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
                 if(groundOnCursor ==null && leftDiagonal.collider != null && rightDiagonal.collider != null && ground.gangInstalled && !ground.structureInstalled)
