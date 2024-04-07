@@ -113,7 +113,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   bc: {fileID: 0}
   groundSprites:
-  - {fileID: 2032890575, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
+  - {fileID: -861175754, guid: 883afdcedc99e604cb6e4142550f54f2, type: 3}
   - {fileID: 190607313, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
   - {fileID: -963917643, guid: d8922cd566c48d34ebf810e8f4611b72, type: 3}
   - {fileID: -1529267746, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
