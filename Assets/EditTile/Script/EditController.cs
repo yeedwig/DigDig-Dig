@@ -13,7 +13,7 @@ public class EditController : MonoBehaviour
     private SpriteRenderer cursorSR;
     private Vector3 cursorPos; //커서 위치 (벡터)
     private Vector3Int cursorPosInt; // 커서 위치 (좌표)
-    private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
+    public int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] float cursorFastMoveStartTimerMax; //빠르게 움직이기 시작하는 텀
     [SerializeField] float cursorFastMoveTimerMin; // 빠르게 움직이는 최소 텀

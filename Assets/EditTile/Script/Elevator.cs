@@ -7,10 +7,40 @@ public class Elevator : MonoBehaviour
 {
     public bool isTop;
     public GameObject stool;
+    private LineRenderer lr;
+    private bool isDrawingLine = false;
+    [SerializeField] GameObject edit;
+    private EditController editController;
+    [SerializeField] float test = 10;
+    
 
     private void Start()
     {
         stool = transform.GetChild(0).gameObject;
+        lr = GetComponent<LineRenderer>();
+        editController = GameObject.Find("Edit").GetComponent<EditController>();
+        lr.startWidth = 0.02f;
+        lr.endWidth = 0.02f;
     }
 
+    private void Update()
+    {
+        if (editController.isEditOn && (editController.itemCursorIndex == 4 || editController.itemCursorIndex == 5))
+        {
+            lr.positionCount = 2;
+            lr.SetPosition(0, this.transform.position);
+            if (isTop)
+            {
+                lr.SetPosition(1, this.transform.position + new Vector3(0, -test, 0));
+            }
+            else
+            {
+                lr.SetPosition(1, this.transform.position + new Vector3(0, test, 0));
+            }
+        }
+        else
+        {
+            lr.positionCount = 0;
+        }
+    }
 }
