@@ -13,7 +13,7 @@ public class InteractionManager : MonoBehaviour
     private Rigidbody2D elevatorRB;
     private bool isOnElevator;
     private Collider2D elevatorFirst;
-
+    //d
     public bool arrivedUp,arrivedDown;
     // Start is called before the first frame update
     void Start()
