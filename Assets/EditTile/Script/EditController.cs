@@ -47,11 +47,13 @@ public class EditController : MonoBehaviour
     private Dictionary<Vector3Int, GameObject> groundDictionary;
     
 
-    // 타일
+    // 타일 및 설치물
     [SerializeField] TileBase gang;
     [SerializeField] TileBase rail;
     [SerializeField] TileBase leftLadder;
     [SerializeField] TileBase rightLadder;
+    [SerializeField] GameObject elevatorTop;
+    [SerializeField] GameObject elevatorBottom;
 
     void Start()
     {
@@ -86,6 +88,7 @@ public class EditController : MonoBehaviour
                 startInstallingElevator = false;
                 cursor.SetActive(true);
                 editBackground.gameObject.SetActive(true);
+                editBackground.transform.position = editTilemap.WorldToCell(cursor.transform.position);
                 cursor.transform.position = editTilemap.WorldToCell(player.transform.position)+new Vector3(0.5f,0.5f,0);
                 cursorSR.sprite = itemCursorSprite[itemCursorIndex];
             }
@@ -156,7 +159,6 @@ public class EditController : MonoBehaviour
 
     private void ChangeItemIndex()
     {
-        
         if (Input.GetKey(KeyCode.LeftAlt))
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -200,6 +202,14 @@ public class EditController : MonoBehaviour
                         break;
                     case 3://레일
                         railTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), rail);
+                        break;
+                    case 4:
+                        GameObject Top = GameObject.Instantiate(elevatorTop);
+                        Top.transform.position = cursor.transform.position;
+                        break;
+                    case 5:
+                        GameObject Bottom = GameObject.Instantiate(elevatorBottom);
+                        Bottom.transform.position = cursor.transform.position;
                         break;
                     default:
                         break;
@@ -255,35 +265,5 @@ public class EditController : MonoBehaviour
             }
         }
         return false;
-    }
-
-    private void InstallElevatorPassage()
-    {
-        
-        if (elevatorStartPosition.y > elevatorEndPosition.y)
-        {
-            Vector3Int startPos = editBackground.WorldToCell(elevatorStartPosition - new Vector3(0, 1, 0));
-            Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
-            while (startPos.y > endPos.y)
-            {
-                //GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
-                //elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
-                startPos.y--;
-            }
-        }
-        else
-        {
-            Vector3Int startPos = editBackground.WorldToCell(elevatorStartPosition);
-            Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
-            while (startPos.y < endPos.y)
-            {
-                //GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
-                //elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
-                startPos.y++;
-            }
-        }
-        //ground 조건 추가하기
-        editBackground.ClearAllTiles();
-
     }
 }
