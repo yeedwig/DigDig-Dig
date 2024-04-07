@@ -15,7 +15,6 @@ public class EditController : MonoBehaviour
     private Vector3Int cursorPosInt; // 커서 위치 (좌표)
     private int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
     [SerializeField] Sprite[] itemCursorSprite;
-    [SerializeField] GameObject[] itemPrefabs;
     [SerializeField] float cursorFastMoveStartTimerMax; //빠르게 움직이기 시작하는 텀
     [SerializeField] float cursorFastMoveTimerMin; // 빠르게 움직이는 최소 텀
     private float cursorFastMoveInterval; //커서 빠르게 움직이는 텀
@@ -25,6 +24,8 @@ public class EditController : MonoBehaviour
     //에딧 창 관련
     [SerializeField] Tilemap editTilemap; // 에딧창
     [SerializeField] Tilemap gangTilemap; // 갱도 타일맵
+    [SerializeField] Tilemap railTilemap; // 레일 타일맵
+    [SerializeField] Tilemap ladderTilemap; // 사다리 타일맵
     [SerializeField] Tilemap editBackground; // 배경
     public bool isEditOn=false; //에딧창 켜져있는가
     private bool canInstall; //설치 가능한가
@@ -44,8 +45,13 @@ public class EditController : MonoBehaviour
     private int obstacleMask;
     private int gangMask;
     private Dictionary<Vector3Int, GameObject> groundDictionary;
-    private Ground ground; //땅
+    
+
+    // 타일
     [SerializeField] TileBase gang;
+    [SerializeField] TileBase rail;
+    [SerializeField] TileBase leftLadder;
+    [SerializeField] TileBase rightLadder;
 
     void Start()
     {
@@ -182,81 +188,18 @@ public class EditController : MonoBehaviour
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
-
-                        /*
-                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                        ground.gangInstalled = true;
-                        ground.ChangeSpriteByCurrentHealth();
-                        */
                         cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                         gangTilemap.SetTile(cursorPosInt, gang);
+                        groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true;
                         break;
                     case 1: //오른쪽 사다리
-                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                        GameObject ladderRight = Instantiate(itemPrefabs[itemCursorIndex]);
-                        ladderRight.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
-                        ground.structureInstalled = true;
+                        ladderTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), rightLadder);
                         break;
                     case 2: //왼쪽 사다리
-                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                        GameObject ladderLeft = Instantiate(itemPrefabs[itemCursorIndex]);
-                        ladderLeft.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
-                        ground.structureInstalled = true;
+                        ladderTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), leftLadder);
                         break;
                     case 3://레일
-                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                        GameObject rail = Instantiate(itemPrefabs[itemCursorIndex]);
-                        rail.transform.position = cursorPosInt+new Vector3(0.5f,0.5f,0);
-                        ground.structureInstalled = true;
-                        break;
-                    case 4: //엘리베이터 문 아래로
-                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                        ground.structureInstalled = true;
-                        if (!startInstallingElevator)
-                        {
-                            GameObject elevatorDoorDown = Instantiate(itemPrefabs[4]);
-                            elevatorDoorDown.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
-                            startInstallingElevator = true;
-                            elevatorStartPosition = elevatorDoorDown.transform.position;
-                            cursorSR.sprite = itemCursorSprite[5];
-                        }
-                        else
-                        {
-                            GameObject elevatorDoor = Instantiate(itemPrefabs[5]);
-                            elevatorDoor.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
-                            startInstallingElevator = false;
-                            elevatorEndPosition = elevatorDoor.transform.position;
-                            cursorSR.sprite = itemCursorSprite[4];
-                            InstallElevatorPassage();
-                        }
-                        
-                        break;
-                    case 5:
-                        cursorPosInt = editBackground.WorldToCell(cursor.transform.position);
-                        ground = groundDictionary[cursorPosInt].GetComponent<Ground>();
-                        ground.structureInstalled = true;
-                        if (!startInstallingElevator)
-                        {
-                            GameObject elevatorDoorDown = Instantiate(itemPrefabs[5]);
-                            elevatorDoorDown.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
-                            startInstallingElevator = true;
-                            elevatorStartPosition = elevatorDoorDown.transform.position;
-                            cursorSR.sprite = itemCursorSprite[4];
-                        }
-                        else
-                        {
-                            GameObject elevatorDoor = Instantiate(itemPrefabs[4]);
-                            elevatorDoor.transform.position = cursorPosInt + new Vector3(0.5f, 0.5f, 0);
-                            startInstallingElevator = false;
-                            elevatorEndPosition = elevatorDoor.transform.position;
-                            cursorSR.sprite = itemCursorSprite[5];
-                            InstallElevatorPassage();
-                        }
+                        railTilemap.SetTile(editBackground.WorldToCell(cursor.transform.position), rail);
                         break;
                     default:
                         break;
@@ -304,7 +247,6 @@ public class EditController : MonoBehaviour
                     {
                         hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask);
                     }
-
                     if(hit.collider != null)
                     {
                         return true;
@@ -324,8 +266,8 @@ public class EditController : MonoBehaviour
             Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
             while (startPos.y > endPos.y)
             {
-                GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
-                elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
+                //GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
+                //elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
                 startPos.y--;
             }
         }
@@ -335,8 +277,8 @@ public class EditController : MonoBehaviour
             Vector3Int endPos = editBackground.WorldToCell(elevatorEndPosition + new Vector3(0, 1, 0));
             while (startPos.y < endPos.y)
             {
-                GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
-                elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
+                //GameObject elevatorPassagePrefab = Instantiate(itemPrefabs[6]);
+                //elevatorPassagePrefab.transform.position = startPos + new Vector3(0.5f, 0.5f, 0);
                 startPos.y++;
             }
         }

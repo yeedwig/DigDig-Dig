@@ -399,7 +399,7 @@ public class PlayerManager : MonoBehaviour
             ladderCheckRay = Physics2D.Raycast(this.gameObject.transform.position, -transform.right, 0.2f, structureMask);
         }
 
-        if (ladderCheckRay.collider != null)
+        if (ladderCheckRay.collider != null && ladderCheckRay.collider.gameObject.tag=="Ladder")
         {
             canClimbLadder = true;
         }
