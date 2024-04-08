@@ -79,7 +79,7 @@ public class InteractionManager : MonoBehaviour
                             bottomElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
                             topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
                             bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                            StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
+                           // StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
 
                         }
                         else
@@ -109,12 +109,12 @@ public class InteractionManager : MonoBehaviour
         }
         
     }
-
+    /*
     IEnumerator MoveElevatorToBottom(GameObject top, GameObject bottom)
     {
 
     }
-
+    */
 
     IEnumerator MoveElevator(Collider2D collider)
     {
