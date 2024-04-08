@@ -6,18 +6,21 @@ using UnityEngine;
 public class Elevator : MonoBehaviour
 {
     public bool isTop;
-    public GameObject stool;
+    public BoxCollider2D roofbc;
+    public BoxCollider2D stoolbc;
     private LineRenderer lr;
     private bool isDrawingLine = false;
     [SerializeField] GameObject edit;
     private EditController editController;
     [SerializeField] float test = 10;
     public bool isConnected = false;
+    public GameObject pair;
     
 
     private void Start()
     {
-        stool = transform.GetChild(0).gameObject;
+        roofbc = transform.GetChild(0).gameObject.GetComponent<BoxCollider2D>();
+        stoolbc = transform.GetChild(1).gameObject.GetComponent<BoxCollider2D>();
         lr = GetComponent<LineRenderer>();
         editController = GameObject.Find("Edit").GetComponent<EditController>();
         lr.startWidth = 0.02f;

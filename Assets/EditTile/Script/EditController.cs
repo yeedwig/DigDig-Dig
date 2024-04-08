@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -212,6 +213,8 @@ public class EditController : MonoBehaviour
                         hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), elevatorPassageCount, obstacleMask);
                         if(hit.collider!=null && hit.collider.gameObject.tag == "Elevator" && !hit.collider.gameObject.GetComponent<Elevator>().isTop) //tag로 바꿀 생각하기
                         {
+                            Top.GetComponent<Elevator>().pair = hit.collider.gameObject;
+                            hit.collider.gameObject.GetComponent<Elevator>().pair = Top;
                             elevatorInstall(Top,hit.collider.gameObject);
                         }
                         break;
@@ -221,6 +224,8 @@ public class EditController : MonoBehaviour
                         hit = Physics2D.Raycast(Bottom.transform.position, new Vector2(0, 1), elevatorPassageCount, obstacleMask);
                         if (hit.collider != null && hit.collider.gameObject.tag == "Elevator" && hit.collider.gameObject.GetComponent<Elevator>().isTop)
                         {
+                            Bottom.GetComponent<Elevator>().pair = hit.collider.gameObject;
+                            hit.collider.gameObject.GetComponent<Elevator>().pair = Bottom;
                             elevatorInstall(hit.collider.gameObject,Bottom);
                         }
                         break;

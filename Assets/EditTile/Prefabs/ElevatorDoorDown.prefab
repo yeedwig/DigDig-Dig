@@ -110,8 +110,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7313878770855177521}
   - {fileID: 4143816742709735412}
+  - {fileID: 7313878770855177521}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2286649052452913953
@@ -227,6 +227,8 @@ MonoBehaviour:
   stool: {fileID: 0}
   edit: {fileID: 0}
   test: 10
+  isConnected: 0
+  pair: {fileID: 0}
 --- !u!120 &1461030639941360250
 LineRenderer:
   serializedVersion: 2

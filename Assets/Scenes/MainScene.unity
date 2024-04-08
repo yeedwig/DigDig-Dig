@@ -4094,7 +4094,7 @@ MonoBehaviour:
   rightLadder: {fileID: 11400000, guid: e16650077af4f0e4b8fbabaf8c5becd6, type: 2}
   elevatorPassage: {fileID: 11400000, guid: 1371569c06596df41b15a57e02947b82, type: 2}
   elevatorTop: {fileID: 4735433347188349646, guid: ec1a8e17b7406154d8cd79f769e1b5be, type: 3}
-  elevatorBottom: {fileID: 4735433347188349646, guid: f4c81574da2aa344098904a163e754ba, type: 3}
+  elevatorBottom: {fileID: 3606088803012327950, guid: f4c81574da2aa344098904a163e754ba, type: 3}
   elevatorPassageCount: 10
 --- !u!1001 &303967490
 PrefabInstance:

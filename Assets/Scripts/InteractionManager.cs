@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,7 +16,13 @@ public class InteractionManager : MonoBehaviour
     private bool isOnElevator;
     private Collider2D elevatorFirst;
     //d
-    public bool arrivedUp,arrivedDown;
+    public bool arrivedUp, arrivedDown;
+
+    //ø§∏Æ∫£¿Ã≈Õ
+    private GameObject topElevator;
+    private GameObject bottomElevator;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +37,7 @@ public class InteractionManager : MonoBehaviour
     {
         Collider2D structure = Physics2D.OverlapCircle(structureCheckPos.transform.position, 0.4f, layerMask);
         Collider2D elevatorCheck = Physics2D.OverlapCircle(elevatorCheckPos.transform.position, 0.1f, layerMask);
+
         if (structure != null)
         {
             if (structure.gameObject.tag == "Rail" && Input.GetKeyDown(KeyCode.F))
@@ -57,23 +66,56 @@ public class InteractionManager : MonoBehaviour
         {
             if(elevatorCheck.gameObject.tag == "Elevator" && Input.GetKeyDown(KeyCode.F))
             {
-                if (!isOnElevator)
+                if (elevatorCheck.gameObject.GetComponent<Elevator>().isConnected)
                 {
-                    elevatorFirst = elevatorCheck;
-                    arrivedUp = false;
-                    arrivedDown = false;
-                    isOnElevator = true;
-                    elevator.SetActive(true);
-                    elevator.transform.position = elevatorCheck.transform.position;
-                    this.transform.position = elevator.transform.position;
-                    elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(false);
-                    StartCoroutine(MoveElevator(elevatorCheck));
+                    if (!isOnElevator)
+                    {
+                        isOnElevator = true;
+                        elevator.SetActive(true);
+                        elevator.transform.position = elevatorCheck.transform.position;
+                        if (elevatorCheck.gameObject.GetComponent<Elevator>().isTop)
+                        {
+                            topElevator = elevatorCheck.gameObject;
+                            bottomElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
+                            topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
+                            bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                            StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
+
+                        }
+                        else
+                        {
+                            bottomElevator = elevatorCheck.gameObject;
+                            topElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
+                            topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
+                            bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                        }
+                        /*
+                        topElevator.GetComponent<Elevator>().roofbc.isTrigger=true;
+                        topElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                        topElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                        topElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                        */
+
+                        elevatorFirst = elevatorCheck;
+                        arrivedUp = false;
+                        arrivedDown = false;
+                        //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(false);
+                        StartCoroutine(MoveElevator(elevatorCheck));
+                    }
                 }
+                
                 
             }
         }
         
     }
+
+    IEnumerator MoveElevatorToBottom(GameObject top, GameObject bottom)
+    {
+
+    }
+
+
     IEnumerator MoveElevator(Collider2D collider)
     {
         float elevatorSpeed = 0.5f;
@@ -114,7 +156,7 @@ public class InteractionManager : MonoBehaviour
                     isOnElevator = false;
                     elevator.SetActive(false);
                     elevatorRB.velocity = Vector2.down * 0.0f;
-                    elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
+                    //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
                 }
                 
 
@@ -155,7 +197,7 @@ public class InteractionManager : MonoBehaviour
                     isOnElevator = false;
                     elevator.SetActive(false);
                     elevatorRB.velocity = Vector2.up * 0.0f;
-                    elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
+                    //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
                 }
 
 
