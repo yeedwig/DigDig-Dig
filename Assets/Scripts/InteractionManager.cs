@@ -26,7 +26,9 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] float elevatorSpeedGap;
     private float elevatorSpeed;
     private RaycastHit2D elevatorRay;
+    private RaycastHit2D elevatorSubRay;
     private int elevatorMask;
+    private int elevatorSubMask;
 
 
     // Start is called before the first frame update
@@ -36,14 +38,15 @@ public class InteractionManager : MonoBehaviour
         elevatorRB = elevator.GetComponent<Rigidbody2D>();
         isOnRail = false;
         isOnElevator = false;
-        elevatorMask = 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
+        elevatorMask = 1 << LayerMask.NameToLayer("Structure");
+        elevatorSubMask = 1 << LayerMask.NameToLayer("ElevatorSub");
     }
 
     // Update is called once per frame
     void Update()
     {
         Collider2D structure = Physics2D.OverlapCircle(structureCheckPos.transform.position, 0.4f, layerMask);
-        Collider2D elevatorCheck = Physics2D.OverlapCircle(elevatorCheckPos.transform.position, 0.1f, layerMask);
+        Collider2D elevatorCheck = Physics2D.OverlapCircle(elevatorCheckPos.transform.position, 0.1f, elevatorMask);
 
         if (structure != null)
         {
@@ -120,24 +123,22 @@ public class InteractionManager : MonoBehaviour
         GameObject stool = bottom.transform.GetChild(1).gameObject;
         bool almostArrived = false,arrived=false;
         elevatorSpeed = 0.0f;
-        elevatorRay = Physics2D.Raycast(elevator.transform.position, new Vector2(0,-1), 0.6f,elevatorMask);
-        while(!arrived)
+        while (!arrived)
         {
-            if (elevatorRay.collider.gameObject == bottom)
+            elevatorRay = Physics2D.Raycast(elevator.transform.position+new Vector3(0,-1f,0), new Vector2(0, -1), 0.3f, elevatorMask);
+            elevatorSubRay = Physics2D.Raycast(elevator.transform.position+new Vector3(0, -0.5f, 0), new Vector2(0, -1), 0.03f, elevatorSubMask); 
+            if (elevatorRay.collider!=null&&elevatorRay.collider.gameObject == bottom)
             {
-                Debug.Log("almost arrived");
                 almostArrived = true;
             }
-            if (elevatorRay.collider.gameObject == stool)
+            if (elevatorSubRay.collider!=null&&elevatorSubRay.collider.gameObject == stool)
             {
-                Debug.Log("arrived");
                 arrived = true;
             }
             if (!almostArrived)
             {
                 if(elevatorSpeed < elevatorMaxSpeed)
                 {
-                    Debug.Log("Speeding UP");
                     elevatorSpeed += elevatorSpeedGap;
                 }
             }
@@ -145,7 +146,6 @@ public class InteractionManager : MonoBehaviour
             {
                 if (elevatorSpeed > elevatorMinSpeed)
                 {
-                    Debug.Log("Speeding Down");
                     elevatorSpeed -= elevatorSpeedGap;
                 }
             }
@@ -157,6 +157,8 @@ public class InteractionManager : MonoBehaviour
             {
                 isOnElevator = false;
                 elevator.SetActive(false);
+                top.GetComponent<Elevator>().stoolbc.isTrigger = false;
+                bottom.GetComponent<Elevator>().roofbc.isTrigger = false;
                 elevatorRB.velocity = Vector2.down * 0.0f;
             }
             yield return null;

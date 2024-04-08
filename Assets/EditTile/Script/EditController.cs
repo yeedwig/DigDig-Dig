@@ -288,7 +288,7 @@ public class EditController : MonoBehaviour
     {
         top.GetComponent<Elevator>().isConnected = true;
         bottom.GetComponent<Elevator>().isConnected = true;
-        Vector3 start=top.transform.position, end=bottom.transform.position;
+        Vector3 start=top.transform.position, end=bottom.transform.position+new Vector3(0,1f,0);
         while(start.y > end.y)
         {
             elevatorConstructVec = elevatorPassageTilemap.WorldToCell(end);
