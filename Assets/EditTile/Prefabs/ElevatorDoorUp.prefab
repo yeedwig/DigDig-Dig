@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579241076013167725}
   - component: {fileID: 7050428304036139314}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Roof
   m_TagString: Elevator
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 3282024266540831941}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.0360608, y: 0.95191145, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -90,9 +90,9 @@ GameObject:
   - component: {fileID: 4538607555459602563}
   - component: {fileID: 8063270130087166694}
   - component: {fileID: 793029308996083927}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ElevatorDoorUp
-  m_TagString: Untagged
+  m_TagString: Elevator
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTop: 0
-  stool: {fileID: 0}
+  roofbc: {fileID: 0}
+  stoolbc: {fileID: 0}
   edit: {fileID: 0}
   test: 10
   isConnected: 0
@@ -213,7 +214,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -268,9 +269,9 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: -883459807
+  m_SortingLayer: 5
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
@@ -343,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7326049291806781442}
   - component: {fileID: 6279694336253974533}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stool
   m_TagString: Elevator
   m_Icon: {fileID: 0}
@@ -359,7 +360,7 @@ Transform:
   m_GameObject: {fileID: 5395883016330020142}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.0360608, y: 0.95191145, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

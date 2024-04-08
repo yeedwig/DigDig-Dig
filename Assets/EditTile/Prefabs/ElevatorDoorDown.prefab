@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4143816742709735412}
   - component: {fileID: 8603272225155784893}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Roof
   m_TagString: Elevator
   m_Icon: {fileID: 0}
@@ -224,7 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isTop: 1
-  stool: {fileID: 0}
+  roofbc: {fileID: 0}
+  stoolbc: {fileID: 0}
   edit: {fileID: 0}
   test: 10
   isConnected: 0
@@ -343,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7313878770855177521}
   - component: {fileID: 6512537957474055550}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Stool
   m_TagString: Elevator
   m_Icon: {fileID: 0}

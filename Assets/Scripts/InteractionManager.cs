@@ -21,6 +21,12 @@ public class InteractionManager : MonoBehaviour
     //ø§∏Æ∫£¿Ã≈Õ
     private GameObject topElevator;
     private GameObject bottomElevator;
+    [SerializeField] float elevatorMaxSpeed;
+    [SerializeField] float elevatorMinSpeed;
+    [SerializeField] float elevatorSpeedGap;
+    private float elevatorSpeed;
+    private RaycastHit2D elevatorRay;
+    private int elevatorMask;
 
 
     // Start is called before the first frame update
@@ -30,6 +36,7 @@ public class InteractionManager : MonoBehaviour
         elevatorRB = elevator.GetComponent<Rigidbody2D>();
         isOnRail = false;
         isOnElevator = false;
+        elevatorMask = 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
     }
 
     // Update is called once per frame
@@ -73,14 +80,15 @@ public class InteractionManager : MonoBehaviour
                         isOnElevator = true;
                         elevator.SetActive(true);
                         elevator.transform.position = elevatorCheck.transform.position;
+                        this.gameObject.transform.position = elevatorCheck.transform.position;
                         if (elevatorCheck.gameObject.GetComponent<Elevator>().isTop)
                         {
                             topElevator = elevatorCheck.gameObject;
                             bottomElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
                             topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
                             bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                           // StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
-
+                            StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
+                            Debug.Log("start Elevator");
                         }
                         else
                         {
@@ -100,21 +108,63 @@ public class InteractionManager : MonoBehaviour
                         arrivedUp = false;
                         arrivedDown = false;
                         //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(false);
-                        StartCoroutine(MoveElevator(elevatorCheck));
+                        //StartCoroutine(MoveElevator(elevatorCheck));
                     }
                 }
-                
-                
             }
-        }
-        
+        }   
     }
-    /*
+    
     IEnumerator MoveElevatorToBottom(GameObject top, GameObject bottom)
     {
-
+        GameObject stool = bottom.transform.GetChild(1).gameObject;
+        bool almostArrived = false,arrived=false;
+        elevatorSpeed = 0.0f;
+        elevatorRay = Physics2D.Raycast(elevator.transform.position, new Vector2(0,-1), 0.6f,elevatorMask);
+        while(!arrived)
+        {
+            if (elevatorRay.collider.gameObject == bottom)
+            {
+                Debug.Log("almost arrived");
+                almostArrived = true;
+            }
+            if (elevatorRay.collider.gameObject == stool)
+            {
+                Debug.Log("arrived");
+                arrived = true;
+            }
+            if (!almostArrived)
+            {
+                if(elevatorSpeed < elevatorMaxSpeed)
+                {
+                    Debug.Log("Speeding UP");
+                    elevatorSpeed += elevatorSpeedGap;
+                }
+            }
+            else
+            {
+                if (elevatorSpeed > elevatorMinSpeed)
+                {
+                    Debug.Log("Speeding Down");
+                    elevatorSpeed -= elevatorSpeedGap;
+                }
+            }
+            if (!arrived)
+            {
+                elevatorRB.velocity = Vector2.down * (elevatorSpeed);
+            }
+            else
+            {
+                isOnElevator = false;
+                elevator.SetActive(false);
+                elevatorRB.velocity = Vector2.down * 0.0f;
+            }
+            yield return null;
+        }
+        
+        
     }
-    */
+    
 
     IEnumerator MoveElevator(Collider2D collider)
     {

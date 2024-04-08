@@ -21167,6 +21167,9 @@ MonoBehaviour:
   elevator: {fileID: 795549658}
   arrivedUp: 0
   arrivedDown: 0
+  elevatorMaxSpeed: 0.5
+  elevatorMinSpeed: 0.1
+  elevatorSpeedGap: 0.01
 --- !u!224 &1250338985 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7724537054980982655, guid: 259516f97c1a25f47b58bb98e58096a5, type: 3}
