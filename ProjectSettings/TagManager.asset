@@ -70,6 +70,9 @@ TagManager:
   - name: Player
     uniqueID: 2130534703
     locked: 0
+  - name: Elevator
+    uniqueID: 2880042911
+    locked: 0
   - name: Edit
     uniqueID: 253100513
     locked: 0
