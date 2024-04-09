@@ -83,7 +83,7 @@ public class InteractionManager : MonoBehaviour
                         isOnElevator = true;
                         elevator.SetActive(true);
                         elevator.transform.position = elevatorCheck.transform.position;
-                        this.gameObject.transform.position = elevatorCheck.transform.position;
+                        this.gameObject.transform.position = elevatorCheck.transform.position + new Vector3(0, -0.15f, 0); //엘베 크기 바뀌거나 하면 수정
                         if (elevatorCheck.gameObject.GetComponent<Elevator>().isTop)
                         {
                             topElevator = elevatorCheck.gameObject;
@@ -91,7 +91,6 @@ public class InteractionManager : MonoBehaviour
                             topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
                             bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
                             StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
-                            Debug.Log("start Elevator");
                         }
                         else
                         {
@@ -99,19 +98,13 @@ public class InteractionManager : MonoBehaviour
                             topElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
                             topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
                             bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                            StartCoroutine(MoveElevatorToTop(topElevator, bottomElevator));
                         }
-                        /*
-                        topElevator.GetComponent<Elevator>().roofbc.isTrigger=true;
-                        topElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                        topElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                        topElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                        */
+                        
 
                         elevatorFirst = elevatorCheck;
                         arrivedUp = false;
                         arrivedDown = false;
-                        //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(false);
-                        //StartCoroutine(MoveElevator(elevatorCheck));
                     }
                 }
             }
@@ -166,105 +159,56 @@ public class InteractionManager : MonoBehaviour
         
         
     }
-    
 
-    IEnumerator MoveElevator(Collider2D collider)
+    IEnumerator MoveElevatorToTop(GameObject top, GameObject bottom)
     {
-        float elevatorSpeed = 0.5f;
-        bool speedUp = true;
-        if (collider.GetComponent<Elevator>().isTop)
+        GameObject roof = top.transform.GetChild(0).gameObject;
+        bool almostArrived = false, arrived = false;
+        elevatorSpeed = 0.0f;
+        while (!arrived)
         {
-            while (isOnElevator)
+            elevatorRay = Physics2D.Raycast(elevator.transform.position + new Vector3(0, 1f, 0), new Vector2(0, 1), 0.3f, elevatorMask);
+            elevatorSubRay = Physics2D.Raycast(elevator.transform.position + new Vector3(0, 0.5f, 0), new Vector2(0, 1), 0.03f, elevatorSubMask);
+            if (elevatorRay.collider != null && elevatorRay.collider.gameObject == top)
             {
-                RaycastHit2D ray = Physics2D.Raycast(this.transform.position + new Vector3(0, -0.6f, 0), new Vector2(0, -1), 2.0f, layerMask);
-                
-                elevatorRB.velocity = Vector2.down * (elevatorSpeed);
-                if (speedUp)
-                {
-                    if (elevatorSpeed < 2.0f)
-                    {
-                        elevatorSpeed += 0.01f;
-                    }
-                }
-                else
-                {
-                    if (elevatorSpeed >= 0.5f)
-                    {
-                       elevatorSpeed -= 0.01f;
-                    }
-                }
-                
-                if(ray.collider != null)
-                {
-                    if (ray.collider.gameObject.tag == "Elevator")
-                    {
-                        speedUp = false;
-                    }
-                    
-                }
-
-                if (arrivedDown)
-                {
-                    isOnElevator = false;
-                    elevator.SetActive(false);
-                    elevatorRB.velocity = Vector2.down * 0.0f;
-                    //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
-                }
-                
-
-                yield return null;
+                almostArrived = true;
             }
-        }
-        else
-        {
-            while (isOnElevator)
+            if (elevatorSubRay.collider != null && elevatorSubRay.collider.gameObject == roof)
             {
-                RaycastHit2D ray = Physics2D.Raycast(this.transform.position + new Vector3(0, 0.6f, 0), new Vector2(0, 1), 0.8f, layerMask);
+                arrived = true;
+            }
+            if (!almostArrived)
+            {
+                if (elevatorSpeed < elevatorMaxSpeed)
+                {
+                    elevatorSpeed += elevatorSpeedGap;
+                }
+            }
+            else
+            {
+                if (elevatorSpeed > elevatorMinSpeed)
+                {
+                    elevatorSpeed -= elevatorSpeedGap;
+                }
+            }
+            if (!arrived)
+            {
                 elevatorRB.velocity = Vector2.up * (elevatorSpeed);
-                if (speedUp)
-                {
-                    if (elevatorSpeed < 2.0f)
-                    {
-                        elevatorSpeed += 0.01f;
-                    }
-                }
-                else
-                {
-                    if (elevatorSpeed >= 0.5f)
-                    {
-                        elevatorSpeed -= 0.01f;
-                    }
-                }
-
-                if (ray.collider != null)
-                {
-                    if (ray.collider.gameObject.tag == "Elevator")
-                    {
-                        speedUp = false;
-                    }
-                }
-
-                if (arrivedUp)
-                {
-                    isOnElevator = false;
-                    elevator.SetActive(false);
-                    elevatorRB.velocity = Vector2.up * 0.0f;
-                    //elevatorFirst.gameObject.GetComponent<Elevator>().stool.SetActive(true);
-                }
-
-
-                yield return null;
             }
+            else
+            {
+                isOnElevator = false;
+                elevator.SetActive(false);
+                top.GetComponent<Elevator>().stoolbc.isTrigger = false;
+                bottom.GetComponent<Elevator>().roofbc.isTrigger = false;
+                elevatorRB.velocity = Vector2.up * 0.0f;
+            }
+            yield return null;
         }
-        
-        
+
+
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(structureCheckPos.transform.position, 0.4f);
-        
-        
-    }
+
+
 }
