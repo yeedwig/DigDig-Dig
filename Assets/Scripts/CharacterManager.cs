@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private GameObject Player;
     public int skinNr;
+
+    public GameManager gameManager;
+
+    public bool gameStart = true;
     /*
     public Skins[] IdleSkins;
     public Skins[] DiggingSkins;
@@ -42,9 +47,17 @@ public class CharacterManager : MonoBehaviour
 
     }
 
+    public void getGameManagerInfo()
+    {
+        // isFound 부분 가져와서 범위 정해주기
+    }
     public bool resetCharacter()
     {
-        skinNr = Random.Range(0, 3);
+        if(gameStart == true)//start of game search between Ids 0 ~ 4
+        {
+            skinNr = Random.Range(0, 8);
+        }
+
         Player.GetComponent<PlayerManager>().Dead = false;
         GroundDictionary.GetComponent<GroundDictionary>().MapReset();
         Player.transform.position = new Vector3(1.0f, 5.0f, 0);

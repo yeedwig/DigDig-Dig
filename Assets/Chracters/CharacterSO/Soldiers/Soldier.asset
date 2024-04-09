@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234d81517e8f3e049b07d936e72695ba, type: 3}
+  m_Name: Soldier
+  m_EditorClassIdentifier: 
+  Name: Soldier
+  ID: 11
+  Species: 
+  type: 0
+  moveSpeed: 0
+  IdleSkins:
+  - {fileID: -65360685, guid: 11de2465f92688b48b1197350eb22418, type: 3}
+  - {fileID: -1123948035, guid: 11de2465f92688b48b1197350eb22418, type: 3}
+  - {fileID: -2000648676, guid: 11de2465f92688b48b1197350eb22418, type: 3}
+  - {fileID: 69900659, guid: 11de2465f92688b48b1197350eb22418, type: 3}
+  - {fileID: 344932956, guid: 11de2465f92688b48b1197350eb22418, type: 3}
+  DiggingSkins:
+  - {fileID: -1890134873, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  - {fileID: -1041541412, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  - {fileID: 953878802, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  - {fileID: -1509888541, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  - {fileID: -242338184, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  - {fileID: -438442372, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  - {fileID: -1110947605, guid: 2ff401f687c917143b9bd85cb11e0e30, type: 3}
+  WalkingSkins:
+  - {fileID: -1518571033, guid: 2d0092bc700596a4c946a467885d3c27, type: 3}
+  - {fileID: 331099067, guid: 2d0092bc700596a4c946a467885d3c27, type: 3}
+  - {fileID: 1534460276, guid: 2d0092bc700596a4c946a467885d3c27, type: 3}
+  - {fileID: -1139719556, guid: 2d0092bc700596a4c946a467885d3c27, type: 3}
+  - {fileID: 914652736, guid: 2d0092bc700596a4c946a467885d3c27, type: 3}
+  - {fileID: -1242241613, guid: 2d0092bc700596a4c946a467885d3c27, type: 3}
+  DrillingSkins:
+  - {fileID: -986424308, guid: 647b8a076f233eb428cafc03a1025123, type: 3}
+  - {fileID: 810218865, guid: 647b8a076f233eb428cafc03a1025123, type: 3}
+  ClimbingSkins:
+  - {fileID: 623908441, guid: a184ec964a3b44f4ea4f4a3401c40ec0, type: 3}
+  - {fileID: 862329589, guid: a184ec964a3b44f4ea4f4a3401c40ec0, type: 3}
+  - {fileID: -1566781885, guid: a184ec964a3b44f4ea4f4a3401c40ec0, type: 3}
+  - {fileID: -2098003735, guid: a184ec964a3b44f4ea4f4a3401c40ec0, type: 3}

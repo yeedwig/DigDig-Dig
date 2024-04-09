@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 234d81517e8f3e049b07d936e72695ba, type: 3}
-  m_Name: Bill
+  m_Name: 0
   m_EditorClassIdentifier: 
   Name: Bill
-  ID: 1
+  ID: 0
   Species: Human
   type: 0
   moveSpeed: 0

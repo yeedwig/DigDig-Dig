@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 234d81517e8f3e049b07d936e72695ba, type: 3}
-  m_Name: Raju
+  m_Name: 1
   m_EditorClassIdentifier: 
   Name: Raju
   ID: 1

@@ -7866,10 +7866,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1246972418}
   skinNr: 0
+  gameManager: {fileID: 0}
+  gameStart: 1
   CharactersSO:
   - {fileID: 11400000, guid: 01e3a0cc3bfdd434c86329237217c04d, type: 2}
   - {fileID: 11400000, guid: 20ff2900fd65ac149ae7e402c729eb0c, type: 2}
   - {fileID: 11400000, guid: 29803a68ca998944ea3cc1e45a429098, type: 2}
+  - {fileID: 11400000, guid: 120ab00a492cf0249b29433f0d1b3e9d, type: 2}
+  - {fileID: 11400000, guid: bacee2dab9eeff54ba49ff41dad0e23a, type: 2}
+  - {fileID: 11400000, guid: f61908c8251ff8f4e880a0277013dfeb, type: 2}
+  - {fileID: 11400000, guid: 78ad5b8c58d16264d93061f3782c71ee, type: 2}
+  - {fileID: 11400000, guid: 82f7b81dd054d0f4c8e047b9cf3cd8f1, type: 2}
   GroundDictionary: {fileID: 408160298}
 --- !u!4 &539881614
 Transform:
