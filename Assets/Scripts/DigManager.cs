@@ -16,6 +16,10 @@ public class DigManager : MonoBehaviour
     private float digDirX;
     private float digDirY;
 
+    // 데미지 넣기 위함
+    public bool canDamage = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -56,18 +60,25 @@ public class DigManager : MonoBehaviour
                int toolId = toolManager.curToolId;
                 if (Input.GetKey(KeyCode.Q))
                 {
-                    if (toolManager.curToolType == 0) //삽
+                    if (toolManager.curToolType == 0 && canDamage) //삽
                     {
                         hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage);
+                        canDamage = false;
                         toolManager.useItem(curSelectSlot);
                     }
-                    else if(toolManager.curToolType == 1&&direction.x==0) //드릴
+                    else if(toolManager.curToolType == 1&&direction.x==0 && canDamage) //드릴
                     {
                         hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage);
+                        canDamage = false;
                         toolManager.useItem(curSelectSlot);
                     }
                 }
             }
         }
+    }
+
+    public void DigDoDamage()
+    {
+        canDamage = true;
     }
 }

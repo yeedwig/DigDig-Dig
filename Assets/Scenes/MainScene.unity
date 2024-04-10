@@ -21162,6 +21162,7 @@ MonoBehaviour:
   toolManager: {fileID: 2123044264}
   curItem: {fileID: 0}
   playerManager: {fileID: 1246972425}
+  canDamage: 0
 --- !u!114 &1246972428
 MonoBehaviour:
   m_ObjectHideFlags: 0
