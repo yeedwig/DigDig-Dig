@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         LostWorldFound = false;
         EldoradoFound = false;
         TreasureFound = false;
-        Money = 0;
+        Money =1000000;
     }
 
     private void Update()

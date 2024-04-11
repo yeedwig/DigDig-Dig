@@ -25,12 +25,16 @@ public class Ground : MonoBehaviour
 
     public Sprite[] ruinSprites;
     public Sprite gangSprite;
-    
+
+    private ItemDropManager itemDropManager;
+
+
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
+        itemDropManager = GameObject.Find("ItemDropManager").GetComponent<ItemDropManager>();
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
     }
@@ -38,7 +42,8 @@ public class Ground : MonoBehaviour
     public void takeDamage(float damage) //데미지 주는 함수
     {
         currentHealth -= damage;
-        ChangeSpriteByCurrentHealth() ;
+        ChangeSpriteByCurrentHealth();
+        itemDropManager.GetItem();
     }
 
     public void SelectGroundLevelHealth()
