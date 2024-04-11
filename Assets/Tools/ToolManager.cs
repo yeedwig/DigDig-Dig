@@ -20,6 +20,7 @@ public class ToolManager : MonoBehaviour
     public int curToolType; //0이면 삽, 1이면 드릴, 2이면 TNT, 3이면 Radar
     public int curToolId;
     public float curToolDamage;
+    public int curToolEfficiency;
     public int curSelectedSlot;
 
     private bool ToolisDrilling;
@@ -119,6 +120,7 @@ public class ToolManager : MonoBehaviour
             curToolType = curItem.itemType;
             curToolId = curItem.itemId;
             curToolDamage = curItem.damage;
+            curToolEfficiency = curItem.efficiency;
             return curItem;
         }
         else

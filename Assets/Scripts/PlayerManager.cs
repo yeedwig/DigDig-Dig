@@ -207,20 +207,24 @@ public class PlayerManager : MonoBehaviour
             if(curItem == null)
             {
                 Debug.Log("No Tool!");
+                //깡! 거리는 없다는사운드 여기서 플레이
             }
             else
             {
                 if(curItem.itemType == 0) //삽인 경우
                 {
                     isDigging = true;
+                    //curItem의 디깅 사운드
                 }
                 if (curItem.itemType == 1) //드릴인 경우
                 {
                     isDrilling = true;
+                    //curItem의 드릴 사운드
                 }
                 if (curItem.itemType == 2) //TNT인 경우
                 {
                     isPlacingTNT = true;
+                    //설치 사운드
                     InstallTNT();
                 }
             }
@@ -238,10 +242,12 @@ public class PlayerManager : MonoBehaviour
                 if (curItem.itemType == 0)
                 {
                     isDigging = false;
+                    //사운드 플레이 멈춤
                 }
                 if (curItem.itemType == 1)
                 {
                     isDrilling = false;
+                    //사운드 멈춤
                 }
                 if (curItem.itemType == 2)
                 {
@@ -268,7 +274,7 @@ public class PlayerManager : MonoBehaviour
 
 
         //죽이기
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))// 추후에 폭발 버튼 부분
         {
             Dead = true;
         }
@@ -277,7 +283,7 @@ public class PlayerManager : MonoBehaviour
         //InterAction
         if (Input.GetKeyDown(KeyCode.C))
         {
-            
+            //상점과 interaction
             if(shopVisited == true)
             {
                 if (shopUIOpened == false)
@@ -291,6 +297,7 @@ public class PlayerManager : MonoBehaviour
                     shopUIOpened = false;
                 }
             }
+
             
         }
 

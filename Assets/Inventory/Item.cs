@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public string Description;
     public int  itemType;
     public int itemId;
+    public int efficiency;
 
     public int price;
     public float damage;

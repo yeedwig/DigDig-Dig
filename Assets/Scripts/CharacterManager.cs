@@ -60,7 +60,7 @@ public class CharacterManager : MonoBehaviour
 
         Player.GetComponent<PlayerManager>().Dead = false;
         GroundDictionary.GetComponent<GroundDictionary>().MapReset();
-        Player.transform.position = new Vector3(1.0f, 5.0f, 0);
+        Player.transform.position = new Vector3(1.5f, 5.0f, 0);
 
         return true;
     }
