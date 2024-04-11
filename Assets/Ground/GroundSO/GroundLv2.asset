@@ -19,3 +19,5 @@ MonoBehaviour:
   - {fileID: -1388345088, guid: 448a2ffce1db2d94f900afeff8803b35, type: 3}
   groundMaxPerLv: 0
   groundHealth: 0
+  resources:
+  - {fileID: 11400000, guid: cf0c09b88e64ed14687926c8c80e36fa, type: 2}

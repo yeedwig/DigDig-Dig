@@ -11,9 +11,9 @@ public class ItemDropManager : MonoBehaviour
     private ToolManager toolManager;
     private int curToolEfficiency;
 
-    private string[] itemTestName = new string[] {"Dirt","Stone","Diamond"};
-    private int[] itemTestNum = new int[] {0,0,0};
-    private int[] itemTestNumCombo = new int[] { 0, 0, 0 };
+    private string[] itemTestName = new string[] {"Dirt","Stone","Diamond"}; 
+    private int[] itemTestNum = new int[] {0,0,0}; // 나중에 자원 id 고려
+    private int[] itemTestNumCombo = new int[] { 0, 0, 0 }; // 나중에 자원 id 고려
 
     private float itemGetTextTimer=0;
     [SerializeField] float itemGetTextTimerMax;
@@ -38,24 +38,23 @@ public class ItemDropManager : MonoBehaviour
         ShowItemTotal(itemTestNum);
         ShowItemCombo(itemTestNumCombo);
     }
-    public void GetItem()
+    public void GetItem(GroundSO groundSO)
     {
         itemGetTextTimer = 0;
         curToolEfficiency = toolManager.curToolEfficiency;
-        StartCoroutine(AddItem());
+        StartCoroutine(AddItem(groundSO.resources));
     }
 
-    IEnumerator AddItem()
+    IEnumerator AddItem(Resource[] resources)
     {
         int randomNum;
         for(int i =0;i<curToolEfficiency;i++)
         {
-            randomNum = Random.Range(0, itemTestName.Length);
-            itemTestNum[randomNum] += 1;
-            itemTestNumCombo[randomNum] += 1;
+            randomNum = Random.Range(0, resources.Length);
+            itemTestNum[resources[randomNum].resourceId] += 1;
+            itemTestNumCombo[resources[randomNum].resourceId] += 1;
             yield return null;
         }
-        
     }
 
     private void ShowItemTotal(int[] arr)
@@ -75,7 +74,11 @@ public class ItemDropManager : MonoBehaviour
         {
             for (int i = 0; i < arr.Length; i++)
             {
-                result = result + itemTestName[i] + ": " + arr[i].ToString() + "\n";
+                if (arr[i] != 0)
+                {
+                    result = result + itemTestName[i] + ": " + arr[i].ToString() + "\n";
+                }
+                
             }
         }
         else

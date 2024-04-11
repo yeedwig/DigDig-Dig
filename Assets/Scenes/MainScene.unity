@@ -7969,6 +7969,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player: {fileID: 1246972418}
   skinNr: 0
+  curNum: 0
+  prevNum: 0
   gameManager: {fileID: 0}
   gameStart: 1
   CharactersSO:

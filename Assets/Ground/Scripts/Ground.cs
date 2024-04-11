@@ -43,7 +43,7 @@ public class Ground : MonoBehaviour
     {
         currentHealth -= damage;
         ChangeSpriteByCurrentHealth();
-        itemDropManager.GetItem();
+        itemDropManager.GetItem(groundSO[groundLevel-1]);
     }
 
     public void SelectGroundLevelHealth()
