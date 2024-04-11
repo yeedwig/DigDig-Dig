@@ -38,20 +38,20 @@ public class ItemDropManager : MonoBehaviour
         ShowItemTotal(itemTestNum);
         ShowItemCombo(itemTestNumCombo);
     }
-    public void GetItem(GroundSO groundSO)
+    public void GetItem(GroundSO groundSO) //중요 <- ground.cs에서 옴
     {
         itemGetTextTimer = 0;
         curToolEfficiency = toolManager.curToolEfficiency;
         StartCoroutine(AddItem(groundSO.resources));
     }
 
-    IEnumerator AddItem(Resource[] resources)
+    IEnumerator AddItem(Resource[] resources) //중요
     {
         int randomNum;
         for(int i =0;i<curToolEfficiency;i++)
         {
             randomNum = Random.Range(0, resources.Length);
-            itemTestNum[resources[randomNum].resourceId] += 1;
+            itemTestNum[resources[randomNum].resourceId] += 1; //이거 인벤에 추가
             itemTestNumCombo[resources[randomNum].resourceId] += 1;
             yield return null;
         }
@@ -78,7 +78,6 @@ public class ItemDropManager : MonoBehaviour
                 {
                     result = result + itemTestName[i] + ": " + arr[i].ToString() + "\n";
                 }
-                
             }
         }
         else
