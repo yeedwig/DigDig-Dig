@@ -7,6 +7,8 @@ public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private GameObject Player;
     public int skinNr;
+    public int curNum;
+    public int prevNum;
 
     public GameManager gameManager;
 
@@ -55,9 +57,20 @@ public class CharacterManager : MonoBehaviour
     {
         if(gameStart == true)//start of game search between Ids 0 ~ 4
         {
-            skinNr = Random.Range(0, 8);
+            skinNr = Random.Range(0, 13);
+            if(skinNr == prevNum)
+            {
+                while(skinNr == prevNum)
+                {
+                    skinNr = Random.Range(0, 13);
+                }
+                curNum = skinNr;
+            }
+            else
+                curNum = skinNr;
         }
 
+        prevNum = curNum;
         Player.GetComponent<PlayerManager>().Dead = false;
         GroundDictionary.GetComponent<GroundDictionary>().MapReset();
         Player.transform.position = new Vector3(1.5f, 5.0f, 0);
