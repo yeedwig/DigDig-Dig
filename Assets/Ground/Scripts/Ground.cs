@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -13,6 +14,7 @@ public class Ground : MonoBehaviour
     public bool structureInstalled = false; //설치된 아이템이 있는가
     public int[] groundMaxPerLevel; //지하 땅 레벨 y 좌표
     public float breakThreshold1, breakThreshold2;
+    Vector3Int groundGridPosition;
 
     private Dictionary<Vector3Int, GameObject> groundDictionary;
 
@@ -28,6 +30,14 @@ public class Ground : MonoBehaviour
 
     private ItemDropManager itemDropManager;
 
+    // 땅 파괴 확인
+    int layermask;
+    RaycastHit2D left;
+    RaycastHit2D right;
+    RaycastHit2D up;
+    public Tilemap ladderTilemap;
+    public Tilemap railTilemap;
+
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +45,10 @@ public class Ground : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
         itemDropManager = GameObject.Find("ItemDropManager").GetComponent<ItemDropManager>();
+        layermask = 1 << LayerMask.NameToLayer("Structure");
+        ladderTilemap = GameObject.Find("LadderTilemap").GetComponent<Tilemap>();
+        railTilemap = GameObject.Find("RailTilemap").GetComponent<Tilemap>();
+
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
     }
@@ -49,7 +63,7 @@ public class Ground : MonoBehaviour
     public void SelectGroundLevelHealth()
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
-        Vector3Int groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
+        groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
         if (!isRuin)
         {
             if (groundGridPosition.y > groundMaxPerLevel[0])
@@ -108,6 +122,7 @@ public class Ground : MonoBehaviour
             {
                 if (currentHealth < 0)
                 {
+                    CheckNearStructure();
                     sr.sprite = null;
                     bc.enabled = false;
                     //얘는 한번만 실행됨
@@ -149,7 +164,25 @@ public class Ground : MonoBehaviour
                 }
             }
         }
-        
-        
+    }
+
+    private void CheckNearStructure()
+    {
+        left = Physics2D.Raycast(this.transform.position, new Vector2(-1, 0), 0.65f, layermask);
+        right = Physics2D.Raycast(this.transform.position, new Vector2(1, 0), 0.65f, layermask);
+        up = Physics2D.Raycast(this.transform.position, new Vector2(0, 1), 0.65f, layermask);
+        if (left.collider != null)
+        {
+            ladderTilemap.SetTile(groundGridPosition+new Vector3Int(-1,0,0),null);
+            Debug.Log(left.collider.name);
+        }
+        if(right.collider != null)
+        {
+            ladderTilemap.SetTile(groundGridPosition + new Vector3Int(1, 0, 0), null);
+        }
+        if (up.collider != null)
+        {
+            railTilemap.SetTile(groundGridPosition + new Vector3Int(0, 1, 0), null);
+        }
     }
 }
