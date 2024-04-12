@@ -18,7 +18,9 @@ public class InventoryManager : MonoBehaviour
     public GameObject emptyInventorySlot;
 
     public Image inventoryDescriptionImage;
-    public int maxStack = 5;
+    //public int maxStack = 5;
+
+    public GameObject BagFullMessage;
 
     public void Start()
     {
@@ -54,7 +56,8 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
-
+        Debug.Log("Item not Added!");
+        StartCoroutine(MessageTimer());
         return false;
     }
 
@@ -147,6 +150,13 @@ public class InventoryManager : MonoBehaviour
 
         }
         return true;
+    }
+
+    IEnumerator MessageTimer()
+    {
+        BagFullMessage.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        BagFullMessage.SetActive(false);
     }
 
     public void SellAllObjects()

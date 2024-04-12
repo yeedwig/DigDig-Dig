@@ -16,10 +16,13 @@ MonoBehaviour:
   Description: 
   itemType: 1
   itemId: 11
+  resourceId: 0
+  efficiency: 0
   price: 100
-  damage: 1
+  damage: 20
   durability: 100
   isTool: 1
+  isResource: 0
   stackable: 0
   maxStack: 0
   image: {fileID: 21300000, guid: f9933dd0276056d419bca8162603a453, type: 3}

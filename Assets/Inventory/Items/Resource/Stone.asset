@@ -9,10 +9,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f07d646976ae4640a406a4247351b0a, type: 3}
+  m_Script: {fileID: 11500000, guid: cfb3c6a91b89a2d44ad2ac2740e1ffce, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
   Name: Stone
   Description: 
-  resourceId: 1
-  price: 1000
+  itemType: 0
+  itemId: 0
+  resourceId: 0
+  efficiency: 0
+  price: 100
+  damage: 0
+  durability: 0
+  isTool: 0
+  isResource: 1
+  stackable: 1
+  maxStack: 50
+  image: {fileID: 21300000, guid: d10c992a32416b74882e77ac4ea0044c, type: 3}

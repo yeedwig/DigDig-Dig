@@ -9,5 +9,5 @@ public class GroundSO : ScriptableObject
     public Sprite[] groundSprites;
     public int groundMaxPerLv;
     public float groundHealth;
-    public Resource[] resources;
+    public Item[] resources;
 }

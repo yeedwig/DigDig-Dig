@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     public string Description;
     public int  itemType;
     public int itemId;
+    public int resourceId;
     public int efficiency;
 
     public int price;
@@ -16,6 +17,7 @@ public class Item : ScriptableObject
     public int durability;
     //public ActionType actionType;
     public bool isTool;
+    public bool isResource;
 
     public bool stackable = true;
     public int maxStack;

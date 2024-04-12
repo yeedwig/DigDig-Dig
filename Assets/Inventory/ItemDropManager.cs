@@ -9,6 +9,9 @@ public class ItemDropManager : MonoBehaviour
 {
     [SerializeField] GameObject toolManagerObj;
     private ToolManager toolManager;
+
+    [SerializeField] InventoryManager inventoryManager;
+
     private int curToolEfficiency;
 
     private string[] itemTestName = new string[] {"Dirt","Stone","Diamond"}; 
@@ -45,13 +48,14 @@ public class ItemDropManager : MonoBehaviour
         StartCoroutine(AddItem(groundSO.resources));
     }
 
-    IEnumerator AddItem(Resource[] resources) //중요
+    IEnumerator AddItem(Item[] resources) //중요
     {
         int randomNum;
         for(int i =0;i<curToolEfficiency;i++)
         {
             randomNum = Random.Range(0, resources.Length);
-            itemTestNum[resources[randomNum].resourceId] += 1; //이거 인벤에 추가
+            //itemTestNum[resources[randomNum].resourceId] += 1; //이거 인벤에 추가
+            inventoryManager.AddItem(resources[randomNum]);
             itemTestNumCombo[resources[randomNum].resourceId] += 1;
             yield return null;
         }
