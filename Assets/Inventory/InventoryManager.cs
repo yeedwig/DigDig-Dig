@@ -129,6 +129,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool EmptyAllObjects()
     {
+        int totalPrice = 0;
         for(int i = 0; i < inventorySlotsLength; i++)
         {
             InventorySlot slot = inventorySlots[i];
@@ -137,18 +138,23 @@ public class InventoryManager : MonoBehaviour
             {
                 if (itemInSlot.item.stackable)
                 {
-                    GM.MoneyAdded(itemInSlot.item.price * itemInSlot.count);
+                    totalPrice += itemInSlot.item.price * itemInSlot.count;
+                    //GM.MoneyAdded(itemInSlot.item.price * itemInSlot.count);
 
                     Destroy(itemInSlot.gameObject);
                 }
                 else
                 {
-                    GM.MoneyAdded(itemInSlot.item.price);
+                    totalPrice += itemInSlot.item.price;
+                    //GM.MoneyAdded(itemInSlot.item.price);
                     Destroy(itemInSlot.gameObject);
                 }
             }
 
         }
+        //여기서 비율 조정, 죽어서 태어나는거면 뭐 /5 그냥 파는거면 /1
+        Debug.Log(totalPrice);
+        GM.MoneyAdded(totalPrice);
         return true;
     }
 
@@ -161,6 +167,6 @@ public class InventoryManager : MonoBehaviour
 
     public void SellAllObjects()
     {
-
+        EmptyAllObjects();
     }
 }

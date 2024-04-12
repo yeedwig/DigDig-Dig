@@ -38,8 +38,8 @@ public class ItemDropManager : MonoBehaviour
     void Update()
     {
         itemGetTextTimer += Time.deltaTime;
-        ShowItemTotal(itemTestNum);
-        ShowItemCombo(itemTestNumCombo);
+        //ShowItemTotal(itemTestNum);
+        //ShowItemCombo(itemTestNumCombo);
     }
     public void GetItem(GroundSO groundSO) //중요 <- ground.cs에서 옴
     {
@@ -51,16 +51,18 @@ public class ItemDropManager : MonoBehaviour
     IEnumerator AddItem(Item[] resources) //중요
     {
         int randomNum;
+        string totalresult = "";
         for(int i =0;i<curToolEfficiency;i++)
         {
             randomNum = Random.Range(0, resources.Length);
             //itemTestNum[resources[randomNum].resourceId] += 1; //이거 인벤에 추가
             inventoryManager.AddItem(resources[randomNum]);
-            itemTestNumCombo[resources[randomNum].resourceId] += 1;
+            StartCoroutine(ShowAddedItem(resources[randomNum]));
+            //itemTestNumCombo[resources[randomNum].resourceId] += 1;
             yield return null;
         }
     }
-
+    /*
     private void ShowItemTotal(int[] arr)
     {
         string result = "";
@@ -69,8 +71,9 @@ public class ItemDropManager : MonoBehaviour
             result = result + itemTestName[i] + ": " + arr[i].ToString() + "\n";
         }
         total.text = result;
-    }
+    }*/
 
+    /*
     private void ShowItemCombo(int[] arr)
     {
         string result = "";
@@ -80,7 +83,7 @@ public class ItemDropManager : MonoBehaviour
             {
                 if (arr[i] != 0)
                 {
-                    result = result + itemTestName[i] + ": " + arr[i].ToString() + "\n";
+                    result = result + itemTestName[i] + "+ " + arr[i].ToString() + "\n";
                 }
             }
         }
@@ -90,5 +93,13 @@ public class ItemDropManager : MonoBehaviour
         }
         
         combo.text = result;
+    }*/
+
+    // 한개씩 보여주는것
+    IEnumerator ShowAddedItem(Item item)
+    {
+        combo.text = item.name.ToString() + " + 1";
+        yield return new WaitForSeconds(0.5f);
+        combo.text = "";
     }
 }

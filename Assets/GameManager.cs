@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     public int Money;
     public Text moneyText;
 
+    public GameObject moneyAddedPopUp;
+    public Text moneyAddedText;
+
     bool AntNestFound;
     bool ArmyTrenchFound;
     bool PiratesMet;
@@ -115,6 +118,16 @@ public class GameManager : MonoBehaviour
     public void MoneyAdded(int profit)
     {
         //돈 들어오는 사운드 추가
+        StartCoroutine(ShowMoneyAdded(profit));
+    }
+
+    IEnumerator ShowMoneyAdded(int profit)
+    {
+        moneyAddedText.text = "+ " + profit.ToString();
+        moneyAddedPopUp.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        moneyAddedPopUp.SetActive(false);
+        moneyAddedText.text = "";
         Money += profit;
     }
 
