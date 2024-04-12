@@ -2032,7 +2032,7 @@ GameObject:
   - component: {fileID: 164506002}
   - component: {fileID: 164506001}
   - component: {fileID: 164506000}
-  m_Layer: 7
+  m_Layer: 9
   m_Name: ElevatorPassageTilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -34,6 +34,7 @@ public class EditController : MonoBehaviour
     //ray,collider
     Collider2D obstacleOnCursor;//커서 위에 땅 있는지 확인
     Collider2D gangOnCursor;//커서 위에 갱도 있는지 확인
+    Collider2D eraseOnCursor;//커서 위에 지울꺼 있는지 확인
     RaycastHit2D hit;
 
     // 기타
@@ -59,6 +60,7 @@ public class EditController : MonoBehaviour
 
     // 타일 제거
     private GameObject objectToErase;
+    private int eraseMask;
 
 
 
@@ -67,6 +69,7 @@ public class EditController : MonoBehaviour
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         cursorSR.color = new Color(1, 1, 1, 0.7f);
         obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure");
+        eraseMask = 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
         gangMask = 1 << LayerMask.NameToLayer("Gang");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
     }
@@ -233,6 +236,7 @@ public class EditController : MonoBehaviour
                         }
                         break;
                     case 6:
+                        Debug.Log(objectToErase.name);
                         if (objectToErase.name == "GangTilemap")
                         {
                             cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
@@ -241,7 +245,9 @@ public class EditController : MonoBehaviour
                         }
                         else if(objectToErase.name == "ElevatorPassageTilemap")
                         {
-                            
+                            Debug.Log("test");
+                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 100000.0f, obstacleMask);
+                            DestroyElevatorPassage(hit.collider.gameObject, hit.collider.gameObject.GetComponent<Elevator>().pair);
                         }
                         else if (objectToErase.tag == "Elevator")
                         {
@@ -279,9 +285,10 @@ public class EditController : MonoBehaviour
         gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
         if(itemCursorIndex == 6)
         {
-            if(obstacleOnCursor != null)
+            eraseOnCursor=Physics2D.OverlapCircle(cursor.transform.position, 0.4f, eraseMask);
+            if (eraseOnCursor != null)
             {
-                objectToErase = obstacleOnCursor.gameObject;
+                objectToErase = eraseOnCursor.gameObject;
                 return true;
             }
             else if(gangOnCursor != null)
