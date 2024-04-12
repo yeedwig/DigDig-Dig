@@ -239,9 +239,20 @@ public class EditController : MonoBehaviour
                             gangTilemap.SetTile(cursorPosInt, null);
                             groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = false;
                         }
-                        else if(objectToErase.name == "ElevatorPassageTilemap" || objectToErase.tag == "Elevator")
+                        else if(objectToErase.name == "ElevatorPassageTilemap")
                         {
                             
+                        }
+                        else if (objectToErase.tag == "Elevator")
+                        {
+                            if (objectToErase.GetComponent<Elevator>().pair == null)
+                            {
+                                Destroy(objectToErase);
+                            }
+                            else
+                            {
+                                DestroyElevatorPassage(objectToErase.GetComponent<Elevator>().pair, objectToErase);
+                            }
                         }
                         else
                         {
@@ -335,14 +346,38 @@ public class EditController : MonoBehaviour
     {
         top.GetComponent<Elevator>().isConnected = true;
         bottom.GetComponent<Elevator>().isConnected = true;
-        Vector3 start=top.transform.position, end=bottom.transform.position+new Vector3(0,1f,0);
-        while(start.y > end.y)
+        elevatorTopPos = top.transform.position;
+        elevatorBottomPos =bottom.transform.position+new Vector3(0,1f,0);
+        while(elevatorTopPos.y > elevatorBottomPos.y)
         {
-            elevatorConstructVec = elevatorPassageTilemap.WorldToCell(end);
+            elevatorConstructVec = elevatorPassageTilemap.WorldToCell(elevatorBottomPos);
             elevatorPassageTilemap.SetTile(elevatorConstructVec, elevatorPassage);
             gangTilemap.SetTile(elevatorConstructVec, gang);
             groundDictionary[elevatorConstructVec].GetComponent<Ground>().gangInstalled = true;
-            end.y += 1f;
+            elevatorBottomPos.y += 1f;
         }
+    }
+
+    private void DestroyElevatorPassage(GameObject d1,GameObject d2)
+    {
+        if (d1.transform.position.y > d2.transform.position.y)
+        {
+            elevatorTopPos = d1.transform.position;
+            elevatorBottomPos = d2.transform.position + new Vector3(0, 1f, 0);
+        }
+        else
+        {
+            elevatorTopPos = d2.transform.position;
+            elevatorBottomPos = d1.transform.position + new Vector3(0, 1f, 0);
+        }
+        while (elevatorTopPos.y > elevatorBottomPos.y)
+        {
+            elevatorConstructVec = elevatorPassageTilemap.WorldToCell(elevatorBottomPos);
+            elevatorPassageTilemap.SetTile(elevatorConstructVec, null);
+            elevatorBottomPos.y += 1f;
+        }
+        Destroy(d1);
+        Destroy(d2);
+
     }
 }
