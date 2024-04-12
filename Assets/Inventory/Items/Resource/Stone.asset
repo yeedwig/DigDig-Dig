@@ -16,7 +16,7 @@ MonoBehaviour:
   Description: 
   itemType: 0
   itemId: 0
-  resourceId: 0
+  resourceId: 1
   efficiency: 0
   price: 100
   damage: 0
