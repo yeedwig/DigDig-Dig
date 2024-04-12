@@ -14,7 +14,7 @@ public class EditController : MonoBehaviour
     private SpriteRenderer cursorSR;
     private Vector3 cursorPos; //커서 위치 (벡터)
     private Vector3Int cursorPosInt; // 커서 위치 (좌표)
-    public int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로
+    public int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로, 6 제거
     [SerializeField] Sprite[] itemCursorSprite;
     [SerializeField] float cursorFastMoveStartTimerMax; //빠르게 움직이기 시작하는 텀
     [SerializeField] float cursorFastMoveTimerMin; // 빠르게 움직이는 최소 텀
@@ -56,6 +56,9 @@ public class EditController : MonoBehaviour
     private Vector3 elevatorBottomPos;
     public float elevatorPassageCount = 10;
     private Vector3Int elevatorConstructVec;
+
+    // 타일 제거
+    private GameObject objectToErase;
 
 
 
@@ -169,13 +172,13 @@ public class EditController : MonoBehaviour
                 itemCursorIndex--;
                 if (itemCursorIndex < 0)
                 {
-                    itemCursorIndex = 5;
+                    itemCursorIndex = 6;
                 }
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 itemCursorIndex++;
-                if (itemCursorIndex > 5)
+                if (itemCursorIndex > 6)
                 {
                     itemCursorIndex = 0;
                 }
@@ -207,7 +210,7 @@ public class EditController : MonoBehaviour
                     case 3://레일
                         railTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), rail);
                         break;
-                    case 4:
+                    case 4: //엘베 위쪽
                         GameObject Top = GameObject.Instantiate(elevatorTop);
                         Top.transform.position = cursor.transform.position;
                         hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), elevatorPassageCount, obstacleMask);
@@ -218,7 +221,7 @@ public class EditController : MonoBehaviour
                             elevatorInstall(Top,hit.collider.gameObject);
                         }
                         break;
-                    case 5:
+                    case 5://엘베 아래쪽
                         GameObject Bottom = GameObject.Instantiate(elevatorBottom);
                         Bottom.transform.position = cursor.transform.position;
                         hit = Physics2D.Raycast(Bottom.transform.position, new Vector2(0, 1), elevatorPassageCount, obstacleMask);
@@ -227,6 +230,29 @@ public class EditController : MonoBehaviour
                             Bottom.GetComponent<Elevator>().pair = hit.collider.gameObject;
                             hit.collider.gameObject.GetComponent<Elevator>().pair = Bottom;
                             elevatorInstall(hit.collider.gameObject,Bottom);
+                        }
+                        break;
+                    case 6:
+                        if (objectToErase.name == "GangTilemap")
+                        {
+                            cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                            gangTilemap.SetTile(cursorPosInt, null);
+                            groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = false;
+                        }
+                        else if(objectToErase.name == "ElevatorPassageTilemap" || objectToErase.tag == "Elevator")
+                        {
+                            
+                        }
+                        else
+                        {
+                            if(objectToErase.name == "LadderTilemap")
+                            {
+                                ladderTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), null);
+                            }
+                            else if(objectToErase.name == "RailTilemap")
+                            {
+                                railTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), null);
+                            }
                         }
                         break;
                     default:
@@ -240,47 +266,68 @@ public class EditController : MonoBehaviour
         // 0 갱도, 1 오른 사다리, 2 왼 사다리, 3 레일, 4 엘리베이터 아래 문, 5 엘리베이터 위쪽 문
         obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
         gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
-        if (obstacleOnCursor != null)
+        if(itemCursorIndex == 6)
         {
-            return false;
+            if(obstacleOnCursor != null)
+            {
+                objectToErase = obstacleOnCursor.gameObject;
+                return true;
+            }
+            else if(gangOnCursor != null)
+            {
+                objectToErase = gangOnCursor.gameObject;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
-            if(itemCursorIndex == 0)
-            {
-                return true;
-            }
-            if (gangOnCursor == null)
+            if (obstacleOnCursor != null)
             {
                 return false;
             }
             else
             {
-                if(itemCursorIndex == 4 ||  itemCursorIndex == 5)
+                if (itemCursorIndex == 0)
                 {
                     return true;
                 }
+                if (gangOnCursor == null)
+                {
+                    return false;
+                }
                 else
                 {
-                    if (itemCursorIndex == 1)
-                    {
-                        hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
-                    }
-                    else if (itemCursorIndex == 2)
-                    {
-                        hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
-                    }
-                    else if (itemCursorIndex == 3)
-                    {
-                        hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask);
-                    }
-                    if(hit.collider != null)
+                    if (itemCursorIndex == 4 || itemCursorIndex == 5)
                     {
                         return true;
+                    }
+                    else
+                    {
+                        if (itemCursorIndex == 1)
+                        {
+                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
+                        }
+                        else if (itemCursorIndex == 2)
+                        {
+                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
+                        }
+                        else if (itemCursorIndex == 3)
+                        {
+                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask);
+                        }
+                        if (hit.collider != null)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
         }
+        
         return false;
     }
 

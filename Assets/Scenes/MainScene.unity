@@ -4259,6 +4259,7 @@ MonoBehaviour:
   - {fileID: -385247971, guid: 8380b65d4d12b5846b0f4ed3508ef802, type: 3}
   - {fileID: 1916812610, guid: efe53b74776c99949bfc81b95da0683e, type: 3}
   - {fileID: 1437780731, guid: efe53b74776c99949bfc81b95da0683e, type: 3}
+  - {fileID: 21300000, guid: 78afe65cccebb5043846065e86ed5bf6, type: 3}
   cursorFastMoveStartTimerMax: 100
   cursorFastMoveTimerMin: 51
   cursorFastMoveTimerSubtract: 50
