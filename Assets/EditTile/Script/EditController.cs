@@ -311,7 +311,10 @@ public class EditController : MonoBehaviour
             {
                 if (itemCursorIndex == 0)
                 {
-                    return true;
+                    if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position)))
+                    {
+                        return true;
+                    }               
                 }
                 if (gangOnCursor == null)
                 {
