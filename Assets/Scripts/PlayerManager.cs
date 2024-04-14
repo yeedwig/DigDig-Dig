@@ -418,17 +418,28 @@ public class PlayerManager : MonoBehaviour
 
     private void GetOnOffLadder() // 나중에 옆에 interaction manager로 옮길지도
     {
-        if (canClimbLadder&&Input.GetKeyDown(KeyCode.F))
+        if (canClimbLadder)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (isClimbingLadder)
+                {
+                    isClimbingLadder = false;
+                    rb.gravityScale = originalGravity;
+                }
+                else
+                {
+                    isClimbingLadder = true;
+                    rb.gravityScale = 0;
+                }
+            }
+        }
+        else
         {
             if (isClimbingLadder)
             {
                 isClimbingLadder = false;
                 rb.gravityScale = originalGravity;
-            }
-            else
-            {
-                isClimbingLadder= true;
-                rb.gravityScale = 0;
             }
         }
     }

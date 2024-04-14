@@ -67,6 +67,8 @@ public class EditController : MonoBehaviour
     [SerializeField] int railNum;
     [SerializeField] int elevatorDoorNum;
     [SerializeField] int elevatorPassageNum;
+
+    private bool isChangingCursor;
     
 
     void Start()
@@ -86,8 +88,20 @@ public class EditController : MonoBehaviour
         MoveEditCursor();
         ChangeItemIndex();
         InstallBlock();
+        CheckChangeCursor();
     }
 
+    private void CheckChangeCursor()
+    {
+        if (Input.GetKey(KeyCode.LeftAlt))
+        {
+            isChangingCursor = true;
+        }
+        else
+        {
+            isChangingCursor = false;
+        }
+    }
     private void CheckEdit()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -112,7 +126,7 @@ public class EditController : MonoBehaviour
 
     private void MoveEditCursor()
     {
-        if (!Input.GetKey(KeyCode.LeftAlt))
+        if (!isChangingCursor)
         {
             if (Input.GetKey(KeyCode.LeftArrow))
             {
@@ -173,7 +187,7 @@ public class EditController : MonoBehaviour
 
     private void ChangeItemIndex()
     {
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (isChangingCursor)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
