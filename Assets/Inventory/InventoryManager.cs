@@ -153,7 +153,6 @@ public class InventoryManager : MonoBehaviour
 
         }
         //여기서 비율 조정, 죽어서 태어나는거면 뭐 /5 그냥 파는거면 /1
-        Debug.Log(totalPrice);
         GM.MoneyAdded(totalPrice);
         return true;
     }
