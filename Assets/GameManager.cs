@@ -6,8 +6,15 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public PlayerManager Player;
+    public GameObject Halo;
+    public GameObject BlackScreen;
+
     public InventoryManager inventoryManager;
     public ToolManager toolManager;
+    public InventorySlot firstSlotToolBelt;
+    public Item defaultShovel;
+    public bool defaultShovelSpawned = true; 
+
     public CharacterManager characterManager;
     public ShopManager shopManager;
 
@@ -60,9 +67,18 @@ public class GameManager : MonoBehaviour
     {
         if(Player.Dead == true)
         {
-            PlayerDead();
+            StartCoroutine(PlayerDead());
             moneyText.text = Money.ToString();
+            //defaultShovelSpawned = false;
+
         }
+        /*
+        if (defaultShovelSpawned == false)
+        {
+            Debug.Log("Shovel Spawned");
+            inventoryManager.SpawnNewItem(defaultShovel, firstSlotToolBelt);
+            defaultShovelSpawned = true;
+        }*/
         SetShop();
         moneyText.text = Money.ToString();
         curItem = Player.curItem;
@@ -99,20 +115,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void PlayerDead()
+    IEnumerator PlayerDead()
     {
+        Halo.SetActive(true);
+        yield return new WaitForSeconds(2.0f);
         //reset inventory
+        Halo.SetActive(false);
+        StartCoroutine(PlayerReset());
+    }
+    IEnumerator PlayerReset()
+    {
+        //눈에 엑스자 표시 검은 화면 표시
+        BlackScreen.SetActive(true);
         bool inventoryReset = inventoryManager.EmptyAllObjects();
         //reset toolbelt
         bool toolBeltReset = toolManager.toolBeltReset();
         //resetlocation
         //reset character
         bool characterReset = characterManager.resetCharacter();
-
-        if (inventoryReset == true && characterReset == true && toolBeltReset == true)
+        if (inventoryReset == true && characterReset == true && toolBeltReset == true) //&& defaultShovelSpawned == false)
         {
             Player.Dead = false;
         }
+        yield return new WaitForSeconds(3.0f);
+        BlackScreen.SetActive(false);
+        
     }
 
     public void MoneyAdded(int profit)

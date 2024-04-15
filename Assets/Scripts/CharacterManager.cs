@@ -71,6 +71,7 @@ public class CharacterManager : MonoBehaviour
         }
 
         prevNum = curNum;
+        //걷게 하기
         Player.GetComponent<PlayerManager>().Dead = false;
         GroundDictionary.GetComponent<GroundDictionary>().MapReset();
         Player.transform.position = new Vector3(1.5f, 5.0f, 0);

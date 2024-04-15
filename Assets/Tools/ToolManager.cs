@@ -38,10 +38,10 @@ public class ToolManager : MonoBehaviour
 
     //reset
     public GameObject inventoryItemPrefab;
-    public Item defaultShovel;
+    
 
     public InventoryManager inventoryManager;
-
+    public Item defaultShovel;
 
     public 
     // Start is called before the first frame update
@@ -77,7 +77,7 @@ public class ToolManager : MonoBehaviour
             
         }
 
-        inventoryManager.SpawnNewItem(defaultShovel, ToolBeltInventory[0]);
+        //inventoryManager.SpawnNewItem(defaultShovel, ToolBeltInventory[0]);
         
         return true;
 
