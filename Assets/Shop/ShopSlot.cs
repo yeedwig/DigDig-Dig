@@ -21,6 +21,7 @@ public class ShopSlot : MonoBehaviour
     void Start()
     {
         nameTextSlot.text = item.name;
+        price = item.price; 
         priceTextSlot.text = price.ToString();
     }
 

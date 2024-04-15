@@ -32,30 +32,77 @@ public class InventoryManager : MonoBehaviour
     }
     public bool AddItem(Item item)
     {
-        for (int i = 0; i < inventorySlotsLength; i++)
+        if(item.isStructure)
         {
-            InventorySlot slot = inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            //여기 maxStack 바꾸게
-            if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < item.maxStack && itemInSlot.item.stackable == true)
+            if(item.Name =="Gang")
             {
-                itemInSlot.count++;
-                itemInSlot.RefreshCount();
-                return true;
+                if(GM.GangNum <100)
+                {
+                    GM.GangNum++;
+                    return true;
+                }
+            }
+            if (item.Name == "Ladder")
+            {
+                if (GM.LadderNum < 100)
+                {
+                    GM.LadderNum++;
+                    return true;
+                }
+            }
+            if (item.Name == "Rail")
+            {
+                if (GM.RailNum < 100)
+                {
+                    GM.RailNum++;
+                    return true;
+                }
+            }
+            if (item.Name == "ElevatorDoor")
+            {
+                if (GM.ElevatorDoorNum < 100)
+                {
+                    GM.ElevatorDoorNum++;
+                    return true;
+                }
+            }
+            if (item.Name == "ElevatorPassage")
+            {
+                if (GM.ElevatorPassageNum < 100)
+                {
+                    GM.ElevatorPassageNum++;
+                    return true;
+                }
             }
         }
+        else
+        {
+            for (int i = 0; i < inventorySlotsLength; i++)
+            {
+                InventorySlot slot = inventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                //여기 maxStack 바꾸게
+                if (itemInSlot != null && itemInSlot.item == item && itemInSlot.count < item.maxStack && itemInSlot.item.stackable == true)
+                {
+                    itemInSlot.count++;
+                    itemInSlot.RefreshCount();
+                    return true;
+                }
+            }
 
-        //Find Empty SLot
-        for (int i=0; i<inventorySlotsLength; i++)
-        {
-            InventorySlot slot = inventorySlots[i];
-            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-            if(itemInSlot == null)
+            //Find Empty SLot
+            for (int i = 0; i < inventorySlotsLength; i++)
             {
-                SpawnNewItem(item, slot);
-                return true;
+                InventorySlot slot = inventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                if (itemInSlot == null)
+                {
+                    SpawnNewItem(item, slot);
+                    return true;
+                }
             }
         }
+        
         Debug.Log("Item not Added!");
         StartCoroutine(MessageTimer());
         return false;

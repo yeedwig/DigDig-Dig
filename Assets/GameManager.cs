@@ -13,7 +13,9 @@ public class GameManager : MonoBehaviour
     public ToolManager toolManager;
     public InventorySlot firstSlotToolBelt;
     public Item defaultShovel;
-    public bool defaultShovelSpawned = true; 
+    public bool defaultShovelSpawned = true;
+
+
 
     public CharacterManager characterManager;
     public ShopManager shopManager;
@@ -48,6 +50,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image curToolImage;
     [SerializeField] GameObject NullMask;
 
+
+    //구조물 관련
+    public int GangNum;
+    public int LadderNum;
+    public int RailNum;
+    public int ElevatorDoorNum;
+    public int ElevatorPassageNum;
+
+    public Text GangNumTxt;
+    public Text LadderNumTxt;
+    public Text RailNumTxt;
+    public Text ElevatorDoorNumTxt;
+    public Text ElevatorPassageNumTxt;
     private void Start()
     {
         AntNestFound = false;
@@ -69,24 +84,35 @@ public class GameManager : MonoBehaviour
         {
             StartCoroutine(PlayerDead());
             moneyText.text = Money.ToString();
-            //defaultShovelSpawned = false;
 
         }
-        /*
-        if (defaultShovelSpawned == false)
-        {
-            Debug.Log("Shovel Spawned");
-            inventoryManager.SpawnNewItem(defaultShovel, firstSlotToolBelt);
-            defaultShovelSpawned = true;
-        }*/
+       
         SetShop();
         moneyText.text = Money.ToString();
         curItem = Player.curItem;
         currentInventoryItem = toolManager.curToolInvenItem;
         ShowCurrentTool();
+        ShowStructureNum();
         //moneyText.text = Money.ToString();  
     }
 
+    private void ShowStructureNum()
+    {
+        GangNumTxt.text = " X " + GangNum.ToString();
+        LadderNumTxt.text = " X " + LadderNum.ToString();   
+        RailNumTxt.text = " X " + RailNum.ToString();
+        ElevatorDoorNumTxt.text = " X " + ElevatorDoorNum.ToString(); 
+        ElevatorPassageNumTxt.text = " X " + ElevatorPassageNum.ToString();
+    }
+
+    private void resetStructureNum()
+    {
+        GangNum = 0;
+        LadderNum = 0;
+        RailNum = 0;    
+        ElevatorPassageNum = 0;
+        ElevatorDoorNum = 0;
+    }
     private void ShowCurrentTool()
     {
         if (currentInventoryItem != null && curItem != null)
@@ -136,11 +162,19 @@ public class GameManager : MonoBehaviour
         if (inventoryReset == true && characterReset == true && toolBeltReset == true) //&& defaultShovelSpawned == false)
         {
             Player.Dead = false;
+            defaultShovelSpawned = false;
         }
         yield return new WaitForSeconds(3.0f);
         BlackScreen.SetActive(false);
-        
+
+        if (defaultShovelSpawned == false)
+        {
+            Debug.Log("Shovel Spawned");
+            inventoryManager.SpawnNewItem(defaultShovel, firstSlotToolBelt);
+            defaultShovelSpawned = true;
+        }
     }
+
 
     public void MoneyAdded(int profit)
     {

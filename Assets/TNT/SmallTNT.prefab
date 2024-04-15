@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: -6847847672390367098}
   - component: {fileID: 6773981856476923836}
   - component: {fileID: 1532295288910050961}
-  - component: {fileID: 3705709532513380953}
   m_Layer: 0
   m_Name: SmallTNT
   m_TagString: Untagged
@@ -74,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -832404867
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 507876664, guid: ee593b2f074c87b4ebc275cc9fc6a657, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -101,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TNTTimer: 2
-  ToolID: 20
+  ToolID: 22
   groundTileMap: {fileID: 0}
 --- !u!61 &6773981856476923836
 BoxCollider2D:
@@ -175,18 +174,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3705709532513380953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3025716527097178769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df9db82092281bb469b2564478072243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ToolId: 23
-  itemType: 2
-  damage: 0
