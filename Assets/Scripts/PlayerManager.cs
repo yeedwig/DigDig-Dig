@@ -281,7 +281,7 @@ public class PlayerManager : MonoBehaviour
 
 
         //InterAction
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             //상점과 interaction
             if(shopVisited == true)
