@@ -13,6 +13,8 @@ public class DigManager : MonoBehaviour
     public Item curItem;
     public PlayerManager playerManager;
 
+    public AudioClip[] diggingSound;
+
     private float digDirX;
     private float digDirY;
 
@@ -79,6 +81,7 @@ public class DigManager : MonoBehaviour
 
     public void DigDoDamage()
     {
+        SoundFXManager.instance.PlaySoundFXClip(diggingSound, transform, 0.5f);
         canDamage = true;
     }
 }

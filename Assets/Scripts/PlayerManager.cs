@@ -84,6 +84,13 @@ public class PlayerManager : MonoBehaviour
     private float yMove;
     private float originalGravity;
 
+
+    //AudioSource 관련
+    public AudioClip[] footSteps;
+    public int moveCounter;
+    [SerializeField] private int moveSoundLimit;
+
+
     void Start()
     {
         Dead = false;
@@ -110,13 +117,13 @@ public class PlayerManager : MonoBehaviour
             Flip();
             //UpdateAnimation();
             CheckTool();
-
+            
             CheckCanWalk();
             CheckIsWalking();
             CheckCurrentTool();
             CheckCanClimb();
             GetOnOffLadder();
-
+            
             //ShowCurrentTool();
         }
      
@@ -135,6 +142,7 @@ public class PlayerManager : MonoBehaviour
     void FixedUpdate()
     {
         UpdateAnimation();
+        //CheckQPressed();
         Walk();
         moveOnladder();
     }
@@ -204,7 +212,7 @@ public class PlayerManager : MonoBehaviour
         //파는 거
         if(Input.GetKeyDown(KeyCode.Q) && isWalking == false)
         {
-            if(curItem == null)
+            if (curItem == null)
             {
                 Debug.Log("No Tool!");
                 //깡! 거리는 없다는사운드 여기서 플레이
@@ -214,6 +222,7 @@ public class PlayerManager : MonoBehaviour
                 if(curItem.itemType == 0) //삽인 경우
                 {
                     isDigging = true;
+                    
                     //curItem의 디깅 사운드
                 }
                 if (curItem.itemType == 1) //드릴인 경우
@@ -342,6 +351,22 @@ public class PlayerManager : MonoBehaviour
         anim.SetBool("isDrilling", isDrilling);
     }
 
+    //Sound 위한 타이머들
+
+    /*
+    private void CheckQPressed()
+    {
+        if(isDigging)
+        {
+            digCounter++;
+            if (digCounter > digSoundLimit)
+            {
+                digCounter = 0;
+                SoundFXManager.instance.PlaySoundFXClip(diggingSound, transform, 0.7f);
+            }
+        }
+    }*/
+
 
     //Walking
     private void Walk()
@@ -350,6 +375,7 @@ public class PlayerManager : MonoBehaviour
         if(canWalk)
         {
             rb.velocity = new Vector2(moveDir * walkSpeed, rb.velocity.y);
+            
         }
     }
     
@@ -369,6 +395,13 @@ public class PlayerManager : MonoBehaviour
     {
         if ((rb.velocity.x > 0.1f || rb.velocity.x < -0.1f) && isJumping == false)
         {
+            moveCounter++;
+            if (moveCounter > moveSoundLimit)
+            {
+                moveCounter = 0;
+                SoundFXManager.instance.PlaySoundFXClip(footSteps, transform, 0.3f);
+            }
+
             isWalking = true;
             canDig = false;
             canDrill = false;
