@@ -89,7 +89,9 @@ public class PlayerManager : MonoBehaviour
     public AudioClip[] footSteps;
     public int moveCounter;
     [SerializeField] private int moveSoundLimit;
+    public AudioClip[] jumpSound;
 
+    public AudioClip[] interactionSound;
 
     void Start()
     {
@@ -197,7 +199,8 @@ public class PlayerManager : MonoBehaviour
         //인벤토리
         if(Input.GetKeyDown(KeyCode.I))
         {
-            if(inventoryOpened == false)
+            SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+            if (inventoryOpened == false)
             {
                 InventoryUI.SetActive(true);
                 inventoryOpened = true;
@@ -272,6 +275,7 @@ public class PlayerManager : MonoBehaviour
         {
             isJumping = true;
             canJump = false;
+            SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 1.5f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
         }
 
@@ -297,11 +301,13 @@ public class PlayerManager : MonoBehaviour
             {
                 if (shopUIOpened == false)
                 {
+                    SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
                     ShopUI.SetActive(true);
                     shopUIOpened = true;
                 }
                 else
                 {
+                    SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
                     ShopUI.SetActive(false);
                     shopUIOpened = false;
                 }

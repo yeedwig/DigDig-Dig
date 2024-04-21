@@ -17,6 +17,8 @@ public class ShopSlot : MonoBehaviour
     [SerializeField] Text descriptionTxt;
     [SerializeField] Text statTxt;
 
+    public AudioClip[] cashOutSound;
+    public AudioClip[] buttonPressSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +32,10 @@ public class ShopSlot : MonoBehaviour
         if (gameManager.Money >= price)
         {
             if (inventoryManager.AddItem(item))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(cashOutSound, transform, 1.5f);
                 gameManager.Money -= price;
+            }
             else
                 return;
             //돈빠져나가는 애니메이션
@@ -42,6 +47,7 @@ public class ShopSlot : MonoBehaviour
     public void ShowDescription()
     {
         //Show Item Description
+        SoundFXManager.instance.PlaySoundFXClip(buttonPressSound, transform, 1.5f);
         descriptionTxt.text = item.name.ToString() + " : " + "\n" + item.Description.ToString();
         
         statTxt.text = "Damage : " + item.damage.ToString() + "\n" + "Durability : " + item.durability.ToString() + "\n" + "Selling Price : " + item.price.ToString();

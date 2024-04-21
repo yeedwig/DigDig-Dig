@@ -714,6 +714,10 @@ MonoBehaviour:
   inventoryManager: {fileID: 0}
   descriptionTxt: {fileID: 0}
   statTxt: {fileID: 0}
+  cashOutSound:
+  - {fileID: 8300000, guid: 31dcab00978ad594fb417117d061e3f0, type: 3}
+  buttonPressSound:
+  - {fileID: 8300000, guid: 061303b422c3cfb499447a2573484ef3, type: 3}
 --- !u!1 &5953538696037794500
 GameObject:
   m_ObjectHideFlags: 0

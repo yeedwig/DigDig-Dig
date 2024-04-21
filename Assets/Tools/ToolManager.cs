@@ -43,6 +43,7 @@ public class ToolManager : MonoBehaviour
     public InventoryManager inventoryManager;
     public Item defaultShovel;
 
+    public float durabilityDamage;
     public 
     // Start is called before the first frame update
     void Start()
@@ -139,7 +140,7 @@ public class ToolManager : MonoBehaviour
             //삽이나 드릴인 경우
             if(curToolType >= 0 && curToolType <=1)
             {
-                useInventoryItem.Damage(0.05f);
+                useInventoryItem.Damage(durabilityDamage);
                 if(useInventoryItem.Durability <= 0)
                 {
                     Destroy(useInventoryItem.gameObject);

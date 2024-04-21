@@ -14,6 +14,7 @@ public class DigManager : MonoBehaviour
     public PlayerManager playerManager;
 
     public AudioClip[] diggingSound;
+    public AudioClip[] drillingSound;
 
     private float digDirX;
     private float digDirY;
@@ -66,6 +67,7 @@ public class DigManager : MonoBehaviour
                     {
                         hit.transform.gameObject.GetComponent<Ground>().takeDamage(damage);
                         canDamage = false;
+                        //뭔가 여기서 땅이 삽 내구도를 얼마나 닳게 하는지 가져왓음 좋겠음
                         toolManager.useItem(curSelectSlot);
                     }
                     else if(toolManager.curToolType == 1&&direction.x==0 && canDamage) //드릴
@@ -81,7 +83,14 @@ public class DigManager : MonoBehaviour
 
     public void DigDoDamage()
     {
-        SoundFXManager.instance.PlaySoundFXClip(diggingSound, transform, 0.5f);
+        if(toolManager.curToolType == 0)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(diggingSound, transform, 0.5f);
+        }
+        else if(toolManager.curToolType == 1)
+        {
+            SoundFXManager.instance.PlaySoundFXClip(drillingSound, transform, 0.5f);
+        }
         canDamage = true;
     }
 }

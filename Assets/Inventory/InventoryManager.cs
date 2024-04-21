@@ -21,6 +21,7 @@ public class InventoryManager : MonoBehaviour
     //public int maxStack = 5;
 
     public GameObject BagFullMessage;
+    public AudioClip[] cantBuySound;
 
     public void Start()
     {
@@ -104,6 +105,7 @@ public class InventoryManager : MonoBehaviour
         }
         
         Debug.Log("Item not Added!");
+        SoundFXManager.instance.PlaySoundFXClip(cantBuySound, transform, 1.5f);
         StartCoroutine(MessageTimer());
         return false;
     }
