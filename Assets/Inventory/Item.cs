@@ -19,6 +19,7 @@ public class Item : ScriptableObject
     public bool isTool;
     public bool isResource;
     public bool isStructure;
+    public bool isKey;
 
     public bool stackable = true;
     public int maxStack;

@@ -241,4 +241,23 @@ public class InventoryManager : MonoBehaviour
         SoundFXManager.instance.PlaySoundFXClip(coinAddedSound, transform, 1.0f);
         GM.MoneyAdded(totalPrice);
     }
+
+    public bool SearchInventory(Item item)
+    {
+        for(int i=0; i<inventorySlotsLength; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if(itemInSlot.item.name == item.name)
+            {
+                if(itemInSlot.item.isKey)//use item if is key
+                {
+                    Destroy(itemInSlot);
+                }
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
