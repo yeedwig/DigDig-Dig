@@ -22,6 +22,7 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject BagFullMessage;
     public AudioClip[] cantBuySound;
+    public AudioClip[] coinAddedSound;
 
     public void Start()
     {
@@ -187,6 +188,41 @@ public class InventoryManager : MonoBehaviour
             {
                 if (itemInSlot.item.stackable)
                 {
+                    //totalPrice += itemInSlot.item.price * itemInSlot.count;
+                    Destroy(itemInSlot.gameObject);
+                }
+                else
+                {
+                    //totalPrice += itemInSlot.item.price;
+                    Destroy(itemInSlot.gameObject);
+                }
+            }
+
+        }
+        //여기서 비율 조정, 죽어서 태어나는거면 뭐 /5 그냥 파는거면 /1
+
+        GM.MoneyAdded(totalPrice);
+        return true;
+    }
+
+    IEnumerator MessageTimer()
+    {
+        BagFullMessage.SetActive(true);
+        yield return new WaitForSeconds(1.0f);
+        BagFullMessage.SetActive(false);
+    }
+
+    public void SellAllObjects()
+    {
+        int totalPrice = 0;
+        for (int i = 0; i < inventorySlotsLength; i++)
+        {
+            InventorySlot slot = inventorySlots[i];
+            InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+            if (itemInSlot != null)
+            {
+                if (itemInSlot.item.stackable)
+                {
                     totalPrice += itemInSlot.item.price * itemInSlot.count;
                     //GM.MoneyAdded(itemInSlot.item.price * itemInSlot.count);
 
@@ -202,19 +238,7 @@ public class InventoryManager : MonoBehaviour
 
         }
         //여기서 비율 조정, 죽어서 태어나는거면 뭐 /5 그냥 파는거면 /1
+        SoundFXManager.instance.PlaySoundFXClip(coinAddedSound, transform, 1.0f);
         GM.MoneyAdded(totalPrice);
-        return true;
-    }
-
-    IEnumerator MessageTimer()
-    {
-        BagFullMessage.SetActive(true);
-        yield return new WaitForSeconds(1.0f);
-        BagFullMessage.SetActive(false);
-    }
-
-    public void SellAllObjects()
-    {
-        EmptyAllObjects();
     }
 }

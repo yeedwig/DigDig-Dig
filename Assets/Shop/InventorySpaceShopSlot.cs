@@ -17,6 +17,8 @@ public class InventorySpaceShopSlot : MonoBehaviour
     [SerializeField] Text descriptionTxt;
     [SerializeField] Text statTxt;
 
+    public AudioClip[] cashOutSound;
+    public AudioClip[] buttonPressSound;
     void Start()
     {
         nameTextSlot.text = "Lv2. Bag";
@@ -30,6 +32,7 @@ public class InventorySpaceShopSlot : MonoBehaviour
             if(inventoryManager.currentInventoryLevel < 5)
             {
                 gameManager.Money -= price;
+                SoundFXManager.instance.PlaySoundFXClip(cashOutSound, transform, 1.5f);
                 inventoryManager.AddInventorySlots();
                 if (inventoryManager.currentInventoryLevel == 1)
                 {
@@ -79,6 +82,7 @@ public class InventorySpaceShopSlot : MonoBehaviour
     public void ShowDescription()
     {
         //Show Item Description
+        SoundFXManager.instance.PlaySoundFXClip(buttonPressSound, transform, 1.5f);
         descriptionTxt.text = "Upgrades Inventory Size by 5";
 
         //statTxt.text = "Damage : " + item.damage.ToString() + "\n" + "Durability : " + item.durability.ToString() + "\n" + "Selling Price : " + item.price.ToString();

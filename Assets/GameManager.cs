@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
     IEnumerator PlayerDead()
     {
         Halo.SetActive(true);
+        Player.respawning = true;
         yield return new WaitForSeconds(2.0f);
         //reset inventory
         Halo.SetActive(false);
@@ -166,7 +167,7 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(3.0f);
         BlackScreen.SetActive(false);
-
+        Player.respawning = false;
         if (defaultShovelSpawned == false)
         {
             Debug.Log("Shovel Spawned");

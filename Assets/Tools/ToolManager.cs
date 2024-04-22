@@ -44,7 +44,9 @@ public class ToolManager : MonoBehaviour
     public Item defaultShovel;
 
     public float durabilityDamage;
-    public 
+
+    public AudioClip[] ErrorSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -126,6 +128,7 @@ public class ToolManager : MonoBehaviour
         }
         else
         {
+            //SoundFXManager.instance.PlaySoundFXClip(ErrorSound, transform, 1.5f);
             return null;
         }
     }

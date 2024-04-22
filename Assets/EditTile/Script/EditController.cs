@@ -9,6 +9,7 @@ public class EditController : MonoBehaviour
 {
     [SerializeField] GameObject player;
     [SerializeField] GameManager GM;
+    [SerializeField] PlayerManager Player;
     //¿¡µ÷ Ä¿¼­
     [SerializeField] GameObject cursor;
     private SpriteRenderer cursorSR;
@@ -117,32 +118,36 @@ public class EditController : MonoBehaviour
     }
     private void CheckEdit()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if(Player.respawning == false)
         {
-            if(isEditOn)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                editBackground.gameObject.SetActive(false);
-                cursor.SetActive(false);
-                EditOnWindow.SetActive(false);
-                EditInventory.SetActive(false);
-                ToolBelt.SetActive(true);
+                if (isEditOn)
+                {
+                    editBackground.gameObject.SetActive(false);
+                    cursor.SetActive(false);
+                    EditOnWindow.SetActive(false);
+                    EditInventory.SetActive(false);
+                    ToolBelt.SetActive(true);
 
-            }
-            else
-            {
-                ToolBelt.SetActive(false);
-                itemCursorIndex = 0;
-                cursor.SetActive(true);
-                editBackground.gameObject.SetActive(true);
-                editBackground.transform.position = editTilemap.WorldToCell(player.transform.position);
-                cursor.transform.position = editTilemap.WorldToCell(player.transform.position)+new Vector3(0.5f,0.5f,0);
-                cursorSR.sprite = itemCursorSprite[itemCursorIndex];
-                EditOnWindow.SetActive(true);
-                EditInventory.SetActive(true);
+                }
+                else
+                {
+                    ToolBelt.SetActive(false);
+                    itemCursorIndex = 0;
+                    cursor.SetActive(true);
+                    editBackground.gameObject.SetActive(true);
+                    editBackground.transform.position = editTilemap.WorldToCell(player.transform.position);
+                    cursor.transform.position = editTilemap.WorldToCell(player.transform.position) + new Vector3(0.5f, 0.5f, 0);
+                    cursorSR.sprite = itemCursorSprite[itemCursorIndex];
+                    EditOnWindow.SetActive(true);
+                    EditInventory.SetActive(true);
 
+                }
+                isEditOn = !isEditOn;
             }
-            isEditOn = !isEditOn;
         }
+        
     }
 
     private void MoveEditCursor()

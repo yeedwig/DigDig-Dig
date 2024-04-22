@@ -92,6 +92,16 @@ public class PlayerManager : MonoBehaviour
     public AudioClip[] jumpSound;
 
     public AudioClip[] interactionSound;
+    public AudioClip[] lightSwitchSound;
+    public AudioClip[] killSwitchSound;
+    public AudioClip[] toolBeltSwitchSound;
+    public AudioClip[] ErrorSound;
+    //Respawn
+    public bool respawning = false;
+
+    //HeadLight 관련
+    public GameObject HeadLight;
+    public bool headLightIsActive = false;
 
     void Start()
     {
@@ -158,6 +168,7 @@ public class PlayerManager : MonoBehaviour
             isDigging = false;
             isDrilling = false;
             isPlacing = false;
+            //SoundFXManager.instance.PlaySoundFXClip(ErrorSound, transform, 1.5f);
         }
         curToolId = toolManager.curToolId;
         curItemType = toolManager.curToolType;
@@ -165,156 +176,185 @@ public class PlayerManager : MonoBehaviour
 
     void CurrentToolInput()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(!respawning)
         {
-            curSelectedToolSlot = 0;
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                curSelectedToolSlot = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                curSelectedToolSlot = 1;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                curSelectedToolSlot = 2;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                curSelectedToolSlot = 3;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                curSelectedToolSlot = 4;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                curSelectedToolSlot = 5;
+            }
         }
-        if(Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            curSelectedToolSlot = 1;
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            curSelectedToolSlot = 2;
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            curSelectedToolSlot = 3;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            curSelectedToolSlot = 4;
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            curSelectedToolSlot = 5;
-        }
-
+        
     }
 
     private void CheckInput()
     {
-        moveDir = Input.GetAxisRaw("Horizontal");
-
-        //인벤토리
-        if(Input.GetKeyDown(KeyCode.I))
+        if(!respawning)
         {
-            SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
-            if (inventoryOpened == false)
+            moveDir = Input.GetAxisRaw("Horizontal");
+
+            //인벤토리
+            if (Input.GetKeyDown(KeyCode.I))
             {
-                InventoryUI.SetActive(true);
-                inventoryOpened = true;
-            }
-            else
-            {
-                InventoryUI.SetActive(false);
-                inventoryOpened = false;
-            }    
-        }
-
-        //파는 거
-        if(Input.GetKeyDown(KeyCode.Q) && isWalking == false)
-        {
-            if (curItem == null)
-            {
-                Debug.Log("No Tool!");
-                //깡! 거리는 없다는사운드 여기서 플레이
-            }
-            else
-            {
-                if(curItem.itemType == 0) //삽인 경우
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                if (inventoryOpened == false)
                 {
-                    isDigging = true;
-                    
-                    //curItem의 디깅 사운드
-                }
-                if (curItem.itemType == 1) //드릴인 경우
-                {
-                    isDrilling = true;
-                    //curItem의 드릴 사운드
-                }
-                if (curItem.itemType == 2) //TNT인 경우
-                {
-                    isPlacingTNT = true;
-                    //설치 사운드
-                    InstallTNT();
-                }
-            }
-            
-            
-        }
-        else if(Input.GetKeyUp(KeyCode.Q) && isWalking == false)
-        {
-            if (curItem == null)
-            {
-                Debug.Log("No Tool!");
-            }
-            else
-            {
-                if (curItem.itemType == 0)
-                {
-                    isDigging = false;
-                    //사운드 플레이 멈춤
-                }
-                if (curItem.itemType == 1)
-                {
-                    isDrilling = false;
-                    //사운드 멈춤
-                }
-                if (curItem.itemType == 2)
-                {
-                    isPlacingTNT = false;
-                }
-            }
-
-            
-        }
-
-        //점프
-        if(Input.GetButtonDown("Jump") && canJump == true)
-        {
-            isJumping = true;
-            canJump = false;
-            SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 1.5f);
-            rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-        }
-
-        if (IsGrounded() && rb.velocity.y <= 0)
-        {
-            canJump = true;
-            isJumping = false;
-        }
-
-
-        //죽이기
-        if (Input.GetKeyDown(KeyCode.R))// 추후에 폭발 버튼 부분
-        {
-            Dead = true;
-        }
-
-
-        //InterAction
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            //상점과 interaction
-            if(shopVisited == true)
-            {
-                if (shopUIOpened == false)
-                {
-                    SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
-                    ShopUI.SetActive(true);
-                    shopUIOpened = true;
+                    InventoryUI.SetActive(true);
+                    inventoryOpened = true;
                 }
                 else
                 {
-                    SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
-                    ShopUI.SetActive(false);
-                    shopUIOpened = false;
+                    InventoryUI.SetActive(false);
+                    inventoryOpened = false;
                 }
             }
 
-            
+            //파는 거
+            if (Input.GetKeyDown(KeyCode.Q) && isWalking == false)
+            {
+                if (curItem == null)
+                {
+                    Debug.Log("No Tool!");
+                    //깡! 거리는 없다는사운드 여기서 플레이
+                }
+                else
+                {
+                    if (curItem.itemType == 0) //삽인 경우
+                    {
+                        isDigging = true;
+
+                        //curItem의 디깅 사운드
+                    }
+                    if (curItem.itemType == 1) //드릴인 경우
+                    {
+                        isDrilling = true;
+                        //curItem의 드릴 사운드
+                    }
+                    if (curItem.itemType == 2) //TNT인 경우
+                    {
+                        isPlacingTNT = true;
+                        //설치 사운드
+                        InstallTNT();
+                    }
+                }
+
+
+            }
+            else if (Input.GetKeyUp(KeyCode.Q) && isWalking == false)
+            {
+                if (curItem == null)
+                {
+                    Debug.Log("No Tool!");
+                }
+                else
+                {
+                    if (curItem.itemType == 0)
+                    {
+                        isDigging = false;
+                        //사운드 플레이 멈춤
+                    }
+                    if (curItem.itemType == 1)
+                    {
+                        isDrilling = false;
+                        //사운드 멈춤
+                    }
+                    if (curItem.itemType == 2)
+                    {
+                        isPlacingTNT = false;
+                    }
+                }
+
+
+            }
+
+            //점프
+            if (Input.GetButtonDown("Jump") && canJump == true)
+            {
+                isJumping = true;
+                canJump = false;
+                SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 1.5f);
+                rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            }
+
+            if (IsGrounded() && rb.velocity.y <= 0)
+            {
+                canJump = true;
+                isJumping = false;
+            }
+
+
+            //죽이기
+            if (Input.GetKeyDown(KeyCode.P))// 추후에 폭발 버튼 부분
+            {
+                SoundFXManager.instance.PlaySoundFXClip(killSwitchSound, transform, 2.0f);
+                Dead = true;
+            }
+
+
+            //InterAction
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                //상점과 interaction
+                if (shopVisited == true)
+                {
+                    if (shopUIOpened == false)
+                    {
+                        SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                        ShopUI.SetActive(true);
+                        shopUIOpened = true;
+                    }
+                    else
+                    {
+                        SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                        ShopUI.SetActive(false);
+                        shopUIOpened = false;
+                    }
+                }
+
+
+            }
+
+            if(Input.GetKeyDown(KeyCode.R))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, 1.5f);
+                if (headLightIsActive)
+                {
+                    HeadLight.SetActive(false);
+                    headLightIsActive = false;
+                }
+                else
+                {
+                    HeadLight.SetActive(true);
+                    headLightIsActive = true;
+                }
+            }
         }
+        
 
     }
 
