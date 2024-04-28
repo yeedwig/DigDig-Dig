@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234d81517e8f3e049b07d936e72695ba, type: 3}
+  m_Name: Knight2
+  m_EditorClassIdentifier: 
+  Name: Knight Templar 2
+  ID: 14
+  Species: Knight
+  type: 0
+  moveSpeed: 0
+  IdleSkins:
+  - {fileID: 353021579, guid: 37723cd5645dcfb4180eb4426cea9fbc, type: 3}
+  - {fileID: -990191075, guid: 37723cd5645dcfb4180eb4426cea9fbc, type: 3}
+  - {fileID: 1958509215, guid: 37723cd5645dcfb4180eb4426cea9fbc, type: 3}
+  - {fileID: -1761049148, guid: 37723cd5645dcfb4180eb4426cea9fbc, type: 3}
+  - {fileID: 2063029684, guid: 37723cd5645dcfb4180eb4426cea9fbc, type: 3}
+  DiggingSkins:
+  - {fileID: -1359727904, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  - {fileID: 183981760, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  - {fileID: 223280509, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  - {fileID: -1452075535, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  - {fileID: 292075113, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  - {fileID: -1463235596, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  - {fileID: -1668875742, guid: a5f174449c3dbe94b9e91444d83e3b22, type: 3}
+  WalkingSkins:
+  - {fileID: 513233966, guid: 820856a4322caec4f915eda3ec607b51, type: 3}
+  - {fileID: 1218871856, guid: 820856a4322caec4f915eda3ec607b51, type: 3}
+  - {fileID: -1994813706, guid: 820856a4322caec4f915eda3ec607b51, type: 3}
+  - {fileID: 2110965695, guid: 820856a4322caec4f915eda3ec607b51, type: 3}
+  - {fileID: -1676060917, guid: 820856a4322caec4f915eda3ec607b51, type: 3}
+  - {fileID: -557608581, guid: 820856a4322caec4f915eda3ec607b51, type: 3}
+  DrillingSkins:
+  - {fileID: 178319265, guid: 5d949f59c6dbbd64ba27daa309c148de, type: 3}
+  - {fileID: 236815864, guid: 5d949f59c6dbbd64ba27daa309c148de, type: 3}
+  - {fileID: -1344935454, guid: 5d949f59c6dbbd64ba27daa309c148de, type: 3}
+  ClimbingSkins:
+  - {fileID: -292059258, guid: 6050e1fe5702dbf4b8058b18b229a9a3, type: 3}
+  - {fileID: 1273471615, guid: 6050e1fe5702dbf4b8058b18b229a9a3, type: 3}
+  - {fileID: -1465025959, guid: 6050e1fe5702dbf4b8058b18b229a9a3, type: 3}
+  - {fileID: -1617464901, guid: 6050e1fe5702dbf4b8058b18b229a9a3, type: 3}

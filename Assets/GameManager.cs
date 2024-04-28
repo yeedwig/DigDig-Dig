@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public Item defaultShovel;
     public bool defaultShovelSpawned = true;
 
-
+    public int chapter;
 
     public CharacterManager characterManager;
     public ShopManager shopManager;

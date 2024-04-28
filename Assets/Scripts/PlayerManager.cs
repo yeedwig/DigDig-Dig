@@ -57,7 +57,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
 
     //tnt
-    [SerializeField] GameObject TNTPrefab;
+    [SerializeField] GameObject BigTNTPrefab;
+    [SerializeField] GameObject middleTNTPrefab;
     [SerializeField] GameObject smallTNTPrefab;
     private bool tntIsBig;
     private bool isPlacingTNT;
@@ -534,17 +535,26 @@ public class PlayerManager : MonoBehaviour
 
     public void InstallTNT()
     {
+        if(curToolId == 21 && curItem.isTool == true && curItem != null)
+        {
+            GameObject TNT = Instantiate(smallTNTPrefab);
+            Rigidbody2D smallRb = TNT.GetComponent<Rigidbody2D>();
+            float speed = 2f;
+            smallRb.AddForce(transform.up * speed, ForceMode2D.Impulse);
+            toolManager.useItem(curSelectedToolSlot);
+            TNT.transform.position = this.transform.position;
+        }
 
         if (curToolId == 22 && curItem.isTool == true && curItem != null)
         {
-            GameObject TNT = Instantiate(smallTNTPrefab);
+            GameObject TNT = Instantiate(middleTNTPrefab);
             toolManager.useItem(curSelectedToolSlot);
             TNT.transform.position = this.transform.position;
         }
 
         if (curToolId == 23 && curItem.isTool == true && curItem != null)
         {
-            GameObject TNT = Instantiate(TNTPrefab);
+            GameObject TNT = Instantiate(BigTNTPrefab);
             toolManager.useItem(curSelectedToolSlot);
             TNT.transform.position = this.transform.position;
         }
