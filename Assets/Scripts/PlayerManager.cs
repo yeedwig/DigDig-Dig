@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 public class PlayerManager : MonoBehaviour
 {
@@ -136,7 +137,9 @@ public class PlayerManager : MonoBehaviour
             CheckCurrentTool();
             CheckCanClimb();
             GetOnOffLadder();
-            
+
+            DialogueRayCast();
+
             //ShowCurrentTool();
         }
      
@@ -336,8 +339,6 @@ public class PlayerManager : MonoBehaviour
                         shopUIOpened = false;
                     }
                 }
-
-
             }
 
             if(Input.GetKeyDown(KeyCode.R))
@@ -359,6 +360,20 @@ public class PlayerManager : MonoBehaviour
 
     }
 
+    public void DialogueRayCast()
+    {
+        Debug.DrawRay(transform.position, Vector3.right * 0.5f, Color.red, 0);
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, LayerMask.GetMask("NPC"));
+
+
+        if(hit.collider != null && Input.GetKeyDown(KeyCode.F))
+        {
+
+            hit.collider.gameObject.GetComponent<NPC>().index += 1;
+            Debug.Log("Hit Npc!");
+        }
+    }
     void CheckTool()
     {
         if(isDigging == true || isDrilling == true)

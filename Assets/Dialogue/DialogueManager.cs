@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class DialogueManager : MonoBehaviour
 {
-    public int chapter;
+    public int Chapter;
 
-    private void Start()
+    public NPC[] NPCs;
+
+    public void changeChapter(int chapter)
     {
-        
+        for(int i = 0; i< NPCs.Length; i++)
+        {
+            NPCs[i].Chapter = chapter;
+        }
     }
 }
