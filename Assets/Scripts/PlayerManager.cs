@@ -31,6 +31,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float jumpForce;
     private bool canJump = true;
     private bool isJumping = false;
+    
 
     //Digging
     public bool canDig = true;
@@ -55,7 +56,7 @@ public class PlayerManager : MonoBehaviour
     //IsGrounded
     private bool isGrounded;
     [SerializeField] private Transform groundCheck;
-    [SerializeField] LayerMask groundLayer;
+    private int jumpLayerMask;
 
     //tnt
     [SerializeField] GameObject BigTNTPrefab;
@@ -115,7 +116,7 @@ public class PlayerManager : MonoBehaviour
         digManager = GetComponent<DigManager>();
         structureMask = 1 << LayerMask.NameToLayer("Structure");
         originalGravity = rb.gravityScale;
-
+        jumpLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("ElevatorSub");
         curItem = toolManager.curItem;
         //curItem.itemType = 0;
 
@@ -482,8 +483,8 @@ public class PlayerManager : MonoBehaviour
 
     private bool IsGrounded()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, groundLayer);
+        //isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, jumpLayerMask);
+        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, jumpLayerMask);
     }
 
     private void CheckCanJump()
