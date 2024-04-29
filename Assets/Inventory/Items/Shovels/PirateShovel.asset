@@ -16,9 +16,15 @@ MonoBehaviour:
   Description: Ol' Digger arghh
   itemType: 0
   itemId: 9
-  price: 0
-  damage: 10
-  durability: 100
+  resourceId: 0
+  efficiency: 5
+  price: 250
+  damage: 50
+  durability: 500
   isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
   stackable: 0
+  maxStack: 0
   image: {fileID: 21300000, guid: bc2ecc9d94ada5347851a5bc72e2929b, type: 3}

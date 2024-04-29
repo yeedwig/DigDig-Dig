@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     private SpriteRenderer sp;
     private Animator anim;
     private float moveDir;
-
+    private float facingDir;
     public bool Dead;
 
     //Tool
@@ -138,7 +138,7 @@ public class PlayerManager : MonoBehaviour
             CheckCanClimb();
             GetOnOffLadder();
 
-            DialogueRayCast();
+            InterActionRayCast();
 
             //ShowCurrentTool();
         }
@@ -221,6 +221,10 @@ public class PlayerManager : MonoBehaviour
         if(!respawning)
         {
             moveDir = Input.GetAxisRaw("Horizontal");
+            if(moveDir != 0)
+            {
+                facingDir = moveDir;
+            }
 
             //인벤토리
             if (Input.GetKeyDown(KeyCode.I))
@@ -360,17 +364,17 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    public void DialogueRayCast()
+    public void InterActionRayCast()
     {
-        Debug.DrawRay(transform.position, Vector3.right * 0.5f, Color.red, 0);
+        Debug.DrawRay(transform.position, new Vector2(facingDir,0) * 0.5f, Color.red, 0);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, 0.5f, LayerMask.GetMask("NPC"));
+        RaycastHit2D NPChit = Physics2D.Raycast(transform.position,new Vector2(facingDir,0), 0.5f, LayerMask.GetMask("NPC"));
+        
 
-
-        if(hit.collider != null && Input.GetKeyDown(KeyCode.F))
+        if(NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
 
-            hit.collider.gameObject.GetComponent<NPC>().index += 1;
+            NPChit.collider.gameObject.GetComponent<NPC>().index += 1;
             Debug.Log("Hit Npc!");
         }
     }

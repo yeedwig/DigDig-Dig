@@ -16,9 +16,15 @@ MonoBehaviour:
   Description: Military Shovel
   itemType: 0
   itemId: 2
-  price: 0
-  damage: 10
-  durability: 100
+  resourceId: 0
+  efficiency: 2
+  price: 200
+  damage: 30
+  durability: 200
   isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
   stackable: 0
+  maxStack: 0
   image: {fileID: 21300000, guid: 3ca1e3053abb6c541ab8859b346d9de0, type: 3}

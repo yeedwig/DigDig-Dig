@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 091ffadf8c09d72429ec5d7919ead324, type: 3}
+  m_Name: GroundLv5
+  m_EditorClassIdentifier: 
+  Lv: 5
+  groundSprites:
+  - {fileID: -396748463, guid: 0fddae0ec0a4d07429a73612182fc20a, type: 3}
+  - {fileID: 879045394, guid: 0fddae0ec0a4d07429a73612182fc20a, type: 3}
+  - {fileID: 1304265607, guid: 0fddae0ec0a4d07429a73612182fc20a, type: 3}
+  groundMaxPerLv: 0
+  groundHealth: 0
+  resources: []

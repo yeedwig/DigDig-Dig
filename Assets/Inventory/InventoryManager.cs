@@ -21,6 +21,8 @@ public class InventoryManager : MonoBehaviour
     //public int maxStack = 5;
 
     public GameObject BagFullMessage;
+    public Text BagFullMessageText;
+
     public AudioClip[] cantBuySound;
     public AudioClip[] coinAddedSound;
 
@@ -208,6 +210,7 @@ public class InventoryManager : MonoBehaviour
     IEnumerator MessageTimer()
     {
         BagFullMessage.SetActive(true);
+        BagFullMessageText.text = "Inventory Full!";
         yield return new WaitForSeconds(1.0f);
         BagFullMessage.SetActive(false);
     }

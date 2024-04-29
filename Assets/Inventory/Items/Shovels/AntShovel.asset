@@ -16,11 +16,15 @@ MonoBehaviour:
   Description: Ant Made Shovel
   itemType: 0
   itemId: 1
-  efficiency: 5
-  price: 0
+  resourceId: 0
+  efficiency: 1
+  price: 150
   damage: 10
   durability: 100
   isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
   stackable: 0
   maxStack: 0
   image: {fileID: 21300000, guid: 8e9a240c24c9b924aaa4c06f0ba2fb3f, type: 3}

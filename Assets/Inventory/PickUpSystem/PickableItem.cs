@@ -12,7 +12,7 @@ public class PickableItem : MonoBehaviour
     public int Quantity { get; set; } = 1;
 
     [SerializeField]
-    private AudioSource audioSource;
+    private AudioClip[] itemEarnedSound;
 
     [SerializeField]
     private float duration = 0.3f;
@@ -31,7 +31,7 @@ public class PickableItem : MonoBehaviour
 
     private IEnumerator AnimateItemPickup()
     {
-        audioSource.Play();
+        SoundFXManager.instance.PlaySoundFXClip(itemEarnedSound, transform, 1.0f);
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
         float currentTime = 0;

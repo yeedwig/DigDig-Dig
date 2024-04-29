@@ -16,6 +16,7 @@ public class ShopManager : MonoBehaviour
     public bool LostWorldFound;
     public bool EldoradoFound;
     public bool TreasureFound;
+    public bool MadScientistLabFound;
 
     [SerializeField] private GameObject[] shopShovelSlots;
     [SerializeField] private GameObject[] shopDrillSlots;

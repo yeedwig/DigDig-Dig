@@ -26,21 +26,22 @@ public class GameManager : MonoBehaviour
     public GameObject moneyAddedPopUp;
     public Text moneyAddedText;
 
-    bool AntNestFound;
-    bool ArmyTrenchFound;
-    bool PiratesMet;
-    bool CrusadeFound;
-    bool CatacombFound;
-    bool AtlantisFound;
-    bool UndergroundTribeFound;
-    bool LostWorldFound;
-    bool EldoradoFound;
-    bool TreasureFound;
+    public bool AntNestFound;
+    public bool ArmyTrenchFound;
+    public bool PiratesMet;
+    public bool CrusadeFound;
+    public bool CatacombFound;
+    public bool AtlantisFound;
+    public bool UndergroundTribeFound;
+    public bool LostWorldFound;
+    public bool EldoradoFound;
+    public bool TreasureFound;
 
-    bool MadScientistLabFound;
+    public bool MadScientistLabFound;
 
     Item curItem;
     InventoryItem currentInventoryItem;
+    public Text currentItemStat;
 
 
     //Tool UI Durability
@@ -75,6 +76,7 @@ public class GameManager : MonoBehaviour
         LostWorldFound = false;
         EldoradoFound = false;
         TreasureFound = false;
+        MadScientistLabFound = false;
         Money =1000000;
     }
 
@@ -127,11 +129,14 @@ public class GameManager : MonoBehaviour
             durabilityFill.color = gradient.Evaluate(durabilitySlider.normalizedValue);
             durabilitySlider.value = currentInventoryItem.Durability;
 
-            
+            currentItemStat.text = "DMG : " + curItem.damage.ToString() + "\n";
+            currentItemStat.text += "EFF : " + curItem.efficiency.ToString() + "\n";
+            currentItemStat.text += curItem.Description;
             //set Star;
         }
         else
         {
+            currentItemStat.text = "";
             curToolImage.sprite = null;
 
             durabilitySlider.maxValue = 100;
@@ -206,6 +211,7 @@ public class GameManager : MonoBehaviour
         shopManager.LostWorldFound = LostWorldFound;
         shopManager.EldoradoFound = EldoradoFound;
         shopManager.TreasureFound = TreasureFound;
+        shopManager.MadScientistLabFound = MadScientistLabFound;
 
     }
 

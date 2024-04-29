@@ -16,9 +16,15 @@ MonoBehaviour:
   Description: SomeWhat Cursed Shovel
   itemType: 0
   itemId: 4
-  price: 0
+  resourceId: 0
+  efficiency: 3
+  price: 300
   damage: 10
-  durability: 100
+  durability: 250
   isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
   stackable: 0
+  maxStack: 0
   image: {fileID: 21300000, guid: 58ced8ec52f8494408f484b205d63443, type: 3}

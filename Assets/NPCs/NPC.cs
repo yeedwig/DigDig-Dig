@@ -27,13 +27,18 @@ public class NPC : MonoBehaviour
 
         if (playerChecked != null && index < Dialogues[Chapter].Dialogues.Length)
         {
-            //dialogueText.text = Dialogues[Chapter].Dialogues[index].ToString();
-            //textBubble.SetActive(true);
-            Debug.Log(Dialogues[Chapter].Dialogues[index].ToString());
+            dialogueText.text = Dialogues[Chapter].Dialogues[index].ToString();
+            textBubble.SetActive(true);
+            //Debug.Log(Dialogues[Chapter].Dialogues[index].ToString());
 
         }
         if (index >= Dialogues[Chapter].Dialogues.Length)
         {
+            index = 1;
+        }
+        if(playerChecked == null)
+        {
+            textBubble.SetActive(true);
             index = 0;
         }
 
