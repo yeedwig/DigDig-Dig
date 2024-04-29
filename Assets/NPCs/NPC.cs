@@ -38,7 +38,7 @@ public class NPC : MonoBehaviour
         }
         if(playerChecked == null)
         {
-            textBubble.SetActive(true);
+            textBubble.SetActive(false);
             index = 0;
         }
 
