@@ -7,9 +7,11 @@ public class NPC : MonoBehaviour
 {
     public int Chapter;
     public int index;
-
+    public GameObject Player;
     public GameObject textBubble;
     public Text dialogueText;
+
+    private bool facingLeft = true;
 
     public List<Dialogue> Dialogues;
     // Start is called before the first frame update
@@ -22,6 +24,7 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Flip();
 
         Collider2D  playerChecked= Physics2D.OverlapCircle(transform.position, 2.0f, LayerMask.GetMask("Player"));
 
@@ -43,4 +46,21 @@ public class NPC : MonoBehaviour
         }
 
     }
+
+    private void Flip()
+    {
+        Player = GameObject.FindGameObjectWithTag("Player");
+        if (facingLeft == true && this.transform.position.x - Player.transform.position.x < 0.0f)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = true;
+            facingLeft = false;
+        }
+        if(facingLeft == false && this.transform.position.x - Player.transform.position.x >= 0.0f)
+        {
+            this.GetComponent<SpriteRenderer>().flipX = false;//transform.Rotate(0.0f, 180.0f, 0.0f);
+            facingLeft = true;
+        }
+    }
+
+
 }

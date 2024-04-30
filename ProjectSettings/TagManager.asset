@@ -52,6 +52,9 @@ TagManager:
   - name: Tools
     uniqueID: 3462562429
     locked: 0
+  - name: InsideStructure
+    uniqueID: 3594151261
+    locked: 0
   - name: Ground
     uniqueID: 1552211913
     locked: 0
