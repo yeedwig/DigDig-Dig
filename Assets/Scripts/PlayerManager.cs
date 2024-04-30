@@ -81,7 +81,10 @@ public class PlayerManager : MonoBehaviour
     //ladder 관련
     public bool isClimbingLadder = false;
     public bool canClimbLadder;
-    RaycastHit2D ladderCheckRay;
+    RaycastHit2D ladderCheckRayTop;
+    RaycastHit2D ladderCheckRayBottom;
+    [SerializeField] GameObject ladderCheckPosTop;
+    [SerializeField] GameObject ladderCheckPosBottom;
     private int structureMask;
     [SerializeField] float ladderSpeed;
     private float yMove;
@@ -137,10 +140,10 @@ public class PlayerManager : MonoBehaviour
             CheckIsWalking();
             CheckCurrentTool();
             CheckCanClimb();
-            GetOnOffLadder();
+            //GetOnOffLadder();
 
             InterActionRayCast();
-
+            moveOnladder();
             //ShowCurrentTool();
         }
      
@@ -161,7 +164,7 @@ public class PlayerManager : MonoBehaviour
         UpdateAnimation();
         //CheckQPressed();
         Walk();
-        moveOnladder();
+        
     }
 
     void CheckCurrentTool()
@@ -408,7 +411,6 @@ public class PlayerManager : MonoBehaviour
                 facingRight = true;
             }
         }
-        
     }
 
     private void UpdateAnimation()
@@ -499,14 +501,16 @@ public class PlayerManager : MonoBehaviour
     {
         if (facingRight)
         {
-            ladderCheckRay = Physics2D.Raycast(this.gameObject.transform.position, transform.right, 0.2f, structureMask);
+            ladderCheckRayTop = Physics2D.Raycast(ladderCheckPosTop.transform.position, transform.right, 0.1f, structureMask);
+            ladderCheckRayBottom = Physics2D.Raycast(ladderCheckPosBottom.transform.position, transform.right, 0.1f, structureMask);
         }
         else
         {
-            ladderCheckRay = Physics2D.Raycast(this.gameObject.transform.position, -transform.right, 0.2f, structureMask);
+            ladderCheckRayTop = Physics2D.Raycast(ladderCheckPosTop.transform.position, -transform.right, 0.1f, structureMask);
+            ladderCheckRayBottom = Physics2D.Raycast(ladderCheckPosBottom.transform.position, -transform.right, 0.1f, structureMask);
         }
 
-        if (ladderCheckRay.collider != null && ladderCheckRay.collider.gameObject.tag=="Ladder")
+        if ((ladderCheckRayTop.collider != null && ladderCheckRayTop.collider.gameObject.tag=="Ladder") || (ladderCheckRayBottom.collider != null && ladderCheckRayBottom.collider.gameObject.tag == "Ladder"))
         {
             canClimbLadder = true;
         }
@@ -516,8 +520,10 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    private void GetOnOffLadder() // 나중에 옆에 interaction manager로 옮길지도
+    private void moveOnladder()
     {
+        yMove = Input.GetAxisRaw("Vertical");
+        // f 누르는 방식
         if (canClimbLadder)
         {
             if (Input.GetKeyDown(KeyCode.F))
@@ -542,15 +548,12 @@ public class PlayerManager : MonoBehaviour
                 rb.gravityScale = originalGravity;
             }
         }
-    }
 
-    private void moveOnladder()
-    {
-        yMove = Input.GetAxisRaw("Vertical");
-        if(isClimbingLadder)
+        if (isClimbingLadder)
         {
-            rb.velocity = new Vector2(0,yMove*ladderSpeed);
+            rb.velocity = new Vector2(0, yMove * ladderSpeed);
         }
+           
     }
 
     public void InstallTNT()
