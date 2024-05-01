@@ -107,7 +107,7 @@ public class EditController : MonoBehaviour
     }
     private void CheckChangeCursor()
     {
-        if (Input.GetKey(KeyCode.LeftAlt))
+        if (Input.GetKey(KeyCode.Z))
         {
             isChangingCursor = true;
         }
@@ -120,7 +120,7 @@ public class EditController : MonoBehaviour
     {
         if(Player.respawning == false)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.X))
             {
                 if (isEditOn)
                 {
@@ -237,7 +237,7 @@ public class EditController : MonoBehaviour
 
     private void InstallBlock()
     {
-        if (isEditOn && Input.GetKeyDown(KeyCode.Z))
+        if (isEditOn && Input.GetKeyDown(KeyCode.C))
         {
             if (CheckCanInstall())
             {

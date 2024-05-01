@@ -247,7 +247,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             //파는 거
-            if (Input.GetKeyDown(KeyCode.Q) && isWalking == false)
+            if (Input.GetKeyDown(KeyCode.Space) && isWalking == false)
             {
                 if (curItem == null)
                 {
@@ -277,7 +277,7 @@ public class PlayerManager : MonoBehaviour
 
 
             }
-            else if (Input.GetKeyUp(KeyCode.Q) && isWalking == false)
+            else if (Input.GetKeyUp(KeyCode.Space) && isWalking == false)
             {
                 if (curItem == null)
                 {
@@ -305,6 +305,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             //점프
+            /*
             if (Input.GetButtonDown("Jump") && canJump == true)
             {
                 isJumping = true;
@@ -312,6 +313,7 @@ public class PlayerManager : MonoBehaviour
                 SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 1.5f);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
+            */
 
             if (IsGrounded() && rb.velocity.y <= 0)
             {
@@ -329,7 +331,7 @@ public class PlayerManager : MonoBehaviour
 
 
             //InterAction
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 //상점과 interaction
                 if (shopVisited == true)
