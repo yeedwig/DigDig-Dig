@@ -14,15 +14,7 @@ public class GroundDictionary : MonoBehaviour
     {
        groundDictionary =new Dictionary<Vector3Int, GameObject>();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            Vector3Int groundGridPosition = groundTileMap.WorldToCell(player.transform.position);
-            groundDictionary[groundGridPosition].GetComponent<Ground>().gangInstalled = true;
-            groundDictionary[groundGridPosition].GetComponent<Ground>().ChangeSpriteByCurrentHealth();
-        }
-    }
+    
 
     public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
     {
