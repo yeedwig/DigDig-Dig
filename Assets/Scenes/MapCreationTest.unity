@@ -1448,9 +1448,19 @@ MonoBehaviour:
   mapWidth: 100
   mapHeight: 1000
   mapWidthPerChunk: 2
-  mapHeightPerChunk: 2
+  mapHeightPerChunk: 5
   isOldVersion: 0
-  groundChunks: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
+  groundChunks:
+  - {fileID: 441561290950928235, guid: b9f806c3df9a317409305244ece21dbc, type: 3}
+  - {fileID: 2092698500330813517, guid: 284ecb2f5c621fd4facf8b5f3e278e6f, type: 3}
+  - {fileID: 441561290950928235, guid: b9f806c3df9a317409305244ece21dbc, type: 3}
+  - {fileID: 2092698500330813517, guid: 284ecb2f5c621fd4facf8b5f3e278e6f, type: 3}
+  - {fileID: 441561290950928235, guid: b9f806c3df9a317409305244ece21dbc, type: 3}
+  - {fileID: 2092698500330813517, guid: 284ecb2f5c621fd4facf8b5f3e278e6f, type: 3}
+  - {fileID: 441561290950928235, guid: b9f806c3df9a317409305244ece21dbc, type: 3}
+  - {fileID: 2092698500330813517, guid: 284ecb2f5c621fd4facf8b5f3e278e6f, type: 3}
+  - {fileID: 441561290950928235, guid: b9f806c3df9a317409305244ece21dbc, type: 3}
+  - {fileID: 2092698500330813517, guid: 284ecb2f5c621fd4facf8b5f3e278e6f, type: 3}
 --- !u!1 &1899673069
 GameObject:
   m_ObjectHideFlags: 0
