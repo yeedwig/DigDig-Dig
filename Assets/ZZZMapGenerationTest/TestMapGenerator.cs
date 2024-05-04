@@ -13,6 +13,7 @@ public class TestMapGenerator : MonoBehaviour
     public int mapWidth, mapHeight; //¸Ê »ý¼º Å©±â
     public int mapWidthPerChunk, mapHeightPerChunk;
     public bool isOldVersion;
+    public int[] groundChunks;
     void Start()
     {
         groundDictionary = groundDictionaryObj.GetComponent<GroundDictionary>();
@@ -41,6 +42,14 @@ public class TestMapGenerator : MonoBehaviour
         }
         else
         {
+            
+            for (int i=0;i < groundChunks.Length * 0.5; i++)
+            {
+                if(Random.Range(0, 2) == 0)
+                {
+                    (groundChunks[i * 2], groundChunks[i * 2 + 1]) = (groundChunks[i * 2 + 1], groundChunks[i * 2]);
+                }
+            }
             for (int i = 0; i > -mapHeightPerChunk; i--)
             {
                 for (int j = 0; j < mapWidthPerChunk; j++)

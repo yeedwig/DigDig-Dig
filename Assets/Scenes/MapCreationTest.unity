@@ -1448,8 +1448,9 @@ MonoBehaviour:
   mapWidth: 100
   mapHeight: 1000
   mapWidthPerChunk: 2
-  mapHeightPerChunk: 20
+  mapHeightPerChunk: 2
   isOldVersion: 0
+  groundChunks: 00000000010000000200000003000000040000000500000006000000070000000800000009000000
 --- !u!1 &1899673069
 GameObject:
   m_ObjectHideFlags: 0
