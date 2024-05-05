@@ -36110,14 +36110,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b69d8350e3102b42aabf6ad840b9ed9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundDictionaryObj: {fileID: 408160298}
   groundTilemap: {fileID: 954800255}
-  groundComponent: {fileID: 5220554341290442359, guid: 7f73c7f6715d7034f96487a26a5f9c6b, type: 3}
-  ruins:
-  - {fileID: 1384129290313435377, guid: d8a670a9f7ab243459bebb1a7ded6d44, type: 3}
-  - {fileID: 3474991188176812667, guid: 2669f048dc122564b80648dca816cd92, type: 3}
-  mapWidth: 100
-  mapHeight: 100
+  mapWidthPerChunk: 2
+  mapHeightPerChunk: 4
+  groundChunks:
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
+  - {fileID: 8273134126613350040, guid: c1db64e9c4d101341b2ff3e1b44e92c4, type: 3}
 --- !u!1001 &1697993700
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -16,7 +16,7 @@ public class Ground : MonoBehaviour
     public float breakThreshold1, breakThreshold2;
     Vector3Int groundGridPosition;
 
-    private Dictionary<Vector3Int, GameObject> groundDictionary;
+    private GameObject groundDictionary;
 
     public Tilemap groundTileMap;
     public SpriteRenderer sr;
@@ -48,6 +48,7 @@ public class Ground : MonoBehaviour
         layermask = 1 << LayerMask.NameToLayer("Structure");
         ladderTilemap = GameObject.Find("LadderTilemap").GetComponent<Tilemap>();
         railTilemap = GameObject.Find("RailTilemap").GetComponent<Tilemap>();
+        groundDictionary = GameObject.Find("GroundDictionary");
 
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
@@ -64,48 +65,27 @@ public class Ground : MonoBehaviour
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
         groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
-        if (!isRuin)
+        
+        if (groundGridPosition.y > groundMaxPerLevel[0])
         {
-            if (groundGridPosition.y > groundMaxPerLevel[0])
-            {
-                groundLevel = 1;
-                maxHealth = 200.0f;
-            }
-            else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
-            {
-                groundLevel = 2;
-                maxHealth = 500.0f;
-            }
-            else
-            {
-                groundLevel = 3;
-                maxHealth = 1000.0f;
-            }
+            groundLevel = 1;
+            maxHealth = 200.0f;
+        }
+        else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
+        {
+            groundLevel = 2;
+            maxHealth = 500.0f;
         }
         else
         {
-            if (groundGridPosition.y > groundMaxPerLevel[0])
-            {
-                groundLevel = 1;
-                maxHealth = 1000.0f;
-            }
-            else
-            {
-                groundLevel = 2;
-                maxHealth = 3000.0f;
-            }
+            groundLevel = 3;
+            maxHealth = 1000.0f;
         }
         
         currentHealth = maxHealth;
         startBreakingHealth = maxHealth * breakThreshold1;
         almostBrokenHealth = maxHealth * breakThreshold2;
-
-        if (isRuin)
-        {
-            groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
-            groundDictionary.Add(groundGridPosition, this.gameObject);
-        }
-
+        groundDictionary.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
     }
 
     
@@ -118,50 +98,27 @@ public class Ground : MonoBehaviour
             bc.enabled = false;
         }
         else {
-            if (!isRuin)
+            if (currentHealth < 0)
             {
-                if (currentHealth < 0)
-                {
-                    CheckNearStructure();
-                    sr.sprite = null;
-                    bc.enabled = false;
-                    //¾ê´Â ÇÑ¹ø¸¸ ½ÇÇàµÊ
-                    //¿©±â´Ù°¡ ¹¹ Instantiate Item ³Ö¾îºÁµµ µÉµí
-                }
-                else if (currentHealth < almostBrokenHealth)
-                {
-                    sr.sprite = groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
+                CheckNearStructure();
+                sr.sprite = null;
+                bc.enabled = false;
+                //¾ê´Â ÇÑ¹ø¸¸ ½ÇÇàµÊ
+                //¿©±â´Ù°¡ ¹¹ Instantiate Item ³Ö¾îºÁµµ µÉµí
+            }
+            else if (currentHealth < almostBrokenHealth)
+            {
+                sr.sprite = groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
                     
-                }
-                else if (currentHealth < startBreakingHealth)
-                {
-                    sr.sprite = groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
+            }
+            else if (currentHealth < startBreakingHealth)
+            {
+                sr.sprite = groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
 
-                }
-                else
-                {
-                    sr.sprite = groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
-                }
             }
             else
             {
-                if (currentHealth < 0)
-                {
-                    sr.sprite = null;
-                    bc.enabled = false;
-                }
-                else if (currentHealth < almostBrokenHealth)
-                {
-                    sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 2];
-                }
-                else if (currentHealth < startBreakingHealth)
-                {
-                    sr.sprite = ruinSprites[((groundLevel - 1) * 3) + 1];
-                }
-                else
-                {
-                    sr.sprite = ruinSprites[((groundLevel - 1) * 3)];
-                }
+                sr.sprite = groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
             }
         }
     }
@@ -174,7 +131,6 @@ public class Ground : MonoBehaviour
         if (left.collider != null)
         {
             ladderTilemap.SetTile(groundGridPosition+new Vector3Int(-1,0,0),null);
-            Debug.Log(left.collider.name);
         }
         if(right.collider != null)
         {
