@@ -43,6 +43,7 @@ public class NPC : MonoBehaviour
         {
             textBubble.SetActive(false);
             index = 0;
+            Chapter = 1;
         }
 
     }
