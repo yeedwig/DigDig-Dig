@@ -28,23 +28,23 @@ public class NPC : MonoBehaviour
 
         Collider2D  playerChecked= Physics2D.OverlapCircle(transform.position, 2.0f, LayerMask.GetMask("Player"));
 
-        if (playerChecked != null && index < Dialogues[Chapter].Dialogues.Length)
-        {
-            dialogueText.text = Dialogues[Chapter].Dialogues[index].ToString();
-            textBubble.SetActive(true);
-            //Debug.Log(Dialogues[Chapter].Dialogues[index].ToString());
+            if (playerChecked != null && index < Dialogues[Chapter].Dialogues.Length)
+            {
+                dialogueText.text = Dialogues[Chapter].Dialogues[index].ToString();
+                textBubble.SetActive(true);
+                //Debug.Log(Dialogues[Chapter].Dialogues[index].ToString());
 
-        }
-        if (index >= Dialogues[Chapter].Dialogues.Length)
-        {
-            index = 1;
-        }
-        if(playerChecked == null)
-        {
-            textBubble.SetActive(false);
-            index = 0;
-            Chapter = 1;
-        }
+            }
+            if (index >= Dialogues[Chapter].Dialogues.Length)
+            {
+                index = 1;
+                Chapter = 1;
+            }
+            if (playerChecked == null)
+            {
+                textBubble.SetActive(false);
+                index = 0;
+            }
 
     }
 
