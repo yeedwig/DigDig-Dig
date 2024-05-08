@@ -9,7 +9,7 @@ public class TrashSlot : MonoBehaviour, IDropHandler
     public AudioClip[] TrashSound;
     public void OnDrop(PointerEventData eventData)
     {
-        if (eventData.pointerDrag.GetComponent<InventoryItem>().item != null)
+        if (eventData.pointerDrag.GetComponent<InventoryItem>().item != null && eventData.pointerDrag.GetComponent<InventoryItem>().item.isKey == false)
         {
             SoundFXManager.instance.PlaySoundFXClip(TrashSound, transform, 1.5f);
             Debug.Log("Trash");

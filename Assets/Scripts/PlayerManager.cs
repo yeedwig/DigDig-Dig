@@ -375,14 +375,20 @@ public class PlayerManager : MonoBehaviour
         Debug.DrawRay(transform.position, new Vector2(facingDir,0) * 0.5f, Color.red, 0);
 
         RaycastHit2D NPChit = Physics2D.Raycast(transform.position,new Vector2(facingDir,0), 0.5f, LayerMask.GetMask("NPC"));
-        
+        RaycastHit2D DoorHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Door"));
 
-        if(NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
+        if (NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
 
             NPChit.collider.gameObject.GetComponent<NPC>().index += 1;
             Debug.Log("Hit Npc!");
         }
+        /*
+        if(DoorHit.collider != null && Input.GetKeyDown(KeyCode.F))
+        {
+
+        }
+        */
     }
     void CheckTool()
     {
