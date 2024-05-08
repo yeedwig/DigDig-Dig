@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: CaptainArmy
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - '!'
+  - Do you Have the telegram?
+  - ...
+  - ...
+  - I See...
+  - The War is over..
+  - My Dear Friend.. Soldier.. Or whatever you are
+  - Please take this Shovel and Drill
+  - It is a present for letting us know
+  - That THE WAR IS OVER..!!

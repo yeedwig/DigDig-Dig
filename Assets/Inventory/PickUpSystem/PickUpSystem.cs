@@ -86,6 +86,10 @@ public class PickUpSystem : MonoBehaviour
             {
                 AlertText.text = "Key Found!";
             }
+            else
+            {
+                AlertText.text = "Item Added!";
+            }
             
             StartCoroutine(MessageTimer());
             PickUpItem.DestroyItem();
