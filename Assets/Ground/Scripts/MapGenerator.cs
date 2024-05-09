@@ -8,10 +8,13 @@ public class MapGenerator : MonoBehaviour
     public Tilemap groundTilemap;
     public int mapWidthPerChunk, mapHeightPerChunk;
     public GameObject[] groundChunks;
-
+    private GameObject[] chunks;
+    [SerializeField] GameObject chunkController;
     // Start is called before the first frame update
     void Start()
     {
+        chunks = new GameObject[groundChunks.Length];
+        
         CreateMap();
     }
 
@@ -29,9 +32,12 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = 0; j < mapWidthPerChunk; j++)
             {
-                GameObject ground = Instantiate(groundChunks[index++]);
+                GameObject ground = Instantiate(groundChunks[index]);
+                chunks[index] = ground;
                 ground.transform.position = new Vector3(j * 50, i * 50, 0);
+                index++;
             }
         }
+        chunkController.GetComponent<ChunkController>().chunks = chunks;
     }
 }

@@ -5,16 +5,17 @@ using UnityEngine;
 public class ChunkController : MonoBehaviour
 {
     [SerializeField] GameObject player;
-    [SerializeField] GameObject MapGenerator;
-    private GameObject[] chunks;
+    
+    public GameObject[] chunks;
     private int lastIndex;
     private int currentIndex;
+    private int start;
+    private int end;
     // Start is called before the first frame update
     void Start()
     {
-        chunks = MapGenerator.GetComponent<MapGenerator>().groundChunks;
-        lastIndex = -1000;
-        //ActivateMap(lastIndex);
+        lastIndex = int.MinValue;
+        
     }
 
     // Update is called once per frame
@@ -24,7 +25,7 @@ public class ChunkController : MonoBehaviour
         if (currentIndex != lastIndex)
         {
             lastIndex = currentIndex;
-            //ActivateMap(currentIndex);
+            ActivateMap(currentIndex);
         }
     }
 
@@ -32,23 +33,28 @@ public class ChunkController : MonoBehaviour
     {
         if (index % 2 == 0)
         {
-            for(int i = index - 2; i < index + 4; i++)
-            {
-                if ((i >= 0 && i <= chunks.Length - 1) && !chunks[i].activeSelf)
-                {
-                    Debug.Log("activate(Â¦¼ö)");
-                    chunks[i].SetActive(true);
-                }
-            }
+            start = index - 2;
+            end = index + 3;
         }
         else
         {
-            for (int i = index - 3; i < index + 3; i++)
+            start = index - 3;
+            end = index + 2;
+        }
+        for (int i=0;i<chunks.Length; i++)
+        {
+            if (i >= start && i <= end)
             {
-                if ((i >= 0 && i <= chunks.Length - 1) && !chunks[i].activeSelf)
+                if (!chunks[i].activeSelf)
                 {
-                    Debug.Log("activate(È¦)");
                     chunks[i].SetActive(true);
+                }
+            }
+            else
+            {
+                if (chunks[i].activeSelf)
+                {
+                    chunks[i].SetActive(false);
                 }
             }
         }
