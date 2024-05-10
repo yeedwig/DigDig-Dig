@@ -20,6 +20,9 @@ public class Item : ScriptableObject
     public bool isResource;
     public bool isStructure;
     public bool isKey;
+    public bool isFood;
+
+    public float heal;
 
     public bool stackable = true;
     public int maxStack;

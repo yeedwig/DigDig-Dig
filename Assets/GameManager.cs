@@ -163,6 +163,9 @@ public class GameManager : MonoBehaviour
         //reset toolbelt
         bool toolBeltReset = toolManager.toolBeltReset();
         //resetlocation
+
+        //reset Health
+        Player.curHP = Player.MaxHP;
         //reset character
         bool characterReset = characterManager.resetCharacter();
         if (inventoryReset == true && characterReset == true && toolBeltReset == true) //&& defaultShovelSpawned == false)

@@ -109,12 +109,20 @@ public class PlayerManager : MonoBehaviour
     public GameObject HeadLight;
     public bool headLightIsActive = false;
 
+
+    //체력 관련
+    public float curHP;
+    public float MaxHP;
+    public float heal;
+
+
     void Start()
     {
         Dead = false;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        curHP = MaxHP;
         editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
         digManager = GetComponent<DigManager>();
         structureMask = 1 << LayerMask.NameToLayer("Structure");
@@ -146,10 +154,47 @@ public class PlayerManager : MonoBehaviour
             moveOnladder();
             //ShowCurrentTool();
         }
-     
-
+        if(this.transform.position.y >= -1)
+        {
+            HealToMax();
+        }
+        checkDead();
+        
         CheckIsEditOn(); //Edit 창 켜져있는지 확인
 
+    }
+
+    public void Damage(float damage)
+    {
+        curHP -= damage;
+    }
+
+    public void Heal(float heal)
+    {
+        if(curHP + heal <= MaxHP)
+        {
+            curHP += heal;
+        }
+        else
+        {
+            curHP = MaxHP;
+        }     
+    }
+
+    public void HealToMax()
+    {
+        while(curHP <= MaxHP)
+        {
+            curHP += heal;
+        }
+    }
+
+    private void checkDead()
+    {
+        if(curHP < 0)
+        {
+            Dead = true;
+        }
     }
 
     private void ShowCurrentTool()

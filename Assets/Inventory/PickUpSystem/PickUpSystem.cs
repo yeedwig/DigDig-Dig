@@ -11,7 +11,6 @@ public class PickUpSystem : MonoBehaviour
     private GameManager gameManager;
     [SerializeField]
     private GameObject AlertMessage;
-    
     [SerializeField] private Text AlertText;
 
     private void OnTriggerEnter2D(Collider2D collision)
