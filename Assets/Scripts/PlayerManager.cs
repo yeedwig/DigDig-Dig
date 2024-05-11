@@ -109,11 +109,11 @@ public class PlayerManager : MonoBehaviour
     public GameObject HeadLight;
     public bool headLightIsActive = false;
 
+    //toolbelt 관련
+    public GameObject ToolBelt;
+    public bool toolBeltIsActive = false;
 
-    //체력 관련
-    public float curHP;
-    public float MaxHP;
-    public float heal;
+
 
 
     void Start()
@@ -122,7 +122,6 @@ public class PlayerManager : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        curHP = MaxHP;
         editcontroller = GameObject.Find("Edit").GetComponent<EditController>();
         digManager = GetComponent<DigManager>();
         structureMask = 1 << LayerMask.NameToLayer("Structure");
@@ -154,48 +153,13 @@ public class PlayerManager : MonoBehaviour
             moveOnladder();
             //ShowCurrentTool();
         }
-        if(this.transform.position.y >= -1)
-        {
-            HealToMax();
-        }
-        checkDead();
         
         CheckIsEditOn(); //Edit 창 켜져있는지 확인
 
     }
 
-    public void Damage(float damage)
-    {
-        curHP -= damage;
-    }
 
-    public void Heal(float heal)
-    {
-        if(curHP + heal <= MaxHP)
-        {
-            curHP += heal;
-        }
-        else
-        {
-            curHP = MaxHP;
-        }     
-    }
 
-    public void HealToMax()
-    {
-        while(curHP <= MaxHP)
-        {
-            curHP += heal;
-        }
-    }
-
-    private void checkDead()
-    {
-        if(curHP < 0)
-        {
-            Dead = true;
-        }
-    }
 
     private void ShowCurrentTool()
     {
@@ -282,12 +246,29 @@ public class PlayerManager : MonoBehaviour
                 if (inventoryOpened == false)
                 {
                     InventoryUI.SetActive(true);
+                    ToolBelt.SetActive(true);
+                    toolBeltIsActive = true;
                     inventoryOpened = true;
                 }
                 else
                 {
                     InventoryUI.SetActive(false);
                     inventoryOpened = false;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.T)) //toolbelt
+            {
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                if (toolBeltIsActive)
+                {
+                    ToolBelt.SetActive(false);
+                    toolBeltIsActive = false;
+                }
+                else
+                {
+                    ToolBelt.SetActive(true);
+                    toolBeltIsActive = true;
                 }
             }
 
@@ -376,7 +357,7 @@ public class PlayerManager : MonoBehaviour
 
 
             //InterAction
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.F))
             {
                 //상점과 interaction
                 if (shopVisited == true)
@@ -410,6 +391,8 @@ public class PlayerManager : MonoBehaviour
                     headLightIsActive = true;
                 }
             }
+
+            
         }
         
 
