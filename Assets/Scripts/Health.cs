@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public Text hpText;
+    //public Text hpText;
     public float maxHP;
     public float curHP;
 
@@ -87,8 +87,7 @@ public class Health : MonoBehaviour
             
         }
         
-        hpText.text = curHP.ToString();
-        //Debug.Log(curHP);
+        //hpText.text = curHP.ToString();
     }
 
 }
