@@ -377,6 +377,15 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                ShopUI.SetActive(false);
+                shopUIOpened = false;
+                InventoryUI.SetActive(false);
+                inventoryOpened = false;
+            }
+
             if(Input.GetKeyDown(KeyCode.R))
             {
                 SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, 1.5f);
