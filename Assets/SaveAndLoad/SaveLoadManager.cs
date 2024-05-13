@@ -25,12 +25,16 @@ public class SaveLoadManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    //일단 o 누르면 save
+    //일단 f1 누르면 save, f2 누르면 load
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             Save();
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            Load();
         }
     }
     private void Save()
@@ -41,13 +45,20 @@ public class SaveLoadManager : MonoBehaviour
             playerPos = player.transform.position
         };
         json = JsonUtility.ToJson(saveObject);
-        File.WriteAllText(Application.dataPath + "SaveAndLoad/save.txt", json);
+        File.WriteAllText(Application.dataPath + "/save.txt", json);
         Debug.Log("Saved");
     }
 
     private void Load()
     {
-
+        if(File.Exists(Application.dataPath + "/save.txt"))
+        {
+            string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
+            saveObject = JsonUtility.FromJson<SaveObjects>(saveString);
+        }
+        saveloadtest.GetComponent<SaveAndLoadTest>().testInt=saveObject.testInt;
+        player.transform.position = saveObject.playerPos;
+        Debug.Log("Loaded");
     }
     //저장할 변수 및 객체들 모음
     private class SaveObjects 
