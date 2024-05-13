@@ -8,6 +8,7 @@ public class SaveLoadManager : MonoBehaviour
     //세이브 변수들
     SaveObjects saveObject;
     string json;
+    private static readonly string SAVE_FOLDER = Application.dataPath + "/SaveAndLoad/";
 
     //세이브에 필요한 객체들
     [SerializeField] GameObject saveloadtest;
@@ -17,6 +18,11 @@ public class SaveLoadManager : MonoBehaviour
 
     void Awake()
     {
+        //폴더가 존재하는지 확인하고 없으면 생성
+        if (!Directory.Exists(SAVE_FOLDER))
+        {
+            Directory.CreateDirectory(SAVE_FOLDER);
+        }
     }
 
     private void Start()
@@ -45,15 +51,15 @@ public class SaveLoadManager : MonoBehaviour
             playerPos = player.transform.position
         };
         json = JsonUtility.ToJson(saveObject);
-        File.WriteAllText(Application.dataPath + "/save.txt", json);
+        File.WriteAllText(SAVE_FOLDER + "/save.txt", json);
         Debug.Log("Saved");
     }
 
     private void Load()
     {
-        if(File.Exists(Application.dataPath + "/save.txt"))
+        if(File.Exists(SAVE_FOLDER + "/save.txt"))
         {
-            string saveString = File.ReadAllText(Application.dataPath + "/save.txt");
+            string saveString = File.ReadAllText(SAVE_FOLDER + "/save.txt");
             saveObject = JsonUtility.FromJson<SaveObjects>(saveString);
         }
         saveloadtest.GetComponent<SaveAndLoadTest>().testInt=saveObject.testInt;
