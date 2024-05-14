@@ -173,4 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TNTTimer: 2
   ToolID: 21
+  smallTNT: {fileID: 11400000, guid: 4bc5769e21ed34d4281081ef44aa0f82, type: 2}
+  mediumTNT: {fileID: 11400000, guid: a658cdb27e0d4d14aadcd8d74913bdea, type: 2}
+  bigTNT: {fileID: 11400000, guid: 47e88433653e7eb41beb88af451509d3, type: 2}
   groundTileMap: {fileID: 0}

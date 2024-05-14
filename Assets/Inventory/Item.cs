@@ -14,8 +14,10 @@ public class Item : ScriptableObject
 
     public int price;
     public float damage;
+    public float range;
     public int durability;
     //public ActionType actionType;
+    public bool isTreasure;
     public bool isTool;
     public bool isResource;
     public bool isStructure;

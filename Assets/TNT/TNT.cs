@@ -9,9 +9,16 @@ public class TNT : MonoBehaviour
 {
     [SerializeField] int TNTTimer;
     [SerializeField] int ToolID;
+    private bool exploded = false;
+
     private float bigTNTDamage;
     private float mediumTNTDamage;
     private float smallTNTDamage;
+
+    [SerializeField] private Item smallTNT;
+    [SerializeField] private Item mediumTNT;
+    [SerializeField] private Item bigTNT;
+
 
     public Tilemap groundTileMap;
     public Dictionary<Vector3Int, GameObject> groundDictionary;
@@ -49,16 +56,19 @@ public class TNT : MonoBehaviour
     {
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
-        bigTNTDamage = 10000.0f;
-        mediumTNTDamage = 5000.0f;
-        smallTNTDamage = 2500.0f;
+        bigTNTDamage = bigTNT.damage;
+        mediumTNTDamage = mediumTNT.damage;
+        smallTNTDamage = smallTNT.damage;
         StartCoroutine(ExplodeTNT());
     }
 
+
+    
     IEnumerator ExplodeTNT()
     {
         yield return new WaitForSeconds(TNTTimer);
         Vector3Int TNTGridPosition = groundTileMap.WorldToCell(this.transform.position);
+
         if (ToolID == 23)//Large
         {
             int arraySize = bigTNTRange.GetLength(0);
@@ -114,6 +124,7 @@ public class TNT : MonoBehaviour
                         Vector3Int groundGridPos = new Vector3Int(TNTGridPosition.x + i - offset, TNTGridPosition.y + j - offset, 0);
                         if (groundDictionary.ContainsKey(groundGridPos))
                         {
+
                             groundDictionary[groundGridPos].GetComponent<Ground>().takeDamage(smallTNTDamage);
                         }
                     }

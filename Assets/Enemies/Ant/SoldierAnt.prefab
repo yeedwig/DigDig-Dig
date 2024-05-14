@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7288108676898600213}
   - component: {fileID: 2787264147636325255}
   - component: {fileID: 5075413967445375193}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: SoldierAnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}

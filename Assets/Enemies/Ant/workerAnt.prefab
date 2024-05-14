@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4390782809504540613}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: honeySpawnPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 6148607015524737939}
   - component: {fileID: 8758458419084903331}
   - component: {fileID: 6150019523835903023}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: workerAnt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkTime: 5
+  honeySpawnTime: 10
   speed: 1
   carryingHoney: 0
   honeyRespawnPos: {fileID: 4390782809504540613}
