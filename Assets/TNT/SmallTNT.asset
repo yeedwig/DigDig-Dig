@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfb3c6a91b89a2d44ad2ac2740e1ffce, type: 3}
+  m_Name: SmallTNT
+  m_EditorClassIdentifier: 
+  Name: Dynamite
+  Description: boom!
+  itemType: 2
+  itemId: 21
+  resourceId: 0
+  efficiency: 0
+  price: 100
+  damage: 50
+  range: 1
+  durability: 0
+  isTreasure: 0
+  isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
+  isFood: 0
+  heal: 0
+  stackable: 1
+  maxStack: 20
+  image: {fileID: -357361609, guid: 5cdad4ff537eae347b796276b46c9b47, type: 3}
