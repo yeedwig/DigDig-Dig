@@ -15,7 +15,6 @@ public class WorkerAnt : MonoBehaviour
     [SerializeField] private float walkTime;
     private float walkTimer;
 
-    public float honeySpawnTime;
     public float speed = 1.0f;
 
     public bool carryingHoney;
@@ -64,7 +63,7 @@ public class WorkerAnt : MonoBehaviour
     IEnumerator honeySpawn()
     {
         carryingHoney = true;
-        yield return new WaitForSeconds(honeySpawnTime);
+        yield return new WaitForSeconds(5.0f);
         Instantiate(honey, honeyRespawnPos.position, Quaternion.identity);     
     }
 
