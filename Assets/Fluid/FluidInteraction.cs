@@ -9,7 +9,7 @@ public class FluidInteraction : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        fluidMask = LayerMask.GetMask("Default");
+        fluidMask = LayerMask.GetMask("Water");
     }
 
     // Update is called once per frame
