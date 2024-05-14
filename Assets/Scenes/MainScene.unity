@@ -15101,7 +15101,11 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     m_Bits: 12263
+=======
+    m_Bits: 77815
+>>>>>>> Stashed changes
 =======
     m_Bits: 77815
 >>>>>>> Stashed changes
@@ -17327,8 +17331,13 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 0
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
   m_Mesh: {fileID: 496137814}
   m_InstanceId: 29940
+=======
+  m_Mesh: {fileID: 836936154}
+  m_InstanceId: 1547430
+>>>>>>> Stashed changes
 =======
   m_Mesh: {fileID: 836936154}
   m_InstanceId: 1547430
