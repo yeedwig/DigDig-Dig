@@ -4,23 +4,44 @@ using UnityEngine;
 
 public class FluidInteraction : MonoBehaviour
 {
-    int fluidMask;
+    //Lava Damage
+    int lavaMask;
+    Collider2D lavaCollider;
+    private float lavaDamageTimer;
+    [SerializeField] float lavaDamageTimerGap;
+
+
+
     [SerializeField] GameObject leftTop, rightBottom;
     // Start is called before the first frame update
     void Start()
     {
-        fluidMask = LayerMask.GetMask("Water");
+        lavaMask = LayerMask.GetMask("Lava");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Collider2D fluidCollider = Physics2D.OverlapArea(leftTop.transform.position,rightBottom.transform.position,fluidMask);
-        if(fluidCollider != null )
+        LavaDamage();
+    }
+
+    private void LavaDamage()
+    {
+        lavaCollider = Physics2D.OverlapArea(leftTop.transform.position, rightBottom.transform.position, lavaMask);
+        if(lavaCollider != null)
         {
-            Debug.Log(fluidCollider.gameObject.name);
+            lavaDamageTimer -= Time.deltaTime;
         }
-       
+        else
+        {
+            lavaDamageTimer = 0.1f;
+        }
+        if(lavaDamageTimer < 0)
+        {
+            //데미지 들어감
+            Debug.Log("용암 데미지");
+            lavaDamageTimer = lavaDamageTimerGap;
+        }
     }
 
     
