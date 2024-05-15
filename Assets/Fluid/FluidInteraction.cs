@@ -9,23 +9,26 @@ public class FluidInteraction : MonoBehaviour
     Collider2D lavaCollider;
     private float lavaDamageTimer;
     [SerializeField] float lavaDamageTimerGap;
+    [SerializeField] float lavaDamage;
 
 
 
     [SerializeField] GameObject leftTop, rightBottom;
+    private Health health;
     // Start is called before the first frame update
     void Start()
     {
+        health = this.GetComponent<Health>();
         lavaMask = LayerMask.GetMask("Lava");
     }
 
     // Update is called once per frame
     void Update()
     {
-        LavaDamage();
+        GiveLavaDamage();
     }
 
-    private void LavaDamage()
+    private void GiveLavaDamage()
     {
         lavaCollider = Physics2D.OverlapArea(leftTop.transform.position, rightBottom.transform.position, lavaMask);
         if(lavaCollider != null)
@@ -38,8 +41,7 @@ public class FluidInteraction : MonoBehaviour
         }
         if(lavaDamageTimer < 0)
         {
-            //데미지 들어감
-            Debug.Log("용암 데미지");
+            health.takeDamage(lavaDamage);
             lavaDamageTimer = lavaDamageTimerGap;
         }
     }
