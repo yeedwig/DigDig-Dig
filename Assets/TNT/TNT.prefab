@@ -171,6 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe04eea315a81b4da853453a57a8519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TNTTimer: 10
+  TNTTimer: 5
   ToolID: 23
+  smallTNT: {fileID: 11400000, guid: 4bc5769e21ed34d4281081ef44aa0f82, type: 2}
+  mediumTNT: {fileID: 11400000, guid: a658cdb27e0d4d14aadcd8d74913bdea, type: 2}
+  bigTNT: {fileID: 11400000, guid: 47e88433653e7eb41beb88af451509d3, type: 2}
   groundTileMap: {fileID: 0}

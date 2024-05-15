@@ -13,12 +13,21 @@ public class PickUpSystem : MonoBehaviour
     private GameObject AlertMessage;
     [SerializeField] private Text AlertText;
 
+    [SerializeField] private GameObject[] Treasures;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PickableItem PickUpItem = collision.GetComponent<PickableItem>();
         if (PickUpItem != null)
         {
-            inventoryManager.AddItem(PickUpItem.item);
+            if(PickUpItem.item.isTreasure)
+            {
+                Treasures[PickUpItem.item.itemId].gameObject.SetActive(true);
+            }
+            else
+            {
+                inventoryManager.AddItem(PickUpItem.item);
+            }
+            
             if(PickUpItem.item.isTool)
             {
                 if (PickUpItem.item.itemId == 1 && PickUpItem.item.isTool) //Ant Nest Found
@@ -84,6 +93,10 @@ public class PickUpSystem : MonoBehaviour
             else if(PickUpItem.item.isKey)
             {
                 AlertText.text = "Key Found!";
+            }
+            else if(PickUpItem.item.isTreasure)
+            {
+                AlertText.text = "Treasure Found! Added To Collection Room!";
             }
             else
             {

@@ -7,6 +7,10 @@ public class Enemy : MonoBehaviour
     public Transform player;
     public bool isFlipped = false;
 
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+    }
     public void LookAtPlayer()
     {
         Vector3 flipped = transform.localScale;

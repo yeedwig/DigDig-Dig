@@ -120,7 +120,7 @@ public class EditController : MonoBehaviour
     {
         if(Player.respawning == false)
         {
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 if (isEditOn)
                 {
@@ -237,7 +237,7 @@ public class EditController : MonoBehaviour
 
     private void InstallBlock()
     {
-        if (isEditOn && Input.GetKeyDown(KeyCode.C))
+        if (isEditOn && Input.GetKeyDown(KeyCode.F))
         {
             if (CheckCanInstall())
             {

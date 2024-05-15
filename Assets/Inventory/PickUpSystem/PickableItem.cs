@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEditor.Progress;
 
@@ -7,6 +8,7 @@ public class PickableItem : MonoBehaviour
 {
     [field: SerializeField]
     public Item item;
+    public float lifeTime;
 
     [field: SerializeField]
     public int Quantity { get; set; } = 1;
@@ -20,6 +22,11 @@ public class PickableItem : MonoBehaviour
     private void Start()
     {
         GetComponent<SpriteRenderer>().sprite = item.image;
+
+        if(item.isResource)
+        {
+            Invoke("DestroyItem", lifeTime);
+        }
     }
 
     public void DestroyItem()
@@ -29,6 +36,11 @@ public class PickableItem : MonoBehaviour
 
     }
 
+    
+    private void DestroyiItem()
+    {
+        Destroy(gameObject);
+    }
     private IEnumerator AnimateItemPickup()
     {
         SoundFXManager.instance.PlaySoundFXClip(itemEarnedSound, transform, 0.5f);
