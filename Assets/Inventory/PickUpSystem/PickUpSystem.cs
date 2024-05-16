@@ -14,6 +14,8 @@ public class PickUpSystem : MonoBehaviour
     [SerializeField] private Text AlertText;
 
     [SerializeField] private GameObject[] Treasures;
+
+    private bool[] treasureFound; //저장해야될 요소
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PickableItem PickUpItem = collision.GetComponent<PickableItem>();
@@ -22,6 +24,7 @@ public class PickUpSystem : MonoBehaviour
             if(PickUpItem.item.isTreasure)
             {
                 Treasures[PickUpItem.item.itemId].gameObject.SetActive(true);
+                treasureFound[PickUpItem.item.itemId] = true;
             }
             else
             {
