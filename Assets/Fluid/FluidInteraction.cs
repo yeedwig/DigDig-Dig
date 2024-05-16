@@ -15,9 +15,10 @@ public class FluidInteraction : MonoBehaviour
 
     //Water Damage
     int waterMask;
+    [SerializeField] float breathRadius;
     Collider2D waterCollider;
     [SerializeField] float breathMax;
-    private float breath;
+    public float breath;
     private float waterDamageTimer;
     [SerializeField] float waterDamageTimerGap;
     [SerializeField] float waterDamage;
@@ -28,8 +29,8 @@ public class FluidInteraction : MonoBehaviour
     private float gasDamageTimer;
     [SerializeField] float gasDamageTimerGap;
     [SerializeField] float[] gasDamageArray;
-    public int gasDamageLevel;
-    public bool gasLevelUp;
+    private int gasDamageLevel;
+    private bool gasLevelUp;
     
 
 
@@ -42,6 +43,7 @@ public class FluidInteraction : MonoBehaviour
         lavaMask = LayerMask.GetMask("Lava");
         waterMask = LayerMask.GetMask("Water");
         gasMask = LayerMask.GetMask("Gas");
+        breath = breathMax;
     }
 
     // Update is called once per frame
@@ -86,10 +88,36 @@ public class FluidInteraction : MonoBehaviour
 
     private void GiveWaterDamage()
     {
-        waterCollider = Physics2D.OverlapArea(leftTop.transform.position, rightBottom.transform.position, waterMask);
+        //캐릭터 크기 변하면 변경
+        waterCollider = Physics2D.OverlapCircle(this.transform.position,breathRadius, waterMask);
         if(waterCollider != null)
         {
-            
+            if (breath >= -0.01f)
+            {
+                breath -= Time.deltaTime;
+            }
+        }
+        else
+        {
+            if (breath <= breathMax)
+            {
+                breath += Time.deltaTime;
+            }
+        }
+
+        if (breath <= 0)
+        {
+            waterDamageTimer-= Time.deltaTime;
+        }
+        else
+        {
+            waterDamageTimer = 0.1f;
+        }
+
+        if(waterDamageTimer < 0)
+        {
+            health.takeDamage(waterDamage);
+            waterDamageTimer = waterDamageTimerGap;
         }
     }
 
@@ -133,5 +161,11 @@ public class FluidInteraction : MonoBehaviour
         }
     }
 
-    
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(this.transform.position,breathRadius);
+    }
+
+
 }
