@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class ArrowTrap : MonoBehaviour
@@ -8,6 +9,7 @@ public class ArrowTrap : MonoBehaviour
     [SerializeField] private GameObject arrow;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float arrowShootTime;
+    [SerializeField] private float arrowShootTimer;
 
     public float spotRange;
 
@@ -18,14 +20,18 @@ public class ArrowTrap : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         if (Vector2.Distance(player.position, this.gameObject.transform.position) <= spotRange)
         {
-            shootArrow();
+            arrowShootTimer += Time.deltaTime;
+            if(arrowShootTimer > arrowShootTime)
+            {
+                shootArrow();
+                arrowShootTimer = 0;
+            }
         }
     }
 
 
-    private IEnumerator shootArrow()
+    private void shootArrow()
     {
-        yield return new WaitForSeconds(arrowShootTime);
         Instantiate(arrow, firePoint.position, firePoint.rotation);
     }
 

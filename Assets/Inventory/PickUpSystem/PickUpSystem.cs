@@ -13,9 +13,8 @@ public class PickUpSystem : MonoBehaviour
     private GameObject AlertMessage;
     [SerializeField] private Text AlertText;
 
-    [SerializeField] private GameObject[] Treasures;
+    [SerializeField] private TreasureShelf Treasures;
 
-    private bool[] treasureFound; //저장해야될 요소
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PickableItem PickUpItem = collision.GetComponent<PickableItem>();
@@ -23,8 +22,7 @@ public class PickUpSystem : MonoBehaviour
         {
             if(PickUpItem.item.isTreasure)
             {
-                Treasures[PickUpItem.item.itemId].gameObject.SetActive(true);
-                treasureFound[PickUpItem.item.itemId] = true;
+                Treasures.TreasuresFound[PickUpItem.item.itemId] = true;
             }
             else
             {
