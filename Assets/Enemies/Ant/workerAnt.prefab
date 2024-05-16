@@ -85,7 +85,7 @@ MonoBehaviour:
   speed: 1
   carryingHoney: 0
   honeyRespawnPos: {fileID: 4390782809504540613}
-  honey: {fileID: 7762003722134992156, guid: ff0011aefe7869848a36e24db1c4c7b7, type: 3}
+  honey: {fileID: 7762003722134992156, guid: 717f92ad265e00a4db1788a4a3b9c9c0, type: 3}
 --- !u!212 &9200623969713479379
 SpriteRenderer:
   m_ObjectHideFlags: 0
