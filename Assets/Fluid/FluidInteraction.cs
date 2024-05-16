@@ -22,6 +22,16 @@ public class FluidInteraction : MonoBehaviour
     [SerializeField] float waterDamageTimerGap;
     [SerializeField] float waterDamage;
 
+    //Gas Damage
+    int gasMask;
+    Collider2D gasCollider;
+    private float gasDamageTimer;
+    [SerializeField] float gasDamageTimerGap;
+    [SerializeField] float[] gasDamageArray;
+    public int gasDamageLevel;
+    public bool gasLevelUp;
+    
+
 
     [SerializeField] GameObject leftTop, rightBottom;
     private Health health;
@@ -31,6 +41,7 @@ public class FluidInteraction : MonoBehaviour
         health = this.GetComponent<Health>();
         lavaMask = LayerMask.GetMask("Lava");
         waterMask = LayerMask.GetMask("Water");
+        gasMask = LayerMask.GetMask("Gas");
     }
 
     // Update is called once per frame
@@ -38,6 +49,7 @@ public class FluidInteraction : MonoBehaviour
     {
         GiveLavaDamage();
         GiveWaterDamage();
+        GiveGasDamage();
     }
 
     //용암에 접촉하면 lavaDamageTotalTimer가 초기화
@@ -78,6 +90,46 @@ public class FluidInteraction : MonoBehaviour
         if(waterCollider != null)
         {
             
+        }
+    }
+
+    private void GiveGasDamage()
+    {
+        gasCollider = Physics2D.OverlapArea(leftTop.transform.position, rightBottom.transform.position, gasMask);
+        if (gasCollider != null)
+        {
+            gasDamageTimer-= Time.deltaTime;
+            gasLevelUp = true;
+        }
+        else
+        {
+            if (gasDamageLevel > 0)
+            {
+                gasDamageTimer -= Time.deltaTime;
+            }
+            else
+            {
+                gasDamageLevel = 0;
+                gasDamageTimer = gasDamageTimerGap;
+            }
+            gasLevelUp = false;
+        }
+
+        if(gasDamageTimer < 0)
+        {
+            health.takeDamage(gasDamageArray[gasDamageLevel]);
+            if (gasLevelUp)
+            {
+                if (gasDamageLevel < gasDamageArray.Length - 1)
+                {
+                    gasDamageLevel++;
+                }
+            }
+            else
+            {
+                gasDamageLevel--;
+            }
+            gasDamageTimer = gasDamageTimerGap;
         }
     }
 
