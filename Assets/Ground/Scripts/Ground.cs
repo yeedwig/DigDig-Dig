@@ -9,7 +9,6 @@ public class Ground : MonoBehaviour
 {
     public float currentHealth,maxHealth,startBreakingHealth,almostBrokenHealth; //현재 체력, 최대 체력, 임계점 2개
     public int groundLevel; //땅 레벨(깊이에 따라)
-    public bool isRuin = false; //유적인가
     public bool gangInstalled = false; //갱도가 설치되었는가
     public bool structureInstalled = false; //설치된 아이템이 있는가
     public int[] groundMaxPerLevel; //지하 땅 레벨 y 좌표
@@ -25,9 +24,6 @@ public class Ground : MonoBehaviour
     //public Sprite[] groundSprites; //땅 스프라이트 (3개 단위로 평소, 조금 부서짐, 거의 부서짐)
     public GroundSO[] groundSO;
 
-    public Sprite[] ruinSprites;
-    public Sprite gangSprite;
-
     private ItemDropManager itemDropManager;
 
     // 땅 파괴 확인
@@ -37,6 +33,9 @@ public class Ground : MonoBehaviour
     RaycastHit2D up;
     public Tilemap ladderTilemap;
     public Tilemap railTilemap;
+
+    // 빈칸인지 확인
+    public bool isBlank;
 
 
     // Start is called before the first frame update
@@ -65,26 +64,29 @@ public class Ground : MonoBehaviour
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
         groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
-        
-        if (groundGridPosition.y > groundMaxPerLevel[0])
+
+        if (!isBlank)
         {
-            groundLevel = 1;
-            maxHealth = 200.0f;
+            if (groundGridPosition.y > groundMaxPerLevel[0])
+            {
+                groundLevel = 1;
+                maxHealth = 200.0f;
+            }
+            else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
+            {
+                groundLevel = 2;
+                maxHealth = 500.0f;
+            }
+            else
+            {
+                groundLevel = 3;
+                maxHealth = 1000.0f;
+            }
+
+            currentHealth = maxHealth;
+            startBreakingHealth = maxHealth * breakThreshold1;
+            almostBrokenHealth = maxHealth * breakThreshold2;
         }
-        else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
-        {
-            groundLevel = 2;
-            maxHealth = 500.0f;
-        }
-        else
-        {
-            groundLevel = 3;
-            maxHealth = 1000.0f;
-        }
-        
-        currentHealth = maxHealth;
-        startBreakingHealth = maxHealth * breakThreshold1;
-        almostBrokenHealth = maxHealth * breakThreshold2;
         groundDictionary.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
     }
 
@@ -92,24 +94,18 @@ public class Ground : MonoBehaviour
 
     public void ChangeSpriteByCurrentHealth()
     {
-        if (gangInstalled)
+        if(!isBlank)
         {
-            sr.sprite = gangSprite;
-            bc.enabled = false;
-        }
-        else {
             if (currentHealth < 0)
             {
                 CheckNearStructure();
                 sr.sprite = null;
                 bc.enabled = false;
-                //얘는 한번만 실행됨
-                //여기다가 뭐 Instantiate Item 넣어봐도 될듯
             }
             else if (currentHealth < almostBrokenHealth)
             {
                 sr.sprite = groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
-                    
+
             }
             else if (currentHealth < startBreakingHealth)
             {
@@ -121,6 +117,7 @@ public class Ground : MonoBehaviour
                 sr.sprite = groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
             }
         }
+        
     }
 
     private void CheckNearStructure()
