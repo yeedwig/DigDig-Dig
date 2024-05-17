@@ -11,7 +11,6 @@ public class SaveLoadManager : MonoBehaviour
     private static readonly string SAVE_FOLDER = Application.dataPath + "/SaveAndLoad/";
 
     //세이브에 필요한 객체들
-    [SerializeField] GameObject saveloadtest;
     [SerializeField] GameObject player;
 
 
@@ -47,7 +46,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         saveObject = new SaveObjects
         {
-            testInt = saveloadtest.GetComponent<SaveAndLoadTest>().testInt,
             playerPos = player.transform.position
         };
         json = JsonUtility.ToJson(saveObject);
@@ -62,9 +60,7 @@ public class SaveLoadManager : MonoBehaviour
             string saveString = File.ReadAllText(SAVE_FOLDER + "/save.txt");
             saveObject = JsonUtility.FromJson<SaveObjects>(saveString);
         }
-        saveloadtest.GetComponent<SaveAndLoadTest>().testInt=saveObject.testInt;
         player.transform.position = saveObject.playerPos;
-        Debug.Log("Loaded");
     }
     //저장할 변수 및 객체들 모음
     private class SaveObjects 
