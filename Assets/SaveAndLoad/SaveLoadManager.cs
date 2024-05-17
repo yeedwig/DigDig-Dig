@@ -5,13 +5,17 @@ using UnityEngine;
 
 public class SaveLoadManager : MonoBehaviour
 {
+    //Load-New 결정하는 변수
+    public static bool loaded;
+
+
     //세이브 변수들
     SaveObjects saveObject;
     string json;
     private static readonly string SAVE_FOLDER = Application.dataPath + "/SaveAndLoad/";
 
     //세이브에 필요한 객체들
-    [SerializeField] GameObject player;
+    
 
 
 
@@ -46,11 +50,10 @@ public class SaveLoadManager : MonoBehaviour
     {
         saveObject = new SaveObjects
         {
-            playerPos = player.transform.position
+            
         };
         json = JsonUtility.ToJson(saveObject);
         File.WriteAllText(SAVE_FOLDER + "/save.txt", json);
-        Debug.Log("Saved");
     }
 
     private void Load()
@@ -60,12 +63,11 @@ public class SaveLoadManager : MonoBehaviour
             string saveString = File.ReadAllText(SAVE_FOLDER + "/save.txt");
             saveObject = JsonUtility.FromJson<SaveObjects>(saveString);
         }
-        player.transform.position = saveObject.playerPos;
+        
     }
     //저장할 변수 및 객체들 모음
     private class SaveObjects 
     {
-        public int testInt;
-        public Vector3 playerPos;
+        
     }
 }

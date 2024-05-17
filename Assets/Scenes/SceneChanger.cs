@@ -14,11 +14,13 @@ public class SceneChanger : MonoBehaviour
     // Update is called once per frame
     public void NewGame()
     {
+        SaveLoadManager.loaded = false;
         SceneManager.LoadScene("MainScene");
     }
 
     public void LoadGame()
     {
+        SaveLoadManager.loaded = true;
         SceneManager.LoadScene("MainScene");
     }
 }
