@@ -10,6 +10,7 @@ public class CharacterManager : MonoBehaviour
     public int curNum;
     public int prevNum;
 
+    public Transform respawnPos;
     public GameManager gameManager;
 
     public bool gameStart = true;
@@ -74,7 +75,7 @@ public class CharacterManager : MonoBehaviour
         //걷게 하기
         Player.GetComponent<PlayerManager>().Dead = false;
         GroundDictionary.GetComponent<GroundDictionary>().MapReset();
-        Player.transform.position = new Vector3(1.5f, 5.0f, 0);
+        Player.transform.position = respawnPos.position;//new Vector3(5.0f, 5.0f, 0);
 
         return true;
     }

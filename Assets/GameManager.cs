@@ -150,7 +150,7 @@ public class GameManager : MonoBehaviour
     {
         Halo.SetActive(true);
         Player.respawning = true;
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         //reset inventory
         Halo.SetActive(false);
         StartCoroutine(PlayerReset());
