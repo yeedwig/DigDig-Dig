@@ -64,6 +64,8 @@ public class GameManager : MonoBehaviour
     public Text RailNumTxt;
     public Text ElevatorDoorNumTxt;
     public Text ElevatorPassageNumTxt;
+
+    private float maxHP;
     private void Start()
     {
         AntNestFound = false;
@@ -78,6 +80,9 @@ public class GameManager : MonoBehaviour
         TreasureFound = false;
         MadScientistLabFound = false;
         Money =1000000;
+
+        maxHP = Player.GetComponent<Health>().maxHP;
+        
     }
 
     private void Update()
@@ -172,6 +177,7 @@ public class GameManager : MonoBehaviour
             Player.Dead = false;
             defaultShovelSpawned = false;
         }
+        Player.GetComponent<Health>().ResetHealth();
         yield return new WaitForSeconds(3.0f);
         BlackScreen.SetActive(false);
         Player.respawning = false;

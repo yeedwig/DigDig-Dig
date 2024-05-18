@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Boulder: {fileID: 0}
   rollLeft: 1
-  pushForce: 1
+  pushForce: 2
 --- !u!61 &2971923082469824752
 BoxCollider2D:
   m_ObjectHideFlags: 0

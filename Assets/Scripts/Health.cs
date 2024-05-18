@@ -25,7 +25,7 @@ public class Health : MonoBehaviour
 
     }
 
-    void ResetHealth()
+    public void ResetHealth()
     {
         curHP = maxHP;
         healthBar.SetMaxHealth(maxHP);

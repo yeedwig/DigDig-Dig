@@ -12,13 +12,16 @@ public class ArrowTrap : MonoBehaviour
     [SerializeField] private float arrowShootTimer;
 
     public float spotRange;
+    public float shootDir;
 
     private Transform player;
     // Update is called once per frame
     void Update()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        if (Vector2.Distance(player.position, this.gameObject.transform.position) <= spotRange)
+        Debug.DrawRay(transform.position, new Vector2(shootDir, 0) * spotRange, Color.red, 0);
+        RaycastHit2D hit = Physics2D.Raycast(new Vector2 (transform.position.x, transform.position.y - 0.3f), new Vector2(shootDir, 0), spotRange, LayerMask.GetMask("Player"));
+
+        if (hit.collider != null)
         {
             arrowShootTimer += Time.deltaTime;
             if(arrowShootTimer > arrowShootTime)

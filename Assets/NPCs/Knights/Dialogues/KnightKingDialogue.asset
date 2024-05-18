@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: KnightKingDialogue
   m_EditorClassIdentifier: 
   Dialogues:
-  - '!'
-  - Hello My name is
-  - Knight King!
+  - It has been So long since
+  - someone has passed all the trials..
+  - Take this Holy Grail
+  - For you are worthy..!!
