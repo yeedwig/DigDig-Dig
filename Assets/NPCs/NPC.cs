@@ -37,7 +37,7 @@ public class NPC : MonoBehaviour
         }
         if (index >= Dialogues[Chapter].Dialogues.Length)
         {
-            index = 1;
+            index = 0;
         }
        if (playerChecked == null)
        {
