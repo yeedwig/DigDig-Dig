@@ -64,6 +64,7 @@ public class SaveLoadManager : MonoBehaviour
         LoadHealthScript();
     }
   
+
     //Health script 저장
     private class HealthObjects
     {
@@ -93,5 +94,34 @@ public class SaveLoadManager : MonoBehaviour
             healthBarScript.SetMaxHealth(healthObject.maxHP);
             healthBarScript.SetHealth(healthObject.curHP);
         }
+    }
+
+
+    //GameManager 스크립트 저장
+    private class GameManagerObjects
+    {
+        public bool AntNestFound;
+        public bool ArmyTrenchFound;
+        public bool PiratesMet;
+        public bool CrusadeFound;
+        public bool CatacombFound;
+        public bool AtlantisFound;
+        public bool UndergroundTribeFound;
+        public bool LostWorldFound;
+        public bool EldoradoFound;
+        public bool TreasureFound;
+        public bool MadScientistLabFound;
+        public int money;
+
+        public int GangNum;
+        public int LadderNum;
+        public int RailNum;
+        public int ElevatorDoorNum;
+        public int ElevatorPassageNum;
+    }
+
+    public void SaveGameManagerScript()
+    {
+
     }
 }
