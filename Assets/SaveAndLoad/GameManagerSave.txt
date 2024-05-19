@@ -1,0 +1,1 @@
+{"AntNestFound":false,"ArmyTrenchFound":true,"PiratesMet":false,"CrusadeFound":true,"CatacombFound":false,"AtlantisFound":true,"UndergroundTribeFound":false,"LostWorldFound":true,"EldoradoFound":false,"TreasureFound":true,"MadScientistLabFound":false,"money":50000,"GangNum":99,"LadderNum":99,"RailNum":99,"ElevatorDoorNum":99,"ElevatorPassageNum":99}

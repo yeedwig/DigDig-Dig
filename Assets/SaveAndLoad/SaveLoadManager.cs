@@ -18,6 +18,9 @@ public class SaveLoadManager : MonoBehaviour
 
     //Health script 저장
     [SerializeField] GameObject healthBar;
+
+    //GameManager
+    [SerializeField] GameObject gameManager;
                             
 
 
@@ -52,38 +55,12 @@ public class SaveLoadManager : MonoBehaviour
     private void Save()
     {
         SaveHealth.saveHealth(player.GetComponent<Health>());
+        SaveGameManager.saveGameManager(gameManager.GetComponent<GameManager>());
     }
 
     private void Load()
     {
         SaveHealth.loadHealth(player.GetComponent<Health>(), healthBar.GetComponent<HealthBar>());
-    }
-  
-    //GameManager 스크립트 저장
-    private class GameManagerObjects
-    {
-        public bool AntNestFound;
-        public bool ArmyTrenchFound;
-        public bool PiratesMet;
-        public bool CrusadeFound;
-        public bool CatacombFound;
-        public bool AtlantisFound;
-        public bool UndergroundTribeFound;
-        public bool LostWorldFound;
-        public bool EldoradoFound;
-        public bool TreasureFound;
-        public bool MadScientistLabFound;
-        public int money;
-
-        public int GangNum;
-        public int LadderNum;
-        public int RailNum;
-        public int ElevatorDoorNum;
-        public int ElevatorPassageNum;
-    }
-
-    public void SaveGameManagerScript()
-    {
-
+        SaveGameManager.loadGameManager(gameManager.GetComponent<GameManager>());
     }
 }
