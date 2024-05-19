@@ -17,12 +17,11 @@ public class Health : MonoBehaviour
     public HealthBar healthBar;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         ResetHealth();
         Player = GetComponent<PlayerManager>();
         healTimer = 0;
-
     }
 
     public void ResetHealth()

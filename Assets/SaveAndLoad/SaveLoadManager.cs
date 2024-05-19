@@ -10,12 +10,18 @@ public class SaveLoadManager : MonoBehaviour
 
 
     //세이브 변수들
-    SaveObjects saveObject;
     string json;
     private static readonly string SAVE_FOLDER = Application.dataPath + "/SaveAndLoad/";
 
-    //세이브에 필요한 객체들
-    
+    //포괄
+    [SerializeField] GameObject player;
+
+    //Health script 저장
+    HealthObjects healthObject;
+    private Health healthScript;
+    [SerializeField] GameObject healthBar;
+    private HealthBar healthBarScript;
+                            
 
 
 
@@ -26,6 +32,8 @@ public class SaveLoadManager : MonoBehaviour
         {
             Directory.CreateDirectory(SAVE_FOLDER);
         }
+        healthScript = player.GetComponent<Health>();
+        healthBarScript = healthBar.GetComponent<HealthBar>();
     }
 
     private void Start()
@@ -48,26 +56,42 @@ public class SaveLoadManager : MonoBehaviour
     }
     private void Save()
     {
-        saveObject = new SaveObjects
-        {
-            
-        };
-        json = JsonUtility.ToJson(saveObject);
-        File.WriteAllText(SAVE_FOLDER + "/save.txt", json);
+        SaveHealthScript();
     }
 
     private void Load()
     {
-        if(File.Exists(SAVE_FOLDER + "/save.txt"))
-        {
-            string saveString = File.ReadAllText(SAVE_FOLDER + "/save.txt");
-            saveObject = JsonUtility.FromJson<SaveObjects>(saveString);
-        }
-        
+        LoadHealthScript();
     }
-    //저장할 변수 및 객체들 모음
-    private class SaveObjects 
+  
+    //Health script 저장
+    private class HealthObjects
     {
-        
+        public float maxHP;
+        public float curHP;
+    }
+    public void SaveHealthScript()
+    {
+        healthObject = new HealthObjects
+        {
+            maxHP = healthScript.maxHP,
+            curHP = healthScript.curHP
+        };
+        json = JsonUtility.ToJson(healthObject);
+        File.WriteAllText(SAVE_FOLDER + "/HealthScriptSave.txt", json);
+    }
+    public void LoadHealthScript()
+    {
+        if (File.Exists(SAVE_FOLDER + "/HealthScriptSave.txt"))
+        {
+            string saveString = File.ReadAllText(SAVE_FOLDER + "/HealthScriptSave.txt");
+            healthObject = JsonUtility.FromJson<HealthObjects>(saveString);
+
+            healthScript.maxHP = healthObject.maxHP;
+            healthScript.curHP = healthObject.curHP;
+            //체력바 즉시 변경
+            healthBarScript.SetMaxHealth(healthObject.maxHP);
+            healthBarScript.SetHealth(healthObject.curHP);
+        }
     }
 }
