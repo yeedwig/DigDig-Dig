@@ -17,10 +17,7 @@ public class SaveLoadManager : MonoBehaviour
     [SerializeField] GameObject player;
 
     //Health script 저장
-    HealthObjects healthObject;
-    private Health healthScript;
     [SerializeField] GameObject healthBar;
-    private HealthBar healthBarScript;
                             
 
 
@@ -32,8 +29,6 @@ public class SaveLoadManager : MonoBehaviour
         {
             Directory.CreateDirectory(SAVE_FOLDER);
         }
-        healthScript = player.GetComponent<Health>();
-        healthBarScript = healthBar.GetComponent<HealthBar>();
     }
 
     private void Start()
@@ -56,47 +51,14 @@ public class SaveLoadManager : MonoBehaviour
     }
     private void Save()
     {
-        SaveHealthScript();
+        SaveHealth.saveHealth(player.GetComponent<Health>());
     }
 
     private void Load()
     {
-        LoadHealthScript();
+        SaveHealth.loadHealth(player.GetComponent<Health>(), healthBar.GetComponent<HealthBar>());
     }
   
-
-    //Health script 저장
-    private class HealthObjects
-    {
-        public float maxHP;
-        public float curHP;
-    }
-    public void SaveHealthScript()
-    {
-        healthObject = new HealthObjects
-        {
-            maxHP = healthScript.maxHP,
-            curHP = healthScript.curHP
-        };
-        json = JsonUtility.ToJson(healthObject);
-        File.WriteAllText(SAVE_FOLDER + "/HealthScriptSave.txt", json);
-    }
-    public void LoadHealthScript()
-    {
-        if (File.Exists(SAVE_FOLDER + "/HealthScriptSave.txt"))
-        {
-            string saveString = File.ReadAllText(SAVE_FOLDER + "/HealthScriptSave.txt");
-            healthObject = JsonUtility.FromJson<HealthObjects>(saveString);
-
-            healthScript.maxHP = healthObject.maxHP;
-            healthScript.curHP = healthObject.curHP;
-            //체력바 즉시 변경
-            healthBarScript.SetMaxHealth(healthObject.maxHP);
-            healthBarScript.SetHealth(healthObject.curHP);
-        }
-    }
-
-
     //GameManager 스크립트 저장
     private class GameManagerObjects
     {
