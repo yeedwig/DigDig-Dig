@@ -12,6 +12,7 @@ public class NPC : MonoBehaviour
     public Text dialogueText;
 
     private bool facingLeft = true;
+    public bool canFlip = true;
 
     public List<Dialogue> Dialogues;
     // Start is called before the first frame update
@@ -24,7 +25,11 @@ public class NPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Flip();
+        if(canFlip)
+        {
+            Flip();
+        }
+        
 
         Collider2D  playerChecked= Physics2D.OverlapCircle(transform.position, 2.0f, LayerMask.GetMask("Player"));
 
