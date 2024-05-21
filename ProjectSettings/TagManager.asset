@@ -59,6 +59,9 @@ TagManager:
   - name: Corner
     uniqueID: 980034725
     locked: 0
+  - name: Ground
+    uniqueID: 1552211913
+    locked: 0
   - name: Structure
     uniqueID: 3411507489
     locked: 0
@@ -76,9 +79,6 @@ TagManager:
     locked: 0
   - name: Fluid
     uniqueID: 3739357649
-    locked: 0
-  - name: Ground
-    uniqueID: 1552211913
     locked: 0
   - name: Elevator
     uniqueID: 2880042911

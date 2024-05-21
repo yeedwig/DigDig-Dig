@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 48.17, y: 1.61, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4676891642902309685}
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2130534703
-  m_SortingLayer: 9
+  m_SortingLayer: 10
   m_SortingOrder: 1
   m_Sprite: {fileID: -865419348, guid: a867ade157bc0d749a40036cd466cdca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -176,6 +176,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4676891642902309685}
+  - component: {fileID: 4212208855473564346}
   - component: {fileID: 2555711707931634626}
   m_Layer: 0
   m_Name: Light 2D
@@ -192,13 +193,29 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7973951634375304193}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.0040850607, w: 0.99999166}
+  m_LocalRotation: {x: -0, y: -0, z: 0.017007666, w: 0.9998554}
   m_LocalPosition: {x: -0.031, y: -0.016, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1401647993764788520}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4212208855473564346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7973951634375304193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180bfd3fa18bc924da94586fd85e7a42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxDelay: 0.7
+  minDelay: 0.6
+  maxIntensity: 2
+  minIntensity: 1.7
 --- !u!114 &2555711707931634626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,9 +231,9 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.401
-  m_Color: {r: 0, g: 0.7878051, b: 1, a: 1}
-  m_Intensity: 1.4
+  m_FalloffIntensity: 0.3
+  m_Color: {r: 0, g: 0.32778072, b: 1, a: 1}
+  m_Intensity: 2
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 000000008524e04f7d8262ce5d653ad6a5246a3a217957cb9b1e2c84198ce80979f883bd2f61fd7ed111e2de9ff7a9abe101160f89908358
@@ -237,8 +254,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 0.59147173
-  m_PointLightOuterRadius: 1.0423144
+  m_PointLightInnerRadius: 0.5
+  m_PointLightOuterRadius: 1.5
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1

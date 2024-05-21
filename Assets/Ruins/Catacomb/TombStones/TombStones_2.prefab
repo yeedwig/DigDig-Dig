@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8502179859783663106}
   - component: {fileID: 5656297487918071388}
   - component: {fileID: 6111492154287310733}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TombStones_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

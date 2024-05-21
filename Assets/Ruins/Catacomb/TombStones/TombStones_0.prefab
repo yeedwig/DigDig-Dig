@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5789134815647176906}
   - component: {fileID: 9062041640058168027}
   - component: {fileID: 3914436144707680679}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TombStones_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,6 +163,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeechBubble
       objectReference: {fileID: 0}
+    - target: {fileID: 1523876099958808835, guid: b408610f2eb7dca459ac4f793d0a6fc3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4529245194533427757, guid: b408610f2eb7dca459ac4f793d0a6fc3, type: 3}
+      propertyPath: m_Layer
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5462912401147638019, guid: b408610f2eb7dca459ac4f793d0a6fc3, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -250,6 +258,10 @@ PrefabInstance:
     - target: {fileID: 5462912401147638019, guid: b408610f2eb7dca459ac4f793d0a6fc3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5615150978822910261, guid: b408610f2eb7dca459ac4f793d0a6fc3, type: 3}
+      propertyPath: m_Layer
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6009758082808755044, guid: b408610f2eb7dca459ac4f793d0a6fc3, type: 3}
       propertyPath: m_PresetInfoIsWorld

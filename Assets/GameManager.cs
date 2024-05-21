@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,6 +66,11 @@ public class GameManager : MonoBehaviour
     public Text ElevatorPassageNumTxt;
 
     private float maxHP;
+
+    //retry È½¼ö
+    public int retryTimes = 0;
+    public DateManager dateManager;
+    public DateTime curDate;
     private void Awake()
     {
         AntNestFound = false;
@@ -79,7 +85,7 @@ public class GameManager : MonoBehaviour
         TreasureFound = false;
         MadScientistLabFound = false;
         Money =1000000;
-
+        curDate = dateManager.startDate;
         maxHP = Player.GetComponent<Health>().maxHP;
         
     }
@@ -184,6 +190,9 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Shovel Spawned");
             inventoryManager.SpawnNewItem(defaultShovel, firstSlotToolBelt);
+            retryTimes++;
+            dateManager.AddDate();
+            curDate = dateManager.updateDate;
             defaultShovelSpawned = true;
         }
     }
