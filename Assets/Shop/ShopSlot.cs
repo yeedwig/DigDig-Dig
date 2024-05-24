@@ -25,6 +25,7 @@ public class ShopSlot : MonoBehaviour
         nameTextSlot.text = item.name;
         price = item.price; 
         priceTextSlot.text = price.ToString();
+        //gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void BuyItem()
@@ -35,6 +36,7 @@ public class ShopSlot : MonoBehaviour
             {
                 SoundFXManager.instance.PlaySoundFXClip(cashOutSound, transform, 1.5f);
                 gameManager.Money -= price;
+                gameManager.updateMoney();
             }
             else
                 return;

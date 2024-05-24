@@ -9,7 +9,7 @@ public class CharacterManager : MonoBehaviour
     public int skinNr;
     public int curNum;
     public int prevNum;
-
+    [SerializeField] private PlayerManager playerManager;
     public Transform respawnPos;
     public GameManager gameManager;
 
@@ -31,6 +31,7 @@ public class CharacterManager : MonoBehaviour
     void Start()
     {
         sp = Player.GetComponent<SpriteRenderer>();
+        playerManager = Player.GetComponent<PlayerManager>();
     }
 
     // Update is called once per frame
@@ -82,8 +83,9 @@ public class CharacterManager : MonoBehaviour
 
     void Respawn()
     {
-        
-        if(sp.sprite.name.Contains("MainIdle"))
+        playerManager.curCharacter = CharactersSO[skinNr];
+
+        if (sp.sprite.name.Contains("MainIdle"))
         {
             string spriteName = sp.sprite.name;
             spriteName = spriteName.Replace("MainIdle_","");
@@ -91,6 +93,7 @@ public class CharacterManager : MonoBehaviour
 
             //sp.sprite = IdleSkins[skinNr].sprites[spriteNr];
             sp.sprite = CharactersSO[skinNr].IdleSkins[spriteNr];
+            
         }
 
         if(sp.sprite.name.Contains("MainDigging"))

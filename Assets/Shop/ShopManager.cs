@@ -18,6 +18,10 @@ public class ShopManager : MonoBehaviour
     public bool TreasureFound;
     public bool MadScientistLabFound;
 
+
+    public bool moleShopFound;
+    [SerializeField] GameObject moleIDslot;
+
     [SerializeField] private GameObject[] shopShovelSlots;
     [SerializeField] private GameObject[] shopDrillSlots;
 
@@ -42,11 +46,11 @@ public class ShopManager : MonoBehaviour
     }
     private void Update()
     {
-        CheckRuinFound();
+        CheckFound();
     }
 
 
-    private void CheckRuinFound()
+    private void CheckFound()
     {
         if(AntNestFound)
         {
@@ -98,6 +102,15 @@ public class ShopManager : MonoBehaviour
             //shopShovelSlots[9].SetActive(true);
             //shopDrillSlots[9].SetActive (true);
         }
+
+        if (moleShopFound)
+        {
+            if(moleIDslot != null)
+            {
+                moleIDslot.SetActive(true);
+            }
+        }
+
     }
 
 }

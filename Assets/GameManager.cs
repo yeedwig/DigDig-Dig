@@ -71,6 +71,10 @@ public class GameManager : MonoBehaviour
     public int retryTimes = 0;
     public DateManager dateManager;
     public DateTime curDate;
+
+    //Mole ID
+    public GameObject moleId;
+    public bool hasMoleId = false;
     private void Awake()
     {
         AntNestFound = false;
@@ -87,7 +91,10 @@ public class GameManager : MonoBehaviour
         Money =1000000;
         curDate = dateManager.startDate;
         maxHP = Player.GetComponent<Health>().maxHP;
-        
+
+
+        moleId.SetActive(false);
+
     }
 
     private void Update()
@@ -97,6 +104,10 @@ public class GameManager : MonoBehaviour
             StartCoroutine(PlayerDead());
             moneyText.text = Money.ToString();
 
+        }
+        if(hasMoleId)
+        {
+            moleId.SetActive(true);
         }
        
         SetShop();
@@ -108,6 +119,10 @@ public class GameManager : MonoBehaviour
         //moneyText.text = Money.ToString();  
     }
 
+    public void updateMoney()
+    {
+        moneyText.text = Money.ToString();
+    }
     private void ShowStructureNum()
     {
         GangNumTxt.text = " X " + GangNum.ToString();

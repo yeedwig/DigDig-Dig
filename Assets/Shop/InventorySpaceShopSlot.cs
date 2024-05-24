@@ -23,6 +23,7 @@ public class InventorySpaceShopSlot : MonoBehaviour
     {
         nameTextSlot.text = "Lv2. Bag";
         priceTextSlot.text = price.ToString();
+        gameManager = FindFirstObjectByType<GameManager>();
     }
 
     public void BuyItem()
@@ -34,6 +35,7 @@ public class InventorySpaceShopSlot : MonoBehaviour
                 gameManager.Money -= price;
                 SoundFXManager.instance.PlaySoundFXClip(cashOutSound, transform, 1.5f);
                 inventoryManager.AddInventorySlots();
+                gameManager.updateMoney();
                 if (inventoryManager.currentInventoryLevel == 1)
                 {
                     price += 1000;

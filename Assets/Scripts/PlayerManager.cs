@@ -114,8 +114,11 @@ public class PlayerManager : MonoBehaviour
     public bool toolBeltIsActive = false;
 
 
+    //Character 관련
+    public CharacterSO curCharacter;
+    public int headLightType;
 
-
+    
     void Start()
     {
         Dead = false;
@@ -135,6 +138,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log(curCharacter.name);
         if(!isEditOn)
         {
             CurrentToolInput();
@@ -151,6 +155,7 @@ public class PlayerManager : MonoBehaviour
 
             InterActionRayCast();
             moveOnladder();
+            headLightType = curCharacter.type; //0이면 광부 모자 1이면 손에 드는거 2이면 발광하는거
             //ShowCurrentTool();
         }
         
@@ -391,6 +396,7 @@ public class PlayerManager : MonoBehaviour
                 SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, 1.5f);
                 if (headLightIsActive)
                 {
+              
                     HeadLight.SetActive(false);
                     headLightIsActive = false;
                 }
@@ -412,7 +418,7 @@ public class PlayerManager : MonoBehaviour
         Debug.DrawRay(transform.position, new Vector2(facingDir,0) * 0.5f, Color.red, 0);
 
         RaycastHit2D NPChit = Physics2D.Raycast(transform.position,new Vector2(facingDir,0), 0.5f, LayerMask.GetMask("NPC"));
-        RaycastHit2D DoorHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Door"));
+        RaycastHit2D ButtonHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Button"));
 
         if (NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
@@ -420,12 +426,13 @@ public class PlayerManager : MonoBehaviour
             NPChit.collider.gameObject.GetComponent<NPC>().index += 1;
             Debug.Log("Hit Npc!");
         }
-        /*
-        if(DoorHit.collider != null && Input.GetKeyDown(KeyCode.F))
+        
+        if(ButtonHit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
-
+            ButtonHit.collider.GetComponent<ScientistButton>().TurnOnButton();
         }
-        */
+
+
     }
     void CheckTool()
     {

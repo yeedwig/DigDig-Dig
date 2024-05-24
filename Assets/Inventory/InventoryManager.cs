@@ -26,6 +26,7 @@ public class InventoryManager : MonoBehaviour
     public AudioClip[] cantBuySound;
     public AudioClip[] coinAddedSound;
 
+    public int maxStructure = 100;
     public void Start()
     {
         inventorySlotsLength = 5;
@@ -40,7 +41,7 @@ public class InventoryManager : MonoBehaviour
         {
             if(item.Name =="Gang")
             {
-                if(GM.GangNum <100)
+                if(GM.GangNum <maxStructure)
                 {
                     GM.GangNum++;
                     return true;
@@ -48,7 +49,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (item.Name == "Ladder")
             {
-                if (GM.LadderNum < 100)
+                if (GM.LadderNum < maxStructure)
                 {
                     GM.LadderNum++;
                     return true;
@@ -56,7 +57,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (item.Name == "Rail")
             {
-                if (GM.RailNum < 100)
+                if (GM.RailNum < maxStructure)
                 {
                     GM.RailNum++;
                     return true;
@@ -64,7 +65,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (item.Name == "ElevatorDoor")
             {
-                if (GM.ElevatorDoorNum < 100)
+                if (GM.ElevatorDoorNum < maxStructure)
                 {
                     GM.ElevatorDoorNum++;
                     return true;
@@ -72,7 +73,7 @@ public class InventoryManager : MonoBehaviour
             }
             if (item.Name == "ElevatorPassage")
             {
-                if (GM.ElevatorPassageNum < 100)
+                if (GM.ElevatorPassageNum < maxStructure)
                 {
                     GM.ElevatorPassageNum++;
                     return true;
@@ -243,6 +244,7 @@ public class InventoryManager : MonoBehaviour
         //여기서 비율 조정, 죽어서 태어나는거면 뭐 /5 그냥 파는거면 /1
         SoundFXManager.instance.PlaySoundFXClip(coinAddedSound, transform, 1.0f);
         GM.MoneyAdded(totalPrice);
+        GM.updateMoney();
     }
 
     public bool SearchInventory(Item item)
@@ -255,7 +257,15 @@ public class InventoryManager : MonoBehaviour
             {
                 if(itemInSlot.item.isKey)//use item if is key
                 {
-                    Destroy(itemInSlot);
+                    if(itemInSlot.item.Name == "MoleCard")
+                    {
+
+                    }
+                    else
+                    {
+                        Destroy(itemInSlot);
+                    }
+                    
                 }
                 return true;
             }
