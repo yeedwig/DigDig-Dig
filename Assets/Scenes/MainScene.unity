@@ -837,7 +837,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &14909800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15416,6 +15416,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 515281478}
+  - component: {fileID: 515281484}
   - component: {fileID: 515281480}
   - component: {fileID: 515281482}
   - component: {fileID: 515281483}
@@ -15559,6 +15560,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &515281484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 515281477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5cede40900168947bd83af51c009154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorOpened: 0
 --- !u!1 &518697813
 GameObject:
   m_ObjectHideFlags: 0
@@ -58555,27 +58569,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2128619910}
-  - component: {fileID: 2128619909}
+  - component: {fileID: 2128619911}
   m_Layer: 0
   m_Name: MoleDoorCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2128619909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2128619905}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5cede40900168947bd83af51c009154, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moleDoor: {fileID: 515281477}
+  m_IsActive: 0
 --- !u!4 &2128619910
 Transform:
   m_ObjectHideFlags: 0
@@ -58592,6 +58593,19 @@ Transform:
   - {fileID: 515281478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2128619911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2128619905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cd478e7ea9b82a4b8fe4d432cc1480c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moleDoor: {fileID: 515281484}
 --- !u!1 &2131498597
 GameObject:
   m_ObjectHideFlags: 0
