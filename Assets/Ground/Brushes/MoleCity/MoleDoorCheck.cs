@@ -14,7 +14,25 @@ public class MoleDoorCheck : MonoBehaviour
         moleDoor.doorOpened = false;
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Player" && gameManager.hasMoleId == true)
+        {
+            moleDoor.doorOpened=true;
+            Debug.Log("Open");
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player" && gameManager.hasMoleId == true)
+        {
+            moleDoor.doorOpened = false;
+            Debug.Log("close");
+        }
+    }
     // Update is called once per frame
+    /*
     void Update()
     {
 
@@ -32,5 +50,5 @@ public class MoleDoorCheck : MonoBehaviour
             moleDoor.doorOpened = false;
             Debug.Log("Close");
         }
-    }
+    }*/
 }

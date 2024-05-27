@@ -14,9 +14,11 @@ public class MoleDoor : MonoBehaviour
     private void Update()
     {
         anim.SetBool("Open",doorOpened);
+        Debug.Log(doorOpened);
     }
     void OpenCloseDoor()
     {
-        this.gameObject.SetActive(!doorOpened);
+
+        this.gameObject.GetComponent<BoxCollider2D>().enabled = !doorOpened;
     }
 }
