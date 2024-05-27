@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Room4
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - Have you heard about the land frozen in time?
   - In my old days I've seen a kingdom
   - where fosiilized Amber has stopped
@@ -21,3 +22,4 @@ MonoBehaviour:
   - then I would've journeyed
   - all across from the Shovel Temple,
   - To the Golden City.. Again..
+  - 

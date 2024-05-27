@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: CrossRoads 2
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - 'One of my friends went deeper '
   - and returned with one eye..
   - The deeper you go the more dangerous it gets
   - Always keep that in mind
+  - 

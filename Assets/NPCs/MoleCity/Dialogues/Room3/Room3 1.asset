@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: Room3 1
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - All of these doors are made by some Scientist
   - He promised to help us from the Monsters..!
   - Instead we gave him some of these shining rocks
   - I think he stops by sometimes
   - You might be lucky to see him!!
+  - 

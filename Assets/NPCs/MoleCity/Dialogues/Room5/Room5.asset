@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Room5
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - 'These shiny rocks are very colorful right? '
   - Actually we're moles so we can't see them quite well..
+  - 

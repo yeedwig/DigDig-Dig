@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: MoleMainRoom
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - MoleCity is a place where
   - all the stories and information gather
   - Under the ground
   - 'If information is what you need '
   - try talking to someone
+  - 

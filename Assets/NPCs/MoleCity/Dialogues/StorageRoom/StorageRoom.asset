@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: StorageRoom
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - Our Family has been collecting
   - interesting stuff that's been lost underground
   - Found this crazy looking object..
   - But I have no idea what to do with it
   - You can have it if you want..!
   - Consider it as a gift for a visitor..!
+  - 

@@ -13,5 +13,7 @@ MonoBehaviour:
   m_Name: Room2
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - Do you know about the treasure..?
   - It's said to be hidden under the golden city..
+  - 

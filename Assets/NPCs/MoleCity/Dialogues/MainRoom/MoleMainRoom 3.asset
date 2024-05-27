@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MoleMainRoom 3
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - There are monsters everywhere
   - in this part of the ground
   - don't forget to stay silent when you meet one
   - They rely on their sense of hearing..
+  - 

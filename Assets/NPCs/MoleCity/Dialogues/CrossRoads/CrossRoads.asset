@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: CrossRoads
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - Actually nobody knows
   - where these roads lead to
   - But since they lead to the depths
   - we are here to guard our city
   - of monsters
+  - 

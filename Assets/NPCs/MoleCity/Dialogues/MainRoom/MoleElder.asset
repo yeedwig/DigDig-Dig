@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: MoleElder
   m_EditorClassIdentifier: 
   Dialogues:
-  - I Stranger to Mole City..
+  - 
+  - A Visitor to Mole City..
   - It has been so long since
   - we've had a visitor
   - please be at home..
   - And don't forget to be aware of monsters
+  - 

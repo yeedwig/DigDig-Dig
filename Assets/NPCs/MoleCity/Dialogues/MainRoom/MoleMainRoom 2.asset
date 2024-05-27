@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: MoleMainRoom 2
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - Under here is the crossroads
   - 'Before you go make sure you know '
   - which way to go
+  - 

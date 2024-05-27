@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Room1
   m_EditorClassIdentifier: 
   Dialogues:
+  - 
   - Don't forget..
   - The monsters appear when they hear
   - loud noises
   - So don't forget to stay still when you meet them..
+  - 
