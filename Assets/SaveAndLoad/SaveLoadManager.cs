@@ -68,6 +68,7 @@ public class SaveLoadManager : MonoBehaviour
                 if(itemInSlot != null)
                 {
                     Debug.Log(itemInSlot.item.Name);
+                    Debug.Log(itemInSlot.count);
                 }
             }
             
