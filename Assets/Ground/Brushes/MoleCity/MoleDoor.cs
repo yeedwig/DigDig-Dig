@@ -14,7 +14,7 @@ public class MoleDoor : MonoBehaviour
     private void Update()
     {
         anim.SetBool("Open",doorOpened);
-        Debug.Log(doorOpened);
+        //Debug.Log(doorOpened);
     }
     void OpenCloseDoor()
     {

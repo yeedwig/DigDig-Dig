@@ -40,10 +40,12 @@ public class NPC : MonoBehaviour
                 //Debug.Log(Dialogues[Chapter].Dialogues[index].ToString());
 
         }
+        //여기 잠시만 주석 처리 함
+        /*
         if (index >= Dialogues[Chapter].Dialogues.Length)
         {
             index = 0;
-        }
+        }*/
        if (playerChecked == null)
        {
             textBubble.SetActive(false);

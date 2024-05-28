@@ -21,6 +21,10 @@ public class SaveLoadManager : MonoBehaviour
 
     //GameManager
     [SerializeField] GameObject gameManager;
+
+    //인벤 저장
+    [SerializeField] GameObject inventoryManager;
+    private InventoryManager IM;
                             
 
 
@@ -32,6 +36,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             Directory.CreateDirectory(SAVE_FOLDER);
         }
+        IM = inventoryManager.GetComponent<InventoryManager>();
     }
 
     private void Start()
@@ -50,6 +55,22 @@ public class SaveLoadManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F2))
         {
             Load();
+        }
+
+        //인벤토리 저장 테스트 공간
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            for(int i = 0; i < IM.inventorySlotsLength; i++)
+            {
+                InventorySlot slot = IM.inventorySlots[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+                if(itemInSlot != null)
+                {
+                    Debug.Log(itemInSlot.item.Name);
+                }
+            }
+            
         }
     }
     private void Save()
