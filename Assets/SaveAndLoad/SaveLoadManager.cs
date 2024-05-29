@@ -91,8 +91,14 @@ public class SaveLoadManager : MonoBehaviour
                 InventoryClass load = JsonUtility.FromJson<InventoryClass>(saveString);
                 for(int i = 0; i < load.item.Length; i++)
                 {
-                    Debug.Log(load.item[i].name);
-                    Debug.Log(load.itemCount[i]);
+                    InventorySlot slot = IM.inventorySlots[i];
+                    IM.SpawnNewItem(load.item[i], slot);
+                    InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                    if (load.item[i].stackable)
+                    {
+                        itemInSlot.count = load.itemCount[i];
+                        itemInSlot.RefreshCount();
+                    }
                 }
             }
         }

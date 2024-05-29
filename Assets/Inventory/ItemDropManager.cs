@@ -22,7 +22,6 @@ public class ItemDropManager : MonoBehaviour
     private float itemGetTextTimer=0;
     [SerializeField] float itemGetTextTimerMax;
 
-    [SerializeField] Text total;
     [SerializeField] Text combo;
 
 
@@ -31,7 +30,6 @@ public class ItemDropManager : MonoBehaviour
     {
         toolManager = toolManagerObj.GetComponent<ToolManager>();
         itemGetTextTimer = itemGetTextTimerMax;
-        total.text = "";
         combo.text = "";
     }
 
