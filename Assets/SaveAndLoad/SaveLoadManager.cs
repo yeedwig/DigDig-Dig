@@ -60,18 +60,38 @@ public class SaveLoadManager : MonoBehaviour
         //인벤토리 저장 테스트 공간
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            for(int i = 0; i < IM.inventorySlotsLength; i++)
+            InventoryClass inventorySaveObject = new InventoryClass
+            {
+                item = new Item[IM.inventorySlotsLength],
+                itemRange = 0,
+                itemCount = new int[IM.inventorySlotsLength]
+            };
+            for (int i = 0; i < IM.inventorySlotsLength; i++)
             {
                 InventorySlot slot = IM.inventorySlots[i];
                 InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
 
                 if(itemInSlot != null)
                 {
-                    Debug.Log(itemInSlot.item.Name);
-                    Debug.Log(itemInSlot.count);
+                    inventorySaveObject.item[inventorySaveObject.itemRange] = itemInSlot.item;
+                    inventorySaveObject.itemCount[inventorySaveObject.itemRange++] = itemInSlot.count;
                 }
             }
-            
+            string json = JsonUtility.ToJson(inventorySaveObject);
+            File.WriteAllText(SAVE_FOLDER + "/InventorySave.txt", json);
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (File.Exists(SAVE_FOLDER + "/InventorySave.txt"))
+            {
+                string saveString = File.ReadAllText(SAVE_FOLDER + "/InventorySave.txt");
+                InventoryClass load = JsonUtility.FromJson<InventoryClass>(saveString);
+                for(int i = 0; i < load.itemRange; i++)
+                {
+                    Debug.Log(load.item[i].name);
+                    Debug.Log(load.itemCount[i]);
+                }
+            }
         }
     }
     private void Save()
@@ -84,5 +104,12 @@ public class SaveLoadManager : MonoBehaviour
     {
         SaveHealth.loadHealth(player.GetComponent<Health>(), healthBar.GetComponent<HealthBar>());
         SaveGameManager.loadGameManager(gameManager.GetComponent<GameManager>());
+    }
+
+    public class InventoryClass
+    {
+        public Item[] item;
+        public int itemRange = 0;
+        public int[] itemCount;
     }
 }
