@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -60,11 +61,11 @@ public class SaveLoadManager : MonoBehaviour
         //인벤토리 저장 테스트 공간
         if (Input.GetKeyDown(KeyCode.F3))
         {
+            int saveIndex=0;
             InventoryClass inventorySaveObject = new InventoryClass
             {
-                item = new Item[IM.inventorySlotsLength],
-                itemRange = 0,
-                itemCount = new int[IM.inventorySlotsLength]
+                item = new Item[0],
+                itemCount = new int[0]
             };
             for (int i = 0; i < IM.inventorySlotsLength; i++)
             {
@@ -73,8 +74,10 @@ public class SaveLoadManager : MonoBehaviour
 
                 if(itemInSlot != null)
                 {
-                    inventorySaveObject.item[inventorySaveObject.itemRange] = itemInSlot.item;
-                    inventorySaveObject.itemCount[inventorySaveObject.itemRange++] = itemInSlot.count;
+                    Array.Resize(ref inventorySaveObject.item, saveIndex + 1);
+                    Array.Resize(ref inventorySaveObject.itemCount, saveIndex + 1);
+                    inventorySaveObject.item[saveIndex] = itemInSlot.item;
+                    inventorySaveObject.itemCount[saveIndex++] = itemInSlot.count;
                 }
             }
             string json = JsonUtility.ToJson(inventorySaveObject);
@@ -86,7 +89,7 @@ public class SaveLoadManager : MonoBehaviour
             {
                 string saveString = File.ReadAllText(SAVE_FOLDER + "/InventorySave.txt");
                 InventoryClass load = JsonUtility.FromJson<InventoryClass>(saveString);
-                for(int i = 0; i < load.itemRange; i++)
+                for(int i = 0; i < load.item.Length; i++)
                 {
                     Debug.Log(load.item[i].name);
                     Debug.Log(load.itemCount[i]);
@@ -109,7 +112,6 @@ public class SaveLoadManager : MonoBehaviour
     public class InventoryClass
     {
         public Item[] item;
-        public int itemRange = 0;
         public int[] itemCount;
     }
 }
