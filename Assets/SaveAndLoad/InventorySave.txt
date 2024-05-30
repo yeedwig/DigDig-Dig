@@ -1,1 +1,1 @@
-{"item":[{"instanceID":29044},{"instanceID":29044},{"instanceID":28482},{"instanceID":28742}],"itemCount":[1,1,5,3]}
+{"item":[{"instanceID":22888},{"instanceID":22890},{"instanceID":88796}],"itemCount":[3,1,1],"durability":[0.0,0.0,999980.0],"currentInventoryLevel":0}

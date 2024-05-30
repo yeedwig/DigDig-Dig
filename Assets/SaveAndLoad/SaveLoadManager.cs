@@ -65,7 +65,9 @@ public class SaveLoadManager : MonoBehaviour
             InventoryClass inventorySaveObject = new InventoryClass
             {
                 item = new Item[0],
-                itemCount = new int[0]
+                itemCount = new int[0],
+                durability = new float[0],
+                currentInventoryLevel = IM.currentInventoryLevel
             };
             for (int i = 0; i < IM.inventorySlotsLength; i++)
             {
@@ -76,6 +78,11 @@ public class SaveLoadManager : MonoBehaviour
                 {
                     Array.Resize(ref inventorySaveObject.item, saveIndex + 1);
                     Array.Resize(ref inventorySaveObject.itemCount, saveIndex + 1);
+                    Array.Resize(ref inventorySaveObject.durability, saveIndex + 1);
+                    if (itemInSlot.item.isTool)
+                    {
+                        inventorySaveObject.durability[saveIndex] = itemInSlot.Durability;
+                    }
                     inventorySaveObject.item[saveIndex] = itemInSlot.item;
                     inventorySaveObject.itemCount[saveIndex++] = itemInSlot.count;
                 }
@@ -89,6 +96,8 @@ public class SaveLoadManager : MonoBehaviour
             {
                 string saveString = File.ReadAllText(SAVE_FOLDER + "/InventorySave.txt");
                 InventoryClass load = JsonUtility.FromJson<InventoryClass>(saveString);
+                IM.currentInventoryLevel = load.currentInventoryLevel;
+                IM.AddInventorySlots();
                 for(int i = 0; i < load.item.Length; i++)
                 {
                     InventorySlot slot = IM.inventorySlots[i];
@@ -98,6 +107,10 @@ public class SaveLoadManager : MonoBehaviour
                     {
                         itemInSlot.count = load.itemCount[i];
                         itemInSlot.RefreshCount();
+                    }
+                    if (load.item[i].isTool)
+                    {
+                        itemInSlot.Durability = load.durability[i];
                     }
                 }
             }
@@ -117,7 +130,12 @@ public class SaveLoadManager : MonoBehaviour
 
     public class InventoryClass
     {
+        //인벤
         public Item[] item;
         public int[] itemCount;
+        public float[] durability;
+        public int currentInventoryLevel;
+
+        //툴 벨트
     }
 }
