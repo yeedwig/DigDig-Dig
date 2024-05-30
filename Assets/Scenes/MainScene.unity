@@ -54174,7 +54174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1952153429
 Rigidbody2D:
   serializedVersion: 4
@@ -54339,12 +54339,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 100
   groundDigDamage: 10
-  attackOffSet: {x: 0, y: 0, z: 0}
+  groundOffSet: {x: 0, y: 0.5, z: 0}
   attackRange: 0.5
   attackMask:
     serializedVersion: 2
     m_Bits: 2048
   pos: {x: 0, y: 0, z: 0}
+  groundRadius: 0.4
+  chasing: 0
 --- !u!114 &1952153435
 MonoBehaviour:
   m_ObjectHideFlags: 0

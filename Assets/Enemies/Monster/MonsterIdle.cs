@@ -8,7 +8,7 @@ public class MonsterIdle : StateMachineBehaviour
     public float getAwayRange = 10f;
     Transform player;
     Rigidbody2D rb;
-    Enemy enemy;
+    Monster enemy;
     public int threshold;
     public int count;
 
@@ -18,7 +18,7 @@ public class MonsterIdle : StateMachineBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
-        //enemy = animator.GetComponent<Enemy>();
+        enemy = animator.GetComponent<Monster>();
         //count = 0;
     }
 
@@ -34,12 +34,12 @@ public class MonsterIdle : StateMachineBehaviour
         if (Vector2.Distance(player.position, rb.position) <= spotRange && count >= threshold)
         {
             animator.SetTrigger("Run");
-            isRunning = true;
+            enemy.chasing = true;
         }
 
         else if(Vector2.Distance(player.position, rb.position) >= getAwayRange)
         {
-            isRunning = false;
+            enemy.chasing = false;
             count = 0;
         }
     }

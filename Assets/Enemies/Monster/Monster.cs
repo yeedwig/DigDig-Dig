@@ -7,14 +7,17 @@ public class Monster : MonoBehaviour
 {
     public float attackDamage;
     public float groundDigDamage;
-    public Vector3 attackOffSet;
+    public Vector3 groundOffSet;
     public float attackRange = 1f;
     public LayerMask attackMask;
     public Vector3 pos;
     private Enemy enemy;
     private MonsterIdle monsterIdle;
     private Animator animator;
+    public float groundRadius;
     Rigidbody2D rb;
+
+    public bool chasing;
     /*
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -25,6 +28,7 @@ public class Monster : MonoBehaviour
     }*/
     private void Start()
     {
+        chasing = false;
         enemy = this.GetComponent<Enemy>();
         rb = this.GetComponent<Rigidbody2D>();
         //animator = this.GetComponent<Animator>();
@@ -35,12 +39,12 @@ public class Monster : MonoBehaviour
     private void Update()
     {
         pos = transform.position;
-        pos += transform.right * attackOffSet.x;
-        pos += transform.up * attackOffSet.y;
+        pos += transform.right * groundOffSet.x;
+        pos += transform.up * groundOffSet.y;
 
-        Collider2D groundChecked = Physics2D.OverlapCircle(pos, 1.0f, LayerMask.GetMask("Ground"));
+        Collider2D groundChecked = Physics2D.OverlapCircle(pos, groundRadius, LayerMask.GetMask("Ground"));
         
-        if (groundChecked != null && (rb.velocity.x != 0 || rb.velocity.y != 0))//monsterIdle.isRunning)
+        if (groundChecked != null && chasing)
         {
 
             groundChecked.gameObject.GetComponent<Ground>().MonsterDamage(groundDigDamage);
@@ -52,15 +56,15 @@ public class Monster : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         // Draw a yellow sphere at the transform's position
-        Gizmos.DrawSphere(pos, 1.0f);
+        Gizmos.DrawSphere(pos, groundRadius);
     }
 
 
     public void Attack()
     {
         pos = transform.position;
-        pos += transform.right * attackOffSet.x;
-        pos += transform.up * attackOffSet.y;
+        pos += transform.right * groundOffSet.x;
+        pos += transform.up * groundOffSet.y;
 
         Collider2D colInfo = Physics2D.OverlapCircle(pos, attackRange, attackMask);
         if (colInfo != null)
