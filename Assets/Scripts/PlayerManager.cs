@@ -155,7 +155,7 @@ public class PlayerManager : MonoBehaviour
 
             InterActionRayCast();
             moveOnladder();
-            headLightType = curCharacter.type; //0이면 광부 모자 1이면 손에 드는거 2이면 발광하는거
+            //headLightType = curCharacter.type; //0이면 광부 모자 1이면 손에 드는거 2이면 발광하는거
             //ShowCurrentTool();
         }
         
