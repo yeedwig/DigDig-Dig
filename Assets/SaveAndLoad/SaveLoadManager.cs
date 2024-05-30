@@ -26,6 +26,8 @@ public class SaveLoadManager : MonoBehaviour
     //인벤 저장
     [SerializeField] GameObject inventoryManager;
     private InventoryManager IM;
+    [SerializeField] GameObject toolManager;
+    private ToolManager TM;
                             
 
 
@@ -38,6 +40,7 @@ public class SaveLoadManager : MonoBehaviour
             Directory.CreateDirectory(SAVE_FOLDER);
         }
         IM = inventoryManager.GetComponent<InventoryManager>();
+        TM = toolManager.GetComponent<ToolManager>();
     }
 
     private void Start()
@@ -67,7 +70,10 @@ public class SaveLoadManager : MonoBehaviour
                 item = new Item[0],
                 itemCount = new int[0],
                 durability = new float[0],
-                currentInventoryLevel = IM.currentInventoryLevel
+                currentInventoryLevel = IM.currentInventoryLevel,
+                beltItem = new Item[0],
+                beltItemCount = new int[0],
+                beltDurability = new float[0]
             };
             for (int i = 0; i < IM.inventorySlotsLength; i++)
             {
@@ -85,6 +91,21 @@ public class SaveLoadManager : MonoBehaviour
                     }
                     inventorySaveObject.item[saveIndex] = itemInSlot.item;
                     inventorySaveObject.itemCount[saveIndex++] = itemInSlot.count;
+                }
+            }
+            saveIndex = 0;
+            for(int i=0;i<6; i++)
+            {
+                InventorySlot slot = TM.ToolBeltInventory[i];
+                InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                if(itemInSlot != null)
+                {
+                    Array.Resize(ref inventorySaveObject.beltItem, saveIndex + 1);
+                    Array.Resize(ref inventorySaveObject.beltDurability, saveIndex + 1);
+                    Array.Resize(ref inventorySaveObject.beltItemCount, saveIndex + 1);
+                    inventorySaveObject.beltItem[saveIndex] = itemInSlot.item;
+                    inventorySaveObject.beltDurability[saveIndex] = itemInSlot.Durability;
+                    inventorySaveObject.beltItemCount[saveIndex++] = itemInSlot.count;
                 }
             }
             string json = JsonUtility.ToJson(inventorySaveObject);
@@ -113,6 +134,28 @@ public class SaveLoadManager : MonoBehaviour
                         itemInSlot.Durability = load.durability[i];
                     }
                 }
+                
+
+                for (int i =0; i< load.beltItem.Length; i++)
+                {
+                    InventorySlot slot = TM.ToolBeltInventory[i];
+                    InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+                    if (itemInSlot != null) { 
+                        Destroy(itemInSlot.gameObject);
+                    }
+                    IM.SpawnNewItem(load.beltItem[i], slot);
+                    itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+
+                    if (load.beltItem[i].stackable)
+                    {
+                        itemInSlot.count = load.beltItemCount[i];
+                        itemInSlot.RefreshCount();
+                    }
+                    if (load.beltItem[i].isTool)
+                    {
+                        itemInSlot.Durability = load.beltDurability[i];
+                    }
+                }
             }
         }
     }
@@ -137,5 +180,8 @@ public class SaveLoadManager : MonoBehaviour
         public int currentInventoryLevel;
 
         //툴 벨트
+        public Item[] beltItem;
+        public int[] beltItemCount;
+        public float[] beltDurability;
     }
 }

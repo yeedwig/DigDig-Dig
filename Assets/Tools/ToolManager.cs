@@ -29,7 +29,7 @@ public class ToolManager : MonoBehaviour
 
     public int selectedSlot = -1;
 
-    [SerializeField] private InventorySlot[] ToolBeltInventory; 
+    public InventorySlot[] ToolBeltInventory; 
 
     //public int skinNr;
 

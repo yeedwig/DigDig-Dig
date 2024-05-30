@@ -1,1 +1,1 @@
-{"item":[{"instanceID":22888},{"instanceID":22890},{"instanceID":88796}],"itemCount":[3,1,1],"durability":[0.0,0.0,999980.0],"currentInventoryLevel":0}
+{"item":[],"itemCount":[],"durability":[],"currentInventoryLevel":0,"beltItem":[{"instanceID":29044},{"instanceID":29044},{"instanceID":29044},{"instanceID":29044}],"beltItemCount":[1,1,1,1],"beltDurability":[1000000.0,1000000.0,1000000.0,1000000.0]}
