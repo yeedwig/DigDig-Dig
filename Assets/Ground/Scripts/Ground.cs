@@ -60,6 +60,12 @@ public class Ground : MonoBehaviour
         itemDropManager.GetItem(groundSO[groundLevel-1]);
     }
 
+    public void MonsterDamage(float damage)
+    {
+        currentHealth -= damage;
+        ChangeSpriteByCurrentHealth();
+    }
+
     public void SelectGroundLevelHealth()
     {
         groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();

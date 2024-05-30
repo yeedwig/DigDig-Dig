@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spotRange: 5
-  threshold: 0
+  getAwayRange: 10
+  threshold: 100
   count: 0
 --- !u!1101 &-3761315977239395058
 AnimatorStateTransition:
@@ -268,4 +269,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  attackRange: 3
+  attackRange: 0.5

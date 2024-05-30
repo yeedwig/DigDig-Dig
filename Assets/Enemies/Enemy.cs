@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
             transform.localScale = flipped;
             transform.Rotate(0f, 180f, 0f);
             isFlipped = false;
+
         }
         else if (transform.position.x < player.position.x && !isFlipped)
         {
