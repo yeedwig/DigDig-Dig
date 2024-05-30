@@ -17,7 +17,7 @@ public class MonsterRun : StateMachineBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rb = animator.GetComponent<Rigidbody2D>();
         enemy = animator.GetComponent<Enemy>();
-        idlestate = animator.GetComponent<MonsterIdle>();
+        //idlestate = animator.GetComponent<MonsterIdle>();
         //idlestate.count = 0;
     }
 

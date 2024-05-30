@@ -107,7 +107,7 @@ public class EditController : MonoBehaviour
     }
     private void CheckChangeCursor()
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
             isChangingCursor = true;
         }

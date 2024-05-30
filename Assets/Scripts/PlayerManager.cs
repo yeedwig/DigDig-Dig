@@ -308,7 +308,7 @@ public class PlayerManager : MonoBehaviour
 
 
             }
-            else if (Input.GetKeyUp(KeyCode.Q) && isWalking == false)
+            else if (Input.GetKeyUp(KeyCode.Q)) //&& isWalking == false)
             {
                 if (curItem == null)
                 {
