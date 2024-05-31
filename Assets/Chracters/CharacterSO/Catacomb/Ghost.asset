@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 20
   Species: Ghost
   type: 0
-  moveSpeed: 0
+  moveSpeed: 2
   IdleSkins:
   - {fileID: -2055703775, guid: 83e83731f4f8d84408382e7e5d10c196, type: 3}
   - {fileID: -330425956, guid: 83e83731f4f8d84408382e7e5d10c196, type: 3}

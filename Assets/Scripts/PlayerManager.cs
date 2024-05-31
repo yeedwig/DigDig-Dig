@@ -138,8 +138,9 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        walkSpeed = curCharacter.moveSpeed;
         //Debug.Log(curCharacter.name);
-        if(!isEditOn)
+        if (!isEditOn)
         {
             CurrentToolInput();
             CheckInput();

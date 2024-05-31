@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 13
   Species: Knight
   type: 0
-  moveSpeed: 0
+  moveSpeed: 3
   IdleSkins:
   - {fileID: 1653844613, guid: 464489f39d9b62240b680f5e92f20850, type: 3}
   - {fileID: 1192813578, guid: 464489f39d9b62240b680f5e92f20850, type: 3}

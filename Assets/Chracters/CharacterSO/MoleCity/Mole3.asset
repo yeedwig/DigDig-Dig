@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Mole3
   m_EditorClassIdentifier: 
   Name: Mole3
-  ID: 0
+  ID: 23
   Species: 
   type: 0
-  moveSpeed: 0
+  moveSpeed: 5
   IdleSkins:
   - {fileID: 1107652407, guid: cf7def5e9207f204fb92df0025d36e53, type: 3}
   - {fileID: -1511133518, guid: cf7def5e9207f204fb92df0025d36e53, type: 3}

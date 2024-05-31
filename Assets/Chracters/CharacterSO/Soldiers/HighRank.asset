@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 12
   Species: Soldier
   type: 0
-  moveSpeed: 0
+  moveSpeed: 3
   IdleSkins:
   - {fileID: 998982871, guid: 41d71df5f2adde249baab6c1e655d45e, type: 3}
   - {fileID: 505832756, guid: 41d71df5f2adde249baab6c1e655d45e, type: 3}

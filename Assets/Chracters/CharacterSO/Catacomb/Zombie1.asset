@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 17
   Species: Zombie
   type: 0
-  moveSpeed: 0
+  moveSpeed: 1
   IdleSkins:
   - {fileID: 1210404045, guid: c01164cbefd4f9b4bb1b4ac9bf51d2fe, type: 3}
   - {fileID: 1686760917, guid: c01164cbefd4f9b4bb1b4ac9bf51d2fe, type: 3}

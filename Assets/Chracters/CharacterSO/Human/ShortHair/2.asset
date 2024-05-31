@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 2
   Species: Human
   type: 0
-  moveSpeed: 0
+  moveSpeed: 3
   IdleSkins:
   - {fileID: 1829563919, guid: b6f982c7537f9f148b7cf778086f1803, type: 3}
   - {fileID: 789413978, guid: b6f982c7537f9f148b7cf778086f1803, type: 3}

@@ -31,6 +31,14 @@ public class InventoryManager : MonoBehaviour
     {
         inventorySlotsLength = 5;
         currentInventoryLevel = 0;
+        for(int i=0; i<inventorySlotsLength; i++)
+        {
+            inventorySlots[i].gameObject.SetActive(false);
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            inventorySlots[i].gameObject.SetActive(true);
+        }
         var tempColor = inventoryDescriptionImage.color;
         tempColor.a = 0;
         inventoryDescriptionImage.color = tempColor;

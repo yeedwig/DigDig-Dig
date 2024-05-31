@@ -16,7 +16,7 @@ MonoBehaviour:
   ID: 16
   Species: Skeleton
   type: 0
-  moveSpeed: 0
+  moveSpeed: 2
   IdleSkins:
   - {fileID: 285212609, guid: 175e55e4f41ebc74d92022467b65d77d, type: 3}
   - {fileID: -282767156, guid: 175e55e4f41ebc74d92022467b65d77d, type: 3}
