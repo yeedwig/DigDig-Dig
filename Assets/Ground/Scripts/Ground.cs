@@ -10,8 +10,8 @@ public class Ground : MonoBehaviour
     public float currentHealth,maxHealth; //현재 체력, 최대 체력, 임계점 2개
     public int groundLevel; //땅 레벨(깊이에 따라)
     public bool gangInstalled = false; //갱도가 설치되었는가
-    //public bool structureInstalled = false; //설치된 아이템이 있는가
     Vector3Int groundGridPosition;
+    //public bool structureInstalled = false; //설치된 아이템이 있는가
 
     private GameObject groundDictionary;
 
