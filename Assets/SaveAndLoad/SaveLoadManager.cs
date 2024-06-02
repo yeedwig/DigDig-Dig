@@ -55,14 +55,14 @@ public class SaveLoadManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    //일단 N 누르면 save, M 누르면 load
+    //일단 f1 누르면 save, f22 누르면 load
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
             Save();
         }
-        if (Input.GetKeyDown(KeyCode.M))
+        if (Input.GetKeyDown(KeyCode.F2))
         {
             Load();
         }
