@@ -7,12 +7,11 @@ using UnityEngine.Tilemaps;
 
 public class Ground : MonoBehaviour
 {
-    public float currentHealth,maxHealth,startBreakingHealth,almostBrokenHealth; //현재 체력, 최대 체력, 임계점 2개
+    public float currentHealth,maxHealth; //현재 체력, 최대 체력, 임계점 2개
     public int groundLevel; //땅 레벨(깊이에 따라)
     public bool gangInstalled = false; //갱도가 설치되었는가
-    public bool structureInstalled = false; //설치된 아이템이 있는가
+    //public bool structureInstalled = false; //설치된 아이템이 있는가
     public int[] groundMaxPerLevel; //지하 땅 레벨 y 좌표
-    public float breakThreshold1, breakThreshold2;
     Vector3Int groundGridPosition;
 
     private GameObject groundDictionary;
@@ -73,12 +72,12 @@ public class Ground : MonoBehaviour
 
         if (!isBlank)
         {
-            if (groundGridPosition.y > groundMaxPerLevel[0])
+            if (groundGridPosition.y > -50)
             {
                 groundLevel = 1;
                 maxHealth = 100.0f;
             }
-            else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
+            else if (groundGridPosition.y > -100 && groundGridPosition.y <= -50)
             {
                 groundLevel = 2;
                 maxHealth = 500.0f;
@@ -90,8 +89,6 @@ public class Ground : MonoBehaviour
             }
 
             currentHealth = maxHealth;
-            startBreakingHealth = maxHealth * breakThreshold1;
-            almostBrokenHealth = maxHealth * breakThreshold2;
         }
         groundDictionary.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
     }
@@ -108,12 +105,12 @@ public class Ground : MonoBehaviour
                 sr.sprite = null;
                 bc.enabled = false;
             }
-            else if (currentHealth < almostBrokenHealth)
+            else if (currentHealth < maxHealth * 0.3f) //거의 부서짐
             {
                 sr.sprite = groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
 
             }
-            else if (currentHealth < startBreakingHealth)
+            else if (currentHealth < maxHealth * 0.7f) //부서지기 시작
             {
                 sr.sprite = groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
 

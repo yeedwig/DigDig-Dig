@@ -73,7 +73,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1552211913
-  m_SortingLayer: 4
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: -1300004791, guid: 3367387f7ef40dc4593a049f6dc13054, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -100,15 +100,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   maxHealth: 0
-  startBreakingHealth: 0
-  almostBrokenHealth: 0
   groundLevel: 0
-  isRuin: 0
   gangInstalled: 0
-  structureInstalled: 0
   groundMaxPerLevel: f6ffffffe2ffffff
-  breakThreshold1: 0.7
-  breakThreshold2: 0.3
   groundTileMap: {fileID: 0}
   sr: {fileID: 0}
   bc: {fileID: 0}
@@ -116,10 +110,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f492daa7a7a50034da14db4844ca0b8e, type: 2}
   - {fileID: 11400000, guid: 820962929ad4e6448b552aaf52d1d473, type: 2}
   - {fileID: 11400000, guid: 9ad5b4dc1f62c1b47a21bce327231af9, type: 2}
-  ruinSprites: []
-  gangSprite: {fileID: 21300000, guid: f3b9ada815d2b1d478818dd45bd121e9, type: 3}
   ladderTilemap: {fileID: 0}
   railTilemap: {fileID: 0}
+  isBlank: 0
 --- !u!61 &7182001883272849048
 BoxCollider2D:
   m_ObjectHideFlags: 0
