@@ -102,7 +102,6 @@ MonoBehaviour:
   maxHealth: 0
   groundLevel: 0
   gangInstalled: 0
-  groundMaxPerLevel: f6ffffffe2ffffff
   groundTileMap: {fileID: 0}
   sr: {fileID: 0}
   bc: {fileID: 0}
