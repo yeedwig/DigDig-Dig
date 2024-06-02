@@ -78,7 +78,11 @@ public class SaveInventory
             string saveString = File.ReadAllText(SAVE_FOLDER + "/InventorySave.txt");
             InventoryClass load = JsonUtility.FromJson<InventoryClass>(saveString);
             IM.currentInventoryLevel = load.currentInventoryLevel;
-            IM.AddInventorySlots();
+            for (int i = 0; i < 5+5*IM.currentInventoryLevel; i++)
+            {
+                IM.inventorySlots[i].gameObject.SetActive(true);
+            }
+            IM.inventorySlotsLength=5+5*IM.currentInventoryLevel;
             for (int i = 0; i < load.item.Length; i++)
             {
                 InventorySlot slot = IM.inventorySlots[i];
