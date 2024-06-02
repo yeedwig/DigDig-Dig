@@ -28,8 +28,8 @@ public class SaveLoadManager : MonoBehaviour
     private InventoryManager IM;
     [SerializeField] GameObject toolManager;
     private ToolManager TM;
-                            
 
+    public Item[] inventoryItemArray = new Item[100];
 
 
     void Awake()
@@ -41,6 +41,14 @@ public class SaveLoadManager : MonoBehaviour
         }
         IM = inventoryManager.GetComponent<InventoryManager>();
         TM = toolManager.GetComponent<ToolManager>();
+        DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Inventory/Items/Shovels");
+        int index = 0;
+        
+        foreach (FileInfo file in di.GetFiles())
+        {
+           
+            Debug.Log("ÆÄÀÏ¸í : " + file.Name);
+        }
     }
 
     private void Start()
