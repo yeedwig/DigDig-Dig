@@ -144,7 +144,7 @@ public class ToolManager : MonoBehaviour
             if(curToolType >= 0 && curToolType <=1)
             {
                 useInventoryItem.Damage(durabilityDamage);
-                if(useInventoryItem.Durability <= 0)
+                if(useInventoryItem.Durability < 0.001)
                 {
                     Destroy(useInventoryItem.gameObject);
                     curItem = null;

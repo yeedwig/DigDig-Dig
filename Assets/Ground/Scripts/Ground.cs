@@ -76,7 +76,7 @@ public class Ground : MonoBehaviour
             if (groundGridPosition.y > groundMaxPerLevel[0])
             {
                 groundLevel = 1;
-                maxHealth = 200.0f;
+                maxHealth = 100.0f;
             }
             else if (groundGridPosition.y > groundMaxPerLevel[1] && groundGridPosition.y <= groundMaxPerLevel[0])
             {
@@ -102,7 +102,7 @@ public class Ground : MonoBehaviour
     {
         if(!isBlank)
         {
-            if (currentHealth < 0)
+            if (currentHealth < 0.001)
             {
                 CheckNearStructure();
                 sr.sprite = null;

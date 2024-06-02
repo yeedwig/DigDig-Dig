@@ -58695,7 +58695,7 @@ MonoBehaviour:
   inventoryItemPrefab: {fileID: 7732144884286056590, guid: 5ed61616001ce4e42a2b3773b35809d4, type: 3}
   inventoryManager: {fileID: 980921697}
   defaultShovel: {fileID: 11400000, guid: a485cab76d10d1848a05a556cd243134, type: 2}
-  durabilityDamage: 5
+  durabilityDamage: 1
   ErrorSound:
   - {fileID: 8300000, guid: 431d611973cbca442bc90385c5a5080e, type: 3}
 --- !u!1 &2127485960
