@@ -52423,6 +52423,36 @@ MonoBehaviour:
   gameManager: {fileID: 1193344466}
   inventoryManager: {fileID: 980921696}
   toolManager: {fileID: 2123044260}
+  inventoryItemArray:
+  - {fileID: 11400000, guid: edf52be6d4b0a8b418ef5ec94134c7ae, type: 2}
+  - {fileID: 11400000, guid: 95a8a63ac4d73df4a967c07641a09789, type: 2}
+  - {fileID: 11400000, guid: d6617e841e818df48878348b488b3246, type: 2}
+  - {fileID: 11400000, guid: 5e415ce8d7409904f899e68f46e6d27f, type: 2}
+  - {fileID: 11400000, guid: 9e263ac11262a4c459d6b7110aa490a1, type: 2}
+  - {fileID: 11400000, guid: 9da7c8fbc1552a14e939d4bfc4228b72, type: 2}
+  - {fileID: 11400000, guid: d746114826472f3429f0923af1fa1582, type: 2}
+  - {fileID: 11400000, guid: 23bf0b06324210041ad5c67f9ada45ae, type: 2}
+  - {fileID: 11400000, guid: 6183b7c8116350941b1599ba2e8c7938, type: 2}
+  - {fileID: 11400000, guid: adf0c9d7ef4f36147a38daccd77a2e97, type: 2}
+  - {fileID: 11400000, guid: 644ed9af5385bb34393467ab789f08c0, type: 2}
+  - {fileID: 11400000, guid: cf0c09b88e64ed14687926c8c80e36fa, type: 2}
+  - {fileID: 11400000, guid: 9c15980050c14b84291fffe119b63a93, type: 2}
+  - {fileID: 11400000, guid: 5ef3f3ca6442beb4a8f89f41c0888071, type: 2}
+  - {fileID: 11400000, guid: 1e29a698d431f1e4babb714d41e4f3e2, type: 2}
+  - {fileID: 11400000, guid: 56a179ef5174fa34c80571e8e0dcc5b4, type: 2}
+  - {fileID: 11400000, guid: 9844066e58817c24f8f067edffdaedb6, type: 2}
+  - {fileID: 11400000, guid: 9f84fc92fbc60b54596c3cac0062279b, type: 2}
+  - {fileID: 11400000, guid: 157eaec892637814fa546d81586a9da9, type: 2}
+  - {fileID: 11400000, guid: 2083a6b84cea1b34899700bbbe14ca4f, type: 2}
+  - {fileID: 11400000, guid: f673cbfb6acb9d54d9ba9d787426cacd, type: 2}
+  - {fileID: 11400000, guid: 534594326395ec144b3142fbe68bba85, type: 2}
+  - {fileID: 11400000, guid: a1280cce2f125624e903e85b1797248b, type: 2}
+  - {fileID: 11400000, guid: e0236f95331128748800f89f54e174c8, type: 2}
+  - {fileID: 11400000, guid: a485cab76d10d1848a05a556cd243134, type: 2}
+  - {fileID: 11400000, guid: ddc7366f770ba6840add659b590f07d1, type: 2}
+  - {fileID: 11400000, guid: a3a22c9af3119ce48b26ffcace51d47e, type: 2}
+  - {fileID: 11400000, guid: 594c0e9a0ccdfbd429de8076aedc002d, type: 2}
+  - {fileID: 11400000, guid: 13828149db88685409f53ad382224aec, type: 2}
 --- !u!4 &1848601637
 Transform:
   m_ObjectHideFlags: 0

@@ -10,27 +10,27 @@ public class SaveInventory
     public class InventoryClass
     {
         //인벤
-        public Item[] item;
+        public int[] item;
         public int[] itemCount;
         public float[] durability;
         public int currentInventoryLevel;
 
         //툴 벨트
-        public Item[] beltItem;
+        public int[] beltItem;
         public int[] beltItemCount;
         public float[] beltDurability;
     }
 
-    public static void saveInventory(InventoryManager IM,ToolManager TM)
+    public static void saveInventory(InventoryManager IM,ToolManager TM,Dictionary<Item,int> dic)
     {
         int saveIndex = 0;
         InventoryClass inventorySaveObject = new InventoryClass
         {
-            item = new Item[0],
+            item = new int[0],
             itemCount = new int[0],
             durability = new float[0],
             currentInventoryLevel = IM.currentInventoryLevel,
-            beltItem = new Item[0],
+            beltItem = new int[0],
             beltItemCount = new int[0],
             beltDurability = new float[0]
         };
@@ -48,7 +48,7 @@ public class SaveInventory
                 {
                     inventorySaveObject.durability[saveIndex] = itemInSlot.Durability;
                 }
-                inventorySaveObject.item[saveIndex] = itemInSlot.item;
+                inventorySaveObject.item[saveIndex] = dic[itemInSlot.item];
                 inventorySaveObject.itemCount[saveIndex++] = itemInSlot.count;
             }
         }
@@ -62,7 +62,7 @@ public class SaveInventory
                 Array.Resize(ref inventorySaveObject.beltItem, saveIndex + 1);
                 Array.Resize(ref inventorySaveObject.beltDurability, saveIndex + 1);
                 Array.Resize(ref inventorySaveObject.beltItemCount, saveIndex + 1);
-                inventorySaveObject.beltItem[saveIndex] = itemInSlot.item;
+                inventorySaveObject.beltItem[saveIndex] = dic[itemInSlot.item];
                 inventorySaveObject.beltDurability[saveIndex] = itemInSlot.Durability;
                 inventorySaveObject.beltItemCount[saveIndex++] = itemInSlot.count;
             }
@@ -71,7 +71,7 @@ public class SaveInventory
         File.WriteAllText(SAVE_FOLDER + "/InventorySave.txt", json);
     }
 
-    public static void loadInventory(InventoryManager IM, ToolManager TM)
+    public static void loadInventory(InventoryManager IM, ToolManager TM, Item[] arr)
     {
         if (File.Exists(SAVE_FOLDER + "/InventorySave.txt"))
         {
@@ -82,14 +82,14 @@ public class SaveInventory
             for (int i = 0; i < load.item.Length; i++)
             {
                 InventorySlot slot = IM.inventorySlots[i];
-                IM.SpawnNewItem(load.item[i], slot);
+                IM.SpawnNewItem(arr[load.item[i]], slot);
                 InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-                if (load.item[i].stackable)
+                if (arr[load.item[i]].stackable)
                 {
                     itemInSlot.count = load.itemCount[i];
                     itemInSlot.RefreshCount();
                 }
-                if (load.item[i].isTool)
+                if (arr[load.item[i]].isTool)
                 {
                     itemInSlot.Durability = load.durability[i];
                 }
@@ -99,14 +99,14 @@ public class SaveInventory
             for (int i = 0; i < load.beltItem.Length; i++)
             {
                 InventorySlot slot = TM.ToolBeltInventory[i];
-                IM.SpawnNewItem(load.beltItem[i], slot);
+                IM.SpawnNewItem(arr[load.beltItem[i]], slot);
                 InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-                if (load.beltItem[i].stackable)
+                if (arr[load.beltItem[i]].stackable)
                 {
                     itemInSlot.count = load.beltItemCount[i];
                     itemInSlot.RefreshCount();
                 }
-                if (load.beltItem[i].isTool)
+                if (arr[load.beltItem[i]].isTool)
                 {
                     itemInSlot.Durability = load.beltDurability[i];
                 }

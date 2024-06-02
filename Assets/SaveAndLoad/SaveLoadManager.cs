@@ -29,7 +29,8 @@ public class SaveLoadManager : MonoBehaviour
     [SerializeField] GameObject toolManager;
     private ToolManager TM;
 
-    public Item[] inventoryItemArray = new Item[100];
+    public Item[] inventoryItemArray; //index -> item
+    public Dictionary<Item,int> inventoryItemDictionary = new Dictionary<Item, int>();
 
 
     void Awake()
@@ -41,13 +42,10 @@ public class SaveLoadManager : MonoBehaviour
         }
         IM = inventoryManager.GetComponent<InventoryManager>();
         TM = toolManager.GetComponent<ToolManager>();
-        DirectoryInfo di = new DirectoryInfo(Application.dataPath + "/Inventory/Items/Shovels");
-        int index = 0;
         
-        foreach (FileInfo file in di.GetFiles())
+        for(int i=0;i<inventoryItemArray.Length; i++)
         {
-           
-            Debug.Log("파일명 : " + file.Name);
+            inventoryItemDictionary.Add(inventoryItemArray[i], i);
         }
     }
 
@@ -57,14 +55,14 @@ public class SaveLoadManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    //일단 f1 누르면 save, f2 누르면 load
+    //일단 N 누르면 save, M 누르면 load
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
+        if (Input.GetKeyDown(KeyCode.N))
         {
             Save();
         }
-        if (Input.GetKeyDown(KeyCode.F2))
+        if (Input.GetKeyDown(KeyCode.M))
         {
             Load();
         }
@@ -73,13 +71,13 @@ public class SaveLoadManager : MonoBehaviour
     {
         SaveHealth.saveHealth(player.GetComponent<Health>());
         SaveGameManager.saveGameManager(gameManager.GetComponent<GameManager>());
-        SaveInventory.saveInventory(inventoryManager.GetComponent<InventoryManager>(),toolManager.GetComponent<ToolManager>());
+        SaveInventory.saveInventory(inventoryManager.GetComponent<InventoryManager>(),toolManager.GetComponent<ToolManager>(),inventoryItemDictionary);
     }
 
     private void Load()
     {
         SaveHealth.loadHealth(player.GetComponent<Health>(), healthBar.GetComponent<HealthBar>());
         SaveGameManager.loadGameManager(gameManager.GetComponent<GameManager>());
-        SaveInventory.loadInventory(inventoryManager.GetComponent<InventoryManager>(), toolManager.GetComponent<ToolManager>());
+        SaveInventory.loadInventory(inventoryManager.GetComponent<InventoryManager>(), toolManager.GetComponent<ToolManager>(),inventoryItemArray);
     }
 }
