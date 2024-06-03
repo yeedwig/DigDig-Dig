@@ -9,10 +9,11 @@ public class MonsterIdle : StateMachineBehaviour
     Transform player;
     Rigidbody2D rb;
     Monster enemy;
-    public int threshold;
-    public int count;
+    public float threshold;
+    public float count;
 
     public bool isRunning;
+    public Sprite[] alertImages;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -29,10 +30,20 @@ public class MonsterIdle : StateMachineBehaviour
         //Debug.Log(count);
         if(player.GetComponent<PlayerManager>().isDigging)
         {
-            count++;
+            count += Time.deltaTime;
+        }
+        if(count > threshold * 1 / 4 && count < threshold * 2 / 4)
+        {
+            enemy.alertMark.GetComponent<SpriteRenderer>().sprite = alertImages[0];
+            enemy.alertMark.SetActive(true);
+        }
+        if(count > threshold* 2/4 && count < threshold* 3/4)
+        {
+            enemy.alertMark.GetComponent<SpriteRenderer>().sprite = alertImages[1];
         }
         if (Vector2.Distance(player.position, rb.position) <= spotRange && count >= threshold)
         {
+            enemy.alertMark.GetComponent<SpriteRenderer>().sprite = alertImages[2];
             animator.SetTrigger("Run");
             enemy.chasing = true;
         }
@@ -41,6 +52,8 @@ public class MonsterIdle : StateMachineBehaviour
         {
             enemy.chasing = false;
             count = 0;
+            enemy.alertMark.SetActive(false);
+            enemy.alertMark.GetComponent<SpriteRenderer>().sprite = alertImages[0];
         }
     }
 

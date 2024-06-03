@@ -16,7 +16,7 @@ public class Monster : MonoBehaviour
     private Animator animator;
     public float groundRadius;
     Rigidbody2D rb;
-
+    public GameObject alertMark;
     public bool chasing;
     /*
     private void OnTriggerStay2D(Collider2D collision)

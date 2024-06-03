@@ -14,9 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotRange: 10
   getAwayRange: 5
-  threshold: 100
+  threshold: 18
   count: 0
   isRunning: 0
+  alertImages:
+  - {fileID: 1455947951, guid: 4cef41f83d3644e4b86dcadb56641342, type: 3}
+  - {fileID: -2066619070, guid: 4cef41f83d3644e4b86dcadb56641342, type: 3}
+  - {fileID: -161040963, guid: 4cef41f83d3644e4b86dcadb56641342, type: 3}
 --- !u!1101 &-3761315977239395058
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -269,5 +273,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8386416d3025a74c9eeaefa3a6bebdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 3
   attackRange: 0.5
