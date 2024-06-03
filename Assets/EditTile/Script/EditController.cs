@@ -76,6 +76,11 @@ public class EditController : MonoBehaviour
     [SerializeField] GameObject EditInventory;
     [SerializeField] GameObject ToolBelt;
 
+    //Edit sound
+    public AudioClip[] cursorMoveSound;
+    public AudioClip[] installSound;
+    public AudioClip[] changeStructSound;
+    public AudioClip[] editOnSound;
     void Start()
     {
         cursorSR = cursor.GetComponent<SpriteRenderer>();
@@ -122,6 +127,7 @@ public class EditController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                SoundFXManager.instance.PlaySoundFXClip(editOnSound, transform, 1.0f);
                 if (isEditOn)
                 {
                     editBackground.gameObject.SetActive(false);
@@ -152,36 +158,45 @@ public class EditController : MonoBehaviour
 
     private void MoveEditCursor()
     {
-        if (!isChangingCursor)
+        if (!isChangingCursor && isEditOn)
         {
+            
             if (Input.GetKey(KeyCode.LeftArrow))
             {
+                
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(-1, 0, 0);
                 }
                 cursorTimer(-1,0);
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
+          
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(1, 0, 0);
                 }
                 cursorTimer(1, 0);
             }
             else if (Input.GetKey(KeyCode.UpArrow))
             {
+                
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(0,1,0);
                 }
                 cursorTimer(0,1);
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
+              
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(0, -1, 0);
                 }
                 cursorTimer(0, -1);
@@ -218,6 +233,7 @@ public class EditController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 itemCursorIndex--;
+                SoundFXManager.instance.PlaySoundFXClip(changeStructSound, transform, 1.0f);
                 if (itemCursorIndex < 0)
                 {
                     itemCursorIndex = 6;
@@ -226,6 +242,7 @@ public class EditController : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 itemCursorIndex++;
+                SoundFXManager.instance.PlaySoundFXClip(changeStructSound, transform, 1.0f);
                 if (itemCursorIndex > 6)
                 {
                     itemCursorIndex = 0;
@@ -239,6 +256,7 @@ public class EditController : MonoBehaviour
     {
         if (isEditOn && Input.GetKeyDown(KeyCode.F))
         {
+            SoundFXManager.instance.PlaySoundFXClip(installSound, transform, 1.0f);
             if (CheckCanInstall())
             {
                 switch (itemCursorIndex)

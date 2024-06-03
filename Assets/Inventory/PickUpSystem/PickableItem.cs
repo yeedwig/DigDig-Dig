@@ -25,7 +25,7 @@ public class PickableItem : MonoBehaviour
 
         if(item.isResource)
         {
-            Invoke("DestroyItem", lifeTime);
+            Invoke("DestroyResource", lifeTime);
         }
     }
 
@@ -37,13 +37,13 @@ public class PickableItem : MonoBehaviour
     }
 
     
-    private void DestroyiItem()
+    private void DestroyResource()
     {
         Destroy(gameObject);
     }
     private IEnumerator AnimateItemPickup()
     {
-        SoundFXManager.instance.PlaySoundFXClip(itemEarnedSound, transform, 0.5f);
+        SoundFXManager.instance.PlaySoundFXClip(itemEarnedSound, transform, 0.2f);
         Vector3 startScale = transform.localScale;
         Vector3 endScale = Vector3.zero;
         float currentTime = 0;
