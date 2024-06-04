@@ -23,7 +23,7 @@ TagManager:
   - ElevatorSub
   - NPC
   - Player
-  - 
+  - Minimap
   - Light
   - Lava
   - Gas
