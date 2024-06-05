@@ -118,6 +118,13 @@ public class PlayerManager : MonoBehaviour
     public CharacterSO curCharacter;
     public int headLightType;
 
+
+    //Minimap 
+    public GameObject Minimap;
+    public bool minimapOpened;
+
+    //UI on
+    public bool UIon = false;
     
     void Start()
     {
@@ -131,6 +138,9 @@ public class PlayerManager : MonoBehaviour
         originalGravity = rb.gravityScale;
         jumpLayerMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("ElevatorSub");
         curItem = toolManager.curItem;
+        inventoryOpened = false;
+        minimapOpened = false;
+        toolBeltIsActive = false;
         //curItem.itemType = 0;
 
     }
@@ -246,7 +256,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             //인벤토리
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.I) && !shopUIOpened)
             {
                 SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
                 if (inventoryOpened == false)
@@ -255,11 +265,31 @@ public class PlayerManager : MonoBehaviour
                     ToolBelt.SetActive(true);
                     toolBeltIsActive = true;
                     inventoryOpened = true;
+                    Minimap.SetActive(false);
+                    minimapOpened = false;
                 }
                 else
                 {
                     InventoryUI.SetActive(false);
                     inventoryOpened = false;
+                }
+            }
+
+            //미니맵 끄고 키기
+            if (Input.GetKeyDown(KeyCode.M) && !shopUIOpened)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                if (minimapOpened == false)
+                {
+                    Minimap.SetActive(true);
+                    minimapOpened = true;
+                    InventoryUI.SetActive(false);
+                    inventoryOpened = false;
+                }
+                else
+                {
+                    Minimap.SetActive(false);
+                    minimapOpened = false;
                 }
             }
 

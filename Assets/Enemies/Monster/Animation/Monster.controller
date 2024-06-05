@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spotRange: 10
   getAwayRange: 5
-  threshold: 18
+  threshold: 9
   count: 0
   isRunning: 0
   alertImages:
@@ -273,5 +273,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8386416d3025a74c9eeaefa3a6bebdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 2
   attackRange: 0.5
