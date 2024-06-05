@@ -30,6 +30,10 @@ public class InteractionManager : MonoBehaviour
     private int elevatorMask;
     private int elevatorSubMask;
 
+    //에딧창 확인
+    [SerializeField] GameObject edit;
+    private EditController EC;
+
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +44,7 @@ public class InteractionManager : MonoBehaviour
         isOnElevator = false;
         elevatorMask = 1 << LayerMask.NameToLayer("Structure");
         elevatorSubMask = 1 << LayerMask.NameToLayer("ElevatorSub");
+        EC = edit.GetComponent<EditController>();
     }
 
     // Update is called once per frame
@@ -47,68 +52,71 @@ public class InteractionManager : MonoBehaviour
     {
         Collider2D structure = Physics2D.OverlapCircle(structureCheckPos.transform.position, 0.4f, layerMask);
         Collider2D elevatorCheck = Physics2D.OverlapCircle(elevatorCheckPos.transform.position, 0.1f, elevatorMask);
-
-        if (structure != null)
+        if(!EC.isEditOn)
         {
-            if (structure.gameObject.tag == "Rail" && Input.GetKeyDown(KeyCode.F))
+            if (structure != null)
             {
-                if (!isOnRail)
+                if (structure.gameObject.tag == "Rail" && Input.GetKeyDown(KeyCode.F))
                 {
-                    this.gameObject.GetComponent<PlayerManager>().walkSpeed = 15.0f;
+                    if (!isOnRail)
+                    {
+                        this.gameObject.GetComponent<PlayerManager>().walkSpeed = 15.0f;
+                    }
+                    else
+                    {
+                        this.gameObject.GetComponent<PlayerManager>().walkSpeed = 3.0f;
+                    }
+                    isOnRail = !isOnRail;
                 }
-                else
+            }
+            else
+            {
+                if (isOnRail)
                 {
                     this.gameObject.GetComponent<PlayerManager>().walkSpeed = 3.0f;
+                    isOnRail = false;
                 }
-                isOnRail = !isOnRail;
             }
-        }
-        else
-        {
-            if(isOnRail)
-            {
-                this.gameObject.GetComponent<PlayerManager>().walkSpeed = 3.0f;
-                isOnRail = false;
-            }
-        }
 
-        if(elevatorCheck != null)
-        {
-            if(elevatorCheck.gameObject.tag == "Elevator" && Input.GetKeyDown(KeyCode.F))
+            if (elevatorCheck != null)
             {
-                if (elevatorCheck.gameObject.GetComponent<Elevator>().isConnected)
+                if (elevatorCheck.gameObject.tag == "Elevator" && Input.GetKeyDown(KeyCode.F))
                 {
-                    if (!isOnElevator)
+                    if (elevatorCheck.gameObject.GetComponent<Elevator>().isConnected)
                     {
-                        isOnElevator = true;
-                        elevator.SetActive(true);
-                        elevator.transform.position = elevatorCheck.transform.position;
-                        this.gameObject.transform.position = elevatorCheck.transform.position + new Vector3(0, -0.15f, 0); //엘베 크기 바뀌거나 하면 수정
-                        if (elevatorCheck.gameObject.GetComponent<Elevator>().isTop)
+                        if (!isOnElevator)
                         {
-                            topElevator = elevatorCheck.gameObject;
-                            bottomElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
-                            topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
-                            bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                            StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
-                        }
-                        else
-                        {
-                            bottomElevator = elevatorCheck.gameObject;
-                            topElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
-                            topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
-                            bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
-                            StartCoroutine(MoveElevatorToTop(topElevator, bottomElevator));
-                        }
-                        
+                            isOnElevator = true;
+                            elevator.SetActive(true);
+                            elevator.transform.position = elevatorCheck.transform.position;
+                            this.gameObject.transform.position = elevatorCheck.transform.position + new Vector3(0, -0.15f, 0); //엘베 크기 바뀌거나 하면 수정
+                            if (elevatorCheck.gameObject.GetComponent<Elevator>().isTop)
+                            {
+                                topElevator = elevatorCheck.gameObject;
+                                bottomElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
+                                topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
+                                bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                                StartCoroutine(MoveElevatorToBottom(topElevator, bottomElevator));
+                            }
+                            else
+                            {
+                                bottomElevator = elevatorCheck.gameObject;
+                                topElevator = elevatorCheck.gameObject.GetComponent<Elevator>().pair;
+                                topElevator.GetComponent<Elevator>().stoolbc.isTrigger = true;
+                                bottomElevator.GetComponent<Elevator>().roofbc.isTrigger = true;
+                                StartCoroutine(MoveElevatorToTop(topElevator, bottomElevator));
+                            }
 
-                        elevatorFirst = elevatorCheck;
-                        arrivedUp = false;
-                        arrivedDown = false;
+
+                            elevatorFirst = elevatorCheck;
+                            arrivedUp = false;
+                            arrivedDown = false;
+                        }
                     }
                 }
             }
-        }   
+        }
+         
     }
     
     IEnumerator MoveElevatorToBottom(GameObject top, GameObject bottom)
