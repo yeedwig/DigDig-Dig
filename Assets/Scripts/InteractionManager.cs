@@ -30,6 +30,9 @@ public class InteractionManager : MonoBehaviour
     private int elevatorMask;
     private int elevatorSubMask;
 
+    [SerializeField] GameObject elevatorCheckRightBottom;
+    [SerializeField] GameObject elevatorCheckLeftTop;
+
     //¿¡µ÷Ã¢ È®ÀÎ
     [SerializeField] GameObject edit;
     private EditController EC;
@@ -53,7 +56,7 @@ public class InteractionManager : MonoBehaviour
     void Update()
     {
         Collider2D structure = Physics2D.OverlapCircle(structureCheckPos.transform.position, 0.4f, layerMask);
-        Collider2D elevatorCheck = Physics2D.OverlapCircle(elevatorCheckPos.transform.position, 0.1f, elevatorMask);
+        Collider2D elevatorCheck = Physics2D.OverlapArea(elevatorCheckLeftTop.transform.position, elevatorCheckRightBottom.transform.position, elevatorMask);
         if(!EC.isEditOn)
         {
             if (structure != null)
