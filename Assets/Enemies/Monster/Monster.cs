@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
@@ -15,9 +16,17 @@ public class Monster : MonoBehaviour
     private MonsterIdle monsterIdle;
     private Animator animator;
     public float groundRadius;
+    public float playerRadius;
     Rigidbody2D rb;
     public GameObject alertMark;
     public bool chasing;
+
+
+    //Monster Sounds
+
+    public AudioClip[] monsterSounds;
+    public AudioSource monsterAudioSource;
+    public float monsterVolume;
     /*
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -31,6 +40,7 @@ public class Monster : MonoBehaviour
         chasing = false;
         enemy = this.GetComponent<Enemy>();
         rb = this.GetComponent<Rigidbody2D>();
+        monsterAudioSource = this.GetComponent<AudioSource>();
         //animator = this.GetComponent<Animator>();
         //monsterIdle = animator.GetComponent<MonsterIdle>();
 
@@ -41,9 +51,10 @@ public class Monster : MonoBehaviour
         pos = transform.position;
         pos += transform.right * groundOffSet.x;
         pos += transform.up * groundOffSet.y;
-
+        
         Collider2D groundChecked = Physics2D.OverlapCircle(pos, groundRadius, LayerMask.GetMask("Ground"));
         
+
         if (groundChecked != null && chasing)
         {
 
@@ -51,6 +62,30 @@ public class Monster : MonoBehaviour
 
 
         }
+
+        if(!monsterAudioSource.isPlaying)
+        {
+            monsterAudioSource.Play();
+        }
+
+        monsterSound();
+
+        
+    }
+
+    void monsterSound()
+    {
+
+        monsterAudioSource.volume = monsterVolume;
+        if(chasing)
+        {
+            monsterAudioSource.clip = monsterSounds[1];
+        }
+        else
+        {
+            monsterAudioSource.clip = monsterSounds[0];
+        }
+
     }
 
     void OnDrawGizmosSelected()

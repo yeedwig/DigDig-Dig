@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class BGMManager : MonoBehaviour
 {
+    [SerializeField] private GameObject player;
+
     public AudioClip[] bgms;
     private AudioSource audioSource;
     public int index = 0;
@@ -14,9 +17,11 @@ public class BGMManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = bgms[index];
-        
+        audioSource.volume = volume;
+
         audioSource.Play();
     }
 
@@ -31,17 +36,29 @@ public class BGMManager : MonoBehaviour
         {
             audioSource.loop = false;
         }
-        /*
-        if(!canPlayMusic)
-        {
-            audioSource.Play();
-        }
-        else
-        {
-            audioSource.Stop();
-        }*/
 
         audioSource.volume = volume;
+
+
+
+    }
+
+    void changeVolumeByDepth()
+    {
+        if(player.transform.position.y < -10)
+        {
+            volume -= 0.05f;
+        }
+    }
+
+
+    public void changeBGM(int _index, float volume)
+    {
+        audioSource.Stop();
+        index = _index;
         audioSource.clip = bgms[index];
+        audioSource.volume = volume;
+
+        audioSource.Play();
     }
 }
