@@ -9,10 +9,12 @@ public class GroundDictionary : MonoBehaviour
     
     public Tilemap groundTileMap;
     public GameObject player;
+    public static GroundDictionary instance = null;
 
     void Awake()
     {
        groundDictionary =new Dictionary<Vector3Int, GameObject>();
+       instance = this;
     }
     
 

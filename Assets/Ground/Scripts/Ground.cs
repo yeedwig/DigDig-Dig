@@ -13,41 +13,17 @@ public class Ground : MonoBehaviour
     Vector3Int groundGridPosition;
     //public bool structureInstalled = false; //설치된 아이템이 있는가
 
-    private GameObject groundDictionary;
-
-    public Tilemap groundTileMap;
     public SpriteRenderer sr;
     public BoxCollider2D bc;
 
-
-    private ItemDropManager itemDropManager;
-
-    // 땅 파괴 확인
-    int layermask;
-    RaycastHit2D left;
-    RaycastHit2D right;
-    RaycastHit2D up;
-    public Tilemap ladderTilemap;
-    public Tilemap railTilemap;
-
     // 빈칸인지 확인
     public bool isBlank;
-
-    //groundSO 불러오기
-    private GroundComponents GC;
-
 
     // Start is called before the first frame update
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        itemDropManager = GameObject.Find("ItemDropManager").GetComponent<ItemDropManager>();
-        layermask = 1 << LayerMask.NameToLayer("Structure");
-        ladderTilemap = GameObject.Find("LadderTilemap").GetComponent<Tilemap>();
-        railTilemap = GameObject.Find("RailTilemap").GetComponent<Tilemap>();
-        groundDictionary = GameObject.Find("GroundDictionary");
-        GC = GameObject.Find("GroundComponents").GetComponent<GroundComponents>();
 
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
@@ -57,7 +33,7 @@ public class Ground : MonoBehaviour
     {
         currentHealth -= damage;
         ChangeSpriteByCurrentHealth();
-        itemDropManager.GetItem(GC.groundSO[groundLevel-1]);
+        ItemDropManager.instance.GetItem(GroundComponents.instance.groundSO[groundLevel-1]);
     }
 
     public void MonsterDamage(float damage)
@@ -68,8 +44,7 @@ public class Ground : MonoBehaviour
 
     public void SelectGroundLevelHealth()
     {
-        groundTileMap = GameObject.Find("Ground").GetComponent<Tilemap>();
-        groundGridPosition = groundTileMap.WorldToCell(this.transform.position);
+        groundGridPosition = TilemapManager.instance.groundTilemap.WorldToCell(this.transform.position);
 
         if (!isBlank)
         {
@@ -126,7 +101,7 @@ public class Ground : MonoBehaviour
 
             currentHealth = maxHealth;
         }
-        groundDictionary.GetComponent<GroundDictionary>().AddToGroundDictionary(groundGridPosition,this.gameObject);
+        GroundDictionary.instance.groundDictionary.Add(groundGridPosition, this.gameObject);
     }
 
     
@@ -143,17 +118,17 @@ public class Ground : MonoBehaviour
             }
             else if (currentHealth < maxHealth * 0.3f) //거의 부서짐
             {
-                sr.sprite = GC.groundSO[groundLevel-1].groundSprites[2];
+                sr.sprite = GroundComponents.instance.groundSO[groundLevel - 1].groundSprites[2];
                 //groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
             }
             else if (currentHealth < maxHealth * 0.7f) //부서지기 시작
             {
-                sr.sprite = GC.groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
+                sr.sprite = GroundComponents.instance.groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
 
             }
             else
             {
-                sr.sprite = GC.groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
+                sr.sprite = GroundComponents.instance.groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
             }
         }
         
@@ -161,20 +136,21 @@ public class Ground : MonoBehaviour
 
     private void CheckNearStructure()
     {
-        left = Physics2D.Raycast(this.transform.position, new Vector2(-1, 0), 0.65f, layermask);
-        right = Physics2D.Raycast(this.transform.position, new Vector2(1, 0), 0.65f, layermask);
-        up = Physics2D.Raycast(this.transform.position, new Vector2(0, 1), 0.65f, layermask);
+        int layermask = 1 << LayerMask.NameToLayer("Structure");
+        RaycastHit2D left = Physics2D.Raycast(this.transform.position, new Vector2(-1, 0), 0.65f, layermask);
+        RaycastHit2D right = Physics2D.Raycast(this.transform.position, new Vector2(1, 0), 0.65f, layermask);
+        RaycastHit2D up = Physics2D.Raycast(this.transform.position, new Vector2(0, 1), 0.65f, layermask);
         if (left.collider != null)
         {
-            ladderTilemap.SetTile(groundGridPosition+new Vector3Int(-1,0,0),null);
+            TilemapManager.instance.ladderTilemap.SetTile(groundGridPosition+new Vector3Int(-1,0,0),null);
         }
         if(right.collider != null)
         {
-            ladderTilemap.SetTile(groundGridPosition + new Vector3Int(1, 0, 0), null);
+            TilemapManager.instance.ladderTilemap.SetTile(groundGridPosition + new Vector3Int(1, 0, 0), null);
         }
         if (up.collider != null)
         {
-            railTilemap.SetTile(groundGridPosition + new Vector3Int(0, 1, 0), null);
+            TilemapManager.instance.railTilemap.SetTile(groundGridPosition + new Vector3Int(0, 1, 0), null);
         }
     }
 }

@@ -23,8 +23,12 @@ public class ItemDropManager : MonoBehaviour
     [SerializeField] float itemGetTextTimerMax;
 
     [SerializeField] Text combo;
+    public static ItemDropManager instance = null;
 
-
+    private void Awake()
+    {
+        instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {

@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GroundComponents : MonoBehaviour
 {
+    public static GroundComponents instance = null;
     public GroundSO[] groundSO;
-    void Start()
+    void Awake()
     {
-        
+        instance = this;
     }
 
     
