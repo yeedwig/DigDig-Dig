@@ -18,7 +18,7 @@ public class PickUpSystem : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         PickableItem PickUpItem = collision.GetComponent<PickableItem>();
-        if (PickUpItem != null)
+        if (PickUpItem != null && Input.GetKeyDown(KeyCode.F))
         {
             if(PickUpItem.item.isTreasure)
             {

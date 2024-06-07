@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public Item defaultShovel;
     public bool defaultShovelSpawned = true;
 
+    public PirateManager pirateManager;
     public int chapter;
 
     public CharacterManager characterManager;
@@ -75,6 +76,8 @@ public class GameManager : MonoBehaviour
     //Mole ID
     public GameObject moleId;
     public bool hasMoleId = false;
+
+    
     private void Awake()
     {
         AntNestFound = false;
@@ -192,6 +195,7 @@ public class GameManager : MonoBehaviour
         //reset Health
         //reset character
         bool characterReset = characterManager.resetCharacter();
+        pirateManager.shovelGiven = false;
         if (inventoryReset == true && characterReset == true && toolBeltReset == true) //&& defaultShovelSpawned == false)
         {
             Player.Dead = false;
