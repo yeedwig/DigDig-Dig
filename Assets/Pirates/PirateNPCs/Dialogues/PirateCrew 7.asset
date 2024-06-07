@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: PirateCrew 7
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - Now I remembered everything..
+  - You will need this scrap.. The last piece..
+  - And also my shovel..
+  - It's been so long since I used it..
+  - So probably it won't be able to dig that much only about "10 Blocks"
+  - But there is a special power in this shovel..
+  - There will be grounds that can only be dug by this shovel.. You'll know it when
+    you see it..
+  - There is only one shovel so becareful to use it well..
+  - I wish you luck my friend..!!

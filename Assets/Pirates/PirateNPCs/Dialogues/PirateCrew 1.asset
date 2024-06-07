@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: PirateCrew 1
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - We were digging all the way down here
+  - And we bumped into this hard wall of cement
+  - Hmm.. wonder what lies down here..
+  - Well leave that aside,
+  - Do you have any news on the treasure?
+  - If you don't, here's another scrap I found
+  - We fellow treasure hunters need to keep
+  - each others backs? Right?

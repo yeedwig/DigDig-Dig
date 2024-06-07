@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: PirateCrew 4
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - I'm quite sure I've been here before.. They say you need a mole ID to get through
+    these doors..
+  - The thing is actually
+  - I'm looking for something that once was mine.
+  - I've hid it down deep below but as I mentioned
+  - before, I can't seem to find my way around...
+  - But I have a sense that I'm getting near..!
+  - Don't forget to take this scrap and let me know
+  - When you understand what that means..!!
