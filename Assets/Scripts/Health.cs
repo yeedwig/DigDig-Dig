@@ -36,7 +36,7 @@ public class Health : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        if (curHP <= 0)
+        if (curHP < 0.001)
         {
             curHP = 0;
             Player.Dead = true;
@@ -44,6 +44,11 @@ public class Health : MonoBehaviour
         else
         {
             curHP -= damage;
+            if (curHP < 0.001)
+            {
+                curHP = 0;
+                Player.Dead = true;
+            }
             SoundFXManager.instance.PlaySoundFXClip(hurtSound, transform, hurtVolume);
             healthBar.SetHealth(curHP);
             StartCoroutine(damageRed());

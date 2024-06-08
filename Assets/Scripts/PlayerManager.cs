@@ -57,6 +57,7 @@ public class PlayerManager : MonoBehaviour
     private bool isGrounded;
     [SerializeField] private Transform groundCheck;
     private int jumpLayerMask;
+    [SerializeField] private float groundCheckRadius;
 
     //tnt
     [SerializeField] GameObject BigTNTPrefab;
@@ -182,17 +183,16 @@ public class PlayerManager : MonoBehaviour
 
     private void FallCheck()
     {
-        if(!IsGrounded() && !isClimbingLadder)
+        if(!IsGrounded() && !isClimbingLadder && rb.velocity.y < 0)
         {
             airTime += Time.deltaTime;
         }
 
-        if(IsGrounded() && !isClimbingLadder)
+        if(IsGrounded())
         {
             if (airTime > surviveFallThreshold)
             {
                 this.GetComponent<Health>().takeDamage(airTime * damageForSeconds);
-                airTime = 0;
             }
             airTime = 0;
         }
@@ -209,9 +209,7 @@ public class PlayerManager : MonoBehaviour
     void FixedUpdate()
     {
         UpdateAnimation();
-        //CheckQPressed();
         Walk();
-        
     }
 
     void CheckCurrentTool()
@@ -361,6 +359,7 @@ public class PlayerManager : MonoBehaviour
 
 
             }
+
             else if (Input.GetKeyUp(KeyCode.Q)) //&& isWalking == false)
             {
                 if (curItem == null)
@@ -384,8 +383,6 @@ public class PlayerManager : MonoBehaviour
                         isPlacingTNT = false;
                     }
                 }
-
-
             }
 
             //점프
@@ -449,7 +446,6 @@ public class PlayerManager : MonoBehaviour
                 SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, 1.5f);
                 if (headLightIsActive)
                 {
-              
                     HeadLight.SetActive(false);
                     headLightIsActive = false;
                 }
@@ -526,24 +522,6 @@ public class PlayerManager : MonoBehaviour
         anim.SetBool("isClimbing", isClimbingLadder);
     }
 
-    //Sound 위한 타이머들
-
-    /*
-    private void CheckQPressed()
-    {
-        if(isDigging)
-        {
-            digCounter++;
-            if (digCounter > digSoundLimit)
-            {
-                digCounter = 0;
-                SoundFXManager.instance.PlaySoundFXClip(diggingSound, transform, 0.7f);
-            }
-        }
-    }*/
-
-
-    //Walking
     private void Walk()
     {
         
@@ -592,7 +570,7 @@ public class PlayerManager : MonoBehaviour
     private bool IsGrounded()
     {
         //isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.2f, jumpLayerMask);
-        return Physics2D.OverlapCircle(groundCheck.position, 0.2f, jumpLayerMask);
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, jumpLayerMask);
     }
 
     private void CheckCanJump()
