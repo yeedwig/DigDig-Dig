@@ -52,7 +52,7 @@ public class BGMManager : MonoBehaviour
     }
 
 
-    public void changeBGM(int _index, float volume)
+    public void changeBGM(int _index, float _volume)
     {
         audioSource.Stop();
         index = _index;

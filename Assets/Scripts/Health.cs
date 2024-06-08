@@ -16,6 +16,10 @@ public class Health : MonoBehaviour
 
     public HealthBar healthBar;
 
+    public float healAmount;
+
+    public AudioClip[] hurtSound;
+    public float hurtVolume;
     // Start is called before the first frame update
     void Awake()
     {
@@ -32,14 +36,20 @@ public class Health : MonoBehaviour
 
     public void takeDamage(float damage)
     {
-        curHP -= damage;
-        healthBar.SetHealth(curHP);
-        StartCoroutine(damageRed());
-        if(curHP <= 0)
+        if (curHP <= 0)
         {
             curHP = 0;
             Player.Dead = true;
         }
+        else
+        {
+            curHP -= damage;
+            SoundFXManager.instance.PlaySoundFXClip(hurtSound, transform, hurtVolume);
+            healthBar.SetHealth(curHP);
+            StartCoroutine(damageRed());
+        }
+        
+        
     }
 
     IEnumerator damageRed()
@@ -69,7 +79,7 @@ public class Health : MonoBehaviour
         if(healTimer > healTime)
         {
             healTimer = 0;
-            curHP++;
+            curHP+=healAmount;
             healthBar.SetHealth(curHP);
         }
              

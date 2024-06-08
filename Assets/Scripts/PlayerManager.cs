@@ -125,7 +125,11 @@ public class PlayerManager : MonoBehaviour
 
     //UI on
     public bool UIon = false;
-    
+
+    //Fall damage
+    [SerializeField] private float airTime;
+    [SerializeField] private float surviveFallThreshold;
+    [SerializeField] private float damageForSeconds;
     void Start()
     {
         Dead = false;
@@ -171,11 +175,29 @@ public class PlayerManager : MonoBehaviour
         }
         
         CheckIsEditOn(); //Edit 창 켜져있는지 확인
+        FallCheck();
 
     }
 
 
+    private void FallCheck()
+    {
+        if(!IsGrounded() && !isClimbingLadder)
+        {
+            airTime += Time.deltaTime;
+        }
 
+        if(IsGrounded() && !isClimbingLadder)
+        {
+            if (airTime > surviveFallThreshold)
+            {
+                this.GetComponent<Health>().takeDamage(airTime * damageForSeconds);
+                airTime = 0;
+            }
+            airTime = 0;
+        }
+        
+    }
 
     private void ShowCurrentTool()
     {
@@ -372,7 +394,7 @@ public class PlayerManager : MonoBehaviour
             {
                 isJumping = true;
                 canJump = false;
-                SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 2.0f);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
             

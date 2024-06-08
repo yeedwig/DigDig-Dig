@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,7 @@ public class InventoryManager : MonoBehaviour
 
     public AudioClip[] cantBuySound;
     public AudioClip[] coinAddedSound;
+    public float fxvolume;
 
     public int maxStructure = 100;
     public void Start()
@@ -41,9 +43,9 @@ public class InventoryManager : MonoBehaviour
         {
             inventorySlots[i].gameObject.SetActive(true);
         }*/
-        var tempColor = inventoryDescriptionImage.color;
-        tempColor.a = 0;
-        inventoryDescriptionImage.color = tempColor;
+        //var tempColor = inventoryDescriptionImage.color;
+        //tempColor.a = 0;
+        //inventoryDescriptionImage.color = tempColor;
     }
     public bool AddItem(Item item)
     {
@@ -119,7 +121,7 @@ public class InventoryManager : MonoBehaviour
         }
         
         Debug.Log("Item not Added!");
-        SoundFXManager.instance.PlaySoundFXClip(cantBuySound, transform, 1.5f);
+        SoundFXManager.instance.PlaySoundFXClip(cantBuySound, transform, fxvolume);
         StartCoroutine(MessageTimer());
         return false;
     }
