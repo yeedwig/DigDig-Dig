@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,7 +16,6 @@ public class ChunkController : MonoBehaviour
     void Start()
     {
         lastIndex = int.MinValue;
-        
     }
 
     // Update is called once per frame
@@ -25,7 +25,8 @@ public class ChunkController : MonoBehaviour
         if (currentIndex != lastIndex)
         {
             lastIndex = currentIndex;
-            ActivateMap(currentIndex);
+            StartCoroutine(ChangeChunks(currentIndex));
+            //ActivateMap(currentIndex);
         }
     }
 
@@ -58,5 +59,37 @@ public class ChunkController : MonoBehaviour
                 }
             }
         }
+    }
+
+    IEnumerator ChangeChunks(int index)
+    {
+        if (index % 2 == 0)
+        {
+            start = index - 2;
+            end = index + 3;
+        }
+        else
+        {
+            start = index - 3;
+            end = index + 2;
+        }
+        for (int i = 0; i < chunks.Length; i++)
+        {
+            if (i >= start && i <= end)
+            {
+                if (!chunks[i].activeSelf)
+                {
+                    chunks[i].SetActive(true);
+                }
+            }
+            else
+            {
+                if (chunks[i].activeSelf)
+                {
+                    chunks[i].SetActive(false);
+                }
+            }
+        }
+        yield return null;
     }
 }
