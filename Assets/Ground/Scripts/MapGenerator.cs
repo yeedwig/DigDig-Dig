@@ -11,7 +11,7 @@ public class MapGenerator : MonoBehaviour
     private GameObject[] chunks;
     [SerializeField] GameObject chunkController;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         chunks = new GameObject[groundChunks.Length];
         
@@ -20,6 +20,7 @@ public class MapGenerator : MonoBehaviour
 
     public void CreateMap()
     {
+        ChunkController CC = chunkController.GetComponent<ChunkController>();
         for (int i = 0; i < groundChunks.Length * 0.5; i++)
         {
             if (Random.Range(0, 2) == 0)
@@ -33,11 +34,19 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < mapWidthPerChunk; j++)
             {
                 GameObject ground = Instantiate(groundChunks[index]);
+                if (i <= -2)
+                {
+                    foreach (Transform t in ground.transform)
+                    {
+                        t.gameObject.SetActive(false);
+                    }
+                    ground.gameObject.SetActive(false);
+                }
                 chunks[index] = ground;
                 ground.transform.position = new Vector3(j * 50, i * 50, 0);
                 index++;
             }
         }
-        chunkController.GetComponent<ChunkController>().chunks = chunks;
+        CC.chunks = chunks;
     }
 }

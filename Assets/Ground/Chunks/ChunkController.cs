@@ -15,7 +15,7 @@ public class ChunkController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastIndex = int.MinValue;
+        lastIndex = 0;
     }
 
     // Update is called once per frame
@@ -25,12 +25,11 @@ public class ChunkController : MonoBehaviour
         if (currentIndex != lastIndex)
         {
             lastIndex = currentIndex;
-            StartCoroutine(ChangeChunks(currentIndex));
-            //ActivateMap(currentIndex);
+            ActivateMap(currentIndex);
         }
     }
 
-    private void ActivateMap(int index)
+    public void ActivateMap(int index)
     {
         if (index % 2 == 0)
         {
@@ -48,48 +47,38 @@ public class ChunkController : MonoBehaviour
             {
                 if (!chunks[i].activeSelf)
                 {
-                    chunks[i].SetActive(true);
+                    //chunks[i].SetActive(true);
+                    StartCoroutine(ActivateChunk(chunks[i]));
                 }
             }
             else
             {
                 if (chunks[i].activeSelf)
                 {
-                    chunks[i].SetActive(false);
+                    StartCoroutine(DisableChunk(chunks[i]));
                 }
             }
         }
     }
 
-    IEnumerator ChangeChunks(int index)
+    public IEnumerator ActivateChunk(GameObject chunk)
     {
-        if (index % 2 == 0)
+        foreach (Transform ground in chunk.transform)
         {
-            start = index - 2;
-            end = index + 3;
+            ground.gameObject.SetActive(true);
+            yield return null;
         }
-        else
+        chunk.SetActive(true);
+        yield return null;
+    }
+    public IEnumerator DisableChunk(GameObject chunk)
+    {
+        foreach (Transform ground in chunk.transform)
         {
-            start = index - 3;
-            end = index + 2;
+            ground.gameObject.SetActive(false);
+            yield return null;
         }
-        for (int i = 0; i < chunks.Length; i++)
-        {
-            if (i >= start && i <= end)
-            {
-                if (!chunks[i].activeSelf)
-                {
-                    chunks[i].SetActive(true);
-                }
-            }
-            else
-            {
-                if (chunks[i].activeSelf)
-                {
-                    chunks[i].SetActive(false);
-                }
-            }
-        }
+        chunk.SetActive(false);
         yield return null;
     }
 }
