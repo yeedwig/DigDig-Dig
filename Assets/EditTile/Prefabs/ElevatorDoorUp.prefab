@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4579241076013167725}
   - component: {fileID: 7050428304036139314}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Roof
   m_TagString: Elevator
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7326049291806781442}
   - component: {fileID: 6279694336253974533}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Stool
   m_TagString: Elevator
   m_Icon: {fileID: 0}

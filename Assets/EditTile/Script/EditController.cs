@@ -85,7 +85,7 @@ public class EditController : MonoBehaviour
     {
         cursorSR = cursor.GetComponent<SpriteRenderer>();
         cursorSR.color = new Color(1, 1, 1, 0.7f);
-        obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure");
+        obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
         eraseMask = 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
         gangMask = 1 << LayerMask.NameToLayer("Gang");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
