@@ -19,7 +19,6 @@ public class MoleDoorCheck : MonoBehaviour
         if(collision.gameObject.tag == "Player" && gameManager.hasMoleId == true)
         {
             moleDoor.doorOpened=true;
-            Debug.Log("Open");
         }
     }
 
@@ -28,7 +27,6 @@ public class MoleDoorCheck : MonoBehaviour
         if (collision.gameObject.tag == "Player" && gameManager.hasMoleId == true)
         {
             moleDoor.doorOpened = false;
-            Debug.Log("close");
         }
     }
     // Update is called once per frame
