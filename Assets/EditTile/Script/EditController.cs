@@ -81,6 +81,14 @@ public class EditController : MonoBehaviour
     public AudioClip[] installSound;
     public AudioClip[] changeStructSound;
     public AudioClip[] editOnSound;
+
+    //설치 바운드 관련
+    [SerializeField] Camera camera;
+    private float originalCameraSize;
+    [SerializeField] float editCameraSize;
+    [SerializeField] int heightBound;// 세로로 어디까지(절반)
+    [SerializeField] int widthBound; // 가로로 어디까지 (절반)
+    private Vector3Int playerPos;
     void Start()
     {
         cursorSR = cursor.GetComponent<SpriteRenderer>();
@@ -89,6 +97,7 @@ public class EditController : MonoBehaviour
         eraseMask = 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
         gangMask = 1 << LayerMask.NameToLayer("Gang");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
+        originalCameraSize = camera.fieldOfView;
     }
 
     // Update is called once per frame
@@ -135,7 +144,7 @@ public class EditController : MonoBehaviour
                     EditOnWindow.SetActive(false);
                     EditInventory.SetActive(false);
                     ToolBelt.SetActive(true);
-
+                    camera.fieldOfView = originalCameraSize;
                 }
                 else
                 {
@@ -148,7 +157,8 @@ public class EditController : MonoBehaviour
                     cursorSR.sprite = itemCursorSprite[itemCursorIndex];
                     EditOnWindow.SetActive(true);
                     EditInventory.SetActive(true);
-
+                    camera.fieldOfView = editCameraSize;
+                    playerPos = editTilemap.WorldToCell(player.transform.position);
                 }
                 isEditOn = !isEditOn;
             }
@@ -160,44 +170,59 @@ public class EditController : MonoBehaviour
     {
         if (!isChangingCursor && isEditOn)
         {
-            
             if (Input.GetKey(KeyCode.LeftArrow))
             {
-                
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
-                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                    cursor.transform.position += new Vector3(-1, 0, 0);
+                    cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                    if (playerPos.x - (cursorPosInt.x - 1) <= widthBound)
+                    {
+                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                        cursor.transform.position += new Vector3(-1, 0, 0);
+                    }
+                    
                 }
                 cursorTimer(-1,0);
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-          
+                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                 if (Input.GetKeyDown(KeyCode.RightArrow))
                 {
-                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                    cursor.transform.position += new Vector3(1, 0, 0);
+                    if ((cursorPosInt.x + 1) - playerPos.x <= widthBound)
+                    {
+                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                        cursor.transform.position += new Vector3(1, 0, 0);
+                    }
+                    
                 }
                 cursorTimer(1, 0);
             }
             else if (Input.GetKey(KeyCode.UpArrow))
             {
-                
+                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                    cursor.transform.position += new Vector3(0,1,0);
+                    if ((cursorPosInt.y + 1) - playerPos.y <= heightBound)
+                    {
+                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                        cursor.transform.position += new Vector3(0, 1, 0);
+                    }
+                        
                 }
                 cursorTimer(0,1);
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-              
+                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
                 if (Input.GetKeyDown(KeyCode.DownArrow))
                 {
-                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                    cursor.transform.position += new Vector3(0, -1, 0);
+                    if (playerPos.y - (cursorPosInt.y - 1) <= heightBound)
+                    {
+                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                        cursor.transform.position += new Vector3(0, -1, 0);
+                    }
+                        
                 }
                 cursorTimer(0, -1);
             }
@@ -256,9 +281,10 @@ public class EditController : MonoBehaviour
     {
         if (isEditOn && Input.GetKeyDown(KeyCode.F))
         {
-            SoundFXManager.instance.PlaySoundFXClip(installSound, transform, 1.0f);
+            
             if (CheckCanInstall())
             {
+                SoundFXManager.instance.PlaySoundFXClip(installSound, transform, 1.0f);
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
@@ -384,7 +410,7 @@ public class EditController : MonoBehaviour
             {
                 if (itemCursorIndex == 0)
                 {
-                    if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position))&&gangNum>0)
+                    if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position))&&gangNum>0&&gangOnCursor==null)
                     {
                         return true; //갱도 설치 가능
                     }               
