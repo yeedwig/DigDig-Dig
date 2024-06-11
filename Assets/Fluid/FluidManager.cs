@@ -10,7 +10,7 @@ public class FluidManager : MonoBehaviour
     private GroundDictionary groundDictionary;
 
     // 액체 딕셔너리 선언
-    public Dictionary<Vector3Int, int> waterDictionary = new Dictionary<Vector3Int, int>(); //좌표와 수위를 표시
+    public Dictionary<Vector3Int, int> waterBlockDictionary; //좌표와 수위를 표시
 
     //액체 tilebase 배열
     [SerializeField] TileBase[] waterTiles;
@@ -25,7 +25,7 @@ public class FluidManager : MonoBehaviour
 
     private void Awake()
     {
-        waterDictionary = new Dictionary<Vector3Int, int>();
+        waterBlockDictionary = new Dictionary<Vector3Int, int>();
         instance = this;
     }
     void Start()
@@ -49,24 +49,20 @@ public class FluidManager : MonoBehaviour
     {
         waterSpreadTimer += Time.deltaTime;
     }
-    public void AddWaterBlock(Vector3Int pos,int level)
-    {
-        waterDictionary.Add(pos, level);
-    }
 
     public void SpreadWater()
     {
         
-        foreach (KeyValuePair<Vector3Int, int> water in waterDictionary)
+        foreach (KeyValuePair<Vector3Int, int> water in waterBlockDictionary)
         {
-            if (!waterDictionary.ContainsKey(water.Key))
+            if (!waterBlockDictionary.ContainsKey(water.Key))
             {
                 
-                waterDictionary.Add(water.Key + new Vector3Int(0, -1, 0), 4);
+                waterBlockDictionary.Add(water.Key + new Vector3Int(0, -1, 0), 4);
             }
             
         }
-        foreach (KeyValuePair<Vector3Int, int> water in waterDictionary)
+        foreach (KeyValuePair<Vector3Int, int> water in waterBlockDictionary)
         {
             TilemapManager.instance.waterTilemap.SetTile(water.Key, waterTiles[water.Value]);
         }
