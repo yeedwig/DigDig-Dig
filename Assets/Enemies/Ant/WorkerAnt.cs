@@ -49,11 +49,6 @@ public class WorkerAnt : MonoBehaviour
             walkTimer = 0;
         }
 
-        if(carryingHoney == false)
-        {
-            StartCoroutine(honeySpawn());
-        }
-
 
         
         newPos = Vector2.MoveTowards(rb.position, target, speed * Time.fixedDeltaTime);
@@ -61,18 +56,5 @@ public class WorkerAnt : MonoBehaviour
 
     }
 
-    IEnumerator honeySpawn()
-    {
-        carryingHoney = true;
-        yield return new WaitForSeconds(honeySpawnTime);
-        Instantiate(honey, honeyRespawnPos.position, Quaternion.identity);     
-    }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.tag == "Player")
-        {
-            carryingHoney = false;
-        }
-    }
 }
