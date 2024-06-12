@@ -15,7 +15,8 @@ MonoBehaviour:
   Dialogues:
   - Now let me tell you about diggin..!
   - when you are on diggable ground,
-  - You will see a white frame indicating where you want to dig..!
+  - 'You will see a white frame indicating '
+  - where you want to dig..!
   - When you made your mind on where to dig,
   - while pressing on to that arrow key press "Q"
   - Try diggin your way towards me..!!

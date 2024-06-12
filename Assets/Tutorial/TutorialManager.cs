@@ -46,6 +46,14 @@ public class TutorialManager : MonoBehaviour
                 case 4:
                     AndrewSetActive(4);
                     break;
+
+                case 5:
+                    AndrewSetActive(5);
+                    break;
+
+                case 6:
+                    AndrewSetActive(6);
+                    break;
             }
         }
         //다음 스테이지로 진급 조건
@@ -81,6 +89,20 @@ public class TutorialManager : MonoBehaviour
 
             case 4:
                 if (AndrewTheShrew[4].GetComponent<Andrew>().goToNextchapter == true)
+                {
+                    currentStage++;
+                }
+                break;
+
+            case 5:
+                if (AndrewTheShrew[5].GetComponent<Andrew>().goToNextchapter == true)
+                {
+                    currentStage++;
+                }
+                break;
+
+            case 6:
+                if (AndrewTheShrew[6].GetComponent<Andrew>().goToNextchapter == true)
                 {
                     currentStage++;
                 }

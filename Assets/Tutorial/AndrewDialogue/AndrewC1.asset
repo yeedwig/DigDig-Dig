@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: AndrewC1
   m_EditorClassIdentifier: 
   Dialogues:
+  - Press F to interact..!!
   - I see you are another stranger
   - looking for hidden treasure?
   - My name is Andrew..!! Let me tell you a few basic stuff

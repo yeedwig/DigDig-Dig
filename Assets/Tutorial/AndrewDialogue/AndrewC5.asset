@@ -19,7 +19,9 @@ MonoBehaviour:
   - At this point you won't be able to get up towards the ground..!
   - But lucky for you I've got a special gift..!
   - You can open your "Construction Page" by pressing the "E" key
-  - Your cursor will be replaced by structures, and you can build them by pressing
-    the "F" key
-  - To change what you want to build, press the "Alt" button while you choose with
-    the arrow keys.
+  - 'Your cursor will be replaced by structures, '
+  - and you can build them by pressing the "F" key
+  - And interact with them also with "F"
+  - 'To change what you want to build, '
+  - 'press the "Alt" button while you '
+  - choose with the arrow keys.

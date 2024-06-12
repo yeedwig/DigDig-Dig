@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: AndrewC6
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - If you don't think you can make it up towards the surface,
+  - You can leave your trail to others who will look for the treasure,
+  - 'You will return to the ground, '
+  - but others who follow your trail,
+  - will still use the structures you left behind.
+  - But your inventory and other tools
+  - will be gone.
+  - So you should plan your way wisely
+  - before you start digging underground.
+  - Press "P" to give up, and leave your trail.
