@@ -33,7 +33,6 @@ public class Health : MonoBehaviour
         curHP = maxHP;
         healthBar.SetMaxHealth(maxHP);
     }
-
     public void takeDamage(float damage)
     {
         if (curHP < 0.001)
@@ -44,7 +43,7 @@ public class Health : MonoBehaviour
         else
         {
             curHP -= damage;
-            if (curHP < 0.001)
+            if (curHP <= 0.001)
             {
                 curHP = 0;
                 Player.Dead = true;
@@ -99,6 +98,13 @@ public class Health : MonoBehaviour
                 HealTimer();
             }
             
+        }
+
+        if(curHP < 0.0001)
+        {
+            curHP = 0;
+            healthBar.SetHealth(curHP);
+            Player.Dead = true;
         }
         
         //hpText.text = curHP.ToString();
