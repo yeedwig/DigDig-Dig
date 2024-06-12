@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: AndrewC1
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - I see you are another stranger
+  - looking for hidden treasure?
+  - My name is Andrew..!! Let me tell you a few basic stuff
+  - about diggin your way out of things..!
+  - First you can move with your arrow keys..!
+  - Try coming towards me..!!

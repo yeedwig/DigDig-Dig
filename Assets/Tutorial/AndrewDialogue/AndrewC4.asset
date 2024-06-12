@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07355c6a0e10f234d9be29a9f8a2c558, type: 3}
+  m_Name: AndrewC4
+  m_EditorClassIdentifier: 
+  Dialogues:
+  - Well done! I see you've got some talent..!
+  - When you dig ground, you will earn some resources,
+  - these resources can be sold in the shop..!
+  - Try pressing the "I" key to see your inventory
+  - Selling these resources will give you coins to by structures, or better shovels,
+    or other upgrades..!
+  - But the shop owner will buy all of the stuff in your bag when you decide to sell
+    it.
+  - So becareful to move tools into your toolbelt,
+  - Or your tools will be sold also..!!

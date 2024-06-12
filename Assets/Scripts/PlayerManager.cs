@@ -468,6 +468,8 @@ public class PlayerManager : MonoBehaviour
 
         RaycastHit2D NPChit = Physics2D.Raycast(transform.position,new Vector2(facingDir,0), 0.5f, LayerMask.GetMask("NPC"));
         RaycastHit2D ButtonHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Button"));
+        RaycastHit2D AndrewHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Andrew"));
+
 
         if (NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
@@ -479,6 +481,13 @@ public class PlayerManager : MonoBehaviour
         if(ButtonHit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
             ButtonHit.collider.GetComponent<ScientistButton>().TurnOnButton();
+        }
+
+        if (AndrewHit.collider != null && Input.GetKeyDown(KeyCode.F))
+        {
+
+            AndrewHit.collider.gameObject.GetComponent<Andrew>().index += 1;
+            Debug.Log("Hit Npc!");
         }
 
 
