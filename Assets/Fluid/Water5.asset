@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Water5
   m_EditorClassIdentifier: 
   m_AnimatedSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: -378513915, guid: 60a88d954185fa3479c719a2f4943b5e, type: 3}
+  - {fileID: 408440368, guid: 60a88d954185fa3479c719a2f4943b5e, type: 3}
+  - {fileID: -333666831, guid: 60a88d954185fa3479c719a2f4943b5e, type: 3}
+  - {fileID: -1912391920, guid: 60a88d954185fa3479c719a2f4943b5e, type: 3}
+  - {fileID: -793495096, guid: 60a88d954185fa3479c719a2f4943b5e, type: 3}
+  - {fileID: -1817320822, guid: 60a88d954185fa3479c719a2f4943b5e, type: 3}
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
