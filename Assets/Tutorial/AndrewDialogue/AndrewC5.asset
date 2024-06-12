@@ -25,3 +25,7 @@ MonoBehaviour:
   - 'To change what you want to build, '
   - 'press the "Alt" button while you '
   - choose with the arrow keys.
+  - You can only buld other structures,
+  - when a gang is installed first.
+  - So always keep track of how many gangs
+  - you have left..!

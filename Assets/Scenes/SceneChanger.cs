@@ -15,7 +15,7 @@ public class SceneChanger : MonoBehaviour
     public void NewGame()
     {
         SaveLoadManager.loaded = false;
-        SceneManager.LoadScene("MainScene");
+        SceneManager.LoadScene("TutorialScene");
     }
 
     public void LoadGame()

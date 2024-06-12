@@ -9,10 +9,11 @@ public class TutorialManager : MonoBehaviour
 
     [SerializeField] GameObject[] AndrewTheShrew;
     [SerializeField] private GameManager gameManager;
+    [SerializeField] private GameObject MoleHole;
     // Start is called before the first frame update
     void Start()
     {
-        
+        MoleHole.SetActive(false);
     }
 
     // Update is called once per frame
@@ -53,6 +54,15 @@ public class TutorialManager : MonoBehaviour
 
                 case 6:
                     AndrewSetActive(6);
+                    break;
+
+                case 7:
+                    AndrewSetActive(7);
+                    break;
+
+                case 8:
+                    AndrewSetActive(8);
+                    MoleHole.SetActive(true);
                     break;
             }
         }
@@ -103,6 +113,20 @@ public class TutorialManager : MonoBehaviour
 
             case 6:
                 if (AndrewTheShrew[6].GetComponent<Andrew>().goToNextchapter == true)
+                {
+                    currentStage++;
+                }
+                break;
+
+            case 7:
+                if (AndrewTheShrew[7].GetComponent<Andrew>().goToNextchapter == true)
+                {
+                    currentStage++;
+                }
+                break;
+
+            case 8:
+                if (AndrewTheShrew[8].GetComponent<Andrew>().goToNextchapter == true)
                 {
                     currentStage++;
                 }
