@@ -27,6 +27,8 @@ public class FluidManager : MonoBehaviour
     public static FluidManager instance = null;
     // Start is called before the first frame update
 
+    int test = 0;
+
     private void Awake()
     {
         waterBlockDictionary = new Dictionary<Vector3Int, int>();
@@ -61,11 +63,44 @@ public class FluidManager : MonoBehaviour
         waterMapDictionary.Clear();
         foreach (KeyValuePair<Vector3Int, int> water in waterBlockDictionary)
         {
-            AddToWaterMap(water.Key, water.Value);
+            //AddToWaterMap(water.Key, 4);
+            StartCoroutine(AddWaterToMap(water.Key, 4));
         }
         ShowWater();
     }
 
+    IEnumerator AddWaterToMap(Vector3Int pos, int level)
+    {
+        if (!waterMapDictionary.ContainsKey(pos))
+        {
+            waterMapDictionary.Add(pos, level);
+        }
+        else
+        {
+            waterMapDictionary[pos] = Mathf.Max(waterMapDictionary[pos], level);
+        }
+
+        Collider2D waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(0.5f, -0.5f), 0.4f, waterMask);
+        if (waterCheck == null)
+        {
+            AddToWaterMap(pos + new Vector3Int(0, -1, 0), 4);
+        }
+
+        else if (waterCheck != null && level > 0)
+        {
+            waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(-0.5f, 0.5f), 0.4f, waterMask);
+            if (waterCheck == null)
+            {
+                AddToWaterMap(pos + new Vector3Int(-1, 0, 0), level - 1);
+            }
+            waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(1.5f, 0.5f), 0.4f, waterMask);
+            if (waterCheck == null)
+            {
+                AddToWaterMap(pos + new Vector3Int(1, 0, 0), level - 1);
+            }
+        }
+        yield return null;
+    }
     public void AddToWaterMap(Vector3Int pos, int level)
     {
         if(!waterMapDictionary.ContainsKey(pos)) {
