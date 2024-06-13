@@ -56,6 +56,13 @@ public class CameraMovement : MonoBehaviour
 
     private void CheckTarget()
     {
-        target = player;
+        if (editController.isEditOn)
+        {
+            target = cursor;
+        }
+        else
+        {
+            target = player;
+        }
     }
 }
