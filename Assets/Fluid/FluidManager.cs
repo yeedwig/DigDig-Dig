@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using static UnityEditor.PlayerSettings;
@@ -20,6 +21,7 @@ public class FluidManager : MonoBehaviour
     //액체 흐르는 시간
     [SerializeField] float waterSpreadDelay;
     private float waterSpreadTimer = 0;
+    private int waterOrder = 0;
 
     private int waterMask;
 
@@ -46,11 +48,7 @@ public class FluidManager : MonoBehaviour
     void Update()
     {
         ChangeSpreadTimer();
-        if (waterSpreadTimer > waterSpreadDelay)
-        {
-            SpreadWater();
-            waterSpreadTimer = 0;
-        }
+        WaterCheck();
     }
 
     private void ChangeSpreadTimer()
@@ -58,19 +56,37 @@ public class FluidManager : MonoBehaviour
         waterSpreadTimer += Time.deltaTime;
     }
 
-    public void SpreadWater()
+    private void WaterCheck()
     {
-        waterMapDictionary.Clear();
-        foreach (KeyValuePair<Vector3Int, int> water in waterBlockDictionary)
+        if (waterSpreadTimer > waterSpreadDelay-0.2f && waterOrder==0)
         {
-            //AddToWaterMap(water.Key, 4);
-            StartCoroutine(AddWaterToMap(water.Key, 4));
+            waterMapDictionary.Clear();
+            waterOrder++;
         }
-        ShowWater();
+        else if(waterSpreadTimer > waterSpreadDelay - 0.1f && waterOrder == 1){
+            SpreadWater();
+            waterOrder++;
+        }
+        else if(waterSpreadTimer > waterSpreadDelay && waterOrder == 2)
+        {
+            ShowWater();
+            waterOrder = 0;
+            waterSpreadTimer = 0;
+        }
     }
 
-    IEnumerator AddWaterToMap(Vector3Int pos, int level)
+    public void SpreadWater()
     {
+        for(int i=0; i<waterBlockDictionary.Count; i++)
+        {
+            waterBlockDictionary[waterBlockDictionary.Keys.ToList()[i]]++;
+            StartCoroutine(AddWaterToMap(waterBlockDictionary.Keys.ToList()[i], waterBlockDictionary.Keys.ToList()[i], 4));
+        }
+    }
+
+    IEnumerator AddWaterToMap(Vector3Int origin,Vector3Int pos, int level)
+    {
+        int previous = waterBlockDictionary[origin];
         if (!waterMapDictionary.ContainsKey(pos))
         {
             waterMapDictionary.Add(pos, level);
@@ -80,10 +96,16 @@ public class FluidManager : MonoBehaviour
             waterMapDictionary[pos] = Mathf.Max(waterMapDictionary[pos], level);
         }
 
+        while(previous == waterBlockDictionary[origin])
+        {
+            
+            yield return null;
+        }
+
         Collider2D waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(0.5f, -0.5f), 0.4f, waterMask);
         if (waterCheck == null)
         {
-            AddToWaterMap(pos + new Vector3Int(0, -1, 0), 4);
+            StartCoroutine(AddWaterToMap(origin,pos + new Vector3Int(0, -1, 0), 4));
         }
 
         else if (waterCheck != null && level > 0)
@@ -91,47 +113,17 @@ public class FluidManager : MonoBehaviour
             waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(-0.5f, 0.5f), 0.4f, waterMask);
             if (waterCheck == null)
             {
-                AddToWaterMap(pos + new Vector3Int(-1, 0, 0), level - 1);
+                StartCoroutine(AddWaterToMap(origin,pos + new Vector3Int(-1, 0, 0), level - 1));
             }
             waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(1.5f, 0.5f), 0.4f, waterMask);
             if (waterCheck == null)
             {
-                AddToWaterMap(pos + new Vector3Int(1, 0, 0), level - 1);
+                StartCoroutine(AddWaterToMap(origin,pos + new Vector3Int(1, 0, 0), level - 1));
             }
         }
         yield return null;
     }
-    public void AddToWaterMap(Vector3Int pos, int level)
-    {
-        if(!waterMapDictionary.ContainsKey(pos)) {
-            waterMapDictionary.Add(pos, level);
-        }
-        else
-        {
-            waterMapDictionary[pos] = Mathf.Max(waterMapDictionary[pos],level);
-        }
-        
-        Collider2D waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(0.5f, -0.5f), 0.4f, waterMask);
-        if (waterCheck == null)
-        {
-            AddToWaterMap(pos + new Vector3Int(0, -1, 0), 4);
-        }
-        
-        else if(waterCheck != null && level>0)
-        {
-            waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(-0.5f, 0.5f), 0.4f, waterMask);
-            if (waterCheck==null)
-            {
-                AddToWaterMap(pos + new Vector3Int(-1,0, 0), level-1);
-            }
-            waterCheck = Physics2D.OverlapCircle(((Vector2Int)pos) + new Vector2(1.5f, 0.5f), 0.4f, waterMask);
-            if (waterCheck == null)
-            {
-                AddToWaterMap(pos + new Vector3Int(1, 0, 0), level - 1);
-            }
-        }
-        
-    }
+    
 
     public void ShowWater()
     {
