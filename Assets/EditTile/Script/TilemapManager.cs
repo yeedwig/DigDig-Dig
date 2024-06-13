@@ -9,6 +9,8 @@ public class TilemapManager : MonoBehaviour
     public Tilemap railTilemap;
     public Tilemap ladderTilemap;
     public Tilemap waterTilemap;
+    public Tilemap lavaTilemap;
+    public Tilemap gasTilemap;
     public static TilemapManager instance = null;
     private void Awake()
     {
