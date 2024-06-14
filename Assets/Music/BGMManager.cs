@@ -43,13 +43,14 @@ public class BGMManager : MonoBehaviour
 
     }
 
+    /*
     void changeVolumeByDepth()
     {
         if(player.transform.position.y < -10)
         {
             volume -= 0.05f;
         }
-    }
+    }*/
 
 
     public void changeBGM(int _index, float _volume)

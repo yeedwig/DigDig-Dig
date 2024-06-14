@@ -24,26 +24,29 @@ public class StartSceneMole : MonoBehaviour
         spawnTimer += Time.deltaTime;
         if(spawnTimer > spawnTime && !isInCoroutine)
         {
-            
-            isInCoroutine = true;
-            startMole.transform.position = moleSpawnPositions[Random.Range(0,13)].position;
-            startMole.SetActive(true);
             moleLight.SetActive(true);
+            startMole.SetActive(true);
             anim.SetTrigger("DigOut");
-            Debug.Log("Out");
+            startMole.transform.position = moleSpawnPositions[Random.Range(0, 13)].transform.position;
+
+            isInCoroutine = true;
+
             StartCoroutine(MoleBehave());
+            //anim.SetTrigger("DiggIng");
         }
     }
 
     IEnumerator MoleBehave()
     {
-        Debug.Log("Idle");
+
         anim.SetTrigger("Idle");
-        float waitSeconds = Random.Range(10.0f, 20.0f);
+        float waitSeconds = Random.Range(5.0f, 15.0f);
+
         yield return new WaitForSeconds(waitSeconds);
-        anim.SetTrigger("DiggIng");
+
+        anim.SetTrigger("Digging");
         moleLight.SetActive(false);
-        Debug.Log("DigIn");
+        
         //startMole.SetActive(false);
         isInCoroutine = false;
         spawnTimer = 0;

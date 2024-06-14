@@ -28,9 +28,13 @@ public class SceneChanger : MonoBehaviour
 
     public void ExitGame()
     {
-
+        Application.Quit();
     }
 
+    public void ToMainMenu()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
     public void CreditButton()
     {
         if(creditOpen)
