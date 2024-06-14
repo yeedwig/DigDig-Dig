@@ -38,7 +38,7 @@ public class GroundDictionary : MonoBehaviour
         foreach(KeyValuePair<Vector3Int , GameObject> pair in groundDictionary)
         {
             Ground ground = pair.Value.GetComponent<Ground>();
-            if (!GangController.instance.gangDictionary.ContainsKey(pair.Key))
+            if (!GangController.instance.gangDictionary.ContainsKey(pair.Key) && !ground.isBlank)
             {
                 ground.currentHealth = ground.maxHealth;
                 ground.bc.enabled = true;

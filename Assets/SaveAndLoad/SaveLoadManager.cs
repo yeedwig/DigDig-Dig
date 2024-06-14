@@ -36,6 +36,8 @@ public class SaveLoadManager : MonoBehaviour
 
     //∏  ¿˙¿Â
     [SerializeField] TileBase railTile;
+    [SerializeField] TileBase leftLadderTile;
+    [SerializeField] TileBase rightLadderTile;
 
 
     void Awake()
@@ -87,6 +89,8 @@ public class SaveLoadManager : MonoBehaviour
             diggedKey = new List<Vector3Int>(),
             gangKey = new List<Vector3Int>(),
             railKey = new List<Vector3Int>(),
+            ladderKey = new List<Vector3Int>(),
+            ladderIsLeft = new List<bool>(),
         };
         foreach(Vector3Int key in GangController.instance.gangDictionary.Keys)
         {
@@ -103,6 +107,17 @@ public class SaveLoadManager : MonoBehaviour
             {
                 mapObject.railKey.Add(pair.Key);
             }
+
+            if(TilemapManager.instance.ladderTilemap.GetTile(pair.Key) == leftLadderTile)
+            {
+                mapObject.ladderKey.Add(pair.Key);
+                mapObject.ladderIsLeft.Add(true);
+            }
+            else if (TilemapManager.instance.ladderTilemap.GetTile(pair.Key) == rightLadderTile)
+            {
+                mapObject.ladderKey.Add(pair.Key);
+                mapObject.ladderIsLeft.Add(false);
+            }
         }
 
         string json = JsonUtility.ToJson(mapObject);
@@ -115,6 +130,8 @@ public class SaveLoadManager : MonoBehaviour
         public List<Vector3Int> diggedKey;
         public List<Vector3Int> gangKey;
         public List<Vector3Int> railKey;
+        public List<Vector3Int> ladderKey;
+        public List<bool> ladderIsLeft;
     }
 
     
@@ -150,6 +167,18 @@ public class SaveLoadManager : MonoBehaviour
             {
                 TilemapManager.instance.railTilemap.SetTile(key, railTile);
 
+            }
+            Dictionary<Vector3Int,bool> ladderDic = mapObject.ladderKey.Zip(mapObject.ladderIsLeft, (k, v) => new {k,v}).ToDictionary(a=>a.k,a=>a.v);
+            foreach(KeyValuePair<Vector3Int,bool> pair in ladderDic)
+            {
+                if (pair.Value)
+                {
+                    TilemapManager.instance.ladderTilemap.SetTile(pair.Key,leftLadderTile);
+                }
+                else
+                {
+                    TilemapManager.instance.ladderTilemap.SetTile(pair.Key, rightLadderTile);
+                }
             }
             player.transform.position = mapObject.playerPos;
 

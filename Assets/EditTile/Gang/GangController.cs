@@ -48,8 +48,12 @@ public class GangController : MonoBehaviour
 
     public void CreateGang(Vector3Int pos)
     {
-        TilemapManager.instance.gangTilemap.SetTile(pos, gang);
-        gangDictionary.Add(pos, false);   
+        if(!gangDictionary.ContainsKey(pos))
+        {
+            TilemapManager.instance.gangTilemap.SetTile(pos, gang);
+            gangDictionary.Add(pos, false);
+        }
+        
     }
     public void DestroyGang(Vector3Int pos)
     {
