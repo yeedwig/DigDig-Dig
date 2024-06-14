@@ -38,6 +38,7 @@ public class SaveLoadManager : MonoBehaviour
     [SerializeField] TileBase railTile;
     [SerializeField] TileBase leftLadderTile;
     [SerializeField] TileBase rightLadderTile;
+    [SerializeField] TileBase elevatorPassageTile;
 
 
     void Awake()
@@ -91,6 +92,7 @@ public class SaveLoadManager : MonoBehaviour
             railKey = new List<Vector3Int>(),
             ladderKey = new List<Vector3Int>(),
             ladderIsLeft = new List<bool>(),
+            passageKey = new List<Vector3Int>(),
         };
         foreach(Vector3Int key in GangController.instance.gangDictionary.Keys)
         {
@@ -107,8 +109,12 @@ public class SaveLoadManager : MonoBehaviour
             {
                 mapObject.railKey.Add(pair.Key);
             }
+            if (TilemapManager.instance.elevatorPassageTilemap.GetTile(pair.Key) != null)
+            {
+                mapObject.passageKey.Add(pair.Key);
+            }
 
-            if(TilemapManager.instance.ladderTilemap.GetTile(pair.Key) == leftLadderTile)
+            if (TilemapManager.instance.ladderTilemap.GetTile(pair.Key) == leftLadderTile)
             {
                 mapObject.ladderKey.Add(pair.Key);
                 mapObject.ladderIsLeft.Add(true);
@@ -132,6 +138,7 @@ public class SaveLoadManager : MonoBehaviour
         public List<Vector3Int> railKey;
         public List<Vector3Int> ladderKey;
         public List<bool> ladderIsLeft;
+        public List<Vector3Int> passageKey;
     }
 
     
@@ -166,6 +173,11 @@ public class SaveLoadManager : MonoBehaviour
             foreach (Vector3Int key in mapObject.railKey)
             {
                 TilemapManager.instance.railTilemap.SetTile(key, railTile);
+
+            }
+            foreach (Vector3Int key in mapObject.passageKey)
+            {
+                TilemapManager.instance.elevatorPassageTilemap.SetTile(key, elevatorPassageTile);
 
             }
             Dictionary<Vector3Int,bool> ladderDic = mapObject.ladderKey.Zip(mapObject.ladderIsLeft, (k, v) => new {k,v}).ToDictionary(a=>a.k,a=>a.v);
