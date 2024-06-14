@@ -18,6 +18,9 @@ public class GangController : MonoBehaviour
 
     public Dictionary<Vector3Int, int> gangLightPoolDictionary;
 
+    [SerializeField] GameObject player;
+    [SerializeField] float height,width;
+
 
     public static GangController instance = null;
     
@@ -52,16 +55,21 @@ public class GangController : MonoBehaviour
     {
         TilemapManager.instance.gangTilemap.SetTile(pos, null);
         gangDictionary.Remove(pos);
+        if (gangLightPoolDictionary.ContainsKey(pos) )
+        {
+            gangLightParent.transform.GetChild(gangLightPoolDictionary[pos]).gameObject.SetActive(false);
+            gangLightPoolDictionary.Remove(pos);
+        }
     }
 
     public void ControlGangLight()
     {
         for(int i=0;i<gangDictionary.Count;i++)
         {
-            if (true && !gangDictionary[gangDictionary.Keys.ToList()[i]]) //나중에 범위 안으로 변경
+            if (CheckInBoundary(gangDictionary.Keys.ToList()[i]) && !gangDictionary[gangDictionary.Keys.ToList()[i]]) //나중에 범위 안으로 변경
             {
                 while (true)
-                {
+                {  
                     if (gangLightParent.transform.GetChild(gangPoolCounter).gameObject.activeSelf)
                     {
                         CounterIncrease();
@@ -76,8 +84,10 @@ public class GangController : MonoBehaviour
                 }
                 gangDictionary[gangDictionary.Keys.ToList()[i]] = true;
             }
-            else if(false && gangDictionary[gangDictionary.Keys.ToList()[i]])
+            else if(!CheckInBoundary(gangDictionary.Keys.ToList()[i]) && gangDictionary[gangDictionary.Keys.ToList()[i]])
             {
+                gangLightParent.transform.GetChild(gangLightPoolDictionary[gangDictionary.Keys.ToList()[i]]).gameObject.SetActive(false);
+                gangLightPoolDictionary.Remove(gangDictionary.Keys.ToList()[i]);
                 gangDictionary[gangDictionary.Keys.ToList()[i]] = false;
             }
         }
@@ -89,6 +99,19 @@ public class GangController : MonoBehaviour
         if (gangPoolCounter >= gangLightPoolSize)
         {
             gangPoolCounter = 0;
+        }
+    }
+
+    public bool CheckInBoundary(Vector3Int pos)
+    {
+        Vector3 playerPos = player.transform.position;
+        if (pos.x>playerPos.x-width && pos.x < playerPos.x + width && pos.y < playerPos.y + height && pos.y > playerPos.y - height)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

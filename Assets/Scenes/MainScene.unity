@@ -35719,7 +35719,7 @@ Transform:
   m_GameObject: {fileID: 1246972418}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 28.06, y: 2.65, z: 0}
+  m_LocalPosition: {x: 40.92, y: 1.75, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -50956,6 +50956,9 @@ MonoBehaviour:
   gangLightParent: {fileID: 2045927921}
   gangLight: {fileID: 964506271}
   gangLightPoolSize: 500
+  player: {fileID: 1246972418}
+  height: 3
+  width: 3
 --- !u!1 &1875727932
 GameObject:
   m_ObjectHideFlags: 0
