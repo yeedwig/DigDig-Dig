@@ -11,6 +11,7 @@ public class TilemapManager : MonoBehaviour
     public Tilemap waterTilemap;
     public Tilemap lavaTilemap;
     public Tilemap gasTilemap;
+    public Tilemap gangTilemap;
     public static TilemapManager instance = null;
     private void Awake()
     {

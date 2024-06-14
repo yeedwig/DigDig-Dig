@@ -288,9 +288,8 @@ public class EditController : MonoBehaviour
                 switch (itemCursorIndex)
                 {
                     case 0: //갱도
-                        cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                        gangTilemap.SetTile(cursorPosInt, gang);
-                        groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true;
+                        GangController.instance.CreateGang(editTilemap.WorldToCell(cursor.transform.position));
+                        groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true; //추후 수정
                         gangNum--;
                         GM.GangNum--;
                         break;
@@ -338,8 +337,7 @@ public class EditController : MonoBehaviour
                     case 6:
                         if (objectToErase.name == "GangTilemap")
                         {
-                            cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                            gangTilemap.SetTile(cursorPosInt, null);
+                            GangController.instance.DestroyGang(editTilemap.WorldToCell(cursor.transform.position));
                             groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = false;
                         }
                         else if(objectToErase.name == "ElevatorPassageTilemap")
@@ -465,7 +463,7 @@ public class EditController : MonoBehaviour
         {
             elevatorConstructVec = elevatorPassageTilemap.WorldToCell(elevatorBottomPos);
             elevatorPassageTilemap.SetTile(elevatorConstructVec, elevatorPassage);
-            gangTilemap.SetTile(elevatorConstructVec, gang);
+            GangController.instance.CreateGang(elevatorConstructVec);
             groundDictionary[elevatorConstructVec].GetComponent<Ground>().gangInstalled = true;
             //elevatorDoorNum--;
             elevatorPassageNum--;
