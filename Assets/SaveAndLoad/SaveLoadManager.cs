@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -39,6 +40,10 @@ public class SaveLoadManager : MonoBehaviour
     [SerializeField] TileBase leftLadderTile;
     [SerializeField] TileBase rightLadderTile;
     [SerializeField] TileBase elevatorPassageTile;
+    public Dictionary<GameObject,GameObject> topDic = new Dictionary<GameObject,GameObject>();
+    public Dictionary<GameObject,GameObject> botDic = new Dictionary<GameObject,GameObject>();
+    public GameObject elevatorTop;
+    public GameObject elevatorBot;
 
 
     void Awake()
@@ -93,6 +98,10 @@ public class SaveLoadManager : MonoBehaviour
             ladderKey = new List<Vector3Int>(),
             ladderIsLeft = new List<bool>(),
             passageKey = new List<Vector3Int>(),
+            topKey = new List<Vector3>(),
+            topValue = new List<Vector3>(),
+            botKey = new List<Vector3>(),
+            botValue = new List<Vector3>(),
         };
         foreach(Vector3Int key in GangController.instance.gangDictionary.Keys)
         {
@@ -125,6 +134,30 @@ public class SaveLoadManager : MonoBehaviour
                 mapObject.ladderIsLeft.Add(false);
             }
         }
+        foreach(KeyValuePair<GameObject, GameObject> pair in topDic)
+        {
+            mapObject.topKey.Add(pair.Key.transform.position);
+            if (pair.Value != null)
+            {
+                mapObject.topValue.Add(pair.Value.transform.position);
+            }
+            else
+            {
+                mapObject.topValue.Add(new Vector3(-1,1,0));
+            }
+        }
+        foreach (KeyValuePair<GameObject, GameObject> pair in botDic)
+        {
+            mapObject.botKey.Add(pair.Key.transform.position);
+            if (pair.Value != null)
+            {
+                mapObject.botValue.Add(pair.Value.transform.position);
+            }
+            else
+            {
+                mapObject.botValue.Add(new Vector3(-1, 1, 0));
+            }
+        }
 
         string json = JsonUtility.ToJson(mapObject);
         File.WriteAllText(SAVE_FOLDER + "/MapSave.txt", json);
@@ -139,6 +172,10 @@ public class SaveLoadManager : MonoBehaviour
         public List<Vector3Int> ladderKey;
         public List<bool> ladderIsLeft;
         public List<Vector3Int> passageKey;
+        public List<Vector3> topKey;
+        public List<Vector3> topValue;
+        public List<Vector3> botKey;
+        public List<Vector3> botValue;
     }
 
     
@@ -190,6 +227,30 @@ public class SaveLoadManager : MonoBehaviour
                 else
                 {
                     TilemapManager.instance.ladderTilemap.SetTile(pair.Key, rightLadderTile);
+                }
+            }
+            Dictionary<Vector3, Vector3> topLoadDic = mapObject.topKey.Zip(mapObject.topValue, (k, v) => new { k, v }).ToDictionary(a => a.k, a => a.v);
+            foreach (KeyValuePair<Vector3, Vector3> pair in topLoadDic)
+            {
+                GameObject top = Instantiate(elevatorTop);
+                top.transform.position = pair.Key;
+                if(Vector3.Distance(new Vector3(-1,1,0), pair.Value) >= 0.1f) //Â¦ÀÌ ÀÖ´Ù
+                {
+                    GameObject bot = Instantiate(elevatorBot);
+                    bot.transform.position = pair.Value;
+                    top.GetComponent<Elevator>().isConnected = true;
+                    top.GetComponent<Elevator>().pair = bot;
+                    bot.GetComponent<Elevator>().isConnected = true;
+                    bot.GetComponent<Elevator>().pair = top;
+                }
+            }
+            Dictionary<Vector3, Vector3> botLoadDic = mapObject.botKey.Zip(mapObject.botValue, (k, v) => new { k, v }).ToDictionary(a => a.k, a => a.v);
+            foreach (KeyValuePair<Vector3, Vector3> pair in topLoadDic)
+            {
+                if (Vector3.Distance(new Vector3(-1, 1, 0), pair.Value) <= 0.1f) //Â¦ÀÌ ¾ø´Ù
+                {
+                    GameObject bot = Instantiate(elevatorBot);
+                    bot.transform.position = pair.Key;
                 }
             }
             player.transform.position = mapObject.playerPos;

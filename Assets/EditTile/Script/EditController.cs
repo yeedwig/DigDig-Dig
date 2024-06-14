@@ -89,6 +89,10 @@ public class EditController : MonoBehaviour
     [SerializeField] int heightBound;// 세로로 어디까지(절반)
     [SerializeField] int widthBound; // 가로로 어디까지 (절반)
     private Vector3Int playerPos;
+
+    //저장
+    [SerializeField] GameObject SaveAndLoad;
+    private SaveLoadManager saveLoadManager;
     void Start()
     {
         cursorSR = cursor.GetComponent<SpriteRenderer>();
@@ -98,6 +102,7 @@ public class EditController : MonoBehaviour
         gangMask = 1 << LayerMask.NameToLayer("Gang");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         originalCameraSize = camera.fieldOfView;
+        saveLoadManager = SaveAndLoad.GetComponent<SaveLoadManager>();
     }
 
     // Update is called once per frame
@@ -319,6 +324,22 @@ public class EditController : MonoBehaviour
                             Top.GetComponent<Elevator>().pair = hit.collider.gameObject;
                             hit.collider.gameObject.GetComponent<Elevator>().pair = Top;
                             elevatorInstall(Top,hit.collider.gameObject);
+                            //여기 엘베 설치 부분 내일 다시 생각해보기
+                            if (saveLoadManager.topDic.ContainsKey(Top))
+                            {
+                                Debug.Log("위쪽 설치 후 아래쪽과 연결");
+                                saveLoadManager.topDic[Top] = hit.collider.gameObject;
+                            }
+                            else
+                            {
+                                Debug.Log("위쪽 설치 후 아래쪽과 연결");
+                                saveLoadManager.topDic.Add(Top, hit.collider.gameObject);
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("위쪽 혼자 설치");
+                            saveLoadManager.topDic.Add(Top, null);
                         }
                         break;
                     case 5://엘베 아래쪽
@@ -332,6 +353,21 @@ public class EditController : MonoBehaviour
                             Bottom.GetComponent<Elevator>().pair = hit.collider.gameObject;
                             hit.collider.gameObject.GetComponent<Elevator>().pair = Bottom;
                             elevatorInstall(hit.collider.gameObject,Bottom);
+                            if (saveLoadManager.botDic.ContainsKey(Bottom))
+                            {
+                                Debug.Log("아래쪽 설치 후 위쪽과 연결");
+                                saveLoadManager.botDic[Bottom] = hit.collider.gameObject;
+                            }
+                            else
+                            {
+                                Debug.Log("아래쪽 설치 후 위쪽과 연결");
+                                saveLoadManager.botDic.Add(Bottom, hit.collider.gameObject);
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("아래쪽 설치");
+                            saveLoadManager.botDic.Add(Bottom, null);
                         }
                         break;
                     case 6:
@@ -342,7 +378,7 @@ public class EditController : MonoBehaviour
                         }
                         else if(objectToErase.name == "ElevatorPassageTilemap")
                         {
-                            Debug.Log("test");
+                            //수정 필요할 지도
                             hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, 1), 100000.0f, obstacleMask);
                             DestroyElevatorPassage(hit.collider.gameObject, hit.collider.gameObject.GetComponent<Elevator>().pair);
                         }
