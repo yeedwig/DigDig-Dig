@@ -93,6 +93,8 @@ public class PlayerManager : MonoBehaviour
 
 
     //AudioSource 관련
+    public float fxVolume;
+
     public AudioClip[] footSteps;
     public int moveCounter;
     [SerializeField] private int moveSoundLimit;
@@ -103,6 +105,9 @@ public class PlayerManager : MonoBehaviour
     public AudioClip[] killSwitchSound;
     public AudioClip[] toolBeltSwitchSound;
     public AudioClip[] ErrorSound;
+
+    public AudioClip[] scientistButtonSound;
+    public AudioClip[] npcSound;
     //Respawn
     public bool respawning = false;
 
@@ -233,32 +238,32 @@ public class PlayerManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, fxVolume + 1.0f);
                 curSelectedToolSlot = 0;
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, fxVolume + 1.0f);
                 curSelectedToolSlot = 1;
             }
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, fxVolume + 1.0f);
                 curSelectedToolSlot = 2;
             }
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
-                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, fxVolume + 1.0f);
                 curSelectedToolSlot = 3;
             }
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
-                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, fxVolume + 1.0f);
                 curSelectedToolSlot = 4;
             }
             if (Input.GetKeyDown(KeyCode.Alpha6))
             {
-                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(toolBeltSwitchSound, transform, fxVolume + 1.0f);
                 curSelectedToolSlot = 5;
             }
         }
@@ -278,7 +283,7 @@ public class PlayerManager : MonoBehaviour
             //인벤토리
             if (Input.GetKeyDown(KeyCode.I) && !shopUIOpened)
             {
-                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
                 if (inventoryOpened == false)
                 {
                     InventoryUI.SetActive(true);
@@ -298,7 +303,7 @@ public class PlayerManager : MonoBehaviour
             //미니맵 끄고 키기
             if (Input.GetKeyDown(KeyCode.M) && !shopUIOpened)
             {
-                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
                 if (minimapOpened == false)
                 {
                     Minimap.SetActive(true);
@@ -315,7 +320,7 @@ public class PlayerManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.T)) //toolbelt
             {
-                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
                 if (toolBeltIsActive)
                 {
                     ToolBelt.SetActive(false);
@@ -391,7 +396,7 @@ public class PlayerManager : MonoBehaviour
             {
                 isJumping = true;
                 canJump = false;
-                SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, 2.0f);
+                SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, fxVolume + 1.0f);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
             
@@ -406,7 +411,7 @@ public class PlayerManager : MonoBehaviour
             //죽이기
             if (Input.GetKeyDown(KeyCode.P))// 추후에 폭발 버튼 부분
             {
-                SoundFXManager.instance.PlaySoundFXClip(killSwitchSound, transform, 2.0f);
+                SoundFXManager.instance.PlaySoundFXClip(killSwitchSound, transform, fxVolume + 1.0f);
                 Dead = true;
             }
 
@@ -419,13 +424,13 @@ public class PlayerManager : MonoBehaviour
                 {
                     if (shopUIOpened == false)
                     {
-                        SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                        SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
                         ShopUI.SetActive(true);
                         shopUIOpened = true;
                     }
                     else
                     {
-                        SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                        SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
                         ShopUI.SetActive(false);
                         shopUIOpened = false;
                     }
@@ -434,7 +439,7 @@ public class PlayerManager : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
                 ShopUI.SetActive(false);
                 shopUIOpened = false;
                 InventoryUI.SetActive(false);
@@ -443,7 +448,7 @@ public class PlayerManager : MonoBehaviour
 
             if(Input.GetKeyDown(KeyCode.R))
             {
-                SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, 1.5f);
+                SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, fxVolume + 1.0f);
                 if (headLightIsActive)
                 {
                     HeadLight.SetActive(false);
@@ -473,19 +478,20 @@ public class PlayerManager : MonoBehaviour
 
         if (NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
-
+            SoundFXManager.instance.PlaySoundFXClip(npcSound, transform, fxVolume);
             NPChit.collider.gameObject.GetComponent<NPC>().index += 1;
             Debug.Log("Hit Npc!");
         }
         
         if(ButtonHit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
+            SoundFXManager.instance.PlaySoundFXClip(scientistButtonSound, transform, fxVolume);
             ButtonHit.collider.GetComponent<ScientistButton>().TurnOnButton();
         }
 
         if (AndrewHit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
-
+            SoundFXManager.instance.PlaySoundFXClip(npcSound, transform, fxVolume);
             AndrewHit.collider.gameObject.GetComponent<Andrew>().index += 1;
             Debug.Log("Hit Npc!");
         }
