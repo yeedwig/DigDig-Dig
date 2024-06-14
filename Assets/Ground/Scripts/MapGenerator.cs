@@ -14,7 +14,6 @@ public class MapGenerator : MonoBehaviour
     void Awake()
     {
         chunks = new GameObject[groundChunks.Length];
-        
         CreateMap();
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -34,15 +35,15 @@ public class GroundDictionary : MonoBehaviour
     }
     public void MapReset()
     {
-        foreach(GameObject grounds in groundDictionary.Values)
+        foreach(KeyValuePair<Vector3Int , GameObject> pair in groundDictionary)
         {
-            Ground ground = grounds.GetComponent<Ground>();
-            if (!ground.gangInstalled)
+            Ground ground = pair.Value.GetComponent<Ground>();
+            if (!GangController.instance.gangDictionary.ContainsKey(pair.Key))
             {
                 ground.currentHealth = ground.maxHealth;
                 ground.bc.enabled = true;
                 ground.ChangeSpriteByCurrentHealth();
-            }  
+            }
         }
     }
 }
