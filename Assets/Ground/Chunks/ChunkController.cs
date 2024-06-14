@@ -41,7 +41,7 @@ public class ChunkController : MonoBehaviour
             start = index - 3;
             end = index + 2;
         }
-        for (int i=0;i<chunks.Length; i++)
+        for (int i=2;i<chunks.Length; i++)
         {
             if (i >= start && i <= end)
             {
