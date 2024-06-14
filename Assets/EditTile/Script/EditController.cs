@@ -365,10 +365,20 @@ public class EditController : MonoBehaviour
                         {
                             if (objectToErase.GetComponent<Elevator>().pair == null)
                             {
+                                Debug.Log("Destory one");
+                                if (objectToErase.GetComponent<Elevator>().isTop)
+                                {
+                                    saveLoadManager.topDic.Remove(objectToErase);
+                                }
+                                else
+                                {
+                                    saveLoadManager.botDic.Remove(objectToErase);
+                                }
                                 Destroy(objectToErase);
                             }
                             else
                             {
+                                Debug.Log("Destory pair");
                                 DestroyElevatorPassage(objectToErase.GetComponent<Elevator>().pair, objectToErase);
                             }
                         }
@@ -509,11 +519,15 @@ public class EditController : MonoBehaviour
         {
             elevatorTopPos = d1.transform.position;
             elevatorBottomPos = d2.transform.position + new Vector3(0, 1f, 0);
+            saveLoadManager.topDic.Remove(d1);
+            saveLoadManager.botDic.Remove(d2);
         }
         else
         {
             elevatorTopPos = d2.transform.position;
             elevatorBottomPos = d1.transform.position + new Vector3(0, 1f, 0);
+            saveLoadManager.topDic.Remove(d2);
+            saveLoadManager.botDic.Remove(d1);
         }
         while (elevatorTopPos.y > elevatorBottomPos.y)
         {
