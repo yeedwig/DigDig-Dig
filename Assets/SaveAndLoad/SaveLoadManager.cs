@@ -245,7 +245,7 @@ public class SaveLoadManager : MonoBehaviour
                 }
             }
             Dictionary<Vector3, Vector3> botLoadDic = mapObject.botKey.Zip(mapObject.botValue, (k, v) => new { k, v }).ToDictionary(a => a.k, a => a.v);
-            foreach (KeyValuePair<Vector3, Vector3> pair in topLoadDic)
+            foreach (KeyValuePair<Vector3, Vector3> pair in botLoadDic)
             {
                 if (Vector3.Distance(new Vector3(-1, 1, 0), pair.Value) <= 0.1f) //Â¦ÀÌ ¾ø´Ù
                 {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Burst.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -325,20 +326,9 @@ public class EditController : MonoBehaviour
                             hit.collider.gameObject.GetComponent<Elevator>().pair = Top;
                             elevatorInstall(Top,hit.collider.gameObject);
                             //여기 엘베 설치 부분 내일 다시 생각해보기
-                            if (saveLoadManager.topDic.ContainsKey(Top))
-                            {
-                                Debug.Log("위쪽 설치 후 아래쪽과 연결");
-                                saveLoadManager.topDic[Top] = hit.collider.gameObject;
-                            }
-                            else
-                            {
-                                Debug.Log("위쪽 설치 후 아래쪽과 연결");
-                                saveLoadManager.topDic.Add(Top, hit.collider.gameObject);
-                            }
                         }
                         else
                         {
-                            Debug.Log("위쪽 혼자 설치");
                             saveLoadManager.topDic.Add(Top, null);
                         }
                         break;
@@ -353,20 +343,9 @@ public class EditController : MonoBehaviour
                             Bottom.GetComponent<Elevator>().pair = hit.collider.gameObject;
                             hit.collider.gameObject.GetComponent<Elevator>().pair = Bottom;
                             elevatorInstall(hit.collider.gameObject,Bottom);
-                            if (saveLoadManager.botDic.ContainsKey(Bottom))
-                            {
-                                Debug.Log("아래쪽 설치 후 위쪽과 연결");
-                                saveLoadManager.botDic[Bottom] = hit.collider.gameObject;
-                            }
-                            else
-                            {
-                                Debug.Log("아래쪽 설치 후 위쪽과 연결");
-                                saveLoadManager.botDic.Add(Bottom, hit.collider.gameObject);
-                            }
                         }
                         else
                         {
-                            Debug.Log("아래쪽 설치");
                             saveLoadManager.botDic.Add(Bottom, null);
                         }
                         break;
@@ -505,6 +484,22 @@ public class EditController : MonoBehaviour
             elevatorPassageNum--;
             GM.ElevatorPassageNum--;
             elevatorBottomPos.y += 1f;
+        }
+        if (saveLoadManager.topDic.ContainsKey(top))
+        {
+            saveLoadManager.topDic[top] = bottom;
+        }
+        else
+        {
+            saveLoadManager.topDic.Add(top,bottom);
+        }
+        if (saveLoadManager.botDic.ContainsKey(bottom))
+        {
+            saveLoadManager.botDic[bottom] = top;
+        }
+        else
+        {
+            saveLoadManager.botDic.Add(bottom, top);
         }
     }
 
