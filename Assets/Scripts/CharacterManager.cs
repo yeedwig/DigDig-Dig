@@ -54,6 +54,12 @@ public class CharacterManager : MonoBehaviour
     public void getGameManagerInfo()
     {
         // isFound 부분 가져와서 범위 정해주기
+        // 0~9 사람, 10~12 군인, 13~15 기사, 16~20 카타콤브, 21~23 두더지, 24 케이브맨
+    }
+
+    private int characterChecker() // 게임 플레이로 언락되는 캐릭터 랜덤 돌리기
+    {
+        return 1;
     }
     public bool resetCharacter()
     {
