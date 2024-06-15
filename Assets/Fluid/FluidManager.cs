@@ -312,7 +312,7 @@ public class FluidManager : MonoBehaviour
         TilemapManager.instance.gasTilemap.ClearAllTiles();
         foreach (KeyValuePair<Vector3Int, int> gas in gasMapDictionary)
         {
-            TilemapManager.instance.gasTilemap.SetTile(gas.Key, lavaTiles[gas.Value]);
+            TilemapManager.instance.gasTilemap.SetTile(gas.Key, gasTiles[gas.Value]);
         }
     }
 }
