@@ -50,8 +50,8 @@ public class ShopSlot : MonoBehaviour
     {
         //Show Item Description
         SoundFXManager.instance.PlaySoundFXClip(buttonPressSound, transform, 1.5f);
-        descriptionTxt.text = item.name.ToString() + " : " + "\n" + item.Description.ToString();
-        
-        statTxt.text = "Damage : " + item.damage.ToString() + "\n" + "Durability : " + item.durability.ToString() + "\n" + "Selling Price : " + item.price.ToString();
+        descriptionTxt.text = item.name.ToString();
+
+        statTxt.text = item.Description.ToString();
     }
 }

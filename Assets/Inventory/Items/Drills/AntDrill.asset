@@ -13,18 +13,22 @@ MonoBehaviour:
   m_Name: AntDrill
   m_EditorClassIdentifier: 
   Name: Ant Drill
-  Description: 
+  Description: Do Ants need Drills?
   itemType: 1
   itemId: 12
   resourceId: 0
   efficiency: 1
   price: 100
   damage: 50
+  range: 0
   durability: 100
+  isTreasure: 0
   isTool: 1
   isResource: 0
   isStructure: 0
   isKey: 0
+  isFood: 0
+  heal: 0
   stackable: 0
   maxStack: 0
   image: {fileID: 21300000, guid: 6250d20744af5364a9e233948d833437, type: 3}

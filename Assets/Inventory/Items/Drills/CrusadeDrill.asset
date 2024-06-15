@@ -12,14 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb3c6a91b89a2d44ad2ac2740e1ffce, type: 3}
   m_Name: CrusadeDrill
   m_EditorClassIdentifier: 
-  Name: CrusadeDrill
-  Description: 
+  Name: Templar's Drill
+  Description: 'An ancient artifact '
   itemType: 1
   itemId: 14
+  resourceId: 0
+  efficiency: 0
   price: 100
   damage: 1
+  range: 0
   durability: 100
+  isTreasure: 0
   isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
+  isFood: 0
+  heal: 0
   stackable: 0
   maxStack: 0
   image: {fileID: 21300000, guid: b044a3eb5c7c6b6428d1f658795fec28, type: 3}

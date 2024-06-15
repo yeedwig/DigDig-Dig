@@ -13,13 +13,22 @@ MonoBehaviour:
   m_Name: ArmyDrill
   m_EditorClassIdentifier: 
   Name: Army Drill
-  Description: 
+  Description: Efficient for digging..!
   itemType: 1
   itemId: 13
+  resourceId: 0
+  efficiency: 0
   price: 100
   damage: 1
+  range: 0
   durability: 100
+  isTreasure: 0
   isTool: 1
+  isResource: 0
+  isStructure: 0
+  isKey: 0
+  isFood: 0
+  heal: 0
   stackable: 0
   maxStack: 0
   image: {fileID: 21300000, guid: aa36d787b2379fa458af9d0a15b738cb, type: 3}
