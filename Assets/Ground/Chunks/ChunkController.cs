@@ -24,6 +24,7 @@ public class ChunkController : MonoBehaviour
         currentIndex = 2*(-(int)player.transform.position.y/50) + (int)player.transform.position.x/50;
         if (currentIndex != lastIndex)
         {
+            Debug.Log("please no");
             lastIndex = currentIndex;
             ActivateMap(currentIndex);
         }
@@ -47,7 +48,6 @@ public class ChunkController : MonoBehaviour
             {
                 if (!chunks[i].activeSelf)
                 {
-                    //chunks[i].SetActive(true);
                     StartCoroutine(ActivateChunk(chunks[i]));
                 }
             }

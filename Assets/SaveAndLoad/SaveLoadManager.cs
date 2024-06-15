@@ -260,7 +260,7 @@ public class SaveLoadManager : MonoBehaviour
                     botDic.Add(bot, null);
                 }
             }
-            player.transform.position = mapObject.playerPos;
+            //player.transform.position = mapObject.playerPos;
 
 
             //체력바 즉시 변경

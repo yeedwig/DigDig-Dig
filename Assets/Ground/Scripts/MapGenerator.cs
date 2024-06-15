@@ -33,16 +33,6 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < mapWidthPerChunk; j++)
             {
                 GameObject ground = Instantiate(groundChunks[index]);
-                /*
-                if (i <= -2)
-                {
-                    foreach (Transform t in ground.transform)
-                    {
-                        t.gameObject.SetActive(false);
-                    }
-                    ground.gameObject.SetActive(false);
-                }
-                */
                 chunks[index] = ground;
                 ground.transform.position = new Vector3(j * 50, i * 50, 0);
                 index++;
