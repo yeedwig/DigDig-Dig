@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 
 public class GroundDictionary : MonoBehaviour
 {
-    public Dictionary<Vector3Int, GameObject> groundDictionary;
+    public Dictionary<Vector3Int, GameObject> groundDictionary = new Dictionary<Vector3Int, GameObject>();
     
     public Tilemap groundTileMap;
     public GameObject player;
@@ -14,11 +14,14 @@ public class GroundDictionary : MonoBehaviour
 
     void Awake()
     {
-       groundDictionary =new Dictionary<Vector3Int, GameObject>();
+       //groundDictionary =new Dictionary<Vector3Int, GameObject>();
        instance = this;
     }
-    
 
+    private void Start()
+    {
+        Debug.Log(groundDictionary.Count);
+    }
     public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
     {
         groundDictionary.Add(gridPosition, groundObject);

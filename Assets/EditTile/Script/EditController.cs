@@ -295,7 +295,7 @@ public class EditController : MonoBehaviour
                 {
                     case 0: //갱도
                         GangController.instance.CreateGang(editTilemap.WorldToCell(cursor.transform.position));
-                        groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true; //추후 수정
+                        //groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true; //추후 수정
                         gangNum--;
                         GM.GangNum--;
                         break;
@@ -353,7 +353,7 @@ public class EditController : MonoBehaviour
                         if (objectToErase.name == "GangTilemap")
                         {
                             GangController.instance.DestroyGang(editTilemap.WorldToCell(cursor.transform.position));
-                            groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = false;
+                            //groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = false;
                         }
                         else if(objectToErase.name == "ElevatorPassageTilemap")
                         {
@@ -489,7 +489,7 @@ public class EditController : MonoBehaviour
             elevatorConstructVec = elevatorPassageTilemap.WorldToCell(elevatorBottomPos);
             elevatorPassageTilemap.SetTile(elevatorConstructVec, elevatorPassage);
             GangController.instance.CreateGang(elevatorConstructVec);
-            groundDictionary[elevatorConstructVec].GetComponent<Ground>().gangInstalled = true;
+            //groundDictionary[elevatorConstructVec].GetComponent<Ground>().gangInstalled = true;
             //elevatorDoorNum--;
             elevatorPassageNum--;
             GM.ElevatorPassageNum--;

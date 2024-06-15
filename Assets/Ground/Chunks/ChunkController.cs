@@ -15,7 +15,7 @@ public class ChunkController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastIndex = -1;
+        lastIndex = 2 * (-(int)player.transform.position.y / 50) + (int)player.transform.position.x / 50;
     }
 
     // Update is called once per frame

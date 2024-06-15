@@ -13,32 +13,22 @@ public class MapGenerator : MonoBehaviour
     [SerializeField] GameObject chunkController;
     public GameObject player;
     public GameObject saveload;
+
+    public GameObject groundDictionary;
+    public GroundDictionary GD;
     // Start is called before the first frame update
     void Awake()
     {
         chunks = new GameObject[groundChunks.Length];
-        if (SaveLoadManager.loaded)
-        {
-           player.transform.position = saveload.GetComponent<SaveLoadManager>().posTest();
-        }
+        
+        GD = groundDictionary.GetComponent<GroundDictionary>();
         CreateMap();
     }
 
     public void CreateMap()
     {
-        int start, end;
-        int pos = 2 * (-(int)player.transform.position.y / 50) + (int)player.transform.position.x / 50;
-        if (pos % 2 == 0)
-        {
-            start = pos - 2;
-            end = pos + 3;
-        }
-        else
-        {
-            start = pos - 3;
-            end = pos + 2;
-        }
-        ChunkController CC = chunkController.GetComponent<ChunkController>();
+        
+        
         for (int i = 0; i < groundChunks.Length * 0.5; i++)
         {
             if (Random.Range(0, 2) == 0)
@@ -51,22 +41,35 @@ public class MapGenerator : MonoBehaviour
         {
             for (int j = 0; j < mapWidthPerChunk; j++)
             {
-                GameObject ground = Instantiate(groundChunks[index]);
+                GameObject ground = Instantiate(groundChunks[index], new Vector3(j * 50, i * 50, 0),Quaternion.identity);
                 chunks[index] = ground;
-                ground.transform.position = new Vector3(j * 50, i * 50, 0);
-                /*
-                foreach(Transform t in chunks[index].transform)
-                {
-                    if (t.gameObject.GetComponent<Ground>() != null)
-                    {
-                        if (!GroundDictionary.instance.groundDictionary.ContainsKey(TilemapManager.instance.groundTilemap.WorldToCell(t.position)))
-                        {
-                            GroundDictionary.instance.groundDictionary.Add(TilemapManager.instance.groundTilemap.WorldToCell(t.position), t.gameObject);
-                        }
-                    }
-                }
-                */
-                /*
+                index++;
+            }
+        }
+        ChunkController CC = chunkController.GetComponent<ChunkController>();
+        CC.chunks = chunks;
+        if (SaveLoadManager.loaded)
+        {
+            player.transform.position = saveload.GetComponent<SaveLoadManager>().posTest();
+        }
+        int start, end;
+        int pos = 2 * (-(int)player.transform.position.y / 50) + (int)player.transform.position.x / 50;
+        if (pos % 2 == 0)
+        {
+            start = pos - 2;
+            end = pos + 3;
+        }
+        else
+        {
+            start = pos - 3;
+            end = pos + 2;
+        }
+        index = 0;
+
+        for (int i = 0; i > -mapHeightPerChunk; i--)
+        {
+            for (int j = 0; j < mapWidthPerChunk; j++)
+            {
                 if(index >1 && (index < start || index > end))
                 {
                     foreach (Transform t in chunks[index].transform)
@@ -75,11 +78,9 @@ public class MapGenerator : MonoBehaviour
                     }
                     chunks[index].SetActive(false);
                 }
-                */
                 index++;
-                
             }
         }
-        CC.chunks = chunks;
     }
+
 }

@@ -9,29 +9,28 @@ public class Ground : MonoBehaviour
 {
     public float currentHealth,maxHealth; //현재 체력, 최대 체력, 임계점 2개
     public int groundLevel; //땅 레벨(깊이에 따라)
-    public bool gangInstalled = false; //갱도가 설치되었는가
+    //public bool gangInstalled = false; //갱도가 설치되었는가
     Vector3Int groundGridPosition;
     //public bool structureInstalled = false; //설치된 아이템이 있는가
 
     public SpriteRenderer sr;
     public BoxCollider2D bc;
 
+    public GroundSO[] groundSO;
+
     // 빈칸인지 확인
     public bool isBlank;
-    public bool initialized = false;
 
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
+        groundSO = GameObject.Find("GroundComponents").GetComponent<GroundComponents>().groundSO;
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
     }
+    // Start is called before the first frame update
+    
 
     public void takeDamage(float damage) //데미지 주는 함수
     {
@@ -48,8 +47,8 @@ public class Ground : MonoBehaviour
 
     public void SelectGroundLevelHealth()
     {
-        groundGridPosition = TilemapManager.instance.groundTilemap.WorldToCell(this.transform.position);
-
+        //groundGridPosition = TilemapManager.instance.groundTilemap.WorldToCell(this.transform.position);
+        groundGridPosition = GameObject.Find("Ground").GetComponent<Tilemap>().WorldToCell(this.transform.position);
         if (!isBlank)
         {
             if (groundGridPosition.y > -50)
@@ -105,8 +104,7 @@ public class Ground : MonoBehaviour
 
             currentHealth = maxHealth;
         }
-        GroundDictionary.instance.groundDictionary.Add(groundGridPosition, this.gameObject);
-        initialized = true;
+        GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary.Add(groundGridPosition, this.gameObject);
     }
 
     
@@ -123,17 +121,18 @@ public class Ground : MonoBehaviour
             }
             else if (currentHealth < maxHealth * 0.3f) //거의 부서짐
             {
-                sr.sprite = GroundComponents.instance.groundSO[groundLevel - 1].groundSprites[2];
+                sr.sprite = groundSO[groundLevel - 1].groundSprites[2];
+                
                 //groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
             }
             else if (currentHealth < maxHealth * 0.7f) //부서지기 시작
             {
-                sr.sprite = GroundComponents.instance.groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
+                sr.sprite = groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
 
             }
             else
             {
-                sr.sprite = GroundComponents.instance.groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
+                sr.sprite = groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
             }
         }
         
