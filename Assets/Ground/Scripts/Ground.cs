@@ -18,13 +18,17 @@ public class Ground : MonoBehaviour
 
     // ∫Ûƒ≠¿Œ¡ˆ »Æ¿Œ
     public bool isBlank;
+    public bool initialized = false;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-
+        
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
     }
@@ -102,6 +106,7 @@ public class Ground : MonoBehaviour
             currentHealth = maxHealth;
         }
         GroundDictionary.instance.groundDictionary.Add(groundGridPosition, this.gameObject);
+        initialized = true;
     }
 
     

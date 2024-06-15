@@ -15,7 +15,7 @@ public class ChunkController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastIndex = 0;
+        lastIndex = -1;
     }
 
     // Update is called once per frame

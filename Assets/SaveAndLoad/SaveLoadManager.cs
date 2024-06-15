@@ -45,6 +45,8 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject elevatorTop;
     public GameObject elevatorBot;
 
+    //플레이어 위치 저장
+
 
     void Awake()
     {
@@ -60,7 +62,6 @@ public class SaveLoadManager : MonoBehaviour
         {
             inventoryItemDictionary.Add(inventoryItemArray[i], i);
         }
-        
     }
 
     private void Start()
@@ -89,6 +90,14 @@ public class SaveLoadManager : MonoBehaviour
         SaveHealth.saveHealth(player.GetComponent<Health>());
         SaveGameManager.saveGameManager(gameManager.GetComponent<GameManager>());
         SaveInventory.saveInventory(inventoryManager.GetComponent<InventoryManager>(),toolManager.GetComponent<ToolManager>(),inventoryItemDictionary);
+        PlayerObjects playerPos = new PlayerObjects
+        {
+            playerPos = player.transform.position,
+        };
+        string json = JsonUtility.ToJson(playerPos);
+        File.WriteAllText(SAVE_FOLDER + "/PlayerSave.txt", json);
+
+
         MapObjects mapObject = new MapObjects
         {
             playerPos = player.transform.position,
@@ -159,8 +168,8 @@ public class SaveLoadManager : MonoBehaviour
             }
         }
 
-        string json = JsonUtility.ToJson(mapObject);
-        File.WriteAllText(SAVE_FOLDER + "/MapSave.txt", json);
+        string json1 = JsonUtility.ToJson(mapObject);
+        File.WriteAllText(SAVE_FOLDER + "/MapSave.txt", json1);
     }
 
     public class MapObjects
@@ -187,6 +196,20 @@ public class SaveLoadManager : MonoBehaviour
         SaveGameManager.loadGameManager(gameManager.GetComponent<GameManager>());
         SaveInventory.loadInventory(inventoryManager.GetComponent<InventoryManager>(), toolManager.GetComponent<ToolManager>(),inventoryItemArray);
         
+    }
+
+    public Vector3 posTest()
+    {
+        if (File.Exists(SAVE_FOLDER + "/PlayerSave.txt"))
+        {
+            string saveString = File.ReadAllText(SAVE_FOLDER + "/PlayerSave.txt");
+            PlayerObjects playerObject = JsonUtility.FromJson<PlayerObjects>(saveString);
+            return playerObject.playerPos;
+        }
+        else
+        {
+            return new Vector3(0, 0, 0);
+        }
     }
 
     private void MapLoadTest()
@@ -266,5 +289,10 @@ public class SaveLoadManager : MonoBehaviour
             //체력바 즉시 변경
 
         }
+    }
+
+    public class PlayerObjects
+    {
+        public Vector3 playerPos;
     }
 }
