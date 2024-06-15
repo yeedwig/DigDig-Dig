@@ -242,6 +242,12 @@ public class SaveLoadManager : MonoBehaviour
                     top.GetComponent<Elevator>().pair = bot;
                     bot.GetComponent<Elevator>().isConnected = true;
                     bot.GetComponent<Elevator>().pair = top;
+                    topDic.Add(top, bot);
+                    botDic.Add(bot, top);
+                }
+                else
+                {
+                    topDic.Add(top, null);
                 }
             }
             Dictionary<Vector3, Vector3> botLoadDic = mapObject.botKey.Zip(mapObject.botValue, (k, v) => new { k, v }).ToDictionary(a => a.k, a => a.v);
@@ -251,6 +257,7 @@ public class SaveLoadManager : MonoBehaviour
                 {
                     GameObject bot = Instantiate(elevatorBot);
                     bot.transform.position = pair.Key;
+                    botDic.Add(bot, null);
                 }
             }
             player.transform.position = mapObject.playerPos;

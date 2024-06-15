@@ -24,7 +24,7 @@ public class MapGenerator : MonoBehaviour
         {
             if (Random.Range(0, 2) == 0)
             {
-                (groundChunks[i * 2], groundChunks[i * 2 + 1]) = (groundChunks[i * 2 + 1], groundChunks[i * 2]);
+                //(groundChunks[i * 2], groundChunks[i * 2 + 1]) = (groundChunks[i * 2 + 1], groundChunks[i * 2]);
             }
         }
         int index = 0;
@@ -33,6 +33,7 @@ public class MapGenerator : MonoBehaviour
             for (int j = 0; j < mapWidthPerChunk; j++)
             {
                 GameObject ground = Instantiate(groundChunks[index]);
+                /*
                 if (i <= -2)
                 {
                     foreach (Transform t in ground.transform)
@@ -41,6 +42,7 @@ public class MapGenerator : MonoBehaviour
                     }
                     ground.gameObject.SetActive(false);
                 }
+                */
                 chunks[index] = ground;
                 ground.transform.position = new Vector3(j * 50, i * 50, 0);
                 index++;
