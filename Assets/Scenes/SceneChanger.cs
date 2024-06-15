@@ -33,7 +33,7 @@ public class SceneChanger : MonoBehaviour
 
     public void ToMainMenu()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("StartingScene");
     }
     public void CreditButton()
     {

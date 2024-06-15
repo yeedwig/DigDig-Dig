@@ -86,6 +86,9 @@ TagManager:
   - name: Elevator
     uniqueID: 2880042911
     locked: 0
+  - name: Lava
+    uniqueID: 1789029311
+    locked: 0
   - name: Edit
     uniqueID: 253100513
     locked: 0

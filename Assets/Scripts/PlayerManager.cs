@@ -140,6 +140,7 @@ public class PlayerManager : MonoBehaviour
     //menu UI
     [SerializeField] private GameObject menuUI;
     private bool menuUIOpened;
+    public static bool gamePaused;
     void Start()
     {
         Dead = false;
@@ -460,11 +461,15 @@ public class PlayerManager : MonoBehaviour
                 {
                     menuUI.SetActive(true);
                     menuUIOpened = true;
+                    gamePaused =! gamePaused;
+                    PauseGame();
                 }
                 else
                 {
                     menuUI.SetActive(false);
                     menuUIOpened = false;
+                    gamePaused = !gamePaused;
+                    PauseGame();
                 }
                 
             }
@@ -488,6 +493,18 @@ public class PlayerManager : MonoBehaviour
         }
         
 
+    }
+
+    void PauseGame()
+    {
+        if (gamePaused)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public void InterActionRayCast()
