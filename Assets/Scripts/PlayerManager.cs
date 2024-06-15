@@ -136,6 +136,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float airTime;
     [SerializeField] private float surviveFallThreshold;
     [SerializeField] private float damageForSeconds;
+
+    //menu UI
+    [SerializeField] private GameObject menuUI;
+    private bool menuUIOpened;
     void Start()
     {
         Dead = false;
@@ -151,6 +155,7 @@ public class PlayerManager : MonoBehaviour
         inventoryOpened = false;
         minimapOpened = false;
         toolBeltIsActive = false;
+        menuUIOpened = false;
         //curItem.itemType = 0;
 
     }
@@ -440,10 +445,28 @@ public class PlayerManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
-                ShopUI.SetActive(false);
-                shopUIOpened = false;
-                InventoryUI.SetActive(false);
-                inventoryOpened = false;
+                if (shopUIOpened)
+                {
+                    ShopUI.SetActive(false);
+                    shopUIOpened = false;
+                }
+                if(inventoryOpened)
+                {
+                    InventoryUI.SetActive(false);
+                    inventoryOpened = false;
+                }
+                
+                if(menuUIOpened == false)
+                {
+                    menuUI.SetActive(true);
+                    menuUIOpened = true;
+                }
+                else
+                {
+                    menuUI.SetActive(false);
+                    menuUIOpened = false;
+                }
+                
             }
 
             if(Input.GetKeyDown(KeyCode.R))
