@@ -688,7 +688,7 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
-        if (isClimbingLadder)
+        if (isClimbingLadder && !editcontroller.isEditOn)
         {
             rb.velocity = new Vector2(0, yMove * ladderSpeed);
         }
