@@ -457,7 +457,7 @@ public class PlayerManager : MonoBehaviour
                     inventoryOpened = false;
                 }
                 
-                if(menuUIOpened == false)
+                if(menuUIOpened == false && shopUIOpened == false)
                 {
                     menuUI.SetActive(true);
                     menuUIOpened = true;

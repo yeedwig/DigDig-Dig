@@ -271,7 +271,8 @@ MonoBehaviour:
   item: {fileID: 0}
   lifeTime: 0
   <Quantity>k__BackingField: 1
-  itemEarnedSound: []
+  itemEarnedSound:
+  - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
   duration: 0.3
 --- !u!1 &7739188492408683479
 GameObject:

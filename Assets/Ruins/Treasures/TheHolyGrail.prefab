@@ -185,7 +185,7 @@ MonoBehaviour:
   lifeTime: 0
   <Quantity>k__BackingField: 1
   itemEarnedSound:
-  - {fileID: 8300000, guid: c82bd3a6c1a1542488da38fa679d016b, type: 3}
+  - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
   duration: 0.3
 --- !u!61 &8595012882628813877
 BoxCollider2D:
