@@ -15,7 +15,11 @@ public class ItemDropManager : MonoBehaviour
 
     private int curToolEfficiency;
 
-    private string[] itemTestName = new string[] {"Dirt","Stone","Diamond"}; 
+    private string[] itemTestName = new string[] {"Dirt","Gravel","Sand","Copper"
+        ,"Iron","Granite","Slate","Sulfur","Amethyst","Quartz","Serpentine","Gold"
+        ,"SandStone","Salt","Limestone","Coral","Aquamarine","Amber","Coal","Marble"
+        ,"Obsidian","Fossil","Ruby","Garnet","Azurite","Silver","Topaz","Emerald"
+        ,"Sapphire","Diamond"}; 
     private int[] itemTestNum = new int[] {0,0,0}; // 나중에 자원 id 고려
     private int[] itemTestNumCombo = new int[]{0,0,0}; // 나중에 자원 id 고려
 

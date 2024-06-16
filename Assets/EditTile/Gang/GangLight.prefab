@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180bfd3fa18bc924da94586fd85e7a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxDelay: 0.4
-  minDelay: 0.2
+  maxDelay: 0.8
+  minDelay: 0.7
   maxIntensity: 1
-  minIntensity: 0.5
+  minIntensity: 0.8
