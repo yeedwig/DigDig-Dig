@@ -19,4 +19,24 @@ MonoBehaviour:
   - {fileID: 503351016, guid: 59ea529b882f19c48acdf04ccbe2f7ed, type: 3}
   groundMaxPerLv: 0
   groundHealth: 0
-  resources: []
+  resources:
+  - {fileID: 11400000, guid: cf0c09b88e64ed14687926c8c80e36fa, type: 2}
+  - {fileID: 11400000, guid: 1dbc3b2dcc02a24409122e9fc1b84f1f, type: 2}
+  - {fileID: 11400000, guid: 1dbc3b2dcc02a24409122e9fc1b84f1f, type: 2}
+  - {fileID: 11400000, guid: 1dbc3b2dcc02a24409122e9fc1b84f1f, type: 2}
+  - {fileID: 11400000, guid: 83fa8bf526eff2f4994cfc107cd51d73, type: 2}
+  - {fileID: 11400000, guid: 83fa8bf526eff2f4994cfc107cd51d73, type: 2}
+  - {fileID: 11400000, guid: f191fd85de6a41147b5ce6811085285c, type: 2}
+  - {fileID: 11400000, guid: f191fd85de6a41147b5ce6811085285c, type: 2}
+  - {fileID: 11400000, guid: a8dc5500b973bb947aa63c1399a1daa9, type: 2}
+  - {fileID: 11400000, guid: 392614789887fc145922c009cbe4ff04, type: 2}
+  - {fileID: 11400000, guid: ab28b0f9ae5998747aa7d835fd448f9a, type: 2}
+  - {fileID: 11400000, guid: 957851a837d5e0c419e17fbd4355f579, type: 2}
+  - {fileID: 11400000, guid: 957851a837d5e0c419e17fbd4355f579, type: 2}
+  - {fileID: 11400000, guid: 957851a837d5e0c419e17fbd4355f579, type: 2}
+  - {fileID: 11400000, guid: 957851a837d5e0c419e17fbd4355f579, type: 2}
+  - {fileID: 11400000, guid: d20abf609aa4b0f46a024d0894184166, type: 2}
+  - {fileID: 11400000, guid: d20abf609aa4b0f46a024d0894184166, type: 2}
+  - {fileID: 11400000, guid: d20abf609aa4b0f46a024d0894184166, type: 2}
+  - {fileID: 11400000, guid: 8d2d52e11a9c11c4db0bc98b4713ebb9, type: 2}
+  - {fileID: 11400000, guid: 8d2d52e11a9c11c4db0bc98b4713ebb9, type: 2}

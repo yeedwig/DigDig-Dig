@@ -19,3 +19,14 @@ MonoBehaviour:
   - {fileID: 600576204, guid: ff0bf643e87e2fb47908e46824e159cd, type: 3}
   groundMaxPerLv: 0
   groundHealth: 0
+  resources:
+  - {fileID: 11400000, guid: 9c15980050c14b84291fffe119b63a93, type: 2}
+  - {fileID: 11400000, guid: 9c15980050c14b84291fffe119b63a93, type: 2}
+  - {fileID: 11400000, guid: 1e29a698d431f1e4babb714d41e4f3e2, type: 2}
+  - {fileID: 11400000, guid: 8546ec465d923e544844238f508e49bf, type: 2}
+  - {fileID: 11400000, guid: 8546ec465d923e544844238f508e49bf, type: 2}
+  - {fileID: 11400000, guid: ef6aba28ffa0ab649a47a501acae6aec, type: 2}
+  - {fileID: 11400000, guid: ef6aba28ffa0ab649a47a501acae6aec, type: 2}
+  - {fileID: 11400000, guid: e0bb69195d62f744da49aa30812521ce, type: 2}
+  - {fileID: 11400000, guid: e0bb69195d62f744da49aa30812521ce, type: 2}
+  - {fileID: 11400000, guid: c5d424b111ca527478df62f17001fee2, type: 2}
