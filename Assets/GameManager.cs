@@ -77,9 +77,11 @@ public class GameManager : MonoBehaviour
     public GameObject moleId;
     public bool hasMoleId = false;
 
+    public static GameManager instance;
     
     private void Awake()
     {
+        instance = this;
         AntNestFound = false;
         ArmyTrenchFound = false;
         PiratesMet = false;

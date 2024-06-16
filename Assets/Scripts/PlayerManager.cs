@@ -164,7 +164,7 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        walkSpeed = curCharacter.moveSpeed;
+        //walkSpeed = curCharacter.moveSpeed; 일단 주석 처리
         //Debug.Log(curCharacter.name);
         if (!isEditOn)
         {

@@ -63,13 +63,16 @@ public class InteractionManager : MonoBehaviour
             {
                 if (structure.gameObject.tag == "Rail" && Input.GetKeyDown(KeyCode.F))
                 {
+                    
                     if (!isOnRail)
                     {
-                        this.gameObject.GetComponent<PlayerManager>().walkSpeed = 15.0f;
+                        Debug.Log("Rail on");
+                        this.gameObject.GetComponent<PlayerManager>().walkSpeed = 5.0f;
                     }
                     else
                     {
-                        this.gameObject.GetComponent<PlayerManager>().walkSpeed = 3.0f;
+                        Debug.Log("Rail off");
+                        this.gameObject.GetComponent<PlayerManager>().walkSpeed = 2.0f;
                     }
                     isOnRail = !isOnRail;
                 }
@@ -78,7 +81,7 @@ public class InteractionManager : MonoBehaviour
             {
                 if (isOnRail)
                 {
-                    this.gameObject.GetComponent<PlayerManager>().walkSpeed = 3.0f;
+                    this.gameObject.GetComponent<PlayerManager>().walkSpeed = 2.0f;
                     isOnRail = false;
                 }
             }

@@ -9,6 +9,7 @@ using UnityEngine.Tilemaps;
 public class EditController : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    [SerializeField] GameObject gameManager;
     [SerializeField] GameManager GM;
     [SerializeField] PlayerManager Player;
     //에딧 커서
@@ -104,12 +105,13 @@ public class EditController : MonoBehaviour
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         originalCameraSize = camera.fieldOfView;
         saveLoadManager = SaveAndLoad.GetComponent<SaveLoadManager>();
+        GM = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        GetStructNum();
+        //GetStructNum();
         CheckEdit();
         MoveEditCursor();
         ChangeItemIndex();
@@ -296,30 +298,25 @@ public class EditController : MonoBehaviour
                     case 0: //갱도
                         GangController.instance.CreateGang(editTilemap.WorldToCell(cursor.transform.position));
                         //groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true; //추후 수정
-                        gangNum--;
                         GM.GangNum--;
                         break;
                     case 1: //오른쪽 사다리
                         ladderTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), rightLadder);
-                        ladderNum--;
                         GM.LadderNum--;
                         break;
                     case 2: //왼쪽 사다리
                         ladderTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), leftLadder);
-                        ladderNum--;
                         GM.LadderNum--;
                         break;
                     case 3://레일
                         railTilemap.SetTile(editTilemap.WorldToCell(cursor.transform.position), rail);
-                        railNum--;
                         GM.RailNum--;
                         break;
                     case 4: //엘베 위쪽
                         GameObject Top = GameObject.Instantiate(elevatorTop);
-                        elevatorDoorNum--;
                         GM.ElevatorDoorNum--;
                         Top.transform.position = cursor.transform.position;
-                        hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), elevatorPassageNum+1, obstacleMask);
+                        hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), GM.ElevatorPassageNum+1, obstacleMask);
                         if(hit.collider!=null && hit.collider.gameObject.tag == "Elevator" && !hit.collider.gameObject.GetComponent<Elevator>().isTop) //tag로 바꿀 생각하기
                         {
                             Top.GetComponent<Elevator>().pair = hit.collider.gameObject;
@@ -334,10 +331,9 @@ public class EditController : MonoBehaviour
                         break;
                     case 5://엘베 아래쪽
                         GameObject Bottom = GameObject.Instantiate(elevatorBottom);
-                        elevatorDoorNum--;
                         GM.ElevatorDoorNum--;
                         Bottom.transform.position = cursor.transform.position;
-                        hit = Physics2D.Raycast(Bottom.transform.position, new Vector2(0, 1), elevatorPassageNum+1, obstacleMask);
+                        hit = Physics2D.Raycast(Bottom.transform.position, new Vector2(0, 1), GM.ElevatorPassageNum + 1, obstacleMask);
                         if (hit.collider != null && hit.collider.gameObject.tag == "Elevator" && hit.collider.gameObject.GetComponent<Elevator>().isTop)
                         {
                             Bottom.GetComponent<Elevator>().pair = hit.collider.gameObject;
@@ -433,7 +429,7 @@ public class EditController : MonoBehaviour
             {
                 if (itemCursorIndex == 0)
                 {
-                    if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position))&&gangNum>0&&gangOnCursor==null)
+                    if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position))&&GM.GangNum>0&&gangOnCursor==null)
                     {
                         return true; //갱도 설치 가능
                     }               
@@ -453,17 +449,17 @@ public class EditController : MonoBehaviour
                     {
                         if (itemCursorIndex == 1) //사다리 설치
                         {
-                            if (ladderNum <= 0) return false;
+                            if (GM.LadderNum <= 0) return false;
                             hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
                         }
                         else if (itemCursorIndex == 2)//사다리 설치
                         {
-                            if (ladderNum <= 0) return false;
+                            if (GM.LadderNum <= 0) return false;
                             hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
                         }
                         else if (itemCursorIndex == 3)//레일 설치
                         {
-                            if (railNum <= 0) return false;
+                            if (GM.RailNum <= 0) return false;
                             hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask);
                         }
                         if (hit.collider != null)
@@ -491,7 +487,6 @@ public class EditController : MonoBehaviour
             GangController.instance.CreateGang(elevatorConstructVec);
             //groundDictionary[elevatorConstructVec].GetComponent<Ground>().gangInstalled = true;
             //elevatorDoorNum--;
-            elevatorPassageNum--;
             GM.ElevatorPassageNum--;
             elevatorBottomPos.y += 1f;
         }
