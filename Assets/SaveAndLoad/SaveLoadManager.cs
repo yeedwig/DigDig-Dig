@@ -90,13 +90,8 @@ public class SaveLoadManager : MonoBehaviour
         SaveHealth.saveHealth(player.GetComponent<Health>());
         SaveGameManager.saveGameManager(gameManager.GetComponent<GameManager>());
         SaveInventory.saveInventory(inventoryManager.GetComponent<InventoryManager>(),toolManager.GetComponent<ToolManager>(),inventoryItemDictionary);
-        PlayerObjects playerPos = new PlayerObjects
-        {
-            playerPos = player.transform.position,
-        };
-        string json = JsonUtility.ToJson(playerPos);
-        File.WriteAllText(SAVE_FOLDER + "/PlayerSave.txt", json);
-
+        SavePlayer.savePlayer(player);
+        
 
         MapObjects mapObject = new MapObjects
         {
@@ -198,19 +193,7 @@ public class SaveLoadManager : MonoBehaviour
         
     }
 
-    public Vector3 posTest()
-    {
-        if (File.Exists(SAVE_FOLDER + "/PlayerSave.txt"))
-        {
-            string saveString = File.ReadAllText(SAVE_FOLDER + "/PlayerSave.txt");
-            PlayerObjects playerObject = JsonUtility.FromJson<PlayerObjects>(saveString);
-            return playerObject.playerPos;
-        }
-        else
-        {
-            return new Vector3(0, 0, 0);
-        }
-    }
+    
 
     private void MapLoadTest()
     {
@@ -291,8 +274,5 @@ public class SaveLoadManager : MonoBehaviour
         }
     }
 
-    public class PlayerObjects
-    {
-        public Vector3 playerPos;
-    }
+    
 }

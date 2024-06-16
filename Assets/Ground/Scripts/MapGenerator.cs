@@ -50,7 +50,7 @@ public class MapGenerator : MonoBehaviour
         CC.chunks = chunks;
         if (SaveLoadManager.loaded)
         {
-            player.transform.position = saveload.GetComponent<SaveLoadManager>().posTest();
+            player.transform.position = SavePlayer.loadPlayer();
         }
         int start, end;
         int pos = 2 * (-(int)player.transform.position.y / 50) + (int)player.transform.position.x / 50;
