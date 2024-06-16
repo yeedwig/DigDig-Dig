@@ -51,7 +51,7 @@ public class InventoryManager : MonoBehaviour
     {
         if(item.isStructure)
         {
-            if(item.Name =="Gang")
+            if(item.Name =="Mine")
             {
                 if(GM.GangNum <maxStructure)
                 {

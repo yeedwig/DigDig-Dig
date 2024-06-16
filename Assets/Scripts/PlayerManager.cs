@@ -451,13 +451,13 @@ public class PlayerManager : MonoBehaviour
                     ShopUI.SetActive(false);
                     shopUIOpened = false;
                 }
-                if(inventoryOpened)
+                else if(inventoryOpened)
                 {
                     InventoryUI.SetActive(false);
                     inventoryOpened = false;
                 }
                 
-                if(menuUIOpened == false && shopUIOpened == false)
+                else if(menuUIOpened == false )
                 {
                     menuUI.SetActive(true);
                     menuUIOpened = true;

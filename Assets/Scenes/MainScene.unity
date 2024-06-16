@@ -9577,13 +9577,8 @@ MonoBehaviour:
   - {x: 2.937081, y: -2.1169465, z: 0}
   - {x: 1.7318554, y: 0.12608221, z: 0}
   m_ShapePathHash: 1428050325
-<<<<<<< Updated upstream
-  m_Mesh: {fileID: 254264175}
-  m_InstanceId: 120062
-=======
   m_Mesh: {fileID: 122730337}
   m_InstanceId: 2152418
->>>>>>> Stashed changes
   m_LocalBounds:
     m_Center: {x: 0.59768915, y: -0.2853111, z: 0}
     m_Extent: {x: 2.3393917, y: 1.8316354, z: 0}
