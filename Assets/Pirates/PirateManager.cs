@@ -8,7 +8,7 @@ public class PirateManager : MonoBehaviour
     public bool[] mapPiecesFound;
     public bool shovelGiven;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         shovelGiven = false;
         mapPiecesFound = new bool[8];

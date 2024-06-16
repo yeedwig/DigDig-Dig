@@ -47,6 +47,9 @@ public class SaveLoadManager : MonoBehaviour
 
     //플레이어 위치 저장
 
+    //해적 저장
+    [SerializeField] GameObject pirateManager;
+
 
     void Awake()
     {
@@ -72,7 +75,7 @@ public class SaveLoadManager : MonoBehaviour
             SaveMap.loadMap(topDic, botDic, railTile, elevatorPassageTile, leftLadderTile, rightLadderTile, elevatorTop, elevatorBot);
             SaveGameManager.loadGameManager(gameManager.GetComponent<GameManager>());
             SaveInventory.loadInventory(inventoryManager.GetComponent<InventoryManager>(), toolManager.GetComponent<ToolManager>(), inventoryItemArray);
-            
+            SavePirate.load(pirateManager.GetComponent<PirateManager>());
             //player 위치는 map Generator에서 load 중
         }
     }
@@ -93,7 +96,7 @@ public class SaveLoadManager : MonoBehaviour
         SaveGameManager.saveGameManager(gameManager.GetComponent<GameManager>());
         SaveInventory.saveInventory(inventoryManager.GetComponent<InventoryManager>(),toolManager.GetComponent<ToolManager>(),inventoryItemDictionary);
         SavePlayer.savePlayer(player);
-        
+        SavePirate.save(pirateManager.GetComponent<PirateManager>());
     }
 
 }

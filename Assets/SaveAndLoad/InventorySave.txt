@@ -1,1 +1,1 @@
-{"item":[],"itemCount":[],"durability":[],"currentInventoryLevel":0,"beltItem":[20],"beltItemCount":[1],"beltDurability":[1000000.0]}
+{"item":[],"itemCount":[],"durability":[],"currentInventoryLevel":0,"beltItem":[20],"beltItemCount":[1],"beltDurability":[50.0]}
