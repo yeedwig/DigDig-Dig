@@ -17,11 +17,11 @@ MonoBehaviour:
   itemType: 1
   itemId: 18
   resourceId: 0
-  efficiency: 0
-  price: 100
-  damage: 1
+  efficiency: 1
+  price: 600
+  damage: 300
   range: 0
-  durability: 100
+  durability: 50
   isTreasure: 0
   isTool: 1
   isResource: 0

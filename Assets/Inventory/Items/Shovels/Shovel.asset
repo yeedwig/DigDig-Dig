@@ -18,7 +18,7 @@ MonoBehaviour:
   itemId: 0
   resourceId: 0
   efficiency: 1
-  price: 1
+  price: 100
   damage: 20
   range: 0
   durability: 50

@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
         EldoradoFound = false;
         TreasureFound = false;
         MadScientistLabFound = false;
-        Money =1000000;
+        Money = 0;//1000000;
         curDate = dateManager.startDate;
         maxHP = Player.GetComponent<Health>().maxHP;
 

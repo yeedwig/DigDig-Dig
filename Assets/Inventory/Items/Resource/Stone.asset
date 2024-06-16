@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stone
   m_EditorClassIdentifier: 
   Name: Gravel
-  Description: 
+  Description: It gets in your shoes
   itemType: 0
   itemId: 0
   resourceId: 1

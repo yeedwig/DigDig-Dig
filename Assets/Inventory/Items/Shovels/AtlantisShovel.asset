@@ -17,14 +17,18 @@ MonoBehaviour:
   itemType: 0
   itemId: 6
   resourceId: 0
-  efficiency: 4
+  efficiency: 3
   price: 500
-  damage: 3
+  damage: 50
+  range: 0
   durability: 500
+  isTreasure: 0
   isTool: 1
   isResource: 0
   isStructure: 0
   isKey: 0
+  isFood: 0
+  heal: 0
   stackable: 0
   maxStack: 0
   image: {fileID: 1007171218, guid: fa911e02fd9e9614b8515a0f8ab3e863, type: 3}
