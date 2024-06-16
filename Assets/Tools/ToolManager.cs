@@ -48,7 +48,7 @@ public class ToolManager : MonoBehaviour
     public AudioClip[] ErrorSound;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         inventoryManager.SpawnNewItem(defaultShovel, ToolBeltInventory[0]);
     }
