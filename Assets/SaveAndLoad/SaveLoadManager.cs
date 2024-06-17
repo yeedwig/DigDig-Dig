@@ -84,12 +84,13 @@ public class SaveLoadManager : MonoBehaviour
     //일단 f1 누르면 save, f22 누르면 load
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Save();
-        }
+        }*/
     }
-    private void Save()
+    public void Save()
     {
         SaveHealth.saveHealth(player.GetComponent<Health>());
         SaveMap.saveMap(topDic, botDic, leftLadderTile, rightLadderTile);

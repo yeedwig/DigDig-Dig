@@ -39,7 +39,7 @@ public class SceneChanger : MonoBehaviour
 
         while(!loadOperation.isDone)
         {
-            float progressValue = loadOperation.progress *100f;
+            float progressValue = loadOperation.progress *100f + 10.0f;
             progressText.text = progressValue.ToString() + "%";
             yield return null;
 

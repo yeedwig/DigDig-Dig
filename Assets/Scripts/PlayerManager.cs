@@ -143,7 +143,7 @@ public class PlayerManager : MonoBehaviour
     //menu UI
     [SerializeField] private GameObject menuUI;
     private bool menuUIOpened;
-    public static bool gamePaused;
+    public bool gamePaused;
     void Start()
     {
         Dead = false;
@@ -161,6 +161,7 @@ public class PlayerManager : MonoBehaviour
         minimapOpened = false;
         toolBeltIsActive = false;
         menuUIOpened = false;
+        Time.timeScale = 1;
         //curItem.itemType = 0;
 
     }
@@ -503,6 +504,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (gamePaused)
         {
+            Debug.Log("Paused");
             Time.timeScale = 0f;
         }
         else
