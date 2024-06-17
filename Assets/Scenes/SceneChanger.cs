@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneChanger : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] private GameObject CreditUI;
     private bool creditOpen;
+
+    [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Text progressText;
     void Start()
     {
         
@@ -17,13 +21,31 @@ public class SceneChanger : MonoBehaviour
     public void NewGame()
     {
         SaveLoadManager.loaded = false;
-        SceneManager.LoadScene("TutorialScene");
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevelAsync("TutorialScene"));
+    }
+
+    IEnumerator LoadLevelAsync(string name)
+    {
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(name);
+
+        while(!loadOperation.isDone)
+        {
+            float progressValue = loadOperation.progress *100f;
+            progressText.text = progressValue.ToString() + "%";
+            yield return null;
+
+        }
+        yield return new WaitForSeconds(0.5f);
+        loadingScreen.SetActive(false);
     }
 
     public void LoadGame()
     {
+
         SaveLoadManager.loaded = true;
-        SceneManager.LoadScene("MainScene");
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevelAsync("MainScene"));
     }
 
     public void ExitGame()
@@ -33,7 +55,8 @@ public class SceneChanger : MonoBehaviour
 
     public void ToMainMenu()
     {
-        SceneManager.LoadScene("StartingScene");
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevelAsync("StartingScene"));
     }
     public void CreditButton()
     {

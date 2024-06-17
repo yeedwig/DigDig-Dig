@@ -18,8 +18,8 @@ MonoBehaviour:
   itemId: 23
   resourceId: 0
   efficiency: 0
-  price: 500
-  damage: 1500
+  price: 700
+  damage: 2000
   range: 10
   durability: 0
   isTreasure: 0
