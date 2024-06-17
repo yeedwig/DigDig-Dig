@@ -147,6 +147,7 @@ public class PlayerManager : MonoBehaviour
     void Start()
     {
         Dead = false;
+        damageForSeconds = 200;
         rb = GetComponent<Rigidbody2D>();
         sp = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();

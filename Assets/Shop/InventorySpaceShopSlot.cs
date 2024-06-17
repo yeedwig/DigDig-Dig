@@ -21,6 +21,7 @@ public class InventorySpaceShopSlot : MonoBehaviour
     public AudioClip[] buttonPressSound;
     void Start()
     {
+        price = 500;
         nameTextSlot.text = "Lv2. Bag";
         priceTextSlot.text = price.ToString();
         gameManager = FindFirstObjectByType<GameManager>();
