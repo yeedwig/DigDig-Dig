@@ -100,6 +100,9 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private int moveSoundLimit;
     public AudioClip[] jumpSound;
 
+    [SerializeField] private int ladderSoundLimit;
+    public int ladderMoveCounter;
+
     public AudioClip[] interactionSound;
     public AudioClip[] lightSwitchSound;
     public AudioClip[] killSwitchSound;
@@ -599,6 +602,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+  
     private void CheckIsWalking()
     {
         if ((rb.velocity.x > 0.1f || rb.velocity.x < -0.1f) && isJumping == false)
@@ -696,6 +700,13 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
+                ladderMoveCounter++;
+                if (ladderMoveCounter > ladderSoundLimit)
+                {
+                    ladderMoveCounter = 0;
+                    SoundFXManager.instance.PlaySoundFXClip(footSteps, transform, 0.3f);
+                }
+
                 rb.velocity = new Vector2(0, yMove * ladderSpeed);
             }
             

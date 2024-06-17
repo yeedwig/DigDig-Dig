@@ -134,6 +134,15 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    public void Skip()
+    {
+        if(currentStage < 9)
+        {
+            currentStage++;
+        }
+        else { return; }
+    }
+
     private void AndrewSetActive(int index)
     {
         for(int i = 0; i < AndrewTheShrew.Length; i++)

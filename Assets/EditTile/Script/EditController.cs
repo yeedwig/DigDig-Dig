@@ -83,6 +83,7 @@ public class EditController : MonoBehaviour
     public AudioClip[] installSound;
     public AudioClip[] changeStructSound;
     public AudioClip[] editOnSound;
+    public AudioClip[] ErrorSound;
 
     //설치 바운드 관련
     [SerializeField] Camera camera;
@@ -393,6 +394,10 @@ public class EditController : MonoBehaviour
                     default:
                         break;
                 }
+            }
+            else
+            {
+                SoundFXManager.instance.PlaySoundFXClip(ErrorSound, transform, 1.0f);
             }
         }
     }

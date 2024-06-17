@@ -25,6 +25,14 @@ public class SceneChanger : MonoBehaviour
         StartCoroutine(LoadLevelAsync("TutorialScene"));
     }
 
+
+    public void NewGameWithoutTutorial()
+    {
+        SaveLoadManager.loaded = false;
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevelAsync("MainScene"));
+    }
+
     IEnumerator LoadLevelAsync(string name)
     {
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(name);
@@ -36,7 +44,7 @@ public class SceneChanger : MonoBehaviour
             yield return null;
 
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.0f);
         loadingScreen.SetActive(false);
     }
 

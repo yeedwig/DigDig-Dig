@@ -5,12 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class TutorialToMain : MonoBehaviour
 {
+    [SerializeField] private SceneChanger changer;
    private void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene("MainScene");
+            SaveLoadManager.loaded = false;
+            changer.NewGameWithoutTutorial();
         }
     }
+
+
+
 
 }

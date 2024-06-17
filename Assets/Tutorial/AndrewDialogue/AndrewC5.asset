@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: AndrewC5
   m_EditorClassIdentifier: 
   Dialogues:
-  - Looks like your shovel broke..!
+  - Looks like your shovel is about to break..!
   - You can tell how much your shovel can hold up to
   - By looking at the gauge on your right down corner.
   - At this point you won't be able to get up towards the ground..!
@@ -25,7 +25,7 @@ MonoBehaviour:
   - 'To change what you want to build, '
   - 'press the "Alt" button while you '
   - choose with the arrow keys.
-  - You can only buld other structures,
-  - when a gang is installed first.
-  - So always keep track of how many gangs
+  - You can only build other structures,
+  - when a Mine is installed first.
+  - So always keep track of how many Mines
   - you have left..!
