@@ -426,7 +426,7 @@ public class PlayerManager : MonoBehaviour
                 Dead = true;
             }
 
-
+            /*
             //InterAction
             if (Input.GetKeyDown(KeyCode.F))
             {
@@ -446,7 +446,7 @@ public class PlayerManager : MonoBehaviour
                         shopUIOpened = false;
                     }
                 }
-            }
+            }*/
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
@@ -519,6 +519,7 @@ public class PlayerManager : MonoBehaviour
 
         RaycastHit2D NPChit = Physics2D.Raycast(transform.position,new Vector2(facingDir,0), 0.5f, LayerMask.GetMask("NPC"));
         RaycastHit2D ButtonHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Button"));
+        RaycastHit2D ShopHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Shop"));
         RaycastHit2D AndrewHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Andrew"));
 
 
@@ -540,6 +541,22 @@ public class PlayerManager : MonoBehaviour
             SoundFXManager.instance.PlaySoundFXClip(npcSound, transform, fxVolume);
             AndrewHit.collider.gameObject.GetComponent<Andrew>().index += 1;
             Debug.Log("Hit Npc!");
+        }
+
+        if (ShopHit.collider != null && Input.GetKeyDown(KeyCode.F))
+        {
+            if (shopUIOpened == false)
+            {
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
+                ShopUI.SetActive(true);
+                shopUIOpened = true;
+            }
+            else
+            {
+                SoundFXManager.instance.PlaySoundFXClip(interactionSound, transform, fxVolume + 1.0f);
+                ShopUI.SetActive(false);
+                shopUIOpened = false;
+            }
         }
 
 
@@ -800,6 +817,7 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "Shop")
@@ -820,5 +838,7 @@ public class PlayerManager : MonoBehaviour
             shopUIOpened = false;
         }
 
+
     }
+    */
 }
