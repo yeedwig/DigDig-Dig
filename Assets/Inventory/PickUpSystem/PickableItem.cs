@@ -19,7 +19,7 @@ public class PickableItem : MonoBehaviour
     [SerializeField]
     private float duration = 0.3f;
 
-    /*
+    
     private void Start()
     {
         if (item != null)
@@ -35,7 +35,7 @@ public class PickableItem : MonoBehaviour
 
         
     }
-    */
+    
     public void DestroyItem()
     {
         GetComponent<Collider2D>().enabled = false;
