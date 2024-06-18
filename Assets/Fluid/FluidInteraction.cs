@@ -219,7 +219,7 @@ public class FluidInteraction : MonoBehaviour
     private void GiveGasDamage()
     {
         gasCollider = Physics2D.OverlapArea(leftTop.transform.position, rightBottom.transform.position, gasMask);
-        Debug.Log(gasDamageLevel);
+        
         if (gasCollider != null)
         {
             gasDamageTimer-= Time.deltaTime;
@@ -241,7 +241,6 @@ public class FluidInteraction : MonoBehaviour
 
         if(gasDamageTimer < 0)
         {
-            health.takeDamage(gasDamageArray[gasDamageLevel]);
             if (gasLevelUp)
             {
                 if (gasDamageLevel <= gasDamageArray.Length - 1)
@@ -253,6 +252,7 @@ public class FluidInteraction : MonoBehaviour
             {
                 gasDamageLevel--;
             }
+            health.takeDamage(gasDamageArray[gasDamageLevel - 1]);
             gasDamageTimer = gasDamageTimerGap;
         }
         if (this.GetComponent<PlayerManager>().Dead == true)
