@@ -59,42 +59,42 @@ public class Ground : MonoBehaviour
             else if (groundGridPosition.y > -100 && groundGridPosition.y <= -50)
             {
                 groundLevel = 2;
-                maxHealth = 500.0f;
+                maxHealth = 200.0f;
             }
             else if (groundGridPosition.y > -150 && groundGridPosition.y <= -100)
             {
                 groundLevel = 3;
-                maxHealth = 500.0f;
+                maxHealth = 300.0f;
             }
             else if (groundGridPosition.y > -200 && groundGridPosition.y <= -150)
             {
                 groundLevel = 4;
-                maxHealth = 500.0f;
+                maxHealth = 400.0f;
             }
             else if (groundGridPosition.y > -250 && groundGridPosition.y <= -200)
             {
                 groundLevel = 5;
-                maxHealth = 500.0f;
+                maxHealth = 600.0f;
             }
             else if (groundGridPosition.y > -300 && groundGridPosition.y <= -250)
             {
                 groundLevel = 6;
-                maxHealth = 500.0f;
+                maxHealth = 700.0f;
             }
             else if (groundGridPosition.y > -350 && groundGridPosition.y <= -300)
             {
                 groundLevel = 7;
-                maxHealth = 500.0f;
+                maxHealth = 800.0f;
             }
             else if (groundGridPosition.y > -400 && groundGridPosition.y <= -350)
             {
                 groundLevel = 8;
-                maxHealth = 500.0f;
+                maxHealth = 900.0f;
             }
             else if (groundGridPosition.y > -450 && groundGridPosition.y <= -400)
             {
                 groundLevel = 9;
-                maxHealth = 500.0f;
+                maxHealth = 1000.0f;
             }
             else
             {

@@ -84,6 +84,11 @@ public class FluidInteraction : MonoBehaviour
             lavaDamageNum--;
             lavaDamageTimer = lavaDamageTimerGap;
         }
+        if(this.GetComponent<PlayerManager>().Dead == true)
+        {
+            lavaDamageTimer = 0.1f;
+            lavaDamageNum = 0;
+        }
     }
 
     private void GiveWaterDamage()
@@ -159,13 +164,14 @@ public class FluidInteraction : MonoBehaviour
             }
             gasDamageTimer = gasDamageTimerGap;
         }
+        if (this.GetComponent<PlayerManager>().Dead == true)
+        {
+            gasDamageTimer = 0.1f;
+            gasDamageLevel = 0;
+        }
     }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position,breathRadius);
-    }
+    
 
 
 }
