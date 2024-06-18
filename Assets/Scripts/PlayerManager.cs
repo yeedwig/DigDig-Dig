@@ -98,12 +98,12 @@ public class PlayerManager : MonoBehaviour
     public float fxVolume;
 
     public AudioClip[] footSteps;
-    public int moveCounter;
-    [SerializeField] private int moveSoundLimit;
+    public float moveCounter;
+    [SerializeField] private float moveSoundLimit;
     public AudioClip[] jumpSound;
 
-    [SerializeField] private int ladderSoundLimit;
-    public int ladderMoveCounter;
+    [SerializeField] private float ladderSoundLimit;
+    public float ladderMoveCounter;
 
     public AudioClip[] interactionSound;
     public AudioClip[] lightSwitchSound;
@@ -753,7 +753,7 @@ public class PlayerManager : MonoBehaviour
     {
         if ((rb.velocity.x > 0.1f || rb.velocity.x < -0.1f) && isJumping == false)
         {
-            moveCounter++;
+            moveCounter += Time.deltaTime;
             if (moveCounter > moveSoundLimit)
             {
                 moveCounter = 0;
@@ -846,7 +846,7 @@ public class PlayerManager : MonoBehaviour
             }
             else
             {
-                ladderMoveCounter++;
+                ladderMoveCounter += Time.deltaTime;
                 if (ladderMoveCounter > ladderSoundLimit)
                 {
                     ladderMoveCounter = 0;
