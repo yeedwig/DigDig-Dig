@@ -22,7 +22,7 @@ public class SavePlayer
         File.WriteAllText(SAVE_FOLDER + "/PlayerSave.txt", json);
     }
 
-    public static Vector3 loadPlayer()
+    public static Vector3 loadPlayer(GameObject r)
     {
         if (File.Exists(SAVE_FOLDER + "/PlayerSave.txt"))
         {
@@ -32,7 +32,7 @@ public class SavePlayer
         }
         else
         {
-            return new Vector3(0, 0, 0);
+            return r.transform.position;
         }
     } 
 }

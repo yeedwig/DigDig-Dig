@@ -16,6 +16,8 @@ public class MapGenerator : MonoBehaviour
 
     public GameObject groundDictionary;
     public GroundDictionary GD;
+
+    [SerializeField] GameObject respawn;
     // Start is called before the first frame update
     void Awake()
     {
@@ -50,7 +52,7 @@ public class MapGenerator : MonoBehaviour
         CC.chunks = chunks;
         if (SaveLoadManager.loaded)
         {
-            player.transform.position = SavePlayer.loadPlayer();
+            player.transform.position = SavePlayer.loadPlayer(respawn);
         }
         int start, end;
         int pos = 2 * (-(int)player.transform.position.y / 50) + (int)player.transform.position.x / 50;

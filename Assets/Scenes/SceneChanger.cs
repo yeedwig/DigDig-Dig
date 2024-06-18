@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.IO;
 
 public class SceneChanger : MonoBehaviour
 {
@@ -12,10 +13,8 @@ public class SceneChanger : MonoBehaviour
 
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Text progressText;
-    void Start()
-    {
-        
-    }
+
+    private static readonly string SAVE_FOLDER = Application.dataPath + "/SaveAndLoad/";
 
     // Update is called once per frame
     public void NewGame()
@@ -50,10 +49,19 @@ public class SceneChanger : MonoBehaviour
 
     public void LoadGame()
     {
-
-        SaveLoadManager.loaded = true;
-        loadingScreen.SetActive(true);
-        StartCoroutine(LoadLevelAsync("MainScene"));
+        if (File.Exists(SAVE_FOLDER + "/PlayerSave.txt"))
+        {
+            SaveLoadManager.loaded = true;
+            loadingScreen.SetActive(true);
+            StartCoroutine(LoadLevelAsync("MainScene"));
+        }
+        else
+        {
+            SaveLoadManager.loaded = false;
+            loadingScreen.SetActive(true);
+            StartCoroutine(LoadLevelAsync("TutorialScene"));
+        }
+        
     }
 
     public void ExitGame()
