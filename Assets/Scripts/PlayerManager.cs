@@ -722,10 +722,18 @@ public class PlayerManager : MonoBehaviour
     {
         
         if(canWalk)
-        {
-            rb.velocity = new Vector2(moveDir * walkSpeed, rb.velocity.y);
+        { 
             
+            if(editcontroller.isEditOn)
+            {
+                rb.velocity = new Vector2(0, 0);
+            }
+            else
+            {
+                rb.velocity = new Vector2(moveDir * walkSpeed, rb.velocity.y);
+            }
         }
+        
     }
     
     private void CheckCanWalk()
