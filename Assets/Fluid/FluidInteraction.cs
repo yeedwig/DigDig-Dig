@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FluidInteraction : MonoBehaviour
 {
@@ -36,6 +37,13 @@ public class FluidInteraction : MonoBehaviour
 
     [SerializeField] GameObject leftTop, rightBottom;
     private Health health;
+
+
+    //state ui
+    [SerializeField] private GameObject[] gasUI;
+    [SerializeField] private GameObject fireUI;
+    [SerializeField] private GameObject waterUI;
+    [SerializeField] private Text waterPercentage;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,6 +60,64 @@ public class FluidInteraction : MonoBehaviour
         GiveLavaDamage();
         GiveWaterDamage();
         GiveGasDamage();
+        playerStatus();
+        //gasLevel 5레벨만큼 띄우면 됨
+        //lavaDamagenum > 0 일때 화상입고 있음
+        //breath/breathMax breath < breathMax 일때 띄우면 됨
+    }
+
+    private void playerStatus()
+    {
+        //gas state
+        if(gasDamageLevel > 0)
+        {
+            if(gasDamageLevel == 1)
+            {
+                gasUI[0].SetActive(true);
+            }
+            if(gasDamageLevel == 2)
+            {
+                gasUI[1].SetActive(true);
+            }
+            if (gasDamageLevel == 3)
+            {
+                gasUI[2].SetActive(true);
+            }
+            if (gasDamageLevel == 4)
+            {
+                gasUI[3].SetActive(true);
+            }
+            if (gasDamageLevel == 5)
+            {
+                gasUI[4].SetActive(true);
+            }
+        }
+        else
+        {
+            gasUI[0].SetActive(false);
+            gasUI[1].SetActive(false);
+            gasUI[2].SetActive(false);
+            gasUI[3].SetActive(false);
+            gasUI[4].SetActive(false);
+
+        }
+
+        if(lavaDamageNum > 0)
+        {
+            //lava
+            fireUI.SetActive(true);
+        }
+        else
+        {
+            fireUI.SetActive(false);
+        }
+
+        if(breath < breathMax)
+        {
+            waterUI.SetActive(true);
+            int percent = (int)(breath / breathMax);
+            waterPercentage.text = percent.ToString() + "%";
+        }
     }
 
     //용암에 접촉하면 lavaDamageTotalTimer가 초기화
