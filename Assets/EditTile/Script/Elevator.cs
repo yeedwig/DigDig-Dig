@@ -15,6 +15,7 @@ public class Elevator : MonoBehaviour
     [SerializeField] float test = 10;
     public bool isConnected = false;
     public GameObject pair;
+    int layermask;
     
 
     private void Start()
@@ -25,6 +26,7 @@ public class Elevator : MonoBehaviour
         editController = GameObject.Find("Edit").GetComponent<EditController>();
         lr.startWidth = 0.02f;
         lr.endWidth = 0.02f;
+        layermask = 1 << LayerMask.NameToLayer("Ground");
     }
 
     private void Update()
@@ -35,13 +37,30 @@ public class Elevator : MonoBehaviour
             
             if (isTop)
             {
+                RaycastHit2D hit = Physics2D.Raycast(this.transform.position, new Vector2(0, -1), GameManager.instance.ElevatorPassageNum + 1,layermask);
                 lr.SetPosition(0, this.transform.position + new Vector3(-0.2f,0,0));
-                lr.SetPosition(1, this.transform.position + new Vector3(-0.2f, -test, 0));
+                if(hit.collider != null)
+                {
+                    lr.SetPosition(1, this.transform.position + new Vector3(-0.2f, -hit.distance+0.5f, 0));
+                }
+                else
+                {
+                    lr.SetPosition(1, this.transform.position + new Vector3(-0.2f, -GameManager.instance.ElevatorPassageNum - 1, 0));
+                }
+                
             }
             else
             {
+                RaycastHit2D hit = Physics2D.Raycast(this.transform.position, new Vector2(0, 1), GameManager.instance.ElevatorPassageNum + 1, layermask);
                 lr.SetPosition(0, this.transform.position + new Vector3(0.2f, 0, 0));
-                lr.SetPosition(1, this.transform.position + new Vector3(0.2f, test, 0));
+                if (hit.collider != null)
+                {
+                    lr.SetPosition(1, this.transform.position + new Vector3(-0.2f, hit.distance - 0.5f, 0));
+                }
+                else
+                {
+                    lr.SetPosition(1, this.transform.position + new Vector3(0.2f, GameManager.instance.ElevatorPassageNum + 1, 0));
+                }
             }
         }
         else
