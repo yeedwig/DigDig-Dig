@@ -74,21 +74,41 @@ public class FluidInteraction : MonoBehaviour
             if(gasDamageLevel == 1)
             {
                 gasUI[0].SetActive(true);
+                gasUI[1].SetActive(false);
+                gasUI[2].SetActive(false);
+                gasUI[3].SetActive(false);
+                gasUI[4].SetActive(false);
             }
             if(gasDamageLevel == 2)
             {
+                gasUI[0].SetActive(true);
                 gasUI[1].SetActive(true);
+                gasUI[2].SetActive(false);
+                gasUI[3].SetActive(false);
+                gasUI[4].SetActive(false);
             }
             if (gasDamageLevel == 3)
             {
+                gasUI[0].SetActive(true);
+                gasUI[1].SetActive(true);
                 gasUI[2].SetActive(true);
+                gasUI[3].SetActive(false);
+                gasUI[4].SetActive(false);
             }
             if (gasDamageLevel == 4)
             {
+                gasUI[0].SetActive(true);
+                gasUI[1].SetActive(true);
+                gasUI[2].SetActive(true);
                 gasUI[3].SetActive(true);
+                gasUI[4].SetActive(false);
             }
             if (gasDamageLevel == 5)
             {
+                gasUI[0].SetActive(true);
+                gasUI[1].SetActive(true);
+                gasUI[2].SetActive(true);
+                gasUI[3].SetActive(true);
                 gasUI[4].SetActive(true);
             }
         }
@@ -112,11 +132,15 @@ public class FluidInteraction : MonoBehaviour
             fireUI.SetActive(false);
         }
 
-        if(breath < breathMax)
+        if(breath + 0.001 < breathMax)
         {
             waterUI.SetActive(true);
-            int percent = (int)(breath / breathMax);
+            int percent = (int)((breath / breathMax)*100);
             waterPercentage.text = percent.ToString() + "%";
+        }
+        else
+        {
+            waterUI.SetActive(false);
         }
     }
 
@@ -195,6 +219,7 @@ public class FluidInteraction : MonoBehaviour
     private void GiveGasDamage()
     {
         gasCollider = Physics2D.OverlapArea(leftTop.transform.position, rightBottom.transform.position, gasMask);
+        Debug.Log(gasDamageLevel);
         if (gasCollider != null)
         {
             gasDamageTimer-= Time.deltaTime;
@@ -219,7 +244,7 @@ public class FluidInteraction : MonoBehaviour
             health.takeDamage(gasDamageArray[gasDamageLevel]);
             if (gasLevelUp)
             {
-                if (gasDamageLevel < gasDamageArray.Length - 1)
+                if (gasDamageLevel <= gasDamageArray.Length - 1)
                 {
                     gasDamageLevel++;
                 }
