@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: AndrewC7
   m_EditorClassIdentifier: 
   Dialogues:
-  - Hello! The digger before you,
-  - had little experience
-  - and forgot to buy important structures,
+  - Nicely Done..!!
+  - Don't forget to buy important structures,
   - that will help you get back to the ground.
-  - Go to the shop and buy mine Gangs,
+  - Go to the shop and buy mines,
   - and Ladders, with the money you have.
   - And if you buy tools,
   - they will be added to your bag.
