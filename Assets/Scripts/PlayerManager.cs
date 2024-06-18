@@ -222,6 +222,11 @@ public class PlayerManager : MonoBehaviour
             airTime = 0;
         }
 
+        if(airTime > 10.0f)
+        {
+            Dead = true;
+        }
+
     }
 
     private void ShowCurrentTool()
