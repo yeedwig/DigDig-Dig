@@ -179,67 +179,49 @@ public class EditController : MonoBehaviour
     {
         if (!isChangingCursor && isEditOn)
         {
-            if (Input.GetKey(KeyCode.LeftArrow))
+            
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
+                if (playerPos.x - (cursorPosInt.x - 1) <= widthBound)
                 {
-                    cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                    if (playerPos.x - (cursorPosInt.x - 1) <= widthBound)
-                    {
-                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                        cursor.transform.position += new Vector3(-1, 0, 0);
-                    }
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                    cursor.transform.position += new Vector3(-1, 0, 0);
+                }
                     
-                }
-                cursorTimer(-1,0);
             }
-            else if (Input.GetKey(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if (Input.GetKeyDown(KeyCode.RightArrow))
+                if ((cursorPosInt.x + 1) - playerPos.x <= widthBound)
                 {
-                    if ((cursorPosInt.x + 1) - playerPos.x <= widthBound)
-                    {
-                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                        cursor.transform.position += new Vector3(1, 0, 0);
-                    }
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                    cursor.transform.position += new Vector3(1, 0, 0);
+                }
                     
-                }
-                cursorTimer(1, 0);
             }
-            else if (Input.GetKey(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if (Input.GetKeyDown(KeyCode.UpArrow))
+                if ((cursorPosInt.y + 1) - playerPos.y <= heightBound)
                 {
-                    if ((cursorPosInt.y + 1) - playerPos.y <= heightBound)
-                    {
-                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                        cursor.transform.position += new Vector3(0, 1, 0);
-                    }
-                        
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                    cursor.transform.position += new Vector3(0, 1, 0);
                 }
-                cursorTimer(0,1);
+                        
             }
-            else if (Input.GetKey(KeyCode.DownArrow))
+
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if (Input.GetKeyDown(KeyCode.DownArrow))
+                if (playerPos.y - (cursorPosInt.y - 1) <= heightBound)
                 {
-                    if (playerPos.y - (cursorPosInt.y - 1) <= heightBound)
-                    {
-                        SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
-                        cursor.transform.position += new Vector3(0, -1, 0);
-                    }
-                        
+                    SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
+                    cursor.transform.position += new Vector3(0, -1, 0);
                 }
-                cursorTimer(0, -1);
+                        
             }
-            else
-            {
-                cursorMoveTimer = cursorFastMoveStartTimerMax;
-                cursorFastMoveInterval = cursorFastMoveStartTimerMax;
-            }
+   
         } 
     }
 
@@ -435,7 +417,11 @@ public class EditController : MonoBehaviour
                     if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position))&&GM.GangNum>0&&gangOnCursor==null)
                     {
                         return true; //갱도 설치 가능
-                    }               
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 if (gangOnCursor == null)
                 {
