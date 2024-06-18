@@ -48,7 +48,6 @@ public class Arrow : MonoBehaviour
 
         if (other.GetComponent<PlayerManager>() != null)
         {
-            Debug.Log("Hit");
             other.GetComponent<Health>().takeDamage(damage);
             DestroyProjectile();
             //anim.SetTrigger("explode");

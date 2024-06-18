@@ -19,16 +19,23 @@ public class PickableItem : MonoBehaviour
     [SerializeField]
     private float duration = 0.3f;
 
+    /*
     private void Start()
     {
-        GetComponent<SpriteRenderer>().sprite = item.image;
-
-        if(item.isResource)
+        if (item != null)
         {
-            Invoke("DestroyResource", lifeTime);
-        }
-    }
+            GetComponent<SpriteRenderer>().sprite = item.image;
 
+            if (item.isResource)
+            {
+                Invoke("DestroyResource", lifeTime);
+            }
+        }
+        
+
+        
+    }
+    */
     public void DestroyItem()
     {
         GetComponent<Collider2D>().enabled = false;

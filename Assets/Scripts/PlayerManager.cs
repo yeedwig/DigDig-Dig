@@ -363,7 +363,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (curItem == null)
                 {
-                    Debug.Log("No Tool!");
+
                     //깡! 거리는 없다는사운드 여기서 플레이
                 }
                 else
@@ -394,7 +394,7 @@ public class PlayerManager : MonoBehaviour
             {
                 if (curItem == null)
                 {
-                    Debug.Log("No Tool!");
+
                 }
                 else
                 {
@@ -518,7 +518,7 @@ public class PlayerManager : MonoBehaviour
     {
         if (gamePaused)
         {
-            Debug.Log("Paused");
+
             Time.timeScale = 0f;
         }
         else
@@ -529,7 +529,6 @@ public class PlayerManager : MonoBehaviour
 
     public void InterActionRayCast()
     {
-        Debug.DrawRay(transform.position, new Vector2(facingDir, 0) * 0.5f, Color.red, 0);
 
         RaycastHit2D NPChit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("NPC"));
         RaycastHit2D ButtonHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Button"));
@@ -541,7 +540,6 @@ public class PlayerManager : MonoBehaviour
         {
             SoundFXManager.instance.PlaySoundFXClip(npcSound, transform, fxVolume);
             NPChit.collider.gameObject.GetComponent<NPC>().index += 1;
-            Debug.Log("Hit Npc!");
         }
 
         if (ButtonHit.collider != null && Input.GetKeyDown(KeyCode.F))
@@ -554,7 +552,6 @@ public class PlayerManager : MonoBehaviour
         {
             SoundFXManager.instance.PlaySoundFXClip(npcSound, transform, fxVolume);
             AndrewHit.collider.gameObject.GetComponent<Andrew>().index += 1;
-            Debug.Log("Hit Npc!");
         }
 
         if (ShopHit.collider != null && Input.GetKeyDown(KeyCode.F))
@@ -670,7 +667,6 @@ public class PlayerManager : MonoBehaviour
         {
             AlertText.text = "Item Added!";
         }
-        Debug.Log("Hit Item!");
         StartCoroutine(MessageTimer());
         PickUpItem.DestroyItem();
     }

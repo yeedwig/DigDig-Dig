@@ -133,7 +133,6 @@ public class InteractionManager : MonoBehaviour
         {
             if (elevator.transform.position.y - bottom.transform.position.y <= 0.9f) //도착 직전일때
             {
-                Debug.Log("slowDown");
                 if(elevatorSpeed>=elevatorMinSpeed) elevatorSpeed -= elevatorSpeedGap;
             }
             else //도착 직전이 아닐때

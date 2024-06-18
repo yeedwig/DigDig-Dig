@@ -19,7 +19,6 @@ public class EnemyHealth : MonoBehaviour
     public void takeDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log("Damaged");
         StartCoroutine(damageEffect());
         //hurt effect
 

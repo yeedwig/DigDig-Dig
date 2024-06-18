@@ -158,7 +158,6 @@ public class ToolManager : MonoBehaviour
             //TNT나 레이더인경우
             if(curToolType >= 2 && curToolType <=3)
             {
-                Debug.Log("Count -1");
                 useInventoryItem.count--;
                 if (useInventoryItem.count <= 0)
                 {

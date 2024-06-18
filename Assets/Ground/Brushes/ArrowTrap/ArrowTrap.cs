@@ -18,7 +18,6 @@ public class ArrowTrap : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, new Vector2(shootDir, 0) * spotRange, Color.red, 0);
         RaycastHit2D hit = Physics2D.Raycast(new Vector2 (transform.position.x, transform.position.y - 0.3f), new Vector2(shootDir, 0), spotRange, LayerMask.GetMask("Player"));
 
         if (hit.collider != null)

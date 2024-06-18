@@ -362,7 +362,6 @@ public class EditController : MonoBehaviour
                         {
                             if (objectToErase.GetComponent<Elevator>().pair == null)
                             {
-                                Debug.Log("Destory one");
                                 if (objectToErase.GetComponent<Elevator>().isTop)
                                 {
                                     saveLoadManager.topDic.Remove(objectToErase);
@@ -375,7 +374,6 @@ public class EditController : MonoBehaviour
                             }
                             else
                             {
-                                Debug.Log("Destory pair");
                                 DestroyElevatorPassage(objectToErase.GetComponent<Elevator>().pair, objectToErase);
                             }
                         }

@@ -209,7 +209,6 @@ public class GameManager : MonoBehaviour
         Player.respawning = false;
         if (defaultShovelSpawned == false)
         {
-            Debug.Log("Shovel Spawned");
             inventoryManager.SpawnNewItem(defaultShovel, firstSlotToolBelt);
             retryTimes++;
             dateManager.AddDate();

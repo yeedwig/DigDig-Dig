@@ -20,7 +20,6 @@ public class GroundDictionary : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(groundDictionary.Count);
     }
     public void AddToGroundDictionary(Vector3Int gridPosition, GameObject groundObject)
     {

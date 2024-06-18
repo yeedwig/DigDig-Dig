@@ -27,7 +27,6 @@ public class PickUpSystem : MonoBehaviour
 
         if (itemCollision.collider != null && Input.GetKeyDown(KeyCode.F))
         {
-            Debug.Log("pickable Item");
             PickableItem PickUpItem = itemCollision.collider.gameObject.GetComponent<PickableItem>();
 
             if (PickUpItem.item.isTreasure)
