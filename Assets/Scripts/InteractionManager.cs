@@ -37,6 +37,8 @@ public class InteractionManager : MonoBehaviour
     [SerializeField] GameObject edit;
     private EditController EC;
 
+    [SerializeField] GameObject cart;
+
     //ø§∏Æ∫£¿Ã≈Õ ¡¬«•∑Œ µµ¿¸
 
 
@@ -66,12 +68,12 @@ public class InteractionManager : MonoBehaviour
                     
                     if (!isOnRail)
                     {
-                        Debug.Log("Rail on");
+                        cart.SetActive(true);
                         this.gameObject.GetComponent<PlayerManager>().walkSpeed = 5.0f;
                     }
                     else
                     {
-                        Debug.Log("Rail off");
+                        cart.SetActive(false);
                         this.gameObject.GetComponent<PlayerManager>().walkSpeed = 2.0f;
                     }
                     isOnRail = !isOnRail;
@@ -81,6 +83,7 @@ public class InteractionManager : MonoBehaviour
             {
                 if (isOnRail)
                 {
+                    cart.SetActive(false);
                     this.gameObject.GetComponent<PlayerManager>().walkSpeed = 2.0f;
                     isOnRail = false;
                 }
