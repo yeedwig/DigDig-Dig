@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7992098745695477459}
   - component: {fileID: 7981162584094802216}
   - component: {fileID: -4253805468267600536}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Pickable Drill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 66f17d93768b5fe46bd26be0f6e7845a, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!61 &-4253805468267600536
 BoxCollider2D:
   m_ObjectHideFlags: 0

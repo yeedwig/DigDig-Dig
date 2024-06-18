@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1611512961119580698}
   - component: {fileID: 2253692059483390320}
   - component: {fileID: 7904060034283367094}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: PhilosophersStone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!1 &3798882958596168395
 GameObject:
   m_ObjectHideFlags: 0

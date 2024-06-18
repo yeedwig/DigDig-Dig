@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 198754992841150117}
   - component: {fileID: 3354971774901520646}
   - component: {fileID: 6364527636879798627}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: CrystalSkull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,4 +148,4 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
-  duration: 0.3
+  duration: 0.5

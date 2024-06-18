@@ -121,7 +121,7 @@ public class InventoryManager : MonoBehaviour
         }
         
         Debug.Log("Item not Added!");
-        SoundFXManager.instance.PlaySoundFXClip(cantBuySound, transform, fxvolume);
+        //SoundFXManager.instance.PlaySoundFXClip(cantBuySound, transform, fxvolume);
         StartCoroutine(MessageTimer());
         return false;
     }

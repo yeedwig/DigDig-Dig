@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 874182743507449388}
   - component: {fileID: 7831789638431599186}
   - component: {fileID: 2501151311505366534}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Picakble Shovel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,7 +103,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 66f17d93768b5fe46bd26be0f6e7845a, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!61 &2501151311505366534
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -12,15 +12,25 @@ public class PickUpSystem : MonoBehaviour
     [SerializeField]
     private GameObject AlertMessage;
     [SerializeField] private Text AlertText;
+    [SerializeField] private float facingDir;
 
     [SerializeField] private TreasureShelf Treasures;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Start()
     {
-        PickableItem PickUpItem = collision.GetComponent<PickableItem>();
-        if (PickUpItem != null)
+        facingDir = this.GetComponent<PlayerManager>().facingDir;
+    }
+    private void Update()
+    {
+        RaycastHit2D itemCollision = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("PickableItem"));
+
+
+        if (itemCollision.collider != null && Input.GetKeyDown(KeyCode.F))
         {
-            if(PickUpItem.item.isTreasure)
+            Debug.Log("pickable Item");
+            PickableItem PickUpItem = itemCollision.collider.gameObject.GetComponent<PickableItem>();
+
+            if (PickUpItem.item.isTreasure)
             {
                 Treasures.TreasuresFound[PickUpItem.item.itemId] = true;
             }

@@ -9,9 +9,11 @@ public class PlayerManager : MonoBehaviour
     private SpriteRenderer sp;
     private Animator anim;
     private float moveDir;
-    private float facingDir;
+    public float facingDir;
     public bool Dead;
 
+    [SerializeField] GameManager gameManager;
+    [SerializeField] InventoryManager inventoryManager;
     //Tool
     [SerializeField] private ToolManager toolManager;
     public Item curItem;
@@ -31,7 +33,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float jumpForce;
     private bool canJump = true;
     private bool isJumping = false;
-    
+
 
     //Digging
     public bool canDig = true;
@@ -144,6 +146,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject menuUI;
     private bool menuUIOpened;
     public bool gamePaused;
+
+
+    //pickup item
+    [SerializeField]
+    private GameObject AlertMessage;
+    [SerializeField] private Text AlertText;
+    [SerializeField] private TreasureShelf Treasures;
     void Start()
     {
         Dead = false;
@@ -178,7 +187,7 @@ public class PlayerManager : MonoBehaviour
             Flip();
             //UpdateAnimation();
             CheckTool();
-            
+
             CheckCanWalk();
             CheckIsWalking();
             CheckCurrentTool();
@@ -190,7 +199,7 @@ public class PlayerManager : MonoBehaviour
             //headLightType = curCharacter.type; //0이면 광부 모자 1이면 손에 드는거 2이면 발광하는거
             //ShowCurrentTool();
         }
-        
+
         CheckIsEditOn(); //Edit 창 켜져있는지 확인
         FallCheck();
 
@@ -199,12 +208,12 @@ public class PlayerManager : MonoBehaviour
 
     private void FallCheck()
     {
-        if(!IsGrounded() && !isClimbingLadder && rb.velocity.y < 0)
+        if (!IsGrounded() && !isClimbingLadder && rb.velocity.y < 0)
         {
             airTime += Time.deltaTime;
         }
 
-        if(IsGrounded())
+        if (IsGrounded())
         {
             if (airTime > surviveFallThreshold)
             {
@@ -212,7 +221,7 @@ public class PlayerManager : MonoBehaviour
             }
             airTime = 0;
         }
-        
+
     }
 
     private void ShowCurrentTool()
@@ -220,7 +229,7 @@ public class PlayerManager : MonoBehaviour
         curToolImage.sprite = curItem.image;
     }
 
-    
+
 
     void FixedUpdate()
     {
@@ -232,7 +241,7 @@ public class PlayerManager : MonoBehaviour
     {
         toolManager.ChangeSelectedSlot(curSelectedToolSlot);
         curItem = toolManager.CheckToolBelt(curSelectedToolSlot);
-        if(curItem == null)
+        if (curItem == null)
         {
             isDigging = false;
             isDrilling = false;
@@ -245,7 +254,7 @@ public class PlayerManager : MonoBehaviour
 
     void CurrentToolInput()
     {
-        if(!respawning)
+        if (!respawning)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -278,15 +287,15 @@ public class PlayerManager : MonoBehaviour
                 curSelectedToolSlot = 5;
             }
         }
-        
+
     }
 
     private void CheckInput()
     {
-        if(!respawning)
+        if (!respawning)
         {
             moveDir = Input.GetAxisRaw("Horizontal");
-            if(moveDir != 0)
+            if (moveDir != 0)
             {
                 facingDir = moveDir;
             }
@@ -402,7 +411,7 @@ public class PlayerManager : MonoBehaviour
             }
 
             //점프
-            
+
             if (Input.GetButtonDown("Jump") && canJump == true)
             {
                 isJumping = true;
@@ -410,7 +419,7 @@ public class PlayerManager : MonoBehaviour
                 SoundFXManager.instance.PlaySoundFXClip(jumpSound, transform, fxVolume + 1.0f);
                 rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             }
-            
+
 
             if (IsGrounded() && rb.velocity.y <= 0)
             {
@@ -456,17 +465,17 @@ public class PlayerManager : MonoBehaviour
                     ShopUI.SetActive(false);
                     shopUIOpened = false;
                 }
-                else if(inventoryOpened)
+                else if (inventoryOpened)
                 {
                     InventoryUI.SetActive(false);
                     inventoryOpened = false;
                 }
-                
-                else if(menuUIOpened == false )
+
+                else if (menuUIOpened == false)
                 {
                     menuUI.SetActive(true);
                     menuUIOpened = true;
-                    gamePaused =! gamePaused;
+                    gamePaused = !gamePaused;
                     PauseGame();
                 }
                 else
@@ -476,10 +485,10 @@ public class PlayerManager : MonoBehaviour
                     gamePaused = !gamePaused;
                     PauseGame();
                 }
-                
+
             }
 
-            if(Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
                 SoundFXManager.instance.PlaySoundFXClip(lightSwitchSound, transform, fxVolume + 1.0f);
                 if (headLightIsActive)
@@ -494,9 +503,9 @@ public class PlayerManager : MonoBehaviour
                 }
             }
 
-            
+
         }
-        
+
 
     }
 
@@ -515,13 +524,13 @@ public class PlayerManager : MonoBehaviour
 
     public void InterActionRayCast()
     {
-        Debug.DrawRay(transform.position, new Vector2(facingDir,0) * 0.5f, Color.red, 0);
+        Debug.DrawRay(transform.position, new Vector2(facingDir, 0) * 0.5f, Color.red, 0);
 
-        RaycastHit2D NPChit = Physics2D.Raycast(transform.position,new Vector2(facingDir,0), 0.5f, LayerMask.GetMask("NPC"));
+        RaycastHit2D NPChit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("NPC"));
         RaycastHit2D ButtonHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Button"));
         RaycastHit2D ShopHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Shop"));
         RaycastHit2D AndrewHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("Andrew"));
-
+        RaycastHit2D itemHit = Physics2D.Raycast(transform.position, new Vector2(facingDir, 0), 0.5f, LayerMask.GetMask("PickableItem"));
 
         if (NPChit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
@@ -529,8 +538,8 @@ public class PlayerManager : MonoBehaviour
             NPChit.collider.gameObject.GetComponent<NPC>().index += 1;
             Debug.Log("Hit Npc!");
         }
-        
-        if(ButtonHit.collider != null && Input.GetKeyDown(KeyCode.F))
+
+        if (ButtonHit.collider != null && Input.GetKeyDown(KeyCode.F))
         {
             SoundFXManager.instance.PlaySoundFXClip(scientistButtonSound, transform, fxVolume);
             ButtonHit.collider.GetComponent<ScientistButton>().TurnOnButton();
@@ -559,8 +568,116 @@ public class PlayerManager : MonoBehaviour
             }
         }
 
+        if (itemHit.collider != null && Input.GetKeyDown(KeyCode.F))
+        {
+            SoundFXManager.instance.PlaySoundFXClip(npcSound, transform, fxVolume);
+            PickableItem PickUpItem = itemHit.collider.gameObject.GetComponent<PickableItem>();
+            CheckItem(PickUpItem);
+            
+        }
+
 
     }
+
+    void CheckItem(PickableItem PickUpItem)
+    {
+
+        if (PickUpItem.item.isTreasure)
+        {
+            Treasures.TreasuresFound[PickUpItem.item.itemId] = true;
+        }
+        else
+        {
+            inventoryManager.AddItem(PickUpItem.item);
+        }
+
+        if (PickUpItem.item.isTool)
+        {
+            if (PickUpItem.item.itemId == 1 && PickUpItem.item.isTool) //Ant Nest Found
+            {
+                gameManager.AntNestFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to The Ant Nest";
+            }
+
+            if (PickUpItem.item.itemId == 2 && PickUpItem.item.isTool) //Military Found
+            {
+                gameManager.ArmyTrenchFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to The Trench";
+            }
+
+            if (PickUpItem.item.itemId == 3 && PickUpItem.item.isTool) //Crusade
+            {
+                gameManager.CrusadeFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to the Crusade";
+            }
+
+            if (PickUpItem.item.itemId == 4 && PickUpItem.item.isTool) //Catacomb
+            {
+                gameManager.CatacombFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to Death";
+            }
+
+            if (PickUpItem.item.itemId == 5 && PickUpItem.item.isTool) //Tribe Found
+            {
+                gameManager.UndergroundTribeFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to The Ancient Civilization";
+            }
+
+            if (PickUpItem.item.itemId == 6 && PickUpItem.item.isTool) //Atlantis Found
+            {
+                gameManager.AtlantisFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to Poseidon's Kingdom";
+            }
+
+            if (PickUpItem.item.itemId == 7 && PickUpItem.item.isTool) //Lost World
+            {
+                gameManager.LostWorldFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to A Place Trapped in Time";
+            }
+
+            if (PickUpItem.item.itemId == 8 && PickUpItem.item.isTool) //Golden City
+            {
+                gameManager.EldoradoFound = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to The Golden Kingdom";
+            }
+
+            if (PickUpItem.item.itemId == 9 && PickUpItem.item.isTool) // Pirates
+            {
+                gameManager.PiratesMet = true;
+                AlertText.text = "The Sound Of Treasure Has Been Spread to The Pirates";
+            }
+
+            if (PickUpItem.item.itemId == 10 && PickUpItem.item.isTool) // Mad Scientist
+            {
+                gameManager.MadScientistLabFound = true;
+                AlertText.text = "A Gift Has Been Given By The Lonely Scholar";
+            }
+        }
+        else if (PickUpItem.item.isKey)
+        {
+            AlertText.text = "Key Found!";
+        }
+        else if (PickUpItem.item.isTreasure)
+        {
+            AlertText.text = "Treasure Found! Added To Collection Room!";
+        }
+        else
+        {
+            AlertText.text = "Item Added!";
+        }
+        Debug.Log("Hit Item!");
+        StartCoroutine(MessageTimer());
+        PickUpItem.DestroyItem();
+    }
+
+    IEnumerator MessageTimer()
+    {
+        AlertMessage.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+        AlertMessage.SetActive(false);
+    }
+    
+
     void CheckTool()
     {
         if(isDigging == true || isDrilling == true)

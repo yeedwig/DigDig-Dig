@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 8920172498419818848}
   - component: {fileID: 7084749616090753137}
   - component: {fileID: 1208717001462781036}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Poseidon's Trident
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!61 &1208717001462781036
 BoxCollider2D:
   m_ObjectHideFlags: 0

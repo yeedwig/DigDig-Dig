@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8550864337749985427}
   - component: {fileID: 7950527243527910751}
   - component: {fileID: 3430184308894742993}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: ThousandYrOldHoney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!61 &3430184308894742993
 BoxCollider2D:
   m_ObjectHideFlags: 0

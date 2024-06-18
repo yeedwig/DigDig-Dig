@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5813674432460710269}
   - component: {fileID: 4231502780809891656}
   - component: {fileID: 3953282281268961893}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: ArmyTreasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!1 &7431610589514714071
 GameObject:
   m_ObjectHideFlags: 0

@@ -179,7 +179,7 @@ GameObject:
   - component: {fileID: 2856999818081380833}
   - component: {fileID: 7722192376917243672}
   - component: {fileID: 7097398193841673237}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: AmberTreasure
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ MonoBehaviour:
   <Quantity>k__BackingField: 1
   itemEarnedSound:
   - {fileID: 8300000, guid: 0db1b480d0faeb846b3b5f6d2325d1bf, type: 3}
-  duration: 0.3
+  duration: 0.5
 --- !u!1 &7739188492408683479
 GameObject:
   m_ObjectHideFlags: 0
