@@ -30,5 +30,5 @@ MonoBehaviour:
   isFood: 0
   heal: 0
   stackable: 1
-  maxStack: 0
+  maxStack: 10
   image: {fileID: 2094334632, guid: 2a5d7e4e7fd9ae742b39964a4870fa6b, type: 3}
