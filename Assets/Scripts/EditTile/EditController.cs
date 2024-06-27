@@ -224,10 +224,10 @@ public class EditController : MonoBehaviour
                         GM.RailNum--;
                         break;
                     case 4: //엘베 위쪽
-                        GameObject Top = GameObject.Instantiate(elevatorTop);
                         GM.ElevatorDoorNum--;
+                        GameObject Top = GameObject.Instantiate(elevatorTop);
                         Top.transform.position = cursor.transform.position;
-                        hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), GM.ElevatorPassageNum+1, obstacleMask);
+                        hit = Physics2D.Raycast(Top.transform.position, new Vector2(0, -1), GM.ElevatorPassageNum + 1, obstacleMask);
                         if(hit.collider!=null && hit.collider.gameObject.tag == "Elevator" && !hit.collider.gameObject.GetComponent<Elevator>().isTop) //tag로 바꿀 생각하기
                         {
                             Top.GetComponent<Elevator>().pair = hit.collider.gameObject;
@@ -239,10 +239,11 @@ public class EditController : MonoBehaviour
                         {
                             saveLoadManager.topDic.Add(Top, null);
                         }
+                        
                         break;
                     case 5://엘베 아래쪽
-                        GameObject Bottom = GameObject.Instantiate(elevatorBottom);
                         GM.ElevatorDoorNum--;
+                        GameObject Bottom = GameObject.Instantiate(elevatorBottom);
                         Bottom.transform.position = cursor.transform.position;
                         hit = Physics2D.Raycast(Bottom.transform.position, new Vector2(0, 1), GM.ElevatorPassageNum + 1, obstacleMask);
                         if (hit.collider != null && hit.collider.gameObject.tag == "Elevator" && hit.collider.gameObject.GetComponent<Elevator>().isTop)
