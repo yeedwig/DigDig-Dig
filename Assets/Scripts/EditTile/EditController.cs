@@ -8,22 +8,17 @@ using UnityEngine.Tilemaps;
 
 public class EditController : MonoBehaviour
 {
+    //외부에서 불러올 객체들
     [SerializeField] GameObject player;
     [SerializeField] GameObject gameManager;
-    [SerializeField] GameManager GM;
-    [SerializeField] PlayerManager Player;
-    //에딧 커서
-    [SerializeField] GameObject cursor;
-    private SpriteRenderer cursorSR;
-    private Vector3 cursorPos; //커서 위치 (벡터)
-    private Vector3Int cursorPosInt; // 커서 위치 (좌표)
+    private GameManager GM;
+    private PlayerManager PM;
+
+    //에딧 커서 관련
+    [SerializeField] GameObject cursor; //커서 객체
+    private SpriteRenderer cursorSR; //커서 스프라이트 렌더러
     public int itemCursorIndex; //0 갱도, 1 사다리 오른쪽, 2 사다리 왼쪽, 3 레일, 4 엘베문 아래로, 5 엘베문 위로, 6 제거
-    [SerializeField] Sprite[] itemCursorSprite;
-    [SerializeField] float cursorFastMoveStartTimerMax; //빠르게 움직이기 시작하는 텀
-    [SerializeField] float cursorFastMoveTimerMin; // 빠르게 움직이는 최소 텀
-    private float cursorFastMoveInterval; //커서 빠르게 움직이는 텀
-    [SerializeField] float cursorFastMoveTimerSubtract; //커서 빠르게 움직이는 텀 줄이기
-    private float cursorMoveTimer = 0.0f; 
+    [SerializeField] Sprite[] itemCursorSprite; //커서 인덱스 순서로 스프라이트 넣기
 
     //에딧 창 관련
     [SerializeField] Tilemap editTilemap; // 에딧창
@@ -34,18 +29,14 @@ public class EditController : MonoBehaviour
     [SerializeField] Tilemap editBackground; // 배경
     public bool isEditOn=false; //에딧창 켜져있는가
 
-    //ray,collider
-    Collider2D obstacleOnCursor;//커서 위에 땅 있는지 확인
-    Collider2D gangOnCursor;//커서 위에 갱도 있는지 확인
-    Collider2D eraseOnCursor;//커서 위에 지울꺼 있는지 확인
-    RaycastHit2D hit;
+    //설치 관련
+    private int obstacleMask; //설치시 장애물 있는지 확인
+    private int gangMask; //설치시 갱도 있는지 확인
+    RaycastHit2D hit; //엘리베이터 짝 확인시 사용
 
     // 기타
-    private int obstacleMask;
-    private int gangMask;
     private Dictionary<Vector3Int, GameObject> groundDictionary;
     
-
     // 타일 및 설치물
     [SerializeField] TileBase gang;
     [SerializeField] TileBase rail;
@@ -55,28 +46,19 @@ public class EditController : MonoBehaviour
     [SerializeField] GameObject elevatorTop;
     [SerializeField] GameObject elevatorBottom;
 
+    // 타일 제거
+    private GameObject objectToErase; //제거할 객체
+    private int eraseMask; //제거할 것이 있는지 확인
+
+    //UI 관련
+    [SerializeField] GameObject EditOnWindow; //Edit 정보 UI
+    [SerializeField] GameObject EditInventory; //Edit 인벤 UI
+    [SerializeField] GameObject ToolBelt; //ToolBelt
+
     // 엘리베이터
     private Vector3 elevatorTopPos;
     private Vector3 elevatorBottomPos;
     private Vector3Int elevatorConstructVec;
-
-    // 타일 제거
-    private GameObject objectToErase;
-    private int eraseMask;
-
-    // 설치물 개수 -> 나중에 상점으로 연결
-    public int gangNum;
-    public int ladderNum;
-    public int railNum;
-    public int elevatorDoorNum;
-    public int elevatorPassageNum;
-
-    private bool isChangingCursor;
-
-    //UI 관련
-    [SerializeField] GameObject EditOnWindow;
-    [SerializeField] GameObject EditInventory;
-    [SerializeField] GameObject ToolBelt;
 
     //Edit sound
     public AudioClip[] cursorMoveSound;
@@ -86,68 +68,46 @@ public class EditController : MonoBehaviour
     public AudioClip[] ErrorSound;
 
     //설치 바운드 관련
-    [SerializeField] Camera camera;
-    private float originalCameraSize;
-    [SerializeField] float editCameraSize;
+    [SerializeField] Camera camera; //카메라 객체
+    private float originalCameraSize; //기존 카메라 크기
+    [SerializeField] float editCameraSize; //Edit 전환시 카메라 크기 변환
     [SerializeField] int heightBound;// 세로로 어디까지(절반)
     [SerializeField] int widthBound; // 가로로 어디까지 (절반)
-    private Vector3Int playerPos;
 
     //저장
     [SerializeField] GameObject SaveAndLoad;
     private SaveLoadManager saveLoadManager;
     void Start()
     {
+        GM = gameManager.GetComponent<GameManager>();
+        PM = player.GetComponent<PlayerManager>();
         cursorSR = cursor.GetComponent<SpriteRenderer>();
-        cursorSR.color = new Color(1, 1, 1, 0.7f);
-        obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
-        eraseMask = 1 << LayerMask.NameToLayer("Structure") | 1 << LayerMask.NameToLayer("ElevatorSub");
+        obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure");
+        eraseMask = 1 << LayerMask.NameToLayer("Structure");
         gangMask = 1 << LayerMask.NameToLayer("Gang");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         originalCameraSize = camera.fieldOfView;
         saveLoadManager = SaveAndLoad.GetComponent<SaveLoadManager>();
-        GM = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //GetStructNum();
         CheckEdit();
         MoveEditCursor();
         ChangeItemIndex();
         InstallBlock();
-        CheckChangeCursor();
-    }
-
-    private void GetStructNum()
-    {
-        gangNum = GM.GangNum;
-        ladderNum = GM.LadderNum;
-        railNum = GM.LadderNum;
-        elevatorDoorNum = GM.ElevatorDoorNum;
-        elevatorPassageNum = GM.ElevatorPassageNum;
-    }
-    private void CheckChangeCursor()
-    {
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
-            isChangingCursor = true;
-        }
-        else
-        {
-            isChangingCursor = false;
-        }
     }
     private void CheckEdit()
     {
-        if(Player.respawning == false)
+        if(PM.respawning == false)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
                 SoundFXManager.instance.PlaySoundFXClip(editOnSound, transform, 1.0f);
                 if (isEditOn)
                 {
+                    //에딧창 꺼질때
                     editBackground.gameObject.SetActive(false);
                     cursor.SetActive(false);
                     EditOnWindow.SetActive(false);
@@ -157,6 +117,7 @@ public class EditController : MonoBehaviour
                 }
                 else
                 {
+                    //에딧창 켜질 때
                     ToolBelt.SetActive(false);
                     itemCursorIndex = 0;
                     cursor.SetActive(true);
@@ -167,99 +128,68 @@ public class EditController : MonoBehaviour
                     EditOnWindow.SetActive(true);
                     EditInventory.SetActive(true);
                     camera.fieldOfView = editCameraSize;
-                    playerPos = editTilemap.WorldToCell(player.transform.position);
                 }
                 isEditOn = !isEditOn;
             }
         }
-        
     }
-
-    private void MoveEditCursor()
+    private void MoveEditCursor() //커서 움직이기
     {
-        if (!isChangingCursor && isEditOn)
+        if (!Input.GetKey(KeyCode.LeftAlt) && isEditOn)
         {
-            
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) //왼쪽 이동
             {
-                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if (playerPos.x - (cursorPosInt.x - 1) <= widthBound)
+                if (editTilemap.WorldToCell(player.transform.position).x - (editTilemap.WorldToCell(cursor.transform.position).x - 1) <= widthBound)
                 {
                     SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(-1, 0, 0);
-                }
-                    
+                }  
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) //우측 이동
             {
-                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if ((cursorPosInt.x + 1) - playerPos.x <= widthBound)
+                if ((editTilemap.WorldToCell(cursor.transform.position).x + 1) - editTilemap.WorldToCell(player.transform.position).x <= widthBound)
                 {
                     SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(1, 0, 0);
-                }
-                    
+                } 
             }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            else if (Input.GetKeyDown(KeyCode.UpArrow)) //위로 이동
             {
-                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if ((cursorPosInt.y + 1) - playerPos.y <= heightBound)
+                if ((editTilemap.WorldToCell(cursor.transform.position).y + 1) - editTilemap.WorldToCell(player.transform.position).y <= heightBound)
                 {
                     SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(0, 1, 0);
-                }
-                        
+                }      
             }
-
-            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            else if (Input.GetKeyDown(KeyCode.DownArrow)) //아래로 이동
             {
-                cursorPosInt = editTilemap.WorldToCell(cursor.transform.position);
-                if (playerPos.y - (cursorPosInt.y - 1) <= heightBound)
+                if (editTilemap.WorldToCell(player.transform.position).y - (editTilemap.WorldToCell(cursor.transform.position).y - 1) <= heightBound)
                 {
                     SoundFXManager.instance.PlaySoundFXClip(cursorMoveSound, transform, 1.5f);
                     cursor.transform.position += new Vector3(0, -1, 0);
-                }
-                        
+                }      
             }
-   
         } 
     }
 
-    private void cursorTimer(int x, int y)
+    private void ChangeItemIndex() //커서 변환
     {
-        if (cursorMoveTimer > 0)
+        if (Input.GetKey(KeyCode.LeftAlt))
         {
-            cursorMoveTimer--;
-        }
-        else
-        {
-            cursor.transform.position += new Vector3(x, y, 0);
-            if (cursorFastMoveInterval > cursorFastMoveTimerMin)
-            {
-                cursorFastMoveInterval -= cursorFastMoveTimerSubtract;
-            }
-            cursorMoveTimer = cursorFastMoveInterval;
-        }
-    }
-
-    private void ChangeItemIndex()
-    {
-        if (isChangingCursor)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (Input.GetKeyDown(KeyCode.LeftArrow)) //커서 종류 왼쪽으로
             {
                 itemCursorIndex--;
                 SoundFXManager.instance.PlaySoundFXClip(changeStructSound, transform, 1.0f);
                 if (itemCursorIndex < 0)
                 {
-                    itemCursorIndex = 6;
+                    itemCursorIndex = itemCursorSprite.Length-1;
                 }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            else if (Input.GetKeyDown(KeyCode.RightArrow)) //커서 종류 오른쪽으로
             {
                 itemCursorIndex++;
                 SoundFXManager.instance.PlaySoundFXClip(changeStructSound, transform, 1.0f);
-                if (itemCursorIndex > 6)
+                if (itemCursorIndex > itemCursorSprite.Length - 1)
                 {
                     itemCursorIndex = 0;
                 }
@@ -268,11 +198,10 @@ public class EditController : MonoBehaviour
         }
     }
 
-    private void InstallBlock()
+    private void InstallBlock() //블록 설치
     {
         if (isEditOn && Input.GetKeyDown(KeyCode.F))
         {
-            
             if (CheckCanInstall())
             {
                 SoundFXManager.instance.PlaySoundFXClip(installSound, transform, 1.0f);
@@ -280,7 +209,6 @@ public class EditController : MonoBehaviour
                 {
                     case 0: //갱도
                         GangController.instance.CreateGang(editTilemap.WorldToCell(cursor.transform.position));
-                        //groundDictionary[cursorPosInt].GetComponent<Ground>().gangInstalled = true; //추후 수정
                         GM.GangNum--;
                         break;
                     case 1: //오른쪽 사다리
@@ -384,11 +312,11 @@ public class EditController : MonoBehaviour
     private bool CheckCanInstall()
     {
         // 0 갱도, 1 오른 사다리, 2 왼 사다리, 3 레일, 4 엘리베이터 아래 문, 5 엘리베이터 위쪽 문
-        obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
-        gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
+        Collider2D obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
+        Collider2D gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
         if(itemCursorIndex == 6)
         {
-            eraseOnCursor=Physics2D.OverlapCircle(cursor.transform.position, 0.4f, eraseMask);
+            Collider2D eraseOnCursor=Physics2D.OverlapCircle(cursor.transform.position, 0.4f, eraseMask);
             if (eraseOnCursor != null)
             {
                 objectToErase = eraseOnCursor.gameObject;
@@ -431,7 +359,7 @@ public class EditController : MonoBehaviour
                 {
                     if (itemCursorIndex == 4 || itemCursorIndex == 5) //엘리베이터 문 설치
                     {
-                        if (elevatorDoorNum > 0) return true;
+                        if (GM.ElevatorDoorNum > 0) return true;
                         else return false; 
                     }
                     else
