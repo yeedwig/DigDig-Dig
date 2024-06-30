@@ -32,6 +32,7 @@ public class EditController : MonoBehaviour
     //설치 관련
     private int obstacleMask; //설치시 장애물 있는지 확인
     private int gangMask; //설치시 갱도 있는지 확인
+    private int groundMask; //설치시 땅 있는지 확인
     RaycastHit2D hit; //엘리베이터 짝 확인시 사용
 
     // 기타
@@ -85,6 +86,7 @@ public class EditController : MonoBehaviour
         obstacleMask = 1 << LayerMask.NameToLayer("Ground") | 1 << LayerMask.NameToLayer("Structure");
         eraseMask = 1 << LayerMask.NameToLayer("Structure");
         gangMask = 1 << LayerMask.NameToLayer("Gang");
+        groundMask = 1 << LayerMask.NameToLayer("Ground");
         groundDictionary = GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary;
         originalCameraSize = camera.fieldOfView;
         saveLoadManager = SaveAndLoad.GetComponent<SaveLoadManager>();
@@ -315,15 +317,15 @@ public class EditController : MonoBehaviour
         // 0 갱도, 1 오른 사다리, 2 왼 사다리, 3 레일, 4 엘리베이터 아래 문, 5 엘리베이터 위쪽 문
         Collider2D obstacleOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, obstacleMask);
         Collider2D gangOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, gangMask);
-        if(itemCursorIndex == 6)
+        if (itemCursorIndex == 6) //제거
         {
-            Collider2D eraseOnCursor=Physics2D.OverlapCircle(cursor.transform.position, 0.4f, eraseMask);
+            Collider2D eraseOnCursor = Physics2D.OverlapCircle(cursor.transform.position, 0.4f, eraseMask);
             if (eraseOnCursor != null)
             {
                 objectToErase = eraseOnCursor.gameObject;
                 return true;
             }
-            else if(gangOnCursor != null)
+            else if (gangOnCursor != null)
             {
                 objectToErase = gangOnCursor.gameObject;
                 return true;
@@ -335,61 +337,36 @@ public class EditController : MonoBehaviour
         }
         else
         {
-            if (obstacleOnCursor != null)
+            if (itemCursorIndex == 0)
             {
-                return false;
+                if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position)) && GM.GangNum > 0 && gangOnCursor == null && obstacleOnCursor == null) return true;
             }
-            else
+            else if (itemCursorIndex == 1)
             {
-                if (itemCursorIndex == 0)
-                {
-                    if (groundDictionary.ContainsKey(editTilemap.WorldToCell(cursor.transform.position))&&GM.GangNum>0&&gangOnCursor==null)
-                    {
-                        return true; //갱도 설치 가능
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                if (gangOnCursor == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    if (itemCursorIndex == 4 || itemCursorIndex == 5) //엘리베이터 문 설치
-                    {
-                        if (GM.ElevatorDoorNum > 0) return true;
-                        else return false; 
-                    }
-                    else
-                    {
-                        if (itemCursorIndex == 1) //사다리 설치
-                        {
-                            if (GM.LadderNum <= 0) return false;
-                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, obstacleMask);
-                        }
-                        else if (itemCursorIndex == 2)//사다리 설치
-                        {
-                            if (GM.LadderNum <= 0) return false;
-                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, obstacleMask);
-                        }
-                        else if (itemCursorIndex == 3)//레일 설치
-                        {
-                            if (GM.RailNum <= 0) return false;
-                            hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, obstacleMask);
-                        }
-                        if (hit.collider != null)
-                        {
-                            return true;
-                        }
-                    }
-                }
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(1, 0), 0.7f, groundMask);
+                if (GM.LadderNum > 0 && hit.collider != null && gangOnCursor != null && obstacleOnCursor == null) return true;
             }
+            else if (itemCursorIndex == 2)
+            {
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(-1, 0), 0.7f, groundMask);
+                if (GM.LadderNum > 0 && hit.collider != null && gangOnCursor != null && obstacleOnCursor == null) return true;
+            }
+            else if (itemCursorIndex == 3)
+            {
+                hit = Physics2D.Raycast(cursor.transform.position, new Vector2(0, -1), 0.7f, groundMask);
+                if (GM.RailNum > 0 && hit.collider != null && gangOnCursor != null && obstacleOnCursor == null) return true;
+            }
+            else if (itemCursorIndex == 4)
+            {
+                if (GM.ElevatorDoorNum > 0 && gangOnCursor != null && obstacleOnCursor == null) return true;
+            }
+            else if (itemCursorIndex == 5)
+            {
+                if (GM.ElevatorDoorNum > 0 && gangOnCursor != null && obstacleOnCursor == null) return true;
+            }
+
+            return false;
         }
-        
-        return false;
     }
 
     private void elevatorInstall(GameObject top, GameObject bottom)
