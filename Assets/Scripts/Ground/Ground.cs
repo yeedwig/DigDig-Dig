@@ -12,7 +12,7 @@ public class Ground : MonoBehaviour
     //public bool gangInstalled = false; //갱도가 설치되었는가
     Vector3Int groundGridPosition;
     //public bool structureInstalled = false; //설치된 아이템이 있는가
-
+    public GroundSO groundType; //GroundSO
     public SpriteRenderer sr;
     public BoxCollider2D bc;
 
@@ -36,7 +36,7 @@ public class Ground : MonoBehaviour
     {
         currentHealth -= damage;
         ChangeSpriteByCurrentHealth();
-        ItemDropManager.instance.GetItem(GroundComponents.instance.groundSO[groundLevel-1]);
+        ItemDropManager.instance.GetItem(groundType);
     }
 
     public void MonsterDamage(float damage)
@@ -49,6 +49,7 @@ public class Ground : MonoBehaviour
     {
         //groundGridPosition = TilemapManager.instance.groundTilemap.WorldToCell(this.transform.position);
         groundGridPosition = GameObject.Find("Ground").GetComponent<Tilemap>().WorldToCell(this.transform.position);
+        /*
         if (!isBlank)
         {
             if (groundGridPosition.y > -50)
@@ -104,6 +105,14 @@ public class Ground : MonoBehaviour
 
             currentHealth = maxHealth;
         }
+        */
+        //groundLevel = groundType.Lv;
+        if (!isBlank)
+        {
+            maxHealth = groundType.groundHealth;
+            currentHealth = maxHealth;
+        }
+        
         GameObject.Find("GroundDictionary").GetComponent<GroundDictionary>().groundDictionary.Add(groundGridPosition, this.gameObject);
     }
 
@@ -121,18 +130,18 @@ public class Ground : MonoBehaviour
             }
             else if (currentHealth < maxHealth * 0.3f) //거의 부서짐
             {
-                sr.sprite = groundSO[groundLevel - 1].groundSprites[2];
+                sr.sprite = groundType.groundSprites[2];
                 
                 //groundSO[groundLevel - 1].groundSprites[2];//groundSprites[((groundLevel - 1) * 3) + 2];
             }
             else if (currentHealth < maxHealth * 0.7f) //부서지기 시작
             {
-                sr.sprite = groundSO[groundLevel - 1].groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
+                sr.sprite = groundType.groundSprites[1];//groundSprites[((groundLevel - 1) * 3) + 1];
 
             }
             else
             {
-                sr.sprite = groundSO[groundLevel - 1].groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
+                sr.sprite = groundType.groundSprites[0];//groundSprites[((groundLevel - 1) * 3)];
             }
         }
         
