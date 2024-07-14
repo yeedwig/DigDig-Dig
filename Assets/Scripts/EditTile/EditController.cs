@@ -70,7 +70,7 @@ public class EditController : MonoBehaviour
 
     //설치 바운드 관련
     [SerializeField] Camera camera; //카메라 객체
-    private float originalCameraSize; //기존 카메라 크기
+    public float originalCameraSize; //기존 카메라 크기
     [SerializeField] float editCameraSize; //Edit 전환시 카메라 크기 변환
     [SerializeField] int heightBound;// 세로로 어디까지(절반)
     [SerializeField] int widthBound; // 가로로 어디까지 (절반)

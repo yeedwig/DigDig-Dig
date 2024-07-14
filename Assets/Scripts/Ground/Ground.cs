@@ -25,7 +25,7 @@ public class Ground : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         bc = GetComponent<BoxCollider2D>();
-        groundSO = GameObject.Find("GroundComponents").GetComponent<GroundComponents>().groundSO;
+        //groundSO = GameObject.Find("GroundComponents").GetComponent<GroundComponents>().groundSO;
         SelectGroundLevelHealth();
         ChangeSpriteByCurrentHealth();
     }
